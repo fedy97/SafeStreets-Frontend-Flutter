@@ -20,6 +20,7 @@
 
 \usepackage[dvipsnames]{xcolor}
 \usepackage{listings}
+\usepackage[T1]{fontenc}
 %\usepackage{alloy-style}
 %%%%%%%%%%%%
 % DOC STYLES
@@ -107,7 +108,7 @@
 			\begin{flushright} \large
 				\emph{Student Number:} \\
 				945238 \\
-				000000 \\
+				945642 \\
 				000000
 			\end{flushright}
 		\end{minipage}\\[2 cm]
@@ -240,5 +241,39 @@
         \\
         \textbf{Chapter 5: Effort Spent.} A summary of the worked time by each member of the group.
 
+	\chapter{Overall description}\label{ch:overall-description}
+	    \section{Product perspective}\label{sec:product-perspective}
+	    In the previous section, the scope of the application was delimited and explained in a shallow way, but at this point it is useful to include further details on the shared phenomena and a domain model as a visual representation of the system.
 
+	    [insert domain model: class diagram]
+
+	    Generic violation report:
+
+	    To understand the main events happening in the system, it is useful to use statechart diagrams (described in the figure below). At the beginning each report(i.e. when a user uploads an image) is considered as unprocessed. While the constraints are checked (there must be: at least one photo, the type of violation, and if it’s a car violation the license plate is mandatory too as a picture), the report is on a pending state and can become either rejected or approved. In the end, it’s considered completed and the user is notified with the outcome. If it’s been approved, the report is kept in the database.
+
+	    [insert statechart diagram]
+
+	    Query to database:
+
+    	In case there is a query for get information about one selected violation, it can be made by a citizen or by an authority and this establishes different results showed by the system: in the former case SafeStreets returns information and photos about selected violation but doesn’t show photos about license plate for privacy reason (system must guarantee anonymity) instead in the latter case SafeStreets returns all the photos and other information about violation so authority can use them to generate traffic tickets.
+
+    	[insert statechart diagram]
+
+	    Build statistics:
+
+	    When one authority uses violation taken from SafeStreets, he marks the violation as fined.
+
+	    Authorities can also upload accidents on the through a dedicated interface.
+
+	    The system periodically distinguishes violations that are used by authorities from the others so can builds statistics on the effectiveness of the application. It also analyzes, querying the database, the different type of the violation and the vehicles involved. This informations are both used to build statistics and to find unsafe area(also using data about accidents), in the last case system provide a suggestion for the problem.
+
+	    [insert state chart]
+        \section{Product functions}\label{sec:product-functions}
+            \subsection{Citizens functions}\label{subsec:citizen-functions}
+            \subsection{Authority functions}\label{subsec:authority-functions}
+        \section{User characteristics}\label{sec:user-characteristics}
+        \section{Assumptions, dependencies and constraints}\label{sec:assumptions,-dependencies-and-constraints}
+            \subsection{Domain assumptions}\label{subsec:domain-assumpiton}
+            \subsection{Dependencies}\label{subsec:dependencies}
+            \subsection{Constraints}\label{subsec:constraints}
 \end{document}
