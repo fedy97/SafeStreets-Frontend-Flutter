@@ -87,14 +87,14 @@
 		\vspace*{0.7 cm}
 		\includegraphics[scale = 0.85]{assets/polimi.png}\\[1.6 cm]
 		\textsc{\large Department of Computer Science and Engineering}\\[1.8 cm]
-		
+
 		\rule{\linewidth}{0.2 mm} \\[0.4 cm]
 		{ \huge \bfseries Requirement Analysis and Specification Document (RASD)}\\
 		\rule{\linewidth}{0.2 mm} \\[1.5 cm]
-		
+
 		\textsc{\Large Safe Streets}\\[0.5 cm]
 		\textsc{\large - v1.0 -}\\[1 cm]
-		
+
 		\begin{minipage}{0.4\textwidth}
 			\begin{flushleft} \large
 				\emph{Authors:}\\
@@ -105,18 +105,18 @@
 		\end{minipage}~
 		\begin{minipage}{0.4\textwidth}
 			\begin{flushright} \large
-				%\emph{Student Number:} \\
+				\emph{Student Number:} \\
 				945238 \\
 				000000 \\
 				000000
 			\end{flushright}
 		\end{minipage}\\[2 cm]
-		
+
 		{\large November \nth{11} , 2019}\\[2 cm]
-		
+
 		\vfill
 	\end{titlepage}
-	
+
 	\pagenumbering{roman}
 	\tableofcontents
 %	\thispagestyle{empty}
@@ -127,56 +127,118 @@
 	\clearpage
 	\pagenumbering{arabic}
 	\setcounter{page}{1}
-	
-	\chapter{Introduction}
-	\section{Purpose}
-	\subsection{General Purpose}
-	The purpose of the Requirement Analysis and Specification Document (RASD) is to give a clear and non-ambiguos analysis of SafeStreet, an application that will be implemented, describing every aspects of it like functional/non-functional requirements, constraints, domain assumptions, providing use cases and scenerios of the external world. Moreover, a more formal analysis of some relevant functions of the system will be provided using Alloy, a declarative specification language for expressing complex structural constraints and behavior in a software system.
-	SafeStreets is a crowd-sourced application that intends to provide users with the possibility to notify authorities when traffic violations occur, and in particular parking violations.
+
+	\chapter{Introduction}\label{ch:introduction}
+	\section{Purpose}\label{sec:purpose}
+	\subsection{General Purpose}\label{subsec:general-purpose}
+		The purpose of the Requirement Analysis and Specification Document (RASD) is to give a clear and non-ambiguos analysis of SafeStreet, an application that will be implemented, describing every aspects of it like functional/non-functional requirements, constraints, domain assumptions, providing use cases and scenerios of the external world. Moreover, a more formal analysis of some relevant functions of the system will be provided using Alloy, a declarative specification language for expressing complex structural constraints and behavior in a software system.
+		SafeStreets is a crowd-sourced application that intends to provide users with the possibility to notify authorities when traffic violations occur, and in particular parking violations.
+		\begin{itemize}
+			\item \textbf{Basic Service:}
+			it allows every user to take a picture of a violation with a brief description and send everything, including date,time, position and license plate, to SafeStreet, that will give access to all the information, with different levels of visiblity, to both citizens and police officers. In addition to that, Safestreet will provide the areas with the highest number of violations and a ranking of the vehicles that commit the major number of infractions.
+			\item \textbf{Advanced Function 1:}
+			it allows SafeStreet to cross information about accidents that occur on the territory of the municipality with its own, in order to give useful advices by suggesting possible interventions. This service is possible if, and only if the local municipality shares its data to SafeStreet.
+			\item \textbf{Advanced Function 2:}
+			it allows the municipality to generate traffic tickets from the data stored in SafeStreet, of course that data has to be previously validated by the system, preventing malicious corruptions by offenders. Moreover, having the information about issued tickets, SafeStreet can build statistics and share them among all users.
+		\end{itemize}
+	\subsection{Goals}\label{subsec:goals}
+	SafeStreet is a service provided to people to notify both other people and authorities about traffic violations. There are two different classes of users to whom the software is addressed: standard users and authorities, which have two different ways to interact with the application.
+	In order to perform correctly, the software-to-be will have to grant that some services will be guaranteed. Below is given a list of all the goal of the software-to-be:
+	\begin{enumerate}
+		\goal{1} The application will allow users to upload pictures of the traffic violations, with the possibility of adding as information the date, time, position, type of infringement and a textual description.
+		\goal{2} The application will allow users to query the information about the violation, to know which kind of violations have been done in an area defined by the users.
+		\goal{3} The application will allow only the authorities to see the pictures uploaded by the users.
+		\goal{4} The application won’t give any information to the standard users about the people involved into violation, in order to grant their privacy.
+		\goal{5} If SafeStreets can get the information about accidents by the municipality, it will give the possibility to merge them with its data to identify potentially unsafe areas.
+		\goal{6} If SafeStreets can get the information about accidents by the municipality, it will give the possibility to merge them with its data to suggest possible interventions.
+		\goal{7} The application will give the possibility to the authorities to mark the violations that led to a fine, and every user will be able to see it.
+		\goal{8} The system will use the information about violations, accidents and fines that will collect by both users and authorities to build statistics.
+	\end{enumerate}
+	\section{Scope}\label{sec:scope}
+	\subsection{World, Machine and Shared phenomena}\label{subsec:world,-machine-and-shared-phenomena}
+	According to \textit{The World and the Machine} we can divide every system into two parts:
 	\begin{itemize}
-		\item \textbf{Basic Service:}
-		it allows every user to take a picture of a violation with a brief description and send everything, including date,time, position and license plate, to SafeStreet, that will give access to all the information, with different levels of visiblity, to both citizens and police officers. In addition to that, Safestreet will provide the areas with the highest number of violations and a ranking of the vehicles that commit the major number of infractions.
-		\item \textbf{Advanced Function 1:}
-		it allows SafeStreet to cross information about accidents that occur on the territory of the municipality with its own, in order to give useful advices by suggesting possible interventions. This service is possible if, and only if the local municipality shares its data to SafeStreet.
-		\item \textbf{Advanced Function 2:}
-		it allows the municipality to generate traffic tickets from the data stored in SafeStreet, of course that data has to be previously validated by the system, preventing malicious corruptions by offenders. Moreover, having the information about issued tickets, SafeStreet can build statistics and share them among all users.
+		\item The \textbf{machine}, which is the portion of system to be developed;
+		\item The \textbf{world}, which is the portion of the real-world affected by the machine.
 	\end{itemize}
-	\subsection{Goals}
-	.
-	\section{Scope}
-	\subsection{Description of the given problem}
-	.
-	
-	\subsection{World and shared phenomena}
+	As a consequence we can classify phenomena in three different types:
+	\begin{itemize}
+		\item \textbf{World phenomena}: phenomena that the machine cannot observe;
+		\item \textbf{Machine phenomena}: phenomena located entirely in the machine;
+		\item \textbf{Shared phenomena}: phenomena that can be controlled by the world and observed by the machine or controlled by the machine and observed by the world;
+	\end{itemize}
+	Below we give an analysis of the three phenomenas descripted above:
 	\begin{itemize}
 		\item \textbf{World Phenomena}
-		\\
-		.
-		
+		\begin{itemize}
+			\item Users recognize the type of violation that occurred
+			\item People commit violations
+			\item People perform incidents
+			\item Police emit traffic tickets
+		\end{itemize}
+		\item \textbf{Machine Phenomena}
+		\begin{itemize}
+			\item Machine manages database queries;
+			\item Machine stores information (picture with other data or only data) on the database;
+			\item Machine runs an algorithm periodically to builds statistics (veichels with most number of violation or trends in the issuing tickets );
+			\item Machine runs an algorithm periodically to identify potentially unsafe areas;
+			\item Machine manages interfaces with external software (for recognition of a text from an image) and hardware system (for take a picture).
+		\end{itemize}
 		\item \textbf{Shared Phenomena}
-		\\
-		.
+		\begin{itemize}
+			\item Users have to take and upload the pictures of the violations;
+			\item Users and authorities query the system about violations;
+			\item The machine gets the information about the accidents by the local municipality;
+			\item The machine use report about violations and accidents to the local municipality to submit possible solution, that can be both considered or not;
+			\item The municipality can mark reported violations as fined, to allow the system to perform statistics about effectiveness of SafeStreet.
+		\end{itemize}
 	\end{itemize}
-	
-	\subsection{Goals}
-	.
-	
-	\section{Definitions, Acronyms, Abbreviations}
-	\subsection{Definitions}
-	.
-	
-	\subsection{Acronyms}
-	.
-	
-	\subsection{Abbreviations}
-	.
-	
-	\section{Revision history}
-	.
-	
-	\section{Document structure}
+
+	\section{Definitions, Acronyms, Abbreviations}\label{sec:definitions,-acronyms,-abbreviations}
+	\subsection{Definitions}\label{subsec:definitions}
+	\begin{itemize}
+		\item \textbf{User:} is a general customer that use the application. It is used to refer to both an authority and a ciziten.
+		\item \textbf{Citizen:} is the basic customer of the application. He can upload violations and query the system to get statistics on a selected area.
+		\item \textbf{Authority:} advanced customer of the application, is a registered user that is qualified to make fines. Must verify himself during the registration.
+		\item \textbf{Municipality:} is always intended as the local municipality. Every municipality provide and receives information exactly and only about its own jurisdiction.
+		\item \textbf{Violation:} is a general infringement reported by a user.
+	\end{itemize}
+
+	\subsection{Acronyms}\label{subsec:acronyms}
+	\begin{itemize}
+		\item RASD: Requirement Analysis and Specification Document
+		\item SS: SafeStreets
+		\item LP: License Plate
+		\item GPS: Global Positioning System
+		\item API: Application Programming Interface
+		\item UML: Unified Modeling Language
+	\end{itemize}
+
+	\subsection{Abbreviations}\label{subsec:abbreviations}
+	\begin{itemize}
+		\item $[Gn]$: n-goal.
+		\item $[Dn]$: n-domain assumption.
+		\item $[Rn]$: n-functional requirement.
+		\item $[UCn]$: n-use case.
+	\end{itemize}
+
+	\section{Reference Documents}\label{sec:reference-documents}
+	This document follows ISO/IEC/IEEE 29148:2011 and IEEE 830:1998  standard for software product specifications.
+	All the specifications of this project have been given by Rossi and Di Nitto for the Software Engineering 2 Mandatory Project 2019-2020.
+
+	\section{Revision history}\label{sec:revision-history}
 	.
 
-	
-	
+	\section{Document structure}\label{sec:document-structure}
+	\textbf{Chapter 1: Introduction.} A general introduction to the goals, the phenomena and the scope of the system-to-be. It aims giving general but exaustive informations about what this document is going to explain.
+	\\
+	\textbf{Chapter 2: Overall description.} A general description of the product to be and its requirements. This section provides several information that are detailed explained in Section 3.
+	\\
+	\textbf{Chapter 3: Specific requirements.} All software requirements are explained using scenarios, use-case diagram and activity diagram. Non-functional and functional requirements are also cited.
+	\\
+	\textbf{Chapter 4: Alloy.} This section includes Alloy code that describes the model and checks whether it is consistent or not.
+	\\
+	\textbf{Chapter 5: Effort Spent.} A summary of the worked time by each member of the group.
+
+
 \end{document}
