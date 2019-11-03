@@ -253,7 +253,7 @@
 	    To understand the main events happening in the system, it is useful to use statechart diagrams (described in the figure below). At the beginning each report(i.e. when a user uploads an image) is considered as unprocessed. While the constraints are checked (there must be: at least one photo, the type of violation, and if it’s a car violation the license plate is mandatory too as a picture), the report is on a pending state and can become either rejected or approved. In the end, it’s considered completed and the user is notified with the outcome. If it’s been approved, the report is kept in the database.
 
     \begin{center}
-        \includegraphics[scale = 0.35]{assets/report.jpg}\\[1.6 cm]
+        \includegraphics[]{assets/report.png}\\[1.6 cm]
     \end{center}
 
 	    Query to database:
@@ -261,7 +261,7 @@
     	In case there is a query for get information about one selected violation, it can be made by a citizen or by an authority and this establishes different results showed by the system: in the former case SafeStreets returns information and photos about selected violation but doesn’t show photos about license plate for privacy reason (system must guarantee anonymity) instead in the latter case SafeStreets returns all the photos and other information about violation so authority can use them to generate traffic tickets.
 
     \begin{center}
-        \includegraphics[scale = 0.35]{assets/queryDb.jpg}\\[1.6 cm]
+        \includegraphics[]{assets/queryDb.png}\\[1.6 cm]
     \end{center}
 
 	    Build statistics:
@@ -273,7 +273,7 @@
 	    The system periodically distinguishes violations that are used by authorities from the others so can builds statistics on the effectiveness of the application. It also analyzes, querying the database, the different type of the violation and the vehicles involved. This informations are both used to build statistics and to find unsafe area(also using data about accidents), in the last case system provide a suggestion for the problem.
 
     \begin{center}
-        \includegraphics[scale = 0.30]{assets/buildStatistics.jpg}\\[1.6 cm]
+        \includegraphics[]{assets/buildStatistics.png}\\[1.6 cm]
     \end{center}
         \section{Product functions}\label{sec:product-functions}
          In the following we will present the main aspects and functions of the system, to put in evidence the most important requirements that will be formalized in chapter 3.
