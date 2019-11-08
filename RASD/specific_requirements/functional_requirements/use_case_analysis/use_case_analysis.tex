@@ -36,5 +36,64 @@
     \end{center}
     %put always a new page after a table
     \newpage
+    \begin{center}
+        \begin{longtable}{| p{.35\linewidth} | p{.65\linewidth} |}
 
+            \hline
+            \textbf{Name} & \textbf{Authority Signs Up}\\ \hline
+            Actors & \textit{Authority}, SafeStreet\\ \hline
+            Entry Conditions & SafeStreet successfully installed.\\ \hline
+            Events Flow &
+            \begin{enumerate}
+                \item \textit{Authority} taps on sign up button.
+                \item \textit{Authority} enters his email.
+                \item \textit{Authority} enters a new password.
+                \item \textit{Authority} checks the “I am an authority” checkbox.
+                \item \textit{Authority} inserts his ID.
+                \item \textit{Authority} checks the “Accept terms and conditions” checkbox
+                \item \textit{Authority} taps on “create account” button.
+                \item SafeStreet stores the submitted values.
+            \end{enumerate}
+            \\ \hline
+            Exit Condition & \textit{Authority} successfully signs up.\\ \hline
+            Exceptions &
+            \begin{enumerate}
+                \item Email already exists.
+                \item Invalid password.
+                \item Email not inserted.
+                \item "Accept terms and conditions" not checked.
+                \item "I am an authority" checked without inputting a valid ID.
+            \end{enumerate}
+            \textit{Authority} is invited to try again signing up, reporting wh error(s) they have committed. \\
+            \hline
+            \caption{\textit{UC2}}
+        \end{longtable}
+    \end{center}
+    
+    \newpage
+    \begin{center}
+        \begin{longtable}{| p{.35\linewidth} | p{.65\linewidth} |}
+
+            \hline
+            \textbf{Name} & \textbf{User Signs In}\\ \hline
+            Actors & \textit{User}, SafeStreet\\ \hline
+            Entry Conditions & SafeStreet successfully installed.\\ \hline
+            Events Flow &
+            \begin{enumerate}
+                \item \textit{User} enters his email.
+                \item \textit{User} enters a new password.
+                \item \textit{User} taps on “Log In” button.
+                \item SafeStreet checks \textit{User} credentials.
+            \end{enumerate}
+            \\ \hline
+            Exit Condition & \textit{Citizen} successfully loggged in.\\ \hline
+            Exceptions &
+            \begin{enumerate}
+                \item Invalid Email.
+                \item Invalid password.
+            \end{enumerate}
+            \textit{User} is invited to try again to log in, reporting wh error(s) they have committed. \\
+            \hline
+            \caption{\textit{UC3}}
+        \end{longtable}
 \end{document}
