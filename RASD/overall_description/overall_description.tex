@@ -1,0 +1,101 @@
+\providecommand{\rasd}{..}
+\documentclass[../RASD.tex]{subfiles}
+
+\begin{document}
+    \chapter{Overall description}\label{ch:overall-description}
+    \section{Product perspective}\label{sec:product-perspective}
+    In the previous section, the scope of the application was delimited and explained in a shallow way, but at this point it is useful to include further details on the shared phenomena and a domain model as a visual representation of the system.
+    \begin{center}
+        \includegraphics[scale = 0.85]{assets/domainModel.png}\\[1.6 cm]
+    \end{center}
+
+    Generic violation report:
+
+    To understand the main events happening in the system, it is useful to use statechart diagrams (described in the figure below). At the beginning each report(i.e. when a user uploads an image) is considered as unprocessed. While the constraints are checked (there must be: at least one photo, the type of violation, and if it’s a car violation the license plate is mandatory too as a picture), the report is on a pending state and can become either rejected or approved. In the end, it’s considered completed and the user is notified with the outcome. If it’s been approved, the report is kept in the database.
+
+    \begin{center}
+        \includegraphics{assets/report.png}\\
+    \end{center}
+
+    Query to database:
+
+    In case there is a query for get information about one selected violation, it can be made by a citizen or by an authority and this establishes different results showed by the system: in the former case SafeStreets returns information and photos about selected violation but doesn’t show photos about license plate for privacy reason (system must guarantee anonymity) instead in the latter case SafeStreets returns all the photos and other information about violation so authority can use them to generate traffic tickets.
+
+    \begin{center}
+        \includegraphics{assets/queryDb.png}\\
+    \end{center}
+
+    Build statistics:
+
+    When one authority uses violation taken from SafeStreets, he marks the violation as fined.
+
+    Authorities can also upload accidents on the through a dedicated interface.
+
+    The system periodically distinguishes violations that are used by authorities from the others so can builds statistics on the effectiveness of the application. It also analyzes, querying the database, the different type of the violation and the vehicles involved. This informations are both used to build statistics and to find unsafe area(also using data about accidents), in the last case system provide a suggestion for the problem.
+
+    \begin{center}
+        \includegraphics{assets/buildStatistics.png}\\
+    \end{center}
+    \section{Product functions}\label{sec:product-functions}
+    In the following we will present the main aspects and functions of the system, to put in evidence the most important requirements that will be formalized in chapter 3.
+    \subsection{Citizens functions}\label{subsec:citizen-functions}
+    A person can register himself to the SafeStreet system by providing a valid email address and a password. No other data will be mandatorily required, but the user will be allowed to set a residential location to personalize the user interface.
+
+    Every registered user that see a traffic violation can report it throw SafeStreet: to do that, he has to upload at least one picture of the infringement and provide some information about it. The user can upload at least one pictures of the environment to show the violation, but those can be only taken by a specific tool of the application that won't allow to modify the photos. This restriction is applicate to not let people to upload pictures that could have been modified to accuse someone extraneous to the burglary. The user will have to add to the images the position (that will be possible to be taken throw the device GPS) and will have to indicate the category of the violation as mandatory information, while will be able to add a text description to possibly give more information.
+
+    Every user will be arable to consults a map that will show all the reported violations of the last 24 hours. Citizens will even be allowed to query the application about the violations reported by the community. To do that, he will have to define one or more constrains between a marked zone on a map, a time frame and a specific category, to get all the correspondent infringement reported, respectively, in that zone, period or category. When a user will look for a violation, he will be able to see all the information uploaded for it, except for the vehicle target plates, that will be obscured because of privacy reasons.
+
+    Every user will be allowed to report a violation uploaded by another user that don’t subsists, because of the description or the pictures don’t match with each other. When a violation has been reported by five different people is removed from the system and no more available. In the same way, a user can report one of the photos of the violation because of an affection of the privacy of another person (for instance if a license plate is visible). After five report from different people, the picture will be deleted from the dossier if at least one other picture is available; otherwise, the whole violations will be removed by the system.
+    \subsection{Authority functions}\label{subsec:authority-functions}
+    To register as an authority, a person has to be part of the national police force. To accede to the application, he has to register by entering an email address and a password that he will use to sing in, and his freshman to certificate himself. An authority can access both all the functionality of a citizen and some advanced ones.
+
+    When an authority queries the system to get the violations, SafeStreet will show him all the information about the report, including the uncensored pictures uploaded by the users. This is done in order to give to the authority the possibility to fine whoever committed the crime if they are able to track him down. An authority can mark the dossier of a violation that he fined to let all the users know that it has been sanctioned. Users can query the system to get all the sanctioned violations, to have a feedback about which kind of infringement or information are more likely to be sanctioned.
+    \subsection{Municipality featuring functions}\label{subsec:municipality-featuring-functions}
+    Every local municipality can join into SafeStreet by identifying itself throw his own national identifier. Once the registration has been confirmed, the system will provide a dedicate page to manage the collaboration between SafeStreet and the municipality.
+
+    If the municipality provide information about the accidents that occurs in its territory, SafeStreet can collect them to cross them with the reported violations. If the system can find a correlation between the violations and the accident it can mark a map of the most unsafe areas, identifying them with a higher level of dangerous with the increasing number of accidents. The system will also be able to verify the typology of the violations that have been reported by the user in the area that concern every accident, to provide an ad hoc solution to cope the most frequent class of violation, if this has been registered a significant number of times.
+    \section{User characteristics}\label{sec:user-characteristics}
+    The target users of the SafeStreets system are:
+    \begin{itemize}
+        \item \textbf{Citizens:}
+        \begin{itemize}
+            \item Can register and then login to the app ;
+            \item Can upload violations ;
+            \item Can get all the violations uploaded by the other users ;
+            \item Can check the presence of unsafe areas;
+        \end{itemize}
+        \item \textbf{Authorities:}
+        \begin{itemize}
+            \item Can register and then login to the app using their IDs to acknowledge ;
+            \item Can upload violations ;
+            \item Can get all the violations uploaded by the other users ;
+            \item Can check the presence of unsafe areas;
+            \item Can get the list of the worst offenders in the city;
+            \item Can generate traffic tickets after checking the violation on the app;
+        \end{itemize}
+    \end{itemize}
+    \section{Assumptions, dependencies and constraints}\label{sec:assumptions,-dependencies-and-constraints}
+    \subsection{Domain assumptions}\label{subsec:domain-assumpiton}
+    \begin{enumerate}
+        \assumption{1} GPS position collected when the report is being uploaded is sufficiently accurate.
+        \assumption{2}SS guarantees very strong data protection and integrity against malicious external attacks.
+        \assumption{3} The map that shows all the current violations represent the topology of the city.
+        \assumption{4} License plates attached to the cars are legit.
+    \end{enumerate}
+    \subsection{Dependencies}\label{subsec:dependencies}
+    \begin{itemize}
+        \item Traffic tickets can be emitted only if the user upload the picture of the violation with the license plate visible and recognizable by the authorities.
+        \item Users must input the right violation according to what they are reporting, otherwise statistics may be inaccurate.
+        \item Current date and time of a report are taken by SS from its local clock as soon as it is being uploaded, that is synchronized according UTC.
+    \end{itemize}
+    \subsection{Constraints}\label{subsec:constraints}
+    \begin{itemize}
+        \item Smartphones must have GPS and be activated when uploading a violation.
+        \item Smartphones must have internet connection turned on (WIFI or 3G/4G) while using the app.
+        \item Users must accept the privacy policy in order to use the application.
+        \item Smartphones must have at least 100Mb of available memory in order to install the app
+        \item Smartphones must have at least 1Gb RAM in order to run the application.
+        \item Smartphones must have a camera in order to upload violations.
+        \item Users must have a personal email address in order to sign up and therefore use the app.
+    \end{itemize}
+\end{document}

@@ -1,0 +1,40 @@
+\providecommand{\rasd}{..}
+\documentclass[../../RASD.tex]{subfiles}
+%columns divided by '&'
+\begin{document}
+    \newpage
+    \begin{center}
+        \begin{longtable}{| p{.35\linewidth} | p{.65\linewidth} |}
+
+            \hline
+            \textbf{Name} & \textbf{Citizen Signs Up}\\ \hline
+            Actors & \textit{Citizen}, SafeStreet\\ \hline
+            Entry Conditions & SafeStreet successfully installed.\\ \hline
+            Events Flow &
+            \begin{enumerate}
+                \item \textit{Citizen} taps on sign up button.
+                \item \textit{Citizen} enters his email.
+                \item \textit{Citizen} enters a new password.
+                \item \textit{Citizen} checks the “Accept terms and conditions” checkbox
+                \item \textit{Citizen} taps on “create account” button.
+                \item SafeStreet stores the submitted values.
+            \end{enumerate}
+            \\ \hline
+            Exit Condition & \textit{Citizen} successfully signs up.\\ \hline
+            Exceptions &
+            \begin{enumerate}
+                \item Email already exists.
+                \item Invalid password.
+                \item Email not inserted.
+                \item "Accept terms and conditions" not checked.
+                \item "I am an authority" checked without inputting a valid ID.
+            \end{enumerate}
+            \textit{Citizen} is invited to try again signing up, reporting wh error(s) they have committed. \\
+            \hline
+            \caption{\textit{UC1}}
+        \end{longtable}
+    \end{center}
+    %put always a new page after a table
+    \newpage
+
+\end{document}
