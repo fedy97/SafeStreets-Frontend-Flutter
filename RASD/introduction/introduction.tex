@@ -21,13 +21,14 @@
     SafeStreet is a service provided to people to notify both other people and authorities about traffic violations. There are two different classes of users to whom the software is addressed: standard users and authorities, which have two different ways to interact with the application.
     In order to perform correctly, the software-to-be will have to grant that some services will be guaranteed. Below is given a list of all the goal of the software-to-be:
     \begin{enumerate}
-        \goal{1} The application will allow users to upload pictures of the traffic violations, with the possibility of adding images, the type of infringement and a textual description.
-        \goal{2} The application will allow users to view violations that have been done in the city.
-        \goal{3} The application will allow users to see images uploaded by other users, however citizens cannot see sensible pictures, but authorities are allowed.
-        \goal{4} If SafeStreets can get the information about accidents by the municipality, it will give the possibility to merge them with its data to identify potentially unsafe areas.
-        \goal{5} If SafeStreets can get the information about accidents by the municipality, it will give the possibility to merge them with its data to suggest possible interventions.
-        \goal{6} The system will use the information about violations, accidents and fines that will collect by both users and authorities to build statistics.
-        \goal{7} Users can give a feedback about violations uploaded by other users to SS.
+        \goal{1} The application will allow users to upload pictures of the traffic violations, including pictures, date, time, classification, and optionally a textual description.
+        \goal{2} The application will allow users to view a map of the violations registered in the last day.
+        \goal{3} The application will allow users to see the violations uploaded by other users; however, citizens won’t be able to see sensible pictures, while authorities will be allowed.
+        \goal{4} Users will be able to query the system to get all the reported violations that correspond to some temporal, geographical or categorical parameters.
+        \goal{5} Users can give a feedback about violations uploaded by other users to SS.
+        \goal{6} If SafeStreets can get the information about accidents by the municipality, it will give the possibility to merge them with its data to identify potentially unsafe areas.
+        \goal{7}If SafeStreets can get the information about accidents by the municipality, it will give the possibility to merge them with its data to suggest possible interventions.
+        \goal{8}The system will use the information about violations, accidents and fines that will collect by both users and authorities to build statistics.
     \end{enumerate}
     \section{Scope}\label{sec:scope}
     \subsection{World, Machine and Shared phenomena}\label{subsec:world,-machine-and-shared-phenomena}
@@ -49,7 +50,7 @@
             \item Users recognize the type of violation that occurred
             \item People commit violations
             \item People perform incidents
-            \item Police emit traffic tickets
+            \item Police emits traffic tickets
         \end{itemize}
         \item \textbf{Machine Phenomena}
         \begin{itemize}
@@ -61,11 +62,11 @@
         \end{itemize}
         \item \textbf{Shared Phenomena}
         \begin{itemize}
-            \item Users have to take and upload the pictures of the violations;
-            \item Users and authorities query the system about violations;
-            \item The machine gets the information about the accidents by the local municipality;
-            \item The machine use report about violations and accidents to the local municipality to submit possible solution, that can be both considered or not;
-            \item The municipality can mark reported violations as fined, to allow the system to perform statistics about effectiveness of SafeStreet.
+            \item Users have to take and upload the pictures of the violations;(W)
+            \item Users query the system about violations;(W)
+            \item The machine gets the information about the accidents by the local municipality;(M)
+            \item The machine crosses information about accidents and violations to submit possible interventions, that can be both considered or not; (M)
+            \item The municipality can mark reported violations as fined, to allow the system to perform statistics about effectiveness of SafeStreet.(W)
         \end{itemize}
     \end{itemize}
 
@@ -77,6 +78,7 @@
         \item \textbf{Authority:} advanced customer of the application, is a registered user that is qualified to make fines. Must verify himself during the registration.
         \item \textbf{Municipality:} is always intended as the local municipality. Every municipality provide and receives information exactly and only about its own jurisdiction.
         \item \textbf{Violation:} is a general infringement reported by a user.
+        \item  \textbf{Dossier:} is the instance of a violation on the system, that includes the pictures, position, classification, textual specification and fine mark.
     \end{itemize}
 
     \subsection{Acronyms}\label{subsec:acronyms}
@@ -109,7 +111,7 @@
     \\
     \textbf{Chapter 2: Overall description.} A general description of the product to be and its requirements. This section provides several information that are detailed explained in Section 3.
     \\
-    \textbf{Chapter 3: Specific requirements.} All software requirements are explained using scenarios, use-case diagram and activity diagram. Non-functional and functional requirements are also cited.
+    \textbf{Chapter 3: Specific requirements.} All software requirements are explained using scenarios, use-case diagram and activity diagram. Non-functional and functional requirements are also mentioned.
     \\
     \textbf{Chapter 4: Alloy.} This section includes Alloy code that describes the model and checks whether it is consistent or not.
     \\
