@@ -217,9 +217,9 @@
             Events Flow &
             \begin{enumerate}
                 \item \textit{User} opens the map page.
-                \item \textit The application retrieves the user position .
-                \item \textit The application retrieves all the violations uploaded and still valid.
-                \item \textit The application displays the map with all the violations, marking the position of the user.
+                \item  The application retrieves the user position .
+                \item  The application retrieves all the violations uploaded and still valid.
+                \item  The application displays the map with all the violations, marking the position of the user.
                 \item \textit{User} taps on the violation he wants to check.
                 \item The application will show another page with the images and the type of violation reported
             \end{enumerate}
@@ -235,4 +235,172 @@
             \caption{\textit{UC8}}
         \end{longtable}
     \end{center}
+    %put always a new page after a table
+    \newpage
+    \begin{center}
+        \begin{longtable}{| p{.35\linewidth} | p{.65\linewidth} |}
+            \hline
+            \textbf{Name} & \textbf{View unsafe areas}\\ \hline
+            Actors & \textit{User}, SafeStreet\\ \hline
+            Entry Conditions & SafeStreet successfully installed and User signed in.\\ \hline
+            Events Flow &
+            \begin{enumerate}
+                \item \textit{User} opens the map page.
+                \item  The application retrieves the user position.
+                \item \textit{User} taps on “view unsafe areas” checkbox.
+                \item  SS query the database and sends back all unsafe areas.
+                \item The map displays with a colour the most dangerous areas near the user.
+            \end{enumerate}
+            \\ \hline
+            Exit Condition & \textit{SS} displays on the map the unsafe areas.\\ \hline
+            Exceptions &
+            \begin{enumerate}
+                \item No unsafe areas found.
+            \end{enumerate}
+            \\
+            \hline
+            \caption{\textit{UC9}}
+        \end{longtable}
+    \end{center}
+    %put always a new page after a table
+    \newpage
+    \begin{center}
+        \begin{longtable}{| p{.35\linewidth} | p{.65\linewidth} |}
+            \hline
+            \textbf{Name} & \textbf{View statistics on crime}\\ \hline
+            Actors & \textit{User}, SafeStreet\\ \hline
+            Entry Conditions & SafeStreet successfully installed and User signed in.\\ \hline
+            Events Flow &
+            \begin{enumerate}
+                \item \textit{User} opens the map page.
+                \item \textit{User} pushes button crimes.
+                \item \textit{User} selects search filters: area of the map or type of crime.
+                \item  SS shows the most committed violations in selected area or the “unsafe area” for selected crime.
+            \end{enumerate}
+            \\ \hline
+            Exit Condition & \textit{SS} displays searching results.\\ \hline
+            Exceptions &
+            \begin{enumerate}
+                \item No violations found for chosen one.
+                \item Selected area of the map doesn’t exist.
+            \end{enumerate}
+            \\
+            \hline
+            \caption{\textit{UC10}}
+        \end{longtable}
+    \end{center}
+    %put always a new page after a table
+    \newpage
+    \begin{center}
+        \begin{longtable}{| p{.35\linewidth} | p{.65\linewidth} |}
+            \hline
+            \textbf{Name} & \textbf{View statistics on SS}\\ \hline
+            Actors & \textit{User}, SafeStreet\\ \hline
+            Entry Conditions & SafeStreet successfully installed and User signed in.\\ \hline
+            Events Flow &
+            \begin{enumerate}
+                \item \textit{User} opens the statistic page.
+                \item \textit{User} selects effectiveness button of SS.
+                \item  Display shows the number of violations and the number of violations marked as “fined”.
+            \end{enumerate}
+            \\ \hline
+            Exit Condition & \textit{SS} displays searched data.\\ \hline
+            Exceptions &
+            \begin{enumerate}
+                \item No violations found for chosen one.
+                \item Selected area of the map doesn’t exist.
+            \end{enumerate}
+            \\
+            \hline
+            \caption{\textit{UC11}}
+        \end{longtable}
+    \end{center}
+    %put always a new page after a table
+    \newpage
+    \begin{center}
+        \begin{longtable}{| p{.35\linewidth} | p{.65\linewidth} |}
+            \hline
+            \textbf{Name} & \textbf{User edits a report}\\ \hline
+            Actors & \textit{User}, SafeStreet\\ \hline
+            Entry Conditions & SafeStreet successfully installed and User signed in.\\ \hline
+            Events Flow &
+            \begin{enumerate}
+                \item \textit{User} opens the report history page.
+                \item \textit{User} selects one report.
+                \item  Display shows the results.
+                \item \textit{User} can change fields of report or adds/removes images.
+                \item \textit{user} presses on confirm button to confirm the changes.
+            \end{enumerate}
+            \\ \hline
+            Exit Condition & \textit{SS} stores the new edit report.\\ \hline
+            Exceptions &
+            \begin{enumerate}
+                \item User doesn’t select a type of violations.
+                \item User remove all the photos and adds none.
+                \item User doesn’t fill all the mandatory fields.
+            \end{enumerate}
+            \\
+            \hline
+            \caption{\textit{UC12}}
+        \end{longtable}
+    \end{center}
+%put always a new page after a table
+\newpage
+\begin{center}
+\begin{longtable}{| p{.35\linewidth} | p{.65\linewidth} |}
+\hline
+\textbf{Name} & \textbf{User removes a report}\\ \hline
+Actors & \textit{User}, SafeStreet\\ \hline
+Entry Conditions & SafeStreet successfully installed and User signed in.\\ \hline
+Events Flow &
+\begin{enumerate}
+\item \textit{User} opens the report history page.
+\item \textit{User} selects one report.
+\item  Display shows the results.
+\item \textit{User} can change fields of report or adds/removes images.
+\item \textit{user} presses on remove button to confirm the changes.
+\end{enumerate}
+\\ \hline
+Exit Condition & \textit{SS} deletes the selected report from its database.\\ \hline
+Exceptions &
+\begin{enumerate}
+\item none.
+\end{enumerate}
+\\
+\hline
+\caption{\textit{UC13}}
+\end{longtable}
+\end{center}
+%put always a new page after a table
+\newpage
+\begin{center}
+\begin{longtable}{| p{.35\linewidth} | p{.65\linewidth} |}
+\hline
+\textbf{Name} & \textbf{User reports something that is already stored}\\ \hline
+Actors & \textit{User}, SafeStreet\\ \hline
+Entry Conditions & SafeStreet successfully installed and User signed in.\\ \hline
+Events Flow &
+\begin{enumerate}
+\item \textit{User} clicks on “new report” button.
+\item \textit{User} takes at least one photo of the violation.
+\item \textit{User} selects the type of the violation and fills the optional note.
+\item \textit{User} clicks on “confirm \& send” button.
+\item \textit{ SS} checks if the violation is already in the database.
+\item \textit{SS} shows he violation to the user.
+    \item \textit{User} can choose to push either “same” button or “other” button referred to the violation.
+    \item \textit{User} selects “same” button.
+    \item \textit{User} is notified through a notification by SS.
+\end{enumerate}
+\\ \hline
+Exit Condition & \textit{SS} doesn't store the report on its database.\\ \hline
+Exceptions &
+\begin{enumerate}
+\item No photo uploaded.
+    \item Type of violation is missing.
+\end{enumerate}
+\\
+\hline
+\caption{\textit{UC14}}
+\end{longtable}
+\end{center}
 \end{document}
