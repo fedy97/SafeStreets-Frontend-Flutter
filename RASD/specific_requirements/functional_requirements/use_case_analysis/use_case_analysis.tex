@@ -69,7 +69,7 @@
             \caption{\textit{UC2}}
         \end{longtable}
     \end{center}
-    
+    %put always a new page after a table
     \newpage
     \begin{center}
         \begin{longtable}{| p{.35\linewidth} | p{.65\linewidth} |}
@@ -96,5 +96,36 @@
             \hline
             \caption{\textit{UC3}}
         \end{longtable}
-\end{center}
+    \end{center}
+    %put always a new page after a table
+    \newpage
+    \begin{center}
+        \begin{longtable}{| p{.35\linewidth} | p{.65\linewidth} |}
+
+            \hline
+            \textbf{Name} & \textbf{Users reports a violation}\\ \hline
+            Actors & \textit{Citizen}, SafeStreet\\ \hline
+            Entry Conditions & SafeStreet successfully installed and User signed in.\\ \hline
+            Events Flow &
+            \begin{enumerate}
+                \item \textit{User} clicks on “new report” button.
+                \item \textit{User} takes at least one photo of the violation.
+                \item \textit{User} selects the type of the violation and fills the optional note.
+                \item \textit{SS} checks if the violation is already in the database
+                \item \textit{User} clicks on “confirm & send” button.
+                \item SafeStreet stores the newly collected violation in its database
+            \end{enumerate}
+            \\ \hline
+            Exit Condition & \textit{SS} stores the new report.\\ \hline
+            Exceptions &
+            \begin{enumerate}
+                \item No photo uploaded.
+                \item Type of violation is missing.
+            \end{enumerate}
+            \textit{Citizen} is invited to try again signing up, reporting wh error(s) they have committed. \\
+            \hline
+            \caption{\textit{UC4}}
+        \end{longtable}
+    \end{center}
+    %put always a new page after a table
 \end{document}
