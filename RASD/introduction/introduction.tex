@@ -47,10 +47,10 @@
     \begin{itemize}
         \item \textbf{World Phenomena}
         \begin{itemize}
-            \item Users recognize the type of violation that occurred
-            \item People commit violations
-            \item People perform incidents
-            \item Police emits traffic tickets
+            \item Users recognize the type of violation that occurred;
+            \item People commit violations;
+            \item People perform incidents;
+            \item Police emits traffic tickets.
         \end{itemize}
         \item \textbf{Machine Phenomena}
         \begin{itemize}
@@ -61,13 +61,40 @@
         \end{itemize}
         \item \textbf{Shared Phenomena}
         \begin{itemize}
-            \item Users have to take and upload the pictures of the violations;(W)
-            \item Users query the system about violations;(W)
-            \item The machine gets the information about the accidents by the local municipality;(M)
-            \item The machine crosses information about accidents and violations to submit possible interventions, that can be both considered or not; (M)
-            \item The municipality can mark reported violations as fined, to allow the system to perform statistics about effectiveness of SafeStreet.(W)
+            \item Users have to take and upload the pictures of the violations;
+            \item Users query the system about violations;
+            \item The machine gets the information about the accidents by the local municipality;
+            \item The machine crosses information about accidents and violations to submit possible interventions, that can be both considered or not;
+            \item The municipality can mark reported violations as fined, to allow the system to perform statistics about effectiveness of SafeStreet.
         \end{itemize}
     \end{itemize}
+
+    \newpage
+    %%%%%%%%%
+    \begin{center}
+        \begin{tabular}{ ||c|c|c|| }
+
+            \hline
+            \textbf{Phenomenon} & \textbf{Shared} & \textbf{Who controls it} \\ \hline
+            Users recognize the type of violation that occurred & N & W \\ \hline
+            People commit violations & N & W\\ \hline
+            People perform accidents & N & W\\ \hline
+            Police emits traffic tickets & N & W\\ \hline
+            Machine manages database queries & N & M\\ \hline
+            \makecell{Machine stores information (users and pictures with data)
+            \\ on the database} & N & M\\ \hline
+            Machine manages interfaces with external softwares & N & M\\ \hline
+            Users have to take and upload the pictures of the violations & Y & W\\ \hline
+            Users query the system to get violations & Y & W\\ \hline
+            \makecell{The machine gets the information about the accidents
+            \\from the local municipality} & Y & M\\ \hline
+            \makecell{Machine crosses information about accidents
+            \\and violations to submit possible interventions,
+            \\that can be both considered or not} & Y & M\\
+            \hline
+        \end{tabular}
+    \end{center}
+    %%%%%%%%%
 
     \section{Definitions, Acronyms, Abbreviations}\label{sec:definitions,-acronyms,-abbreviations}
     \subsection{Definitions}\label{subsec:definitions}
