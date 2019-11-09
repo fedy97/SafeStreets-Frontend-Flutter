@@ -48,9 +48,18 @@
             \subsection{Any other constraints}\label{subsec:any-other-constraints}
         \section{Software system attributes}\label{sec:software-system-attributes}
             \subsection{Reliability}\label{subsec:reliability}
-            \subsection{Availability}\label{subsec:availability}
+    The system must run continuously without interruption. Since the application require to the user to take and send the pictures in real time, the operation of uploading a report is the most critical and is required to work without roll back, because it could be no more possible for the user to retake them. For this situation, the system must also give the possibility to re-upload the same picture taken if something goes wrong while sending them to the server.
+
+    The system has to guarantee the data integrity as much as possible, for example by duplicating the data base used to store violations. If the availability of date couldn’t be provided anyway (for example, because of missing internet connection or server connection error) the application must notify the user throw an alert.
+    \subsection{Availability}\label{subsec:availability}
+    Since the application work in real time for the upload of a violation, the system must reduce the unavailability as much as possible. The error management systems described before must be projected to expect SafeStreet to be available 99.5 \% of the time.
             \subsection{Security}\label{subsec:security}
-            \subsection{Maintainability}\label{subsec:maintainability}
-            \subsection{Portability}\label{subsec:portability}
+    The data provided by the users to join the application (email, password, and eventually an ID) are sensitive information and must be protected. SafeStreet must never provide that information in any way to any person. To prevent information stealing, an encryption technique must be used while exchanging data with a user. Moreover, all necessary measures to avoid external or internal attacks to the data bases must be taken.
+    \subsection{Maintainability}\label{subsec:maintainability}
+    The develop process of the application must be such to allow future modification or fixing. The system could be expanded with new features in the future, so the software must be also suitable to future new functionalities. To reach those goals, the software must be well commented, readable and properly use appropriate design patterns.
+    \subsection{Portability}\label{subsec:portability}
+    The application main functionality work in real time and outdoors, so it will be required that the application will be able to work on smartphones. Moreover, since it must be used by many different people, it will must be suitable to all the most important mobile operative systems.
+
+    To be able to reach more people, SafeStreet will have to be compatible to as many devices and technologies as possible.
 
 \end{document}
