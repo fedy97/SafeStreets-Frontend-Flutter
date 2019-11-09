@@ -42,10 +42,17 @@
             \subsection{Sequence Diagrams}\label{subsec:sequence-diagrams}
             \subsection{Requirements, Domain Assumptions, Goals Matrix}\label{subsec:requirements,-domain-assumptions,-goals-matrix}
         \section{Performance requirements}\label{sec:performance-requirements}
-        \section{Design constraints}\label{sec:design-constraints}
+    The system must be able to serve a great number of users at the same time. It must guarantee that the query of the system by a user will provide the history of the violation in a short time, even with a big amount of report. For every image uploaded for a report, the system must allow a file dimension of at list 5 Mb. In the map representation of the violation, the position of a report must be no more than 10 meters away from the actual position indicated.
+    \section{Design constraints}\label{sec:design-constraints}
             \subsection{Standard compliance}\label{subsec:standard-compliance}
-            \subsection{Hardware limitations}\label{subsec:hardware-limitations}
-            \subsection{Any other constraints}\label{subsec:any-other-constraints}
+    Since the system will show to the user pictures taken by other people, the application refers to the European General Data Protection Regulation (GDPR) as regards the privacy protection. That means that no licence plate will be show to the users if they have not an authority level account.
+    \subsection{Hardware limitations}\label{subsec:hardware-limitations}
+    The application works independently of the hardware on which is running. However, the availability of some functionality will be dependent on the device used and its components.
+
+    Internet connection will be required to use the application, since all the functionality are based on it.
+
+    It will be possible to upload a report only if the device is provided by a camera, since the violation's photographs will must be taken within the context of the application, and will not be possible to upload a saved picture. The GPS will be needed to enable geolocation to automatically set the position of a report or of the violation map.
+    \subsection{Any other constraints}\label{subsec:any-other-constraints}
         \section{Software system attributes}\label{sec:software-system-attributes}
             \subsection{Reliability}\label{subsec:reliability}
     The system must run continuously without interruption. Since the application require to the user to take and send the pictures in real time, the operation of uploading a report is the most critical and is required to work without roll back, because it could be no more possible for the user to retake them. For this situation, the system must also give the possibility to re-upload the same picture taken if something goes wrong while sending them to the server.
