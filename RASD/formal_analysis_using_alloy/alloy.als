@@ -81,11 +81,15 @@ fact timeOnlyWithinReport {
 }
 
 fact levelOnlyWithinUser {
-    all l1 : Level | one u1 : User | l1 in u1.level
+    all l1 : Level | some u1 : User | l1 in u1.level
 }
 
 fact typeOfViolationOnlyWithinReport {
-    all t1 : TypeOfViolation | one r1 : Report | t1 in r1.type
+    all t1 : TypeOfViolation | some r1 : Report | t1 in r1.type
+}
+
+fact reportOnlyWithinReporter {
+	all dossier : Report | some user : User | dossier in user.reportsUploaded
 }
 
 fact ImageOnlyWithinReport {
@@ -129,5 +133,9 @@ fact dailyMapHasOnlyTodayReport{
 }
 
 fact dossierReportedByExactlyOneUser{
-	no disj u1, u2 : User, violation : Report | (violation in u1.reportsUploaded) and (violation in u2.reportsUploaded)
+	no disj u1, u2 : User | all violation : Report | (violation in u1.reportsUploaded) and (violation in u2.reportsUploaded)
+}
+
+fact noTwoMapWithSameDay{
+	no disj m1, m2 : DailyMap | m1.day = m2.day
 }
