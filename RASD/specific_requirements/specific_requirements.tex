@@ -28,7 +28,7 @@
 
                                     During his work detail, Baldo goes in the extra area for the municipality. Baldo sees on the map of SS that there are some violation in the neighborhood under Baldo’s custody. So Baldo opens one of the violations and he discovers that it’s a “parking in the wrong way”. Baldo wants to check the gravity of the violation so he looks carefully at the three photos of the violation, Baldo analyzes them and decides to not generate a traffic tickets because even if the report underlines a borderline situation, the car respects all the laws.
 
-                                     So Baldo doesn’t mark as “fined” the report because he doesn’t generate a traffic tickets for that.
+                                     So Baldo doesn’t mark as “fined” the report because he doesn’t generate a traffic ticket for that.
     \newline
     \newline
                 \textbf{Scenario 5:} Tom is an old man who has downloaded SS on his smartphone.
@@ -38,9 +38,9 @@
                 \newline
                 \textbf{Scenario 6:} Tom from scenario S5, during breakfast checks also another violation always on the way to his work.
 
-                 He opens the report on the map and analyszes the photos. The report is marked as “trash can on bike line” but on the pictures there are only a car parked on zebra crossing. In this case the description doesn’t match with the images and Eddy one more time goes in the report area of the violations and sends a negative feedback to SS pushing on “negative feedback” button.
+                 He opens the report on the map and analyzes the photos. The report is marked as “trash can on bike line” but on the pictures there are only a car parked on zebra crossing. In this case the description doesn’t match with the images and Eddy one more time goes in the report area of the violations and sends a negative feedback to SS pushing on “negative feedback” button.
 
-                SS uses thi<s feedback to build statistics
+                SS uses this feedback to build statistics
     \newline
     \newline
                 \textbf{Scenario 7:} The municipality of Monza wants to improve its management of the traffic violations. In order to do that, they decide to be supported by SafeStreet as an immediate and low-cost solution. They offer a public database on which all the accidents in the territory are registered, to allow SafeStreet to collect data.
@@ -51,24 +51,47 @@
                 \textbf{Scenario 8:} Mary is a young woman who lives in Milan and has a six year-old son. She must enrol his son to the elementary school and she has already found two possible options, but since they are both located in an intense traffic area she is afraid that they could be dangerous. The municipality of Milan provides through SafeStreet the information about all the accidents occurring on its territory, so Mary wants to use this information to take a decision.
                 She queries the system to get all the possible unsafe areas of Milan. She finds out that her first option is located in a high-level dangerous zone: clicking on the area, she notices that three car accidents occurred at a crossroad that is located just few meters from the school building. Since her second option is in an area not marked as dangerous by SafeStreet, and where no accidents have been reported, Mary decides that she will enrol her son there.
 
-        \subsection{Use Case Diagrams}\label{subsec:Use-case-diagram}
-                \begin{figure}
-                    \includegraphics[scale = 1]{assets/citizenUC.png}\\[1.6 cm]
-                    \caption[Citizen Use Case Diagram]{Citizen Use Case Diagram}
-                \end{figure}
-                \begin{figure}
-                    \includegraphics[scale = 1.5]{assets/authorityUC.png}\\[1.6 cm]
-                    \caption[Authority Use Case Diagram]{Authority Use Case Diagram}
-                \end{figure}
-                \begin{figure}
-                    \includegraphics[scale = 1.5]{assets/safeStreetUC.png}\\[1.6 cm]
-                    \caption[SafeStreet Use Case Diagram]{SafeSteet Use Case Diagram}
-                \end{figure}
-                \newpage
+            \subsection{Use Case Diagrams}\label{subsec:Use-case-diagrams}
+                    \begin{figure}[H]
+                        \centering
+                        \includegraphics[scale = 1]{assets/citizenUC.png}\\[1.6 cm]
+                        \caption[Citizen \textit{Use Case Diagram}]{Citizen \textit{Use Case Diagram}}
+                    \end{figure}
+                    \begin{figure}[H]
+                        \centering
+                        \includegraphics[scale = 1]{assets/authorityUC.png}\\[1.6 cm]
+                        \caption[Authority \textit{Use Case Diagram}]{Authority \textit{Use Case Diagram}}
+                    \end{figure}
+                    \begin{figure}[H]
+                        \centering
+                        \includegraphics[scale = 1]{assets/safeStreetUC.png}\\[1.6 cm]
+                        \caption[SafeStreet \textit{Use Case Diagram}]{SafeSteet \textit{Use Case Diagram}}
+                    \end{figure}
+                    \newpage
             \subsection{Use Case Analysis}\label{subsec:use-case-analysis}
                 \subfile{specific_requirements/functional_requirements/use_case_analysis/use_case_analysis.tex}
             \newpage
             \subsection{Sequence Diagrams}\label{subsec:sequence-diagrams}
+                \begin{figure}[H]
+                    \centering
+                    \includegraphics[scale = 2]{assets/sendReportSD.png}\\[1.6 cm]
+                    \caption[Send Report \textit{Sequence Diagram}]{Send Report \textit{Sequence Diagram}}
+                \end{figure}
+                \begin{figure}[H]
+                    \centering
+                    \includegraphics[scale = 2]{assets/getViolationSD.png}\\[1.6 cm]
+                    \caption[Get Violations \textit{Sequence Diagram}]{Get Violations \textit{Sequence Diagram}}
+                \end{figure}
+                \begin{figure}[H]
+                    \centering
+                    \includegraphics[scale = 2]{assets/getDangerousAreasSD.png}\\[1.6 cm]
+                    \caption[Get Dangerous Areas \textit{Sequence Diagram}]{Get Dangerous Areas \textit{Sequence Diagram}}
+                \end{figure}
+                \begin{figure}[H]
+                    \centering
+                    \includegraphics[scale = 2]{assets/sendFeedbackSD.png}\\[1.6 cm]
+                    \caption[Send Feedback \textit{Sequence Diagram}]{Send Feedback \textit{Sequence Diagram}}
+                \end{figure}
             \newpage
             \subsection{Requirements, Domain Assumptions, Goals Matrix}\label{subsec:requirements,-domain-assumptions,-goals-matrix}
                 The following is a list of requirements for SafeStreet.
@@ -194,13 +217,13 @@
             \subsection{Reliability}\label{subsec:reliability}
             The system must run continuously without interruption. Since the application require to the user to take and send the pictures in real time, the operation of uploading a report is the most critical and is required to work without roll back, because it could be no more possible for the user to retake them. For this situation, the system must also give the possibility to re-upload the same picture taken if something goes wrong while sending them to the server.
 
-            The system has to guarantee the data integrity as much as possible, for example by duplicating the data base used to store violations. If the availability of date couldn’t be provided anyway (for example, because of missing internet connection or server connection error) the application must notify the user throw an alert.
+            The system has to guarantee the data integrity as much as possible, for example by duplicating the database used to store violations. If the availability of date couldn’t be provided anyway (for example, because of missing internet connection or server connection error) the application must notify the user throw an alert.
             \subsection{Availability}\label{subsec:availability}
             Since the application work in real time for the upload of a violation, the system must reduce the unavailability as much as possible. The error management systems described before must be projected to expect SafeStreet to be available 99.5 \% of the time.
                     \subsection{Security}\label{subsec:security}
             The data provided by the users to join the application (email, password, and eventually an ID) are sensitive information and must be protected. SafeStreet must never provide that information in any way to any person. To prevent information stealing, an encryption technique must be used while exchanging data with a user. Moreover, all necessary measures to avoid external or internal attacks to the data bases must be taken.
             \subsection{Maintainability}\label{subsec:maintainability}
-            The develop process of the application must be such to allow future modification or fixing. The system could be expanded with new features in the future, so the software must be also suitable to future new functionalities. To reach those goals, the software must be well commented, readable and properly use appropriate design patterns.
+            The developing of the application must be such to allow future modification or fixing. The system could be expanded with new features in the future, so the software must be also suitable to new functionalities. To reach those goals, the software must be well commented, readable and use appropriate design patterns.
             \subsection{Portability}\label{subsec:portability}
             The application main functionality work in real time and outdoors, so it will be required that the application will be able to work on smartphones. Moreover, since it must be used by many different people, it will must be suitable to all the most important mobile operative systems.
 
