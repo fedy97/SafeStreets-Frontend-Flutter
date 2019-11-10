@@ -16,27 +16,38 @@
         \section{Functional requirements}\label{sec:functional-requirements}
             \subsection{Scenarios}\label{subsec:scenarios}
                 \textbf{Scenario 1:} Federico is a citizen who wants to report a parking violation. For this purpose, he decides to use SafeStreet. He downloads the application on his smartphone and proceeds to sign up. He is asked to insert an email and a password, and of course, being only a citizen, the authority ID is not required by the system. Federico inserts his personal email and his password, but the system tells him that the given password is shorter than 8 characters, so he tries again with a new one. Eventually he is able to insert a valid password, accepts the Terms and conditions and taps on “Create an Account”. He is now successfully signed up, after receiving a confirmation email by SafeStreet. He tries to login to the application by inserting the same email and password originally submitted. The system accepts the credentials and Federico is in. Now, he navigates to the report section, where he is asked to insert one or more images and select the type of violation, and optionally write a note. Federico takes and insert 2 photos, one of them also containing the license plate of the vehicle, so that the police can fine the transgressor. Once done, Federico can also see his report, through the map section.
-                \\
+    \newline
+    \newline
                 \textbf{Scenario 2:} Evandro is a police officer whose job is to fine cars that committed violations in the city of Milan. For that purpose, he decides to use SafeStreet. He downloads the app and signs up using his work email, a strong password of 10 characters, and he inserts his ID to the system. He is now recognized as an authority and can use all the complete functionalities of SS and has access to all the sensible information, like the license plates uploaded by users. Once in, Evandro navigates to the map section and selects one of the violations displayed in the map, but that violation, even if it breaks the law, does not contain an image with the license plate visible, so Evandro cannot fine the transgressor.
-                \\
+    \newline
+    \newline
                 \textbf{Scenario 3:} Erik is a police officer whose job is to fine cars that committed violations in the city of Milan. For that purpose, he decides to use SafeStreet. He downloads the app and signs up using his work email, a strong password of 10 characters, and he inserts his ID to the system. He is now recognized as an authority and can use all the complete functionalities of SS and has access to all the sensible information, like the license plates uploaded by users. Once in, Erik navigates to the map section and selects one of the violations displayed in the map. That violation contains an image with the license plate of the transgressor. After having judged the report, he decides to fine him using a third-party system. After that, Erik marks the report as “fined”, so that SafeStreet can then build statistics.
-                \\
-                \textbf{Scenario 4:}
-                \\
+    \newline
+    \newline
+                \textbf{Scenario 4:} Baldo is a police officer that has on the smartphone SS and is already logged in.
+
+                                    During his work detail, Baldo goes in the extra area for the municipality. Baldo sees on the map of SS that there are some violation in the neighborhood under Baldo’s custody. So Baldo opens one of the violations and he discovers that it’s a “parking in the wrong way”. Baldo wants to check the gravity of the violation so he looks carefully at the three photos of the violation, Baldo analyzes them and decides to not generate a traffic tickets because even if the report underlines a borderline situation, the car respects all the laws.
+
+                                     So Baldo doesn’t mark as “fined” the report because he doesn’t generate a traffic tickets for that.
+    \newline
+    \newline
                 \textbf{Scenario 5:} Tom is an old man who has downloaded SS on his smartphone.
 
                 Tom wants to bike to the market, but he feels unsafe because people usually park their cars on the bicycle lane, so he decides to check on SafeStreet if any violation has been reported on the way to the market.  Looking on the map, he saw a violation classified as “parking on bicycle line” and opens it to see the time of the report. When he opens the dossier, he takes a look at the picture and notices that the car is just close to the bike lane, but it does not really obstruct the passage. Tom thinks that the car is parked correctly and does not represent a violation, so he opens the feedback area and sends a negative feedback, selecting the option “false violation”.
-                \\
+                \newline
+                \newline
                 \textbf{Scenario 6:} Tom from scenario S5, during breakfast checks also another violation always on the way to his work.
 
                  He opens the report on the map and analyszes the photos. The report is marked as “trash can on bike line” but on the pictures there are only a car parked on zebra crossing. In this case the description doesn’t match with the images and Eddy one more time goes in the report area of the violations and sends a negative feedback to SS pushing on “negative feedback” button.
 
                 SS uses thi<s feedback to build statistics
-                \\
+    \newline
+    \newline
                 \textbf{Scenario 7:} The municipality of Monza wants to improve its management of the traffic violations. In order to do that, they decide to be supported by SafeStreet as an immediate and low-cost solution. They offer a public database on which all the accidents in the territory are registered, to allow SafeStreet to collect data.
 
                 After only two weeks SafeStreet provide the first report to Monza’s municipality: the application notice that just a few meters away from a reported accident three no parking zone violations have been reported, so it sends a notification to the municipality to suggest to add some anti-parking poles.
-                \\
+    \newline
+    \newline
                 \textbf{Scenario 8:} Mary is a young woman who lives in Milan and has a six year-old son. She must enrol his son to the elementary school and she has already found two possible options, but since they are both located in an intense traffic area she is afraid that they could be dangerous. The municipality of Milan provides through SafeStreet the information about all the accidents occurring on its territory, so Mary wants to use this information to take a decision. She queries the system to get all the possible unsafe areas of Milan. She finds out that her first option is located in a high-level dangerous zone: clicking on the area, she notices that three car accidents occurred at a crossroad that is located just few meters from the school building. Since her second option is in an area not marked as dangerous by SafeStreet, and where no accidents have been reported, Mary decides that she will enrol her son there.
             \subsection{Use Case Diagrams}\label{subsec:Use-case-diagram}
                 \begin{center}
@@ -91,17 +102,51 @@
                     \goal{1} The application will allow users to upload pictures of the traffic violations, including pictures, date, time, classification, and optionally a textual description.
                         \begin{itemize}
                             \requirement{} 1,2,3,4,5,6,9,14,15,16,17,18,19,20,21,26
-                            \assumption{} 1,4
-                            \item Requirements are about the correctness of the report while the domain assumptions are about the gps position and the license plate.
+                            \assumption{} 1,2,4
+                            \item Requirements are about the correctness of the reports while the domain assumptions are about the gps position and the license plate.
                         \end{itemize}
                     \goal{2} The application will allow users to view a map of the violations registered in the last day.
+                    \begin{itemize}
+                        \requirement{} 1,,2,3,4,5,6,7,8,1011,12,17,18,28
+                        \assumption{} 1,3
+                        \item Requirements are about the correctness of the reports while the domain assumptions are about correctness of the map.
+                    \end{itemize}
                     \goal{3} The application will allow users to see the violations uploaded by other users; however, citizens won’t be able to see sensible pictures, while authorities will be allowed.
+                    \begin{itemize}
+                        \requirement{} 1,2,3,4,5,6,7,8,11,12,17,18,19,20
+                        \assumption{} 2,3,4
+                        \item Requirements are about the correctness of the reports and the different level of visibility of citizen and authority while the domain assumptions are about the correctness of the map.
+                    \end{itemize}
                     \goal{4} Users will be able to query the system to get all the reported violations that correspond to some temporal, geographical or categorical parameters.
-                    \goal{5} Users can give a feedback about violations uploaded by other users to SS
+                    \begin{itemize}
+                        \requirement{} 5,6,7,8,12,17,18,19,22,29
+                        \assumption{} 2,4
+                        \item Requirements are about the correctness of the reports and the query on the database while the domain assumptions are about the integrity of the datas stored.
+                    \end{itemize}
+                    \goal{5} Users can give a feedback about violations uploaded by other users to SS.
+                    \begin{itemize}
+                        \requirement{} 1,2,3,4,5,6,7,8,23,22,24
+                        \assumption{} 2,4
+                        \item Requirements are about the correctness of the reports and feedback area of the user while the domain assumptions are about the the integrity of data stored.
+                    \end{itemize}
                     \goal{6} If SafeStreets can get the information about accidents by the municipality, it will give the possibility to merge them with its data to identify potentially unsafe areas.
+                    \begin{itemize}
+                        \requirement{} 7,8,13,16,17,18,19,22,29
+                        \assumption{} 3,5
+                        \item Requirements are about the correctness of the reports and the capability of SS to find unsafe area while the domain assumptions are about the consistency of datas on accidents.
+                    \end{itemize}
                     \goal{7} If SafeStreets can get the information about accidents by the municipality, it will give the possibility to merge them with its data to suggest possible interventions.
+                    \begin{itemize}
+                        \requirement{} 5,6,7,8,17,18,19,20,22,25,29
+                        \assumption{} 3,5
+                        \item Requirements are about the correctness of the reports and capability of SS to build statistics while the domain assumptions are about the consistency of datas on accidents.
+                    \end{itemize}
                     \goal{8} The system will use the information about violations, accidents and fines that will collect by both users and authorities to build statistics.
-                \end{enumerate}
+                    \begin{itemize}
+                        \requirement{} 5,6,7,8,17,18,19,23,24,22,27,29
+                        \assumption{} 2,5
+                        \item Requirements are about the correctness of the reports and capability of SS to build ststistics while the domain assumptions are about consistency of datas on accidents.
+                    \end{itemize}\end{enumerate}
                 \newpage
                 \textbf{Traceability matrix:}
                 %%%%%%%%%
