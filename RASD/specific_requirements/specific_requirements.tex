@@ -7,31 +7,31 @@
     This section contains all of the functional and quality requirements of the system. It gives a detailed description of the system and all its features.
         \section{External interface requirements}\label{sec:external-interface-requirements}
             \subsection{User Interfaces}\label{subsec:user-interfaces}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[scale = 0.4]{assets/signup.png}\\[1.6 cm]
-        \caption[\textit{User} Sign Up \textit{Mockup}]{shows an example of the registration page of SafeStreet}
-    \end{figure}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[scale = 0.4]{assets/login.png}\\[1.6 cm]
-        \caption[\textit{User} Login \textit{Mockup}]{shows an example of the login page of SafeStreet}
-    \end{figure}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[scale = 0.4]{assets/home.png}\\[1.6 cm]
-        \caption[\textit{User} Home \textit{Mockup}]{shows the homepage of the app after the login phase, displaying for example the map with all the violation reported}
-    \end{figure}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[scale = 0.4]{assets/viewreport.png}\\[1.6 cm]
-        \caption[View Report \textit{Mockup}]{shows a violation uploaded by a user}
-    \end{figure}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[scale = 0.4]{assets/report.png}\\[1.6 cm]
-        \caption[Report a violation \textit{Mockup}]{shows the report form, same for both citizens and authorities}
-    \end{figure}
+            \begin{figure}[H]
+                \centering
+                \includegraphics[scale = 0.4]{assets/signup.png}\\[1.6 cm]
+                \caption[\textit{User} Sign Up \textit{Mockup}]{shows an example of the registration page of SafeStreet}
+            \end{figure}
+            \begin{figure}[H]
+                \centering
+                \includegraphics[scale = 0.4]{assets/login.png}\\[1.6 cm]
+                \caption[\textit{User} Login \textit{Mockup}]{shows an example of the login page of SafeStreet}
+            \end{figure}
+            \begin{figure}[H]
+                \centering
+                \includegraphics[scale = 0.4]{assets/home.png}\\[1.6 cm]
+                \caption[\textit{User} Home \textit{Mockup}]{shows the homepage of the app after the login phase, displaying for example the map with all the violation reported}
+            \end{figure}
+            \begin{figure}[H]
+                \centering
+                \includegraphics[scale = 0.4]{assets/viewreport.png}\\[1.6 cm]
+                \caption[View Report \textit{Mockup}]{shows a violation uploaded by a user}
+            \end{figure}
+            \begin{figure}[H]
+                \centering
+                \includegraphics[scale = 0.4]{assets/report.png}\\[1.6 cm]
+                \caption[Report a violation \textit{Mockup}]{shows the report form, same for both citizens and authorities}
+            \end{figure}
             \subsection{Hardware Interfaces}\label{subsec:hardware-interfaces}
         The system has no hardware interface, because SafeStreet does not interact physically with other systems.
             \subsection{Software Interfaces}\label{subsec:software-interfaces}
@@ -40,41 +40,90 @@
             SafeStreet uses secure internet connection in order to provide a reliable exchange of messages between clients and server, like HTTPS.
         \section{Functional requirements}\label{sec:functional-requirements}
             \subsection{Scenarios}\label{subsec:scenarios}
-                \textbf{Scenario 1:} Federico is a citizen who wants to report a parking violation. For this purpose, he decides to use SafeStreet. He downloads the application on his smartphone and proceeds to sign up. He is asked to insert an email and a password, and of course, being only a citizen, the authority ID is not required by the system. Federico inserts his personal email and his password, but the system tells him that the given password is shorter than 8 characters, so he tries again with a new one. Eventually he is able to insert a valid password, accepts the Terms and conditions and taps on “Create an Account”. He is now successfully signed up, after receiving a confirmation email by SafeStreet. He tries to login to the application by inserting the same email and password originally submitted. The system accepts the credentials and Federico is in. Now, he navigates to the report section, where he is asked to insert one or more images and select the type of violation, and optionally write a note. Federico takes and insert 2 photos, one of them also containing the license plate of the vehicle, so that the police can fine the transgressor. Once done, Federico can also see his report, through the map section.
-    \newline
-    \newline
-                \textbf{Scenario 2:} Evandro is a police officer whose job is to fine cars that committed violations in the city of Milan. For that purpose, he decides to use SafeStreet. He downloads the app and signs up using his work email, a strong password of 10 characters, and he inserts his ID to the system. He is now recognized as an authority and can use all the complete functionalities of SS and has access to all the sensitive information, like the license plates uploaded by users. Once in, Evandro navigates to the map section and selects one of the violations displayed in the map, but that violation, even if it breaks the law, does not contain an image with the license plate visible, so Evandro cannot fine the transgressor.
-    \newline
-    \newline
-                \textbf{Scenario 3:} Erik is a police officer whose job is to fine cars that committed violations in the city of Milan. For that purpose, he decides to use SafeStreet. He downloads the app and signs up using his work email, a strong password of 10 characters, and he inserts his ID to the system. He is now recognized as an authority and can use all the complete functionalities of SS and has access to all the sensitive information, like the license plates uploaded by users. Once in, Erik navigates to the map section and selects one of the violations displayed in the map. That violation contains an image with the license plate of the transgressor. After having judged the report, he decides to fine him using a third-party system. After that, Erik marks the report as “fined”, so that SafeStreet can then build statistics.
-    \newline
-    \newline
-                \textbf{Scenario 4:} Baldo is a police officer that has on the smartphone SS and is already logged in.
-
-                                    During his work detail, Baldo goes in the extra area for the municipality. Baldo sees on the map of SS that there are some violation in the neighborhood under Baldo’s custody. So Baldo opens one of the violations and he discovers that it’s a “parking in the wrong way”. Baldo wants to check the gravity of the violation so he looks carefully at the three photos of the violation, Baldo analyzes them and decides to not generate a traffic tickets because even if the report underlines a borderline situation, the car respects all the laws.
-
-                                     So Baldo doesn’t mark as “fined” the report because he doesn’t generate a traffic ticket for that.
-    \newline
-    \newline
+                \textbf{Scenario 1:} Federico is a citizen who wants to report a parking violation.
+                For this purpose, he decides to use SafeStreet.
+                He downloads the application on his smartphone and proceeds to sign up.
+                He is asked to insert an email and a password, and of course, being only a citizen, the authority ID is not required by the system.
+                Federico inserts his personal email and his password, but the system tells him that the given password is shorter than 8 characters,
+                so he tries again with a new one.
+                Eventually he inserts a valid password, accepts the Terms and conditions and taps on “Create an Account”.
+                He is now successfully signed up, after receiving a confirmation email by SafeStreet.
+                He tries to login to the application by inserting the same email
+                and password originally submitted.
+                The system accepts the credentials and Federico is in.
+                Now, he navigates to the report section, where he is asked to
+                insert one or more images and select the type of violation, and optionally write a note.
+                Federico takes and insert 2 photos, one of them also containing
+                the license plate of the vehicle, so that the police can fine the transgressor.
+                Once done, Federico can also see his report, through the map section.
+                \newline
+                \newline
+                \textbf{Scenario 2:} Evandro is a police officer whose job is to fine cars that committed violations in the city of Milan.
+                For that purpose, he decides to use SafeStreet.
+                He downloads the app and signs up using his work email, a strong password of 10 characters, and he inserts his ID to the system.
+                He is now recognized as an authority and he can use all the complete functionalities of SS and has access to all the sensitive information,
+                like the license plates uploaded by users.
+                Once in, Evandro navigates to the map section and selects one of the violations displayed in the map, but that violation,
+                even if it breaks the law, does not contain an image with the license plate visible, so Evandro cannot fine the transgressor.
+                \newline
+                \newline
+                \textbf{Scenario 3:} Erik is a police officer whose job is to fine cars that committed violations in the city of Milan.
+                For that purpose, he decides to use SafeStreet.
+                He downloads the app and signs up using his work email, a strong password of 10 characters, and he inserts his ID to the system.
+                He is now recognized as an authority and can use all the complete functionalities of SS and has access to all the sensitive information,
+                like the license plates uploaded by users.
+                Once in, Erik navigates to the map section and selects one of the violations displayed in the map.
+                That violation contains an image with the license plate of the transgressor.
+                After having judged the report, he decides to fine him using a third-party system.
+                After that, Erik marks the report as “fined”, so that SafeStreet can then build statistics.
+                \newline
+                \newline
+                \textbf{Scenario 4:} Baldo is a police officer that has SafeStreet installed and he is already logged in.
+                During his work, Baldo goes in the extra area for the municipality.
+                Baldo sees on the map of SS that there are some violation in the neighborhood under Baldo’s custody.
+                So Baldo opens one of the violations and he discovers that it’s a “parking in the wrong way”.
+                Baldo wants to check the gravity of the violation so he looks carefully at the three photos of the violation,
+                he analyzes them and decides not to generate a traffic ticket because even if the report underlines a borderline situation,
+                the car respects all the laws.
+                So Baldo does not mark as “fined” the report.
+                \newline
+                \newline
                 \textbf{Scenario 5:} Tom is an old man who has downloaded SS on his smartphone.
-
-                Tom wants to bike to the market, but he feels unsafe because people usually park their cars on the bicycle lane, so he decides to check on SafeStreet if any violation has been reported on the way to the market.  Looking on the map, he saw a violation classified as “parking on bicycle line” and opens it to see the time of the report. When he opens the dossier, he takes a look at the picture and notices that the car is just close to the bike lane, but it does not really obstruct the passage. Tom thinks that the car is parked correctly and does not represent a violation, so he opens the feedback area and sends a negative feedback, selecting the option “false violation”.
+                Tom wants to bike to the market, but he feels unsafe because people usually park their cars on the bicycle lane,
+                so he decides to check on SafeStreet if any violation has been reported on the way to the market.
+                Looking on the map, he saw a violation classified as “parking on bicycle line” and opens it to see the time of the report.
+                When he opens the dossier, he takes a look at the picture and notices that the car is just close to the bike lane,
+                but it does not really obstruct the passage.
+                Tom thinks that the car is parked correctly and does not represent a violation, so he opens the feedback area and sends a negative feedback,
+                selecting the option “false violation”.
                 \newline
                 \newline
                 \textbf{Scenario 6:} Tom from scenario S5, during breakfast checks also another violation always on the way to his work.
-
-                 He opens the report on the map and analyzes the photos. The report is marked as “trash can on bike line” but on the pictures there are only a car parked on zebra crossing. In this case the description doesn’t match with the images and Eddy one more time goes in the report area of the violations and sends a negative feedback to SS pushing on “negative feedback” button.
-
-                SS uses this feedback to build statistics
-    \newline
-    \newline
-                \textbf{Scenario 7:} The municipality of Monza wants to improve its management of the traffic violations. In order to do that, they decide to be supported by SafeStreet as an immediate and low-cost solution. They offer a public database on which all the accidents in the territory are registered, to allow SafeStreet to collect data.
-
-                After only two weeks SafeStreet provide the first report to Monza’s municipality: the application notice that just a few meters away from a reported accident three no parking zone violations have been reported, so it sends a notification to the municipality to suggest to add some anti-parking poles.
-    \newline
-    \newline
-                \textbf{Scenario 8:} Mary is a young woman who lives in Milan and has a six year-old son. She must enrol his son to the elementary school and she has already found two possible options, but since they are both located in an intense traffic area she is afraid that they could be dangerous. The municipality of Milan provides through SafeStreet the information about all the accidents occurring on its territory, so Mary wants to use this information to take a decision.
-                She queries the system to get all the possible unsafe areas of Milan. She finds out that her first option is located in a high-level dangerous zone: clicking on the area, she notices that three car accidents occurred at a crossroad that is located just few meters from the school building. Since her second option is in an area not marked as dangerous by SafeStreet, and where no accidents have been reported, Mary decides that she will enrol her son there.
+                 He opens the report on the map and analyzes the photos.
+                 The report is marked as “trash cannot be on bike line” but on the pictures there are only a car parked on zebra crossing.
+                 In this case the description doesn’t match with the images and Eddy one more time goes in the report area of the violations and sends
+                 a negative feedback to SS pushing on “negative feedback” button.
+                 SS uses this feedback to build statistics.
+                \newline
+                \newline
+                \textbf{Scenario 7:} The municipality of Monza wants to improve its management of the traffic violations.
+                In order to do that, they decide to be supported by SafeStreet as an immediate and low-cost solution.
+                They offer a public database on which all the accidents in the territory are registered, to allow SafeStreet to collect data.
+                After only two weeks SafeStreet provides the first report to Monza’s municipality: the application noticed that just a few meters away
+                from a reported accident three no parking zone violations have been reported, so it sends a notification to the municipality
+                to suggest to add some anti-parking poles.
+                \newline
+                \newline
+                \textbf{Scenario 8:} Mary is a young woman who lives in Milan and has a six year-old son.
+                She must enrol his son to the elementary school and she has already found two possible solutions, but since they are both
+                located in an intense traffic area she is afraid that they could be in danger.
+                The municipality of Milan provides through SafeStreet the information about all the accidents occurring on its territory,
+                so Mary wants to use this information to take a decision.
+                She queries the system to get all the possible unsafe areas of Milan.
+                She finds out that her first option is located in a high-level dangerous zone: clicking on the area, she notices that three car accidents
+                occurred at a crossroad that is located just few meters from the school building.
+                Since her second option is in an area not marked as dangerous by SafeStreet, and where no accidents have been reported,
+                Mary decides that she will enrol her son there.
 
             \subsection{Use Case Diagrams}\label{subsec:Use-case-diagrams}
                     \begin{figure}[H]
