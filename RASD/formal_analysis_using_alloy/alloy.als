@@ -59,7 +59,7 @@ abstract sig Stats {
 
 sig StandardStats extends Stats {}
 sig CompleteStats extends Stats {
-	sensibleValues: some Int
+	sensitiveValues: some Int
 }
 /*
 every fact name is self explanatory
