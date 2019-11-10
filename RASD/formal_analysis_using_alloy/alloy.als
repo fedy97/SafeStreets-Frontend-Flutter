@@ -26,7 +26,7 @@ sig Report {
 abstract sig User {
     email: one string,
     password: one string,
-    reportsUploaded: Report,
+    reportsUploaded: set Report,
     level: one Level,
     position: one Position
 }
@@ -47,7 +47,7 @@ sig Position {
 }{latitude > 0 longitude > 0}
 
 sig DailyMap{
-	dailyViolation: Report,
+	dailyViolation: set Report,
 	day: one Date
 }
 
