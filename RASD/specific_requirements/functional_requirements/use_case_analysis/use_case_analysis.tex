@@ -30,7 +30,7 @@
             \end{enumerate}
             \textit{Citizen} is invited to try again signing up, reporting wh error(s) they have committed. \\
             \hline
-            \caption{\textit{UC1}}
+            \caption[\textit{Use Case 1}]{\textit{UC1}}
         \end{longtable}
     \end{center}
     %put always a new page after a table
@@ -65,7 +65,7 @@
             \end{enumerate}
             \textit{Authority} is invited to try again signing up, reporting wh error(s) they have committed. \\
             \hline
-            \caption{\textit{UC2}}
+            \caption[\textit{Use Case 2}]{\textit{UC2}}
         \end{longtable}
     \end{center}
     %put always a new page after a table
@@ -92,7 +92,7 @@
             \end{enumerate}
             \textit{User} is invited to try again to log in, reporting wh error(s) they have committed. \\
             \hline
-            \caption{\textit{UC3}}
+            \caption[\textit{Use Case 3}]{\textit{UC3}}
         \end{longtable}
     \end{center}
     %put always a new page after a table
@@ -121,7 +121,7 @@
             \end{enumerate}
              \\
             \hline
-            \caption{\textit{UC4}}
+            \caption[\textit{Use Case 4}]{\textit{UC4}}
         \end{longtable}
     \end{center}
     %put always a new page after a table
@@ -147,7 +147,7 @@
             \end{enumerate}
             \\
             \hline
-            \caption{\textit{UC5}}
+            \caption[\textit{Use Case 5}]{\textit{UC5}}
         \end{longtable}
     \end{center}
     %put always a new page after a table
@@ -174,7 +174,7 @@
             \end{enumerate}
             \\
             \hline
-            \caption{\textit{UC6}}
+            \caption[\textit{Use Case 6}]{\textit{UC6}}
         \end{longtable}
     \end{center}
     %put always a new page after a table
@@ -202,7 +202,7 @@
             \end{enumerate}
             \\
             \hline
-            \caption{\textit{UC7}}
+            \caption[\textit{Use Case 7}]{\textit{UC7}}
         \end{longtable}
     \end{center}
     %put always a new page after a table
@@ -231,7 +231,7 @@
             \end{enumerate}
             \\
             \hline
-            \caption{\textit{UC8}}
+            \caption[\textit{Use Case 8}]{\textit{UC8}}
         \end{longtable}
     \end{center}
     %put always a new page after a table
@@ -258,7 +258,7 @@
             \end{enumerate}
             \\
             \hline
-            \caption{\textit{UC9}}
+            \caption[\textit{Use Case 9}]{\textit{UC9}}
         \end{longtable}
     \end{center}
     %put always a new page after a table
@@ -285,7 +285,7 @@
             \end{enumerate}
             \\
             \hline
-            \caption{\textit{UC10}}
+            \caption[\textit{Use Case 10}]{\textit{UC10}}
         \end{longtable}
     \end{center}
     %put always a new page after a table
@@ -311,7 +311,7 @@
             \end{enumerate}
             \\
             \hline
-            \caption{\textit{UC11}}
+            \caption[\textit{Use Case 11}]{\textit{UC11}}
         \end{longtable}
     \end{center}
     %put always a new page after a table
@@ -340,66 +340,66 @@
             \end{enumerate}
             \\
             \hline
-            \caption{\textit{UC12}}
+            \caption[\textit{Use Case 12}]{\textit{UC12}}
         \end{longtable}
     \end{center}
 %put always a new page after a table
 \newpage
-\begin{center}
-\begin{longtable}{| p{.35\linewidth} | p{.65\linewidth} |}
-\hline
-\textbf{Name} & \textbf{User removes a report}\\ \hline
-Actors & \textit{User}, SafeStreet\\ \hline
-Entry Conditions & SafeStreet successfully installed and User signed in.\\ \hline
-Events Flow &
-\begin{enumerate}
-\item \textit{User} opens the report history page.
-\item \textit{User} selects one report.
-\item  Display shows the results.
-\item \textit{User} can change fields of report or adds/removes images.
-\item \textit{user} presses on remove button to confirm the changes.
-\end{enumerate}
-\\ \hline
-Exit Condition & \textit{SS} deletes the selected report from its database.\\ \hline
-Exceptions &
-\begin{enumerate}
-\item none.
-\end{enumerate}
-\\
-\hline
-\caption{\textit{UC13}}
-\end{longtable}
-\end{center}
+    \begin{center}
+    \begin{longtable}{| p{.35\linewidth} | p{.65\linewidth} |}
+    \hline
+    \textbf{Name} & \textbf{User removes a report}\\ \hline
+    Actors & \textit{User}, SafeStreet\\ \hline
+    Entry Conditions & SafeStreet successfully installed and User signed in.\\ \hline
+    Events Flow &
+    \begin{enumerate}
+    \item \textit{User} opens the report history page.
+    \item \textit{User} selects one report.
+    \item  Display shows the results.
+    \item \textit{User} can change fields of report or adds/removes images.
+    \item \textit{user} presses on remove button to confirm the changes.
+    \end{enumerate}
+    \\ \hline
+    Exit Condition & \textit{SS} deletes the selected report from its database.\\ \hline
+    Exceptions &
+    \begin{enumerate}
+    \item none.
+    \end{enumerate}
+    \\
+    \hline
+    \caption[\textit{Use Case 13}]{\textit{UC13}}
+    \end{longtable}
+    \end{center}
 %put always a new page after a table
-\newpage
-\begin{center}
-\begin{longtable}{| p{.35\linewidth} | p{.65\linewidth} |}
-\hline
-\textbf{Name} & \textbf{User reports something that is already stored}\\ \hline
-Actors & \textit{User}, SafeStreet\\ \hline
-Entry Conditions & SafeStreet successfully installed and User signed in.\\ \hline
-Events Flow &
-\begin{enumerate}
-\item \textit{User} clicks on “new report” button.
-\item \textit{User} takes at least one photo of the violation.
-\item \textit{User} selects the type of the violation and fills the optional note.
-\item \textit{User} clicks on “confirm \& send” button.
-\item \textit{ SS} checks if the violation is already in the database.
-\item \textit{SS} shows he violation to the user.
-    \item \textit{User} can choose to push either “same” button or “other” button referred to the violation.
-    \item \textit{User} selects “same” button.
-    \item \textit{User} is notified through a notification by SS.
-\end{enumerate}
-\\ \hline
-Exit Condition & \textit{SS} doesn't store the report on its database.\\ \hline
-Exceptions &
-\begin{enumerate}
-\item No photo uploaded.
-    \item Type of violation is missing.
-\end{enumerate}
-\\
-\hline
-\caption{\textit{UC14}}
-\end{longtable}
-\end{center}
+    \newpage
+    \begin{center}
+    \begin{longtable}{| p{.35\linewidth} | p{.65\linewidth} |}
+    \hline
+    \textbf{Name} & \textbf{User reports something that is already stored}\\ \hline
+    Actors & \textit{User}, SafeStreet\\ \hline
+    Entry Conditions & SafeStreet successfully installed and User signed in.\\ \hline
+    Events Flow &
+    \begin{enumerate}
+    \item \textit{User} clicks on “new report” button.
+    \item \textit{User} takes at least one photo of the violation.
+    \item \textit{User} selects the type of the violation and fills the optional note.
+    \item \textit{User} clicks on “confirm \& send” button.
+    \item \textit{ SS} checks if the violation is already in the database.
+    \item \textit{SS} shows he violation to the user.
+        \item \textit{User} can choose to push either “same” button or “other” button referred to the violation.
+        \item \textit{User} selects “same” button.
+        \item \textit{User} is notified through a notification by SS.
+    \end{enumerate}
+    \\ \hline
+    Exit Condition & \textit{SS} doesn't store the report on its database.\\ \hline
+    Exceptions &
+    \begin{enumerate}
+    \item No photo uploaded.
+        \item Type of violation is missing.
+    \end{enumerate}
+    \\
+    \hline
+    \caption[\textit{Use Case 14}]{\textit{UC14}}
+    \end{longtable}
+    \end{center}
 \end{document}

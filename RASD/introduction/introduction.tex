@@ -5,18 +5,24 @@
     \chapter{Introduction}\label{ch:introduction}
     \section{Purpose}\label{sec:purpose}
         \subsection{General Purpose}\label{subsec:general-purpose}
-        The purpose of the Requirement Analysis and Specification Document (RASD) is to give a clear and non-ambiguos analysis of SafeStreet, an application that will be implemented, describing every aspects of it like functional/non-functional requirements, constraints, domain assumptions, providing use cases and scenerios of the external world. Moreover, a more formal analysis of some relevant functions of the system will be provided using Alloy, a declarative specification language for expressing complex structural constraints and behavior in a software system.
-        SafeStreets is a crowd-sourced application that intends to provide users with the possibility to notify authorities when traffic violations occur, and in particular parking violations.
-        \begin{itemize}
-            \item \textbf{Basic Service:}
-            it allows every user to take a picture of a violation with a brief description and send everything, including date,time, position and license plate, to SafeStreet, that will give access to all the information, with different levels of visiblity, to both citizens and police officers. In addition to that, Safestreet will provide the areas with the highest number of violations and a ranking of the vehicles that commit the major number of infractions.
-            \item \textbf{Advanced Function 1:}
-            it allows SafeStreet to cross information about accidents that occur on the territory of the municipality with its own, in order to give useful advices by suggesting possible interventions. This service is possible if, and only if the local municipality shares its data to SafeStreet.
-            \item \textbf{Advanced Function 2:}
-            it allows the municipality to generate traffic tickets from the data stored in SafeStreet, of course that data has to be previously validated by the system, preventing malicious corruptions by offenders. Moreover, having the information about issued tickets, SafeStreet can build statistics and share them among all users.
-        \end{itemize}
+        The purpose of the Requirement Analysis and Specification Document (RASD) is to give a clear and non-ambiguos analysis of SafeStreet,
+        an application that will be implemented, describing every aspects of it like functional/non-functional requirements, constraints,
+        domain assumptions, providing use cases and scenerios of the external world.
+        Moreover, a more formal analysis of some relevant functions of the system will be provided using Alloy,
+        a declarative specification language for expressing complex structural constraints and behavior in a software system.
 
-        \subsection{Goals}\label{subsec:goals}
+        The application will allow every user to take pictures of a violation and send them with the date, time, position,
+        a scan of the license plate and an optional brief description to SafeStreet, that will give access to these information
+        to both citizens and police officers, with different levels of visibility.
+
+        If the municipality provides information about the accidents that occur in its territory, the system will be able to cross these data with its own,
+        to define dangerous areas and suggest possible interventions.
+        One of the objectives of SafeStreets is to help authorities to detect infringements;
+        in order to do that, it will ensure that data will not be tempered, to prevent malicious corruptions by offenders.
+        The authorities that will use SafeStreets to make fines will have the possibility to mark the violation on the system,
+        to both provide a feedback to the citizens and allow SafeStreet to compile statistics.
+
+    \subsection{Goals}\label{subsec:goals}
         SafeStreet is a service provided to people to notify both other people and authorities about traffic violations. There are two different classes of users to whom the software is addressed: standard users and authorities, which have two different ways to interact with the application.
         In order to perform correctly, the software-to-be will have to grant that some services will be guaranteed. Below is given a list of all the goal of the software-to-be:
         \begin{enumerate}
