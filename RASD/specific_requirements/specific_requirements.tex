@@ -79,10 +79,11 @@
     The following is an analysis, for each goal of the system to be, of the requirements R\textsubscript{n} and the domain assumptions D\textsubscript{n} that satisfy the goal itself and of these cases relative to it.
     \begin{enumerate}
         \goal{1} The application will allow users to upload pictures of the traffic violations, including pictures, date, time, classification, and optionally a textual description.
-            \begin{enumerate}
+            \begin{itemize}
                 \requirement{} 1,2,3,4,5,6,9,14,15,16,17,18,19,20,21,26
                 \assumption{} 1,4
-            \end{enumerate}
+                \item Requirements are about the correctness of the report while the domain assumptions are about the gps position and the license plate.
+            \end{itemize}
         \goal{2} The application will allow users to view a map of the violations registered in the last day.
         \goal{3} The application will allow users to see the violations uploaded by other users; however, citizens won’t be able to see sensible pictures, while authorities will be allowed.
         \goal{4} Users will be able to query the system to get all the reported violations that correspond to some temporal, geographical or categorical parameters.
@@ -91,6 +92,31 @@
         \goal{7} If SafeStreets can get the information about accidents by the municipality, it will give the possibility to merge them with its data to suggest possible interventions.
         \goal{8} The system will use the information about violations, accidents and fines that will collect by both users and authorities to build statistics.
     \end{enumerate}
+    \newpage
+    \textbf{Traceability matrix:}
+    %%%%%%%%%
+    \begin{center}
+        \begin{tabular}{ ||c||c|| }
+
+            \hline
+            \textbf{Use case} & \textbf{Requirements}  \\ \hline
+            [\textbf{1}] Citizen signs up & 1,2,4,5,6 \\ \hline
+            [\textbf{2}] Authority signs up & 1,2,3,4,5,6\\ \hline
+            [\textbf{3}] User signs in & 1,5,9\\ \hline
+            [\textbf{4}] User reports a violation & 7,16,17,18,19,20,21,22\\ \hline
+            [\textbf{5}] Feedback by a User & 7,10,11,12,20,23,24\\ \hline
+            [\textbf{6}] Mark a report as “fined” & 7,11,12,17,18,19,20,27\\ \hline
+            [\textbf{7}] Violation query by a user & 7,8,17,18,19,20,28\\ \hline
+            [\textbf{8}] Display violation on the map & 7,8,10,11,12,,17,18,19\\ \hline
+            [\textbf{9}] View unsafe areas & 7,8,11,12,13,29\\ \hline
+            [\textbf{10}] View statistics on crime & 7,8,11,12,20,22\\ \hline
+            [\textbf{11}] View statistics on SS & 7,8,11,12,20,22\\ \hline
+            [\textbf{12}] User edits a report & 7,8,15,16,17,18,19,21\\ \hline
+            [\textbf{13}] User removes a report & 7,8,14,16,17,18,19,21\\ \hline
+            [\textbf{14}] User reports something that is already stored & 7,16,17,18,19,20,21,26\\ \hline
+        \end{tabular}
+    \end{center}
+    %%%%%%%%%
         \section{Performance requirements}\label{sec:performance-requirements}
     The system must be able to serve a great number of users at the same time. It must guarantee that the query of the system by a user will provide the history of the violation in a short time, even with a big amount of report. For every image uploaded for a report, the system must allow a file dimension of at list 5 Mb. In the map representation of the violation, the position of a report must be no more than 10 meters away from the actual position indicated.
     \section{Design constraints}\label{sec:design-constraints}
