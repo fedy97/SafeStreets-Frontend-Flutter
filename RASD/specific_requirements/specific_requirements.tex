@@ -195,13 +195,14 @@
                         \assumption{} 3,5
                         \item Requirements are about the correctness of the reports and capability of SS to build statistics while the domain assumptions are about the consistency of data on accidents.
                     \end{itemize}
+                    \newpage
                     \goal{8} The system will use the information about violations, accidents and fines that will collect by both users and authorities to build statistics.
                     \begin{itemize}
                         \requirement{} 5,6,7,8,17,18,19,23,24,22,27,29
                         \assumption{} 2,5
                         \item Requirements are about the correctness of the reports and capability of SS to build ststistics while the domain assumptions are about consistency of data on accidents.
                     \end{itemize}\end{enumerate}
-                \newpage
+
                 \textbf{Traceability matrix:}
                 %%%%%%%%%
                 \begin{center}
@@ -226,6 +227,7 @@
                     \end{tabular}
                 \end{center}
                 %%%%%%%%%
+    \newpage
         \section{Performance requirements}\label{sec:performance-requirements}
         The system must be able to serve a great number of users at the same time. It must guarantee that the query of the system by a user will provide the history of the violation in a short time, even with a big amount of report. For every image uploaded for a report, the system must allow a file dimension of at list 5 Mb. In the map representation of the violation, the position of a report must be no more than 10 meters away from the actual position indicated.
         \section{Design constraints}\label{sec:design-constraints}
@@ -238,6 +240,7 @@
 
             It will be possible to upload a report only if the device is provided by a camera, since the violation's photographs will must be taken within the context of the application, and will not be possible to upload a saved picture. The GPS will be needed to enable geolocation to automatically set the position of a report or of the violation map.
             \subsection{Any other constraints}\label{subsec:any-other-constraints}
+    \newpage
         \section{Software system attributes}\label{sec:software-system-attributes}
             \subsection{Reliability}\label{subsec:reliability}
             The system must run continuously without interruption. Since the application require to the user to take and send the pictures in real time, the operation of uploading a report is the most critical and is required to work without roll back, because it could be no more possible for the user to retake them. For this situation, the system must also give the possibility to re-upload the same picture taken if something goes wrong while sending them to the server.
