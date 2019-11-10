@@ -139,3 +139,7 @@ fact dossierReportedByExactlyOneUser{
 fact noTwoMapWithSameDay{
 	no disj m1, m2 : DailyMap | m1.day = m2.day
 }
+
+pred show {}
+
+run show for 5 but exactly 1 Citizen, exactly 1 Authority, exactly 0 DailyMap
