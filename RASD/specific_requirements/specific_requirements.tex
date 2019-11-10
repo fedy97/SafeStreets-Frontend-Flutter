@@ -232,28 +232,36 @@
         The system must be able to serve a great number of users at the same time. It must guarantee that the query of the system by a user will provide the history of the violation in a short time, even with a big amount of report. For every image uploaded for a report, the system must allow a file dimension of at list 5 Mb. In the map representation of the violation, the position of a report must be no more than 10 meters away from the actual position indicated.
         \section{Design constraints}\label{sec:design-constraints}
             \subsection{Standard compliance}\label{subsec:standard-compliance}
-            Since the system will show to the user pictures taken by other people, the application refers to the European General Data Protection Regulation (GDPR) as regards the privacy protection. That means that no licence plate will be show to the users if they have not an authority level account.
+            Since the system will show to the user pictures taken by other people, the application refers to the European General Data Protection Regulation (GDPR) as regards the privacy protection. That means that no licence plate will be shown to the users if they have not an authority level account.
             \subsection{Hardware limitations}\label{subsec:hardware-limitations}
             The application works independently of the hardware on which is running. However, the availability of some functionality will be dependent on the device used and its components.
 
             Internet connection will be required to use the application, since all the functionality are based on it.
 
-            It will be possible to upload a report only if the device is provided by a camera, since the violation's photographs will must be taken within the context of the application, and will not be possible to upload a saved picture. The GPS will be needed to enable geolocation to automatically set the position of a report or of the violation map.
+            It will be possible to upload a report only if the device is provided by a camera, since the violation's photos must be taken within the context of the application, and will not be possible to upload a saved picture. The GPS will either set the position of a report to upload or the reports violation map automatically.
     \newpage
         \section{Software system attributes}\label{sec:software-system-attributes}
             \subsection{Reliability}\label{subsec:reliability}
-            The system must run continuously without interruption. Since the application require to the user to take and send the pictures in real time, the operation of uploading a report is the most critical and is required to work without roll back, because it could be no more possible for the user to retake them. For this situation, the system must also give the possibility to re-upload the same picture taken if something goes wrong while sending them to the server.
+            The system must run continuously without interruption. Since the application require the user to take and send the pictures in real time,
+            the operation of uploading a report is the most critical and is required to work without roll back, because it could not be possible for the user to retake them.
+            For this situation, the system must also give the possibility to re-upload the same picture taken if something goes wrong while sending them to the server.
 
-            The system has to guarantee the data integrity as much as possible, for example by duplicating the database used to store violations. If the availability of date couldn’t be provided anyway (for example, because of missing internet connection or server connection error) the application must notify the user throw an alert.
+            The system has to guarantee the data integrity as much as possible, for example by duplicating the database used to store violations.
+            If the availability of date couldn’t be provided anyway (for example, because of missing internet connection or server connection error)
+            the application must notify the user by throwing an alert.
             \subsection{Availability}\label{subsec:availability}
-            Since the application work in real time for the upload of a violation, the system must reduce the unavailability as much as possible. The error management systems described before must be projected to expect SafeStreet to be available 99.5 \% of the time.
-                    \subsection{Security}\label{subsec:security}
-            The data provided by the users to join the application (email, password, and eventually an ID) are sensitive information and must be protected. SafeStreet must never provide that information in any way to any person. To prevent information stealing, an encryption technique must be used while exchanging data with a user. Moreover, all necessary measures to avoid external or internal attacks to the data bases must be taken.
+            Since the application work in real time for the upload of a violation, the system must reduce the unavailability as much as possible.
+            The error management system described before must be protected to expect SafeStreet to be available 99.5 \% of the time.
+            \subsection{Security}\label{subsec:security}
+            The data provided by the users to join the application (email, password, and eventually an ID) are sensitive information and must be protected.
+            SafeStreet must never provide that information in any way to any person. To prevent information stealing, an encryption technique must be used
+            while exchanging data with a user. Moreover, all necessary measures to avoid external or internal attacks to the databases must be taken.
             \subsection{Maintainability}\label{subsec:maintainability}
-            The developing of the application must be such to allow future modification or fixing. The system could be expanded with new features in the future, so the software must be also suitable to new functionalities. To reach those goals, the software must be well commented, readable and use appropriate design patterns.
+            The developing of the application must allow future modification or fixing. The system could be expanded with new features in the future,
+            so the software must be also suitable to new functionalities. To reach those goals, the software must be well commented, readable and use appropriate design patterns.
             \subsection{Portability}\label{subsec:portability}
-            The application main functionality work in real time and outdoors, so it will be required that the application will be able to work on smartphones. Moreover, since it must be used by many different people, it will must be suitable to all the most important mobile operative systems.
-
+            The application main functionality works in real time and outdoors, so the application will be required to work on smartphones.
+            Moreover, since it must be used by many different people, it will must be suitable to all the most important mobile operative systems.
             To be able to reach more people, SafeStreet will have to be compatible to as many devices and technologies as possible.
 
 \end{document}
