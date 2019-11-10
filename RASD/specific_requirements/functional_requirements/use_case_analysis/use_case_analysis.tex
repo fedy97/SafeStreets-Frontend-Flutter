@@ -7,8 +7,8 @@
 
             \hline
             \textbf{Name} & \textbf{Citizen Signs Up}\\ \hline
-            Actors & \textit{Citizen}, SafeStreet\\ \hline
-            Entry Conditions & SafeStreet successfully installed.\\ \hline
+            Actors & \textit{Citizen}, SafeStreets\\ \hline
+            Entry Conditions & SafeStreets successfully installed.\\ \hline
             Events Flow &
             \begin{enumerate}
                 \item \textit{Citizen} taps on sign up button.
@@ -16,7 +16,7 @@
                 \item \textit{Citizen} enters a new password.
                 \item \textit{Citizen} checks the “Accept terms \& conditions” checkbox
                 \item \textit{Citizen} taps on “create account” button.
-                \item SafeStreet stores the submitted values.
+                \item SafeStreets stores the submitted values.
             \end{enumerate}
             \\ \hline
             Exit Condition & \textit{Citizen} successfully signs up.\\ \hline
@@ -40,8 +40,8 @@
 
             \hline
             \textbf{Name} & \textbf{Authority Signs Up}\\ \hline
-            Actors & \textit{Authority}, SafeStreet\\ \hline
-            Entry Conditions & SafeStreet successfully installed.\\ \hline
+            Actors & \textit{Authority}, SafeStreets\\ \hline
+            Entry Conditions & SafeStreets successfully installed.\\ \hline
             Events Flow &
             \begin{enumerate}
                 \item \textit{Authority} taps on sign up button.
@@ -51,7 +51,7 @@
                 \item \textit{Authority} inserts his ID.
                 \item \textit{Authority} checks the “Accept terms \& conditions” checkbox
                 \item \textit{Authority} taps on “create account” button.
-                \item SafeStreet stores the submitted values.
+                \item SafeStreets stores the submitted values.
             \end{enumerate}
             \\ \hline
             Exit Condition & \textit{Authority} successfully signs up.\\ \hline
@@ -74,14 +74,14 @@
         \begin{longtable}{| p{.35\linewidth} | p{.65\linewidth} |}
             \hline
             \textbf{Name} & \textbf{User Signs In}\\ \hline
-            Actors & \textit{User}, SafeStreet\\ \hline
-            Entry Conditions & SafeStreet successfully installed.\\ \hline
+            Actors & \textit{User}, SafeStreets\\ \hline
+            Entry Conditions & SafeStreets successfully installed.\\ \hline
             Events Flow &
             \begin{enumerate}
                 \item \textit{User} enters his email.
                 \item \textit{User} enters a new password.
                 \item \textit{User} taps on “Log In” button.
-                \item SafeStreet checks \textit{User} credentials.
+                \item SafeStreets checks \textit{User} credentials.
             \end{enumerate}
             \\ \hline
             Exit Condition & \textit{User} successfully logged in.\\ \hline
@@ -101,19 +101,19 @@
         \begin{longtable}{| p{.35\linewidth} | p{.65\linewidth} |}
             \hline
             \textbf{Name} & \textbf{User reports a violation}\\ \hline
-            Actors & \textit{Citizen}, SafeStreet\\ \hline
-            Entry Conditions & SafeStreet successfully installed and User signed in.\\ \hline
+            Actors & \textit{Citizen}, SafeStreets\\ \hline
+            Entry Conditions & SafeStreets successfully installed and User signed in.\\ \hline
             Events Flow &
             \begin{enumerate}
                 \item \textit{User} clicks on “new report” button.
                 \item \textit{User} takes at least one photo of the violation.
                 \item \textit{User} selects the type of the violation and fills the optional note.
-                \item \textit{SS} checks if the violation is already in the database.
+                \item \textit{SafeStreets} checks if the violation is already in the database.
                 \item \textit{User} clicks on "confirm \& send" button.
-                \item SafeStreet stores the newly collected violation in its database.
+                \item SafeStreets stores the newly collected violation in its database.
             \end{enumerate}
             \\ \hline
-            Exit Condition & \textit{SS} stores the new report.\\ \hline
+            Exit Condition & \textit{SafeStreets} stores the new report.\\ \hline
             Exceptions &
             \begin{enumerate}
                 \item No photo uploaded.
@@ -130,8 +130,8 @@
         \begin{longtable}{| p{.35\linewidth} | p{.65\linewidth} |}
             \hline
             \textbf{Name} & \textbf{Feedback by a user}\\ \hline
-            Actors & \textit{Citizen}, SafeStreet\\ \hline
-            Entry Conditions & SafeStreet successfully installed and User signed in.\\ \hline
+            Actors & \textit{Citizen}, SafeStreets\\ \hline
+            Entry Conditions & SafeStreets successfully installed and User signed in.\\ \hline
             Events Flow &
             \begin{enumerate}
                 \item \textit{User} navigates to the map.
@@ -140,7 +140,7 @@
                 \item \textit{User} clicks on “confirm \& send” button.
             \end{enumerate}
             \\ \hline
-            Exit Condition & \textit{SS} stores the new feedback.\\ \hline
+            Exit Condition & \textit{SafeStreets} stores the new feedback.\\ \hline
             Exceptions &
             \begin{enumerate}
                 \item none.
@@ -156,18 +156,18 @@
         \begin{longtable}{| p{.35\linewidth} | p{.65\linewidth} |}
             \hline
             \textbf{Name} & \textbf{Mark a report as “fined”}\\ \hline
-            Actors & \textit{Authority}, SafeStreet\\ \hline
-            Entry Conditions & SafeStreet successfully installed and Authority signed in.\\ \hline
+            Actors & \textit{Authority}, SafeStreets\\ \hline
+            Entry Conditions & SafeStreets successfully installed and Authority signed in.\\ \hline
             Events Flow &
             \begin{enumerate}
                 \item \textit{User} signs in as authority.
                 \item \textit{User} opens the violation map.
                 \item \textit{User} clicks on a violation.
                 \item \textit{User} clicks on “mark as fined” button.
-                \item SafeStreet shows a fined flag on the violation’s dossier.
+                \item SafeStreets shows a fined flag on the violation’s dossier.
             \end{enumerate}
             \\ \hline
-            Exit Condition & \textit{SS} marks the violation as fined.\\ \hline
+            Exit Condition & \textit{SafeStreets} marks the violation as fined.\\ \hline
             Exceptions &
             \begin{enumerate}
                 \item The violation was already marked as “fined”.
@@ -183,8 +183,8 @@
         \begin{longtable}{| p{.35\linewidth} | p{.65\linewidth} |}
             \hline
             \textbf{Name} & \textbf{Violation query by a user}\\ \hline
-            Actors & \textit{User}, SafeStreet\\ \hline
-            Entry Conditions & SafeStreet successfully installed and User signed in.\\ \hline
+            Actors & \textit{User}, SafeStreets\\ \hline
+            Entry Conditions & SafeStreets successfully installed and User signed in.\\ \hline
             Events Flow &
             \begin{enumerate}
                 \item \textit{User} opens the query violation page.
@@ -194,7 +194,7 @@
                 \item \textit{User} runs the query.
             \end{enumerate}
             \\ \hline
-            Exit Condition & \textit{SS} show all the violation within the parameters, sorted by date.\\ \hline
+            Exit Condition & \textit{SafeStreets} show all the violation within the parameters, sorted by date.\\ \hline
             Exceptions &
             \begin{enumerate}
                 \item The city chosen doesn’t exist.
@@ -211,8 +211,8 @@
         \begin{longtable}{| p{.35\linewidth} | p{.65\linewidth} |}
             \hline
             \textbf{Name} & \textbf{Display violation on the map}\\ \hline
-            Actors & \textit{User}, SafeStreet\\ \hline
-            Entry Conditions & SafeStreet successfully installed and User signed in.\\ \hline
+            Actors & \textit{User}, SafeStreets\\ \hline
+            Entry Conditions & SafeStreets successfully installed and User signed in.\\ \hline
             Events Flow &
             \begin{enumerate}
                 \item \textit{User} opens the map page.
@@ -223,7 +223,7 @@
                 \item The application will show another page with the images and the type of violation reported
             \end{enumerate}
             \\ \hline
-            Exit Condition & \textit{SS} shows the map with all violations.\\ \hline
+            Exit Condition & \textit{SafeStreets} shows the map with all violations.\\ \hline
             Exceptions &
             \begin{enumerate}
                 \item The city chosen doesn’t exist.
@@ -240,18 +240,18 @@
         \begin{longtable}{| p{.35\linewidth} | p{.65\linewidth} |}
             \hline
             \textbf{Name} & \textbf{View unsafe areas}\\ \hline
-            Actors & \textit{User}, SafeStreet\\ \hline
-            Entry Conditions & SafeStreet successfully installed and User signed in.\\ \hline
+            Actors & \textit{User}, SafeStreets\\ \hline
+            Entry Conditions & SafeStreets successfully installed and User signed in.\\ \hline
             Events Flow &
             \begin{enumerate}
                 \item \textit{User} opens the map page.
                 \item  The application retrieves the user position.
                 \item \textit{User} taps on “view unsafe areas” checkbox.
-                \item  SS query the database and sends back all unsafe areas.
+                \item  SafeStreets query the database and sends back all unsafe areas.
                 \item The map displays with a colour the most dangerous areas near the user.
             \end{enumerate}
             \\ \hline
-            Exit Condition & \textit{SS} displays on the map the unsafe areas.\\ \hline
+            Exit Condition & \textit{SafeStreets} displays on the map the unsafe areas.\\ \hline
             Exceptions &
             \begin{enumerate}
                 \item No unsafe areas found.
@@ -267,17 +267,17 @@
         \begin{longtable}{| p{.35\linewidth} | p{.65\linewidth} |}
             \hline
             \textbf{Name} & \textbf{View statistics on crime}\\ \hline
-            Actors & \textit{User}, SafeStreet\\ \hline
-            Entry Conditions & SafeStreet successfully installed and User signed in.\\ \hline
+            Actors & \textit{User}, SafeStreets\\ \hline
+            Entry Conditions & SafeStreets successfully installed and User signed in.\\ \hline
             Events Flow &
             \begin{enumerate}
                 \item \textit{User} opens the map page.
                 \item \textit{User} pushes button crimes.
                 \item \textit{User} selects search filters: area of the map or type of crime.
-                \item  SS shows the most committed violations in selected area or the “unsafe area” for selected crime.
+                \item  SafeStreets shows the most committed violations in selected area or the “unsafe area” for selected crime.
             \end{enumerate}
             \\ \hline
-            Exit Condition & \textit{SS} displays searching results.\\ \hline
+            Exit Condition & \textit{SafeStreets} displays searching results.\\ \hline
             Exceptions &
             \begin{enumerate}
                 \item No violations found for chosen one.
@@ -293,17 +293,17 @@
     \begin{center}
         \begin{longtable}{| p{.35\linewidth} | p{.65\linewidth} |}
             \hline
-            \textbf{Name} & \textbf{View statistics on SS}\\ \hline
-            Actors & \textit{User}, SafeStreet\\ \hline
-            Entry Conditions & SafeStreet successfully installed and User signed in.\\ \hline
+            \textbf{Name} & \textbf{View statistics on SafeStreets}\\ \hline
+            Actors & \textit{User}, SafeStreets\\ \hline
+            Entry Conditions & SafeStreets successfully installed and User signed in.\\ \hline
             Events Flow &
             \begin{enumerate}
                 \item \textit{User} opens the statistic page.
-                \item \textit{User} selects effectiveness button of SS.
+                \item \textit{User} selects effectiveness button of SafeStreets.
                 \item  Display shows the number of violations and the number of violations marked as “fined”.
             \end{enumerate}
             \\ \hline
-            Exit Condition & \textit{SS} displays searched data.\\ \hline
+            Exit Condition & \textit{SafeStreets} displays searched data.\\ \hline
             Exceptions &
             \begin{enumerate}
                 \item No violations found for chosen one.
@@ -320,8 +320,8 @@
         \begin{longtable}{| p{.35\linewidth} | p{.65\linewidth} |}
             \hline
             \textbf{Name} & \textbf{User edits a report}\\ \hline
-            Actors & \textit{User}, SafeStreet\\ \hline
-            Entry Conditions & SafeStreet successfully installed and User signed in.\\ \hline
+            Actors & \textit{User}, SafeStreets\\ \hline
+            Entry Conditions & SafeStreets successfully installed and User signed in.\\ \hline
             Events Flow &
             \begin{enumerate}
                 \item \textit{User} opens the report history page.
@@ -331,7 +331,7 @@
                 \item \textit{user} presses on confirm button to confirm the changes.
             \end{enumerate}
             \\ \hline
-            Exit Condition & \textit{SS} stores the new edit report.\\ \hline
+            Exit Condition & \textit{SafeStreets} stores the new edit report.\\ \hline
             Exceptions &
             \begin{enumerate}
                 \item User doesn’t select a type of violations.
@@ -349,8 +349,8 @@
     \begin{longtable}{| p{.35\linewidth} | p{.65\linewidth} |}
     \hline
     \textbf{Name} & \textbf{User removes a report}\\ \hline
-    Actors & \textit{User}, SafeStreet\\ \hline
-    Entry Conditions & SafeStreet successfully installed and User signed in.\\ \hline
+    Actors & \textit{User}, SafeStreets\\ \hline
+    Entry Conditions & SafeStreets successfully installed and User signed in.\\ \hline
     Events Flow &
     \begin{enumerate}
     \item \textit{User} opens the report history page.
@@ -360,7 +360,7 @@
     \item \textit{user} presses on remove button to confirm the changes.
     \end{enumerate}
     \\ \hline
-    Exit Condition & \textit{SS} deletes the selected report from its database.\\ \hline
+    Exit Condition & \textit{SafeStreets} deletes the selected report from its database.\\ \hline
     Exceptions &
     \begin{enumerate}
     \item none.
@@ -376,22 +376,22 @@
     \begin{longtable}{| p{.35\linewidth} | p{.65\linewidth} |}
     \hline
     \textbf{Name} & \textbf{User reports something that is already stored}\\ \hline
-    Actors & \textit{User}, SafeStreet\\ \hline
-    Entry Conditions & SafeStreet successfully installed and User signed in.\\ \hline
+    Actors & \textit{User}, SafeStreets\\ \hline
+    Entry Conditions & SafeStreets successfully installed and User signed in.\\ \hline
     Events Flow &
     \begin{enumerate}
     \item \textit{User} clicks on “new report” button.
     \item \textit{User} takes at least one photo of the violation.
     \item \textit{User} selects the type of the violation and fills the optional note.
     \item \textit{User} clicks on “confirm \& send” button.
-    \item \textit{ SS} checks if the violation is already in the database.
-    \item \textit{SS} shows he violation to the user.
+    \item \textit{ SafeStreets} checks if the violation is already in the database.
+    \item \textit{SafeStreets} shows he violation to the user.
         \item \textit{User} can choose to push either “same” button or “other” button referred to the violation.
         \item \textit{User} selects “same” button.
-        \item \textit{User} is notified through a notification by SS.
+        \item \textit{User} is notified through a notification by SafeStreets.
     \end{enumerate}
     \\ \hline
-    Exit Condition & \textit{SS} doesn't store the report on its database.\\ \hline
+    Exit Condition & \textit{SafeStreets} doesn't store the report on its database.\\ \hline
     Exceptions &
     \begin{enumerate}
     \item No photo uploaded.
