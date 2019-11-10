@@ -11,22 +11,28 @@
         \includegraphics[scale = 1.1]{assets/domainModel.png}\\[1.6 cm]
         \caption[Domain Model \textit{Class Diagram}]{Domain Model \textit{Class Diagram}}
     \end{figure}
-    Generic violation report:
+    \textbf{Generic violation report:}
 
-    To understand the main events happening in the system, it is useful to use statechart diagrams (described in the figure below). At the beginning each report (i.e. when a user uploads an image) is considered as unprocessed. While the constraints are checked (there must be at least one photo, the type of violation, the position, if it’s a car violation the license plate is mandatory too as a picture), the report is on a pending state and can become either rejected or approved.
+    To understand the main events happening in the system, it is useful to use statechart diagrams (described in the figure below).
+    At the beginning each report (i.e. when a user uploads an image) is considered as unprocessed.
+    While the constraints are checked (there must be at least one photo, the type of violation, the position,
+    if it’s a car violation the license plate is mandatory too as a picture), the report is on a pending state and can become either rejected or approved.
+    Then SafeStreets checks if the report is already present in the database but the final choice is done by the user: user can choose to add or not the new report.
+    In the end, it’s considered completed and the user is notified with the outcome.
+    If it’s been approved, the report is kept in the database.
 
-    Then SafeStreets checks if the report is already present in the database but the final choice is done by the user: user can choice to add or not the new report.
-
-    In the end, it’s considered completed and the user is notified with the outcome. If it’s been approved, the report is kept in the database.
     \begin{figure}[H]
         \centering
         \includegraphics[scale = 0.3]{assets/newReportV2.png}\\[1.6 cm]
         \caption[ New report \textit{State Chart Diagram}]{ New report \textit{State Chart Diagram}}
     \end{figure}
 
-    Query to database:
+    \textbf{Query to database:}
 
-    In case there is a query for get information about one selected violation, it can be made by a citizen or by an authority and this establishes different results showed by the system: in the former case SafeStreets returns information and photos about selected violation but doesn’t show photos about license plate for privacy reason (system must guarantee anonymity) instead in the latter case SafeStreets returns all the photos and other information about violation so authority can use them to generate traffic tickets.
+    In case there is a query for get information about one selected violation, it can be made by a citizen or by an authority and this establishes
+    different results showed by the system: in the former case SafeStreets returns information and photos about selected violation
+    but doesn’t show photos about license plates for privacy reason (system must guarantee anonymity) instead in the latter case
+    SafeStreets returns all the photos and other information about violation so authority can use them to generate traffic tickets.
 
     \begin{figure}[H]
         \centering
@@ -35,15 +41,14 @@
     \end{figure}
 
 
-    Build statistics:
+    \textbf{Build statistics:}
 
-    When one authority uses a violation taken from SafeStreets and then he generates a traffic ticket form it, he marks the violation as fined.
-
-    The system periodically builds statistics analyzing the usage of violation by the authority (marked fined or not ) to show the effectiveness of the application.
-
-    Furthermore, SafeStreets can access to a db of the authority in which they upload data on incidents so
-
-    it can also analyzes, querying the databases, the different type of the violation and incidents and the vehicles involved. These information are both used to build statistics and to find unsafe area(also using data about accidents), in the last case system provide a suggestion for the problem.
+    When one authority uses a violation taken from SafeStreets and then he generates a traffic ticket from it, he marks the violation as fined.
+    The system periodically builds statistics analyzing the usage of violation by the authority (marked fined or not) to show the effectiveness of the application.
+    Furthermore, SafeStreets can access to a database of the authorities in which they upload data on incidents so
+    it can also analyze, querying the databases, the different type of the violation and incidents and the vehicles involved.
+    These information are both used to build statistics and to find unsafe area(also using data about accidents),
+    in the last case system provide a suggestion for the problem.
 
     \begin{figure}[H]
         \centering
