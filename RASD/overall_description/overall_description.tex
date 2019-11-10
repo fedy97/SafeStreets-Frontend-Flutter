@@ -5,10 +5,12 @@
     \chapter{Overall description}\label{ch:overall-description}
     \section{Product perspective}\label{sec:product-perspective}
     In the previous section, the scope of the application was delimited and explained in a shallow way, but at this point it is useful to include further details on the shared phenomena and a domain model as a visual representation of the system.
-    \begin{center}
-        \includegraphics[scale = 0.85]{assets/domainModel.png}\\[1.6 cm]
-    \end{center}
 
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale = 1.1]{assets/domainModel.png}\\[1.6 cm]
+        \caption[ \textit{Domain model}]{ \textit{domain model}}
+    \end{figure}
     Generic violation report:
 
     To understand the main events happening in the system, it is useful to use statechart diagrams (described in the figure below). At the beginning each report (i.e. when a user uploads an image) is considered as unprocessed. While the constraints are checked (there must be at least one photo, the type of violation, the position, if it’s a car violation the license plate is mandatory too as a picture), the report is on a pending state and can become either rejected or approved.
@@ -16,17 +18,22 @@
     Then SS checks if the report is already present in the database but the final choice is done by the user: user can choice to add or not the new report.
 
     In the end, it’s considered completed and the user is notified with the outcome. If it’s been approved, the report is kept in the database.
-    \begin{center}
-        \includegraphics[scale = 0.3]{assets/newReportV2.png}\\
-    \end{center}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale = 0.3]{assets/newReportV2.png}\\[1.6 cm]
+        \caption[ New report \textit{state diagram}]{ New report \textit{state chart}}
+    \end{figure}
 
     Query to database:
 
     In case there is a query for get information about one selected violation, it can be made by a citizen or by an authority and this establishes different results showed by the system: in the former case SafeStreets returns information and photos about selected violation but doesn’t show photos about license plate for privacy reason (system must guarantee anonymity) instead in the latter case SafeStreets returns all the photos and other information about violation so authority can use them to generate traffic tickets.
 
-    \begin{center}
-        \includegraphics[scale = 0.3]{assets/queryDbV1.png}\\
-    \end{center}
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale = 0.3]{assets/queryDbV1.png}\\[1.6 cm]
+        \caption[ Query to database \textit{state diagram}]{ Query to database \textit{state chart}}
+    \end{figure}
+
 
     Build statistics:
 
@@ -37,9 +44,13 @@
     Furthermore, SS can access to a db of the authority in which they upload datas on incidents so
 
     it can also analyzes, querying the databases, the different type of the violation and incidents and the vehicles involved. This informations are both used to build statistics and to find unsafe area(also using data about accidents), in the last case system provide a suggestion for the problem.
-    \begin{center}
-        \includegraphics[scale = 2.0]{assets/buildStatistics.png}\\
-    \end{center}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale = 2.0]{assets/buildStatistics.png}\\[1.6 cm]
+        \caption[ Build statistics \textit{state diagram}]{ Build statistics \textit{state chart}}
+    \end{figure}
+
     \section{Product functions}\label{sec:product-functions}
     In the following we will present the main aspects and functions of the system, to put in evidence the most important requirements that will be formalized in chapter 3.
     \subsection{Citizens functions}\label{subsec:citizen-functions}
