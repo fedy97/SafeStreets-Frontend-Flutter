@@ -18,6 +18,7 @@ abstract class User extends ChangeNotifier {
     this._uid = uid;
     this._level = level;
     myReports = new List();
+    _location = new Location(0.0, 0.0);
   }
 
   Level get level => _level;

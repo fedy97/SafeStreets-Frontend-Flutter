@@ -68,10 +68,11 @@ class HomePage extends StatelessWidget {
         body: Center(
           child: GoogleMap(
             myLocationEnabled: false,
-            initialCameraPosition: CameraPosition(target: LatLng(0.0, 0.0)),
+            initialCameraPosition: CameraPosition(target: LatLng(u.location.lat, u.location.long),zoom: 15.0),
             onMapCreated: (controller) {
               mapController = controller;
             },
+
           ),
         ));
   }
