@@ -62,7 +62,7 @@ class CreateReportPage extends StatelessWidget {
                         source: ImageSource.camera, imageQuality: 50);
                     //check if I actually took the photo or I pressed "back"
                     if (f != null) {
-                      if (reportToSend.images.length == 0) _getPosition(u);
+                      if (reportToSend.images.length == 0) await _getPosition(u);
                       Map m = await _recognizePlate(f);
                       ViolationImage vi = new ViolationImage(
                           imageFile: f,
@@ -86,10 +86,16 @@ class CreateReportPage extends StatelessWidget {
                 if (reportToSend.images.length > 0) {
                   final storage = Provider.of<FirebaseStorageService>(context);
                   //upload images to storage
-                  reportToSend.downloadUrlImages = await storage.uploadImages(images: reportToSend.images, mail: u.email, timestamp: reportToSend.time.millisecondsSinceEpoch);
-                  var rightTuple = Firestore.instance.collection("users").document(u.email);
+                  reportToSend.downloadUrlImages = await storage.uploadImages(
+                      images: reportToSend.images,
+                      mail: u.email,
+                      timestamp: reportToSend.time.millisecondsSinceEpoch);
+                  var rightTuple =
+                      Firestore.instance.collection("users").document(u.email);
                   //upload model in map form to the database, passing links to images just produced
-                  await rightTuple.updateData({'reportSent' : FieldValue.arrayUnion([reportToSend.toMap()])});
+                  await rightTuple.updateData({
+                    'reportSent': FieldValue.arrayUnion([reportToSend.toMap()])
+                  });
                   //delete temp images from device storage
                   await reportToSend.removeAllImages();
                   //add report to user reports
@@ -97,6 +103,10 @@ class CreateReportPage extends StatelessWidget {
                   //reset currReport
                   u.currReport = null;
                   Navigator.pop(context);
+                } else {
+                  final snackBar =
+                      SnackBar(content: Text("send at least one image"));
+                  _scaffoldKey.currentState.showSnackBar(snackBar);
                 }
               },
             )
@@ -106,15 +116,13 @@ class CreateReportPage extends StatelessWidget {
     );
   }
 
-  void _getPosition(User user) async {
-    geoLocator
-        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
-        .then((Position currentPos) {
-      Location l = new Location(currentPos.longitude, currentPos.latitude);
-      user.setLocationToReport(reportToSend: user.currReport, location: l);
-      //here I notify listeners
-      user.setLocation(l);
-    }).catchError((error) => print(error));
+  Future _getPosition(User user) async {
+    Position currentPos = await geoLocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.best);
+    Location l = new Location(currentPos.longitude, currentPos.latitude);
+    user.setLocationToReport(reportToSend: user.currReport, location: l);
+    //here I notify listeners
+    user.setLocation(l);
   }
 
   Future<Map<String, double>> _recognizePlate(File f) async {
