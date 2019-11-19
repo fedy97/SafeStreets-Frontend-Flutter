@@ -1,0 +1,35 @@
+{
+  processing_time: 201.879,
+  results: [
+    {
+      box: {
+        ymin: 104,
+        xmin: 58,
+        ymax: 437,
+        xmax: 726
+      },
+      plate: bg122sn,
+      vehicle: {
+        type: Car
+      },
+      score: 0.9,
+      candidates: [
+        {
+          score: 0.9,
+          plate: bg122sn
+        },
+        {
+          score: 0.778,
+          plate: bgi22sn
+        }
+      ],
+      dscore: 0.574
+    }
+  ],
+  filename: 22_37_bscaled_eab8f382-c0a8-47a1-b7d4-c2bcd1bbda641067249838468634382.jpg,
+  version: 1,
+  camera_id: null,
+  timestamp: 2019-11-17T22
+  :
+  37: 06.100869Z
+}
