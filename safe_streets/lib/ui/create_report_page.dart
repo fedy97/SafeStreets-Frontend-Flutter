@@ -31,9 +31,6 @@ class CreateReportPage extends StatelessWidget {
         child: Column(
           children: <Widget>[
             Text(u.location.address == null ? "" : u.location.address),
-            Text((reportToSend == null || reportToSend.images.length == 0)
-                ? ""
-                : reportToSend.images.last.plate),
             TextField(
               onChanged: (currDescription) =>
                   u.addNoteToReport(currDescription),

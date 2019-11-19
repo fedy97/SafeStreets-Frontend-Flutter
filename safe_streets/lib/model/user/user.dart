@@ -47,7 +47,7 @@ abstract class User extends ChangeNotifier {
 
   ReportToSend initReport() {
     if (currReport == null) {
-      currReport = new ReportToSend(time: DateTime.now(), emailUser: _email, violation: Violation.values.first);
+      currReport = new ReportToSend(images: List<ViolationImage>(),time: DateTime.now(), emailUser: _email, violation: Violation.values.first);
       return currReport;
     }
     return currReport;

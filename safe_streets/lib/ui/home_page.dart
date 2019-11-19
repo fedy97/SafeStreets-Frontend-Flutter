@@ -72,7 +72,7 @@ class HomePage extends StatelessWidget {
             onMapCreated: (controller) {
               mapController = controller;
             },
-            markers: Set<Marker>.of(u.toMarker().values),
+            //markers: Set<Marker>.of(u.toMarker().values),
           ),
         ));
   }

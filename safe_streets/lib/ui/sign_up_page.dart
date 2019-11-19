@@ -73,7 +73,7 @@ class SignUpPage extends StatelessWidget {
     return {
       'level': idAuthority == "" ? 'standard' : 'complete',
       'idAuthority': idAuthority != "" ? idAuthority : null,
-      'ReportToSend': []
+      'reportSent': []
     };
   }
 }

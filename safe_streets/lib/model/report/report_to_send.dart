@@ -4,7 +4,7 @@ import 'package:safe_streets/model/report/violation_image.dart';
 class ReportToSend extends Report {
 
   ReportToSend({reportPosition, time, violation, images, emailUser})
-      : super(time: time, emailUser: emailUser, violation: violation);
+      : super(reportPosition: reportPosition, images: images, time: time, emailUser: emailUser, violation: violation);
 
   void addImage(ViolationImage image) {
     if (this.images.length < 5) this.images.add(image);

@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:safe_streets/model/report/report_to_get.dart';
 import 'package:safe_streets/ui/home_page.dart';
 import 'package:safe_streets/ui/sign_in_page.dart';
-import 'package:safe_streets/model/report/report_to_get.dart';
 
 import 'model/user/authority.dart';
 import 'model/user/citizen.dart';
@@ -41,9 +41,10 @@ class _AuthManagerState extends State<AuthManager> {
                 while (iter.moveNext()) {
                   List list = iter.current.data['reportSent'];
                   int i = 0;
-                  while (i < list.length) {
-                    u.reportsGet.add(ReportToGet.fromMap(Map<String, dynamic>.from(list[i++]), u.email));}
-                    }
+                  while (i < list.length)
+                    u.reportsGet.add(ReportToGet.fromMap(
+                        Map<String, dynamic>.from(list[i++]), u.email));
+                }
               });
             });
           });

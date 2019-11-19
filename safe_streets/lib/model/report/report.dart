@@ -7,7 +7,7 @@ abstract class Report {
   DateTime time;
   String note = "";
   int feedback = 0;
-  Location reportPosition;
+  Location reportPosition = new Location(0.0, 0.0);
   Violation violation;
   List<ViolationImage> images = new List();
   String emailUser;
