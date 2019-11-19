@@ -62,7 +62,8 @@ class CreateReportPage extends StatelessWidget {
                         source: ImageSource.camera, imageQuality: 50);
                     //check if I actually took the photo or I pressed "back"
                     if (f != null) {
-                      if (reportToSend.images.length == 0) await _getPosition(u);
+                      if (reportToSend.images.length == 0)
+                        await _getPosition(u);
                       Map m = await _recognizePlate(f);
                       ViolationImage vi = new ViolationImage(
                           imageFile: f,
@@ -86,10 +87,12 @@ class CreateReportPage extends StatelessWidget {
                 if (reportToSend.images.length > 0) {
                   final storage = Provider.of<FirebaseStorageService>(context);
                   //upload images to storage
-                  reportToSend.downloadUrlImages = await storage.uploadImages(
-                      images: reportToSend.images,
-                      mail: u.email,
-                      timestamp: reportToSend.time.millisecondsSinceEpoch);
+                  for (ViolationImage image in reportToSend.images) {
+                    image.downloadLink = await storage.uploadImages(
+                        image: image,
+                        mail: u.email,
+                        timestamp: reportToSend.time.millisecondsSinceEpoch);
+                  }
                   var rightTuple =
                       Firestore.instance.collection("users").document(u.email);
                   //upload model in map form to the database, passing links to images just produced

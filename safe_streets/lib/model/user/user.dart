@@ -1,15 +1,18 @@
 import 'package:flutter/cupertino.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:safe_streets/model/enum/level.dart';
 import 'package:safe_streets/model/enum/violation.dart';
 import 'package:safe_streets/model/location.dart';
 import 'package:safe_streets/model/report/report_to_send.dart';
 import 'package:safe_streets/model/report/violation_image.dart';
+import 'package:safe_streets/model/report/report_to_get.dart';
 
 abstract class User extends ChangeNotifier {
   String _email;
   String _uid;
   Level _level;
   List<ReportToSend> myReports;
+  List<ReportToGet> _reportsGet;
   Location _location;
   ReportToSend currReport;
 
@@ -18,6 +21,7 @@ abstract class User extends ChangeNotifier {
     this._uid = uid;
     this._level = level;
     myReports = new List();
+    _reportsGet = new List();
     _location = new Location(0.0, 0.0);
   }
 
@@ -30,6 +34,8 @@ abstract class User extends ChangeNotifier {
   bool isAuthority() {
     return level.toString() == "standard" ? false : true;
   }
+
+  List<ReportToGet> get reportsGet => _reportsGet;
 
   void setLocation(Location value) async {
     _location = value;
@@ -75,5 +81,16 @@ abstract class User extends ChangeNotifier {
   void addReportToList(ReportToSend reportToSend){
     myReports.add(reportToSend);
     notifyListeners();
+  }
+
+  Map<MarkerId, Marker> toMarker(){
+    Map<MarkerId, Marker> map = Map();
+    MarkerId markerId;
+    var iter = _reportsGet.iterator;
+    while (iter.moveNext()){
+      markerId = MarkerId(iter.current.time.millisecondsSinceEpoch.toString());
+      map.putIfAbsent(markerId, () => Marker(markerId: markerId, position: LatLng(iter.current.reportPosition.lat, iter.current.reportPosition.long)));
+    }
+    return map;
   }
 }

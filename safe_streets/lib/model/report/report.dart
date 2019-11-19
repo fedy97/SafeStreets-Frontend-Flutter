@@ -11,6 +11,7 @@ abstract class Report {
   Violation violation;
   List<ViolationImage> images = new List();
   String emailUser;
+  Map<String, dynamic> imagesLite = new Map();
 
-  Report({@required this.time, @required this.emailUser, this.violation});
+  Report({@required this.time, @required this.emailUser, this.violation, this.note, this.feedback, this.reportPosition, this.images, this.imagesLite});
 }

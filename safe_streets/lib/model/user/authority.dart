@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:safe_streets/model/enum/level.dart';
 import 'package:safe_streets/model/user/user.dart';
 

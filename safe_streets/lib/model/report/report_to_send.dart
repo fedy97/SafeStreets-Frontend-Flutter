@@ -2,7 +2,6 @@ import 'package:safe_streets/model/report/report.dart';
 import 'package:safe_streets/model/report/violation_image.dart';
 
 class ReportToSend extends Report {
-  List<String> downloadUrlImages = new List();
 
   ReportToSend({reportPosition, time, violation, images, emailUser})
       : super(time: time, emailUser: emailUser, violation: violation);
@@ -24,16 +23,18 @@ class ReportToSend extends Report {
   }
 
   Map<String, dynamic> toMap() {
+    List<String> downloadLinks = new List();
     List<String> plates = new List();
     List<String> accuracyList = new List();
     for (ViolationImage image in images) {
+      downloadLinks.add(image.downloadLink);
       accuracyList.add(image.accuracy.toString());
       plates.add(image.plate);
     }
     return {
       'note': note,
       'images': {
-        'links': downloadUrlImages,
+        'links': downloadLinks,
         'plates': plates,
         'accuracy': accuracyList
       },
@@ -44,5 +45,4 @@ class ReportToSend extends Report {
     };
   }
 
-  //TODO "from map" constructor, when receiving a map from firebase, $this instance must be created
 }
