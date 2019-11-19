@@ -71,4 +71,8 @@ abstract class User extends ChangeNotifier {
     myReports.removeLast();
     notifyListeners();
   }
+  void addReportToList(ReportToSend reportToSend){
+    myReports.add(reportToSend);
+    notifyListeners();
+  }
 }

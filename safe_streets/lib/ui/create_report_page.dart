@@ -92,6 +92,8 @@ class CreateReportPage extends StatelessWidget {
                   await rightTuple.updateData({'reportSent' : FieldValue.arrayUnion([reportToSend.toMap()])});
                   //delete temp images from device storage
                   await reportToSend.removeAllImages();
+                  //add report to user reports
+                  u.addReportToList(reportToSend);
                   //reset currReport
                   u.currReport = null;
                   Navigator.pop(context);
