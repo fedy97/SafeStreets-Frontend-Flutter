@@ -1,5 +1,8 @@
+// ignore: implementation_imports
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:safe_streets/model/enum/level.dart';
 import 'package:safe_streets/model/user/user.dart';
+import 'package:safe_streets/ui/view_report_authority_page.dart';
 
 class Authority extends User {
   String idAuthority;
@@ -7,5 +10,10 @@ class Authority extends User {
   Authority(String email, String uid, String idAuthority) :
     this.idAuthority = idAuthority,
     super(email, uid, Level.complete);
+
+  @override
+  Widget viewReportPage() {
+    return ViewReportAuthority();
+  }
 
 }

@@ -9,15 +9,13 @@ import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:safe_streets/model/enum/violation.dart';
-import 'package:safe_streets/model/location.dart';
 import 'package:safe_streets/model/report/report_to_send.dart';
 import 'package:safe_streets/model/report/violation_image.dart';
 import 'package:safe_streets/model/user/user.dart';
 import 'package:safe_streets/services/firebase_storage_service.dart';
 
 class CreateReportPage extends StatelessWidget {
-  final Geolocator geoLocator = Geolocator()
-    ..forceAndroidLocationManager;
+  final Geolocator geoLocator = Geolocator()..forceAndroidLocationManager;
   static final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -25,116 +23,123 @@ class CreateReportPage extends StatelessWidget {
     User u = Provider.of<User>(context, listen: true);
     final violations = Violation.values;
     ReportToSend reportToSend = u.initReport();
-    return WillPopScope(child: Scaffold(
-      key: _scaffoldKey,
-      appBar: AppBar(),
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            Text(u.location.address == null ? "" : u.location.address),
-            TextField(
-              onChanged: (currDescription) =>
-                  u.addNoteToReport(currDescription),
-              decoration: InputDecoration(hintText: "brief description"),
-            ),
-            DropdownButton<String>(
-              hint: Text("choose a violation"),
-              icon: Icon(Icons.drive_eta),
-              value: reportToSend.violation.toString(),
-              items: (violations).map((Violation value) {
-                return new DropdownMenuItem<String>(
-                  value: value.toString(),
-                  child: new Text(value.toString()),
-                );
-              }).toList(),
-              onChanged: (String newViolation) {
-                u.setViolationToReport(
-                    reportToSend: reportToSend, newViolation: newViolation);
-              },
-            ),
-            IconButton(
-                icon: Icon(Icons.camera_alt),
-                onPressed: () async {
-                  if (reportToSend.images.length < 5) {
-                    File f = await ImagePicker.pickImage(
-                        source: ImageSource.camera, imageQuality: 50);
-                    //check if I actually took the photo or I pressed "back"
-                    if (f != null) {
-                      if (reportToSend.images.length == 0)
-                        await u.getPosition();
-                      Map m = await _recognizePlate(f);
-                      ViolationImage vi = new ViolationImage(
-                          imageFile: f,
-                          plate: m.keys.first,
-                          accuracy: m.values.first);
-                      //this will rebuild gui , because it calls notify listeners
-                      u.addImageToReport(image: vi, reportToSend: reportToSend);
+    return WillPopScope(
+        child: Scaffold(
+          key: _scaffoldKey,
+          appBar: AppBar(
+            title: Text("Create Report"),
+            actions: <Widget>[
+              IconButton(
+                  icon: Icon(Icons.camera_alt),
+                  onPressed: () async {
+                    if (reportToSend.images.length < 5) {
+                      File f = await ImagePicker.pickImage(
+                          source: ImageSource.camera, imageQuality: 50);
+                      //check if I actually took the photo or I pressed "back"
+                      if (f != null) {
+                        if (reportToSend.images.length == 0)
+                          await u.getPosition();
+                        Map m = await _recognizePlate(f);
+                        ViolationImage vi = new ViolationImage(
+                            imageFile: f,
+                            plate: m.keys.first,
+                            accuracy: m.values.first);
+                        //this will rebuild gui , because it calls notify listeners
+                        u.addImageToReport(
+                            image: vi, reportToSend: reportToSend);
+                      }
                     }
-                  }
-                }),
-            Expanded(
-              child: ListView.builder(
-                  itemCount: reportToSend.images.length,
-                  itemBuilder: (context, int) {
-                    return Image.file(reportToSend.images[int].imageFile);
                   }),
+              IconButton(
+                  icon: Icon(Icons.send),
+                  onPressed: () async {
+                    if (reportToSend.images.length > 0) {
+                      final storage =
+                          Provider.of<FirebaseStorageService>(context);
+                      //upload images to storage
+                      for (ViolationImage image in reportToSend.images) {
+                        image.downloadLink = await storage.uploadImages(
+                            image: image,
+                            mail: u.email,
+                            timestamp:
+                                reportToSend.time.millisecondsSinceEpoch);
+                      }
+                      var rightTuple = Firestore.instance
+                          .collection("users")
+                          .document(u.email);
+                      //upload model in map form to the database, passing links to images just produced
+                      await rightTuple.updateData({
+                        'reportSent':
+                            FieldValue.arrayUnion([reportToSend.toMap()])
+                      });
+                      //delete temp images from device storage
+                      await reportToSend.removeAllImages();
+                      //add report to user reports
+                      u.addReportToList(reportToSend);
+                      //reset currReport
+                      u.currReport = null;
+                      //re fetch  documents that changed
+                      await u.getAllReports();
+                      Navigator.pop(context);
+                      Navigator.pop(context);
+                    } else {
+                      final snackBar =
+                          SnackBar(content: Text("send at least one image"));
+                      _scaffoldKey.currentState.showSnackBar(snackBar);
+                    }
+                  })
+            ],
+          ),
+          body: Center(
+            child: Column(
+              children: <Widget>[
+                Text(u.location.address == null ? "" : u.location.address),
+                TextField(
+                  onChanged: (currDescription) =>
+                      u.addNoteToReport(currDescription),
+                  decoration: InputDecoration(hintText: "brief description"),
+                ),
+                DropdownButton<String>(
+                  hint: Text("choose a violation"),
+                  icon: Icon(Icons.drive_eta),
+                  value: reportToSend.violation.toString(),
+                  items: (violations).map((Violation value) {
+                    return new DropdownMenuItem<String>(
+                      value: value.toString(),
+                      child: new Text(value.toString()),
+                    );
+                  }).toList(),
+                  onChanged: (String newViolation) {
+                    u.setViolationToReport(
+                        reportToSend: reportToSend, newViolation: newViolation);
+                  },
+                ),
+                Expanded(
+                  child: ListView.builder(
+                      itemCount: reportToSend.images.length,
+                      itemBuilder: (context, int) {
+                        return Image.file(reportToSend.images[int].imageFile);
+                      }),
+                ),
+              ],
             ),
-            RaisedButton(
-              child: Text("Send"),
-              onPressed: () async {
-                if (reportToSend.images.length > 0) {
-                  final storage = Provider.of<FirebaseStorageService>(context);
-                  //upload images to storage
-                  for (ViolationImage image in reportToSend.images) {
-                    image.downloadLink = await storage.uploadImages(
-                        image: image,
-                        mail: u.email,
-                        timestamp: reportToSend.time.millisecondsSinceEpoch);
-                  }
-                  var rightTuple =
-                  Firestore.instance.collection("users").document(u.email);
-                  //upload model in map form to the database, passing links to images just produced
-                  await rightTuple.updateData({
-                    'reportSent': FieldValue.arrayUnion([reportToSend.toMap()])
-                  });
-                  //delete temp images from device storage
-                  await reportToSend.removeAllImages();
-                  //add report to user reports
-                  u.addReportToList(reportToSend);
-                  //reset currReport
-                  u.currReport = null;
-                  //re fetch  documents that changed
-                  await u.getAllReports();
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                } else {
-                  final snackBar =
-                  SnackBar(content: Text("send at least one image"));
-                  _scaffoldKey.currentState.showSnackBar(snackBar);
-                }
-              },
-            )
-          ],
+          ),
         ),
-      ),
-    ), onWillPop: () {
-      reportToSend.removeAllImages();
-      u.currReport = null;
-      Navigator.pop(context);
-      Navigator.pop(context);
-      return Future(() => false);
-    });
+        onWillPop: () {
+          reportToSend.removeAllImages();
+          u.currReport = null;
+          Navigator.pop(context);
+          Navigator.pop(context);
+          return Future(() => false);
+        });
   }
-
 
   Future<Map<String, double>> _recognizePlate(File f) async {
     String token = "af4446d6d28223c73ac5c091814ee32a7fce6ede";
     try {
       dio.FormData formData = dio.FormData.fromMap({
         'upload': await dio.MultipartFile.fromFile(f.path,
-            filename: f.path
-                .split("/")
-                .last)
+            filename: f.path.split("/").last)
       });
       var http = dio.Dio();
       dio.Response response = await http.post(

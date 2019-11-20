@@ -59,7 +59,9 @@ class _AuthManagerState extends State<AuthManager> {
   @override
   Widget build(BuildContext context) {
     if (logged == null)
-      return CircularProgressIndicator();
+      return Scaffold(
+        body: Center(child: CircularProgressIndicator(),),
+      );
     else if (logged)
       return ChangeNotifierProvider<User>.value(value: u, child: HomePage());
     else

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:safe_streets/model/enum/level.dart';
@@ -92,13 +93,16 @@ abstract class User extends ChangeNotifier {
     notifyListeners();
   }
 
-  Map<MarkerId, Marker> toMarker() {
+  Map<MarkerId, Marker> toMarker(BuildContext context) {
     Map<MarkerId, Marker> map = Map();
     MarkerId markerId;
     var iter = _reportsGet.iterator;
     while (iter.moveNext()) {
-      markerId = MarkerId(iter.current.time.millisecondsSinceEpoch.toString());
+      markerId = MarkerId(_reportsGet.indexOf(iter.current).toString());
       final Marker marker = Marker(
+          onTap: () async {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context) => viewReportPage()));
+          },
           markerId: markerId,
           position: LatLng(iter.current.reportPosition.lat,
               iter.current.reportPosition.long));
@@ -131,4 +135,6 @@ abstract class User extends ChangeNotifier {
       }
     }
   }
+
+  Widget viewReportPage();
 }

@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     User u = Provider.of<User>(context, listen: true);
-    Set<Marker> markers = Set<Marker>.of(u.toMarker().values);
+    Set<Marker> markers = Set<Marker>.of(u.toMarker(context).values);
     return Scaffold(
         drawer: Drawer(
           child: ListView(
