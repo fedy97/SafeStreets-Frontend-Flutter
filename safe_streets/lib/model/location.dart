@@ -3,7 +3,7 @@ import 'package:geolocator/geolocator.dart';
 class Location {
   double long;
   double lat;
-  String address;
+  String address = "";
   final Geolocator geoLocator = Geolocator()
     ..forceAndroidLocationManager;
   Location(double long, double lat) {
@@ -25,6 +25,6 @@ class Location {
   @override
   String toString(){
     //remove spaces in address
-    return address.replaceAll(", ", ",") + "$lat,$long";
+    return "$lat,$long";
   }
 }

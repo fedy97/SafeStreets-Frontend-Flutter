@@ -39,7 +39,7 @@ abstract class User extends ChangeNotifier {
 
   void setLocation(Location value) async {
     _location = value;
-    await _location.setAddress();
+    //await _location.setAddress();
     notifyListeners();
   }
 

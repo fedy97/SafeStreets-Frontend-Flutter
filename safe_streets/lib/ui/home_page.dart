@@ -66,13 +66,22 @@ class HomePage extends StatelessWidget {
           title: Text("SafeStreet"),
         ),
         body: Center(
-          child: GoogleMap(
-            myLocationEnabled: false,
-            initialCameraPosition: CameraPosition(target: LatLng(u.location.lat, u.location.long),zoom: 15.0),
-            onMapCreated: (controller) {
-              mapController = controller;
-            },
-            //markers: Set<Marker>.of(u.toMarker().values),
+          child: Column(
+            children: <Widget>[
+              Text(u.reportsGet.length.toString()),
+              Expanded(
+                child: GoogleMap(
+                  myLocationEnabled: false,
+                  initialCameraPosition: CameraPosition(
+                      target: LatLng(u.location.lat, u.location.long),
+                      zoom: 15.0),
+                  onMapCreated: (controller) {
+                    mapController = controller;
+                  },
+                  //markers: Set<Marker>.of(u.toMarker().values),
+                ),
+              ),
+            ],
           ),
         ));
   }

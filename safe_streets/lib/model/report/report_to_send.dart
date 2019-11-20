@@ -41,7 +41,7 @@ class ReportToSend extends Report {
       'violation': violation.toString(),
       'location': reportPosition.toString(),
       'time': time.millisecondsSinceEpoch,
-      'feedback' : feedback
+      'feedback' : 0
     };
   }
 

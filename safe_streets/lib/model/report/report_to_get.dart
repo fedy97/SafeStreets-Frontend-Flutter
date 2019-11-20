@@ -14,16 +14,16 @@ class ReportToGet extends Report{
     var timeData = data['time'];
     var note = data['note'];
     var feedback = data['feedback'];
-    var reportPositionData = data['reportPosition'];
+    var reportPositionData = data['location'];
     var violationData = data['violation'];
     var imagesLite = data['images'];
 
     DateTime time = DateTime.fromMillisecondsSinceEpoch(timeData);
     String long = reportPositionData.toString().split(",").last;
-    String lat = reportPositionData.toString().split(",")[reportPositionData.toString().split(",").length-1];
+    String lat = reportPositionData.toString().split(",").first;
     Location reportLocation = Location(double.tryParse(long), double.tryParse(lat));
     Violation violation =  Violation.values.firstWhere((test) => test.toString() ==  violationData);
-
+    //print(imagesLite.toString());
     return ReportToGet(
       time: time,
       emailUser: emailUser,
@@ -33,5 +33,10 @@ class ReportToGet extends Report{
       reportPosition: reportLocation,
       violation: violation,
     );
+  }
+
+  @override
+  String toString() {
+    return time.millisecondsSinceEpoch.toString() + emailUser + feedback.toString() + imagesLite.toString() + note + reportPosition.toString() + violation.toString();
   }
 }
