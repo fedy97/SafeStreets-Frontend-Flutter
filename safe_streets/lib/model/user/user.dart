@@ -1,12 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:safe_streets/model/enum/level.dart';
 import 'package:safe_streets/model/enum/violation.dart';
 import 'package:safe_streets/model/location.dart';
+import 'package:safe_streets/model/report/report_to_get.dart';
 import 'package:safe_streets/model/report/report_to_send.dart';
 import 'package:safe_streets/model/report/violation_image.dart';
-import 'package:safe_streets/model/report/report_to_get.dart';
 
 abstract class User extends ChangeNotifier {
   String _email;
@@ -47,18 +48,24 @@ abstract class User extends ChangeNotifier {
 
   ReportToSend initReport() {
     if (currReport == null) {
-      currReport = new ReportToSend(images: List<ViolationImage>(),time: DateTime.now(), emailUser: _email, violation: Violation.values.first);
+      currReport = new ReportToSend(
+          images: List<ViolationImage>(),
+          time: DateTime.now(),
+          emailUser: _email,
+          violation: Violation.values.first);
       return currReport;
     }
     return currReport;
   }
 
-  void setViolationToReport({ReportToSend reportToSend, String newViolation}){
-    reportToSend.violation = Violation.values.firstWhere((test) => test.toString() == newViolation);
+  void setViolationToReport({ReportToSend reportToSend, String newViolation}) {
+    reportToSend.violation =
+        Violation.values.firstWhere((test) => test.toString() == newViolation);
     notifyListeners();
   }
+
   //TODO @arg reportToSend is actually currReport, can be omitted
-  void setLocationToReport({Location location, ReportToSend reportToSend}){
+  void setLocationToReport({Location location, ReportToSend reportToSend}) {
     reportToSend.reportPosition = location;
     //no need to notify listeners here
   }
@@ -78,18 +85,24 @@ abstract class User extends ChangeNotifier {
     myReports.removeLast();
     notifyListeners();
   }
-  void addReportToList(ReportToSend reportToSend){
+
+  void addReportToList(ReportToSend reportToSend) {
     myReports.add(reportToSend);
+
     notifyListeners();
   }
 
-  Map<MarkerId, Marker> toMarker(){
+  Map<MarkerId, Marker> toMarker() {
     Map<MarkerId, Marker> map = Map();
     MarkerId markerId;
     var iter = _reportsGet.iterator;
-    while (iter.moveNext()){
+    while (iter.moveNext()) {
       markerId = MarkerId(iter.current.time.millisecondsSinceEpoch.toString());
-      map.putIfAbsent(markerId, () => Marker(markerId: markerId, position: LatLng(iter.current.reportPosition.lat, iter.current.reportPosition.long)));
+      final Marker marker = Marker(
+          markerId: markerId,
+          position: LatLng(iter.current.reportPosition.lat,
+              iter.current.reportPosition.long));
+      map[markerId] = marker;
     }
     return map;
   }
@@ -103,5 +116,19 @@ abstract class User extends ChangeNotifier {
       this.setLocationToReport(reportToSend: this.currReport, location: l);
     //here I notify listeners
     this.setLocation(l);
+  }
+
+  Future getAllReports() async {
+    var list = await Firestore.instance.collection("users").getDocuments();
+    var iter = list.documentChanges;
+    for (DocumentChange doc in iter) {
+      List list = doc.document.data['reportSent'];
+      int i = 0;
+      while (i < list.length) {
+        this.reportsGet.add(ReportToGet.fromMap(
+            Map<String, dynamic>.from(list[i]), this.email));
+        i++;
+      }
+    }
   }
 }

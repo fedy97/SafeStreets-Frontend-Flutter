@@ -16,7 +16,8 @@ import 'package:safe_streets/model/user/user.dart';
 import 'package:safe_streets/services/firebase_storage_service.dart';
 
 class CreateReportPage extends StatelessWidget {
-  final Geolocator geoLocator = Geolocator()..forceAndroidLocationManager;
+  final Geolocator geoLocator = Geolocator()
+    ..forceAndroidLocationManager;
   static final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -24,7 +25,7 @@ class CreateReportPage extends StatelessWidget {
     User u = Provider.of<User>(context, listen: true);
     final violations = Violation.values;
     ReportToSend reportToSend = u.initReport();
-    return Scaffold(
+    return WillPopScope(child: Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(),
       body: Center(
@@ -91,7 +92,7 @@ class CreateReportPage extends StatelessWidget {
                         timestamp: reportToSend.time.millisecondsSinceEpoch);
                   }
                   var rightTuple =
-                      Firestore.instance.collection("users").document(u.email);
+                  Firestore.instance.collection("users").document(u.email);
                   //upload model in map form to the database, passing links to images just produced
                   await rightTuple.updateData({
                     'reportSent': FieldValue.arrayUnion([reportToSend.toMap()])
@@ -102,10 +103,13 @@ class CreateReportPage extends StatelessWidget {
                   u.addReportToList(reportToSend);
                   //reset currReport
                   u.currReport = null;
+                  //re fetch  documents that changed
+                  await u.getAllReports();
+                  Navigator.pop(context);
                   Navigator.pop(context);
                 } else {
                   final snackBar =
-                      SnackBar(content: Text("send at least one image"));
+                  SnackBar(content: Text("send at least one image"));
                   _scaffoldKey.currentState.showSnackBar(snackBar);
                 }
               },
@@ -113,9 +117,14 @@ class CreateReportPage extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ), onWillPop: () {
+      reportToSend.removeAllImages();
+      u.currReport = null;
+      Navigator.pop(context);
+      Navigator.pop(context);
+      return Future(() => false);
+    });
   }
-
 
 
   Future<Map<String, double>> _recognizePlate(File f) async {
@@ -123,7 +132,9 @@ class CreateReportPage extends StatelessWidget {
     try {
       dio.FormData formData = dio.FormData.fromMap({
         'upload': await dio.MultipartFile.fromFile(f.path,
-            filename: f.path.split("/").last)
+            filename: f.path
+                .split("/")
+                .last)
       });
       var http = dio.Dio();
       dio.Response response = await http.post(

@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     User u = Provider.of<User>(context, listen: true);
-    Set<Marker> markers = new Set();
+    Set<Marker> markers = Set<Marker>.of(u.toMarker().values);
     return Scaffold(
         drawer: Drawer(
           child: ListView(
@@ -69,7 +69,7 @@ class HomePage extends StatelessWidget {
         body: Center(
           child: Column(
             children: <Widget>[
-              Text(u.reportsGet.length.toString()),
+              Text("Reports downloaded: " + markers.length.toString()),
               Expanded(
                 child: u.location == null ? Container() : GoogleMap(
                   myLocationEnabled: true,
@@ -78,8 +78,6 @@ class HomePage extends StatelessWidget {
                       zoom: 15.0),
                   onMapCreated: (controller) {
                     mapController = controller;
-                    //set markers only when the map is created
-                    markers = Set<Marker>.of(u.toMarker().values);
                   },
                   markers: markers,
                 ),
