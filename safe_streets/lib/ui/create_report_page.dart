@@ -60,7 +60,7 @@ class CreateReportPage extends StatelessWidget {
                     //check if I actually took the photo or I pressed "back"
                     if (f != null) {
                       if (reportToSend.images.length == 0)
-                        await _getPosition(u);
+                        await u.getPosition();
                       Map m = await _recognizePlate(f);
                       ViolationImage vi = new ViolationImage(
                           imageFile: f,
@@ -116,14 +116,7 @@ class CreateReportPage extends StatelessWidget {
     );
   }
 
-  Future _getPosition(User user) async {
-    Position currentPos = await geoLocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.best);
-    Location l = new Location(currentPos.longitude, currentPos.latitude);
-    user.setLocationToReport(reportToSend: user.currReport, location: l);
-    //here I notify listeners
-    user.setLocation(l);
-  }
+
 
   Future<Map<String, double>> _recognizePlate(File f) async {
     String token = "af4446d6d28223c73ac5c091814ee32a7fce6ede";

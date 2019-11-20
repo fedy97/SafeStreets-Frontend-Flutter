@@ -31,22 +31,21 @@ class _AuthManagerState extends State<AuthManager> {
         } else {
           fetchMap(user).then((map) {
             u = createUser(map, user);
-            logged = true;
             Firestore.instance.collection("users").getDocuments().then((list) {
-              setState(() {
-                var iter = list.documents;
-                for (DocumentSnapshot doc in iter) {
-                  List list = doc.data['reportSent'];
-                  //print(doc.data.toString());
-                  int i = 0;
-                  while (i < list.length) {
-                    u.reportsGet.add(ReportToGet.fromMap(
-                        Map<String, dynamic>.from(list[i]), u.email));
-                    //print(u.reportsGet[i].toString());
-                    i++;
-                  }
-                  //print("\n******\n");
+              var iter = list.documents;
+              for (DocumentSnapshot doc in iter) {
+                List list = doc.data['reportSent'];
+                int i = 0;
+                while (i < list.length) {
+                  u.reportsGet.add(ReportToGet.fromMap(
+                      Map<String, dynamic>.from(list[i]), u.email));
+                  i++;
                 }
+              }
+              u.getPosition().then((pos) {
+                setState(() {
+                  logged = true;
+                });
               });
             });
           });

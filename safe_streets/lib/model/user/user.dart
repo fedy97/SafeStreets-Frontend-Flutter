@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:safe_streets/model/enum/level.dart';
 import 'package:safe_streets/model/enum/violation.dart';
@@ -22,7 +23,6 @@ abstract class User extends ChangeNotifier {
     this._level = level;
     myReports = new List();
     _reportsGet = new List();
-    _location = new Location(0.0, 0.0);
   }
 
   Level get level => _level;
@@ -92,5 +92,16 @@ abstract class User extends ChangeNotifier {
       map.putIfAbsent(markerId, () => Marker(markerId: markerId, position: LatLng(iter.current.reportPosition.lat, iter.current.reportPosition.long)));
     }
     return map;
+  }
+
+  Future getPosition() async {
+    final Geolocator geoLocator = Geolocator()..forceAndroidLocationManager;
+    Position currentPos = await geoLocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.best);
+    Location l = new Location(currentPos.longitude, currentPos.latitude);
+    if (this.currReport != null)
+      this.setLocationToReport(reportToSend: this.currReport, location: l);
+    //here I notify listeners
+    this.setLocation(l);
   }
 }
