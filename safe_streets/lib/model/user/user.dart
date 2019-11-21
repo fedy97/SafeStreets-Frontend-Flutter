@@ -19,6 +19,7 @@ abstract class User extends ChangeNotifier {
   List<ReportToGet> _reportsGet;
   Location _location;
   ReportToSend currReport;
+  bool _loadingReport = false;
 
   User(String email, String uid, Level level) {
     this._email = email;
@@ -140,6 +141,14 @@ abstract class User extends ChangeNotifier {
         i++;
       }
     }
+  }
+
+
+  bool get loadingReport => _loadingReport;
+
+  set isLoadingReport(bool value) {
+    _loadingReport = value;
+    notifyListeners();
   }
 
   Widget viewReportPage();

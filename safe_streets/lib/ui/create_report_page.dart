@@ -9,7 +9,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:safe_streets/model/enum/violation.dart';
-import 'package:safe_streets/model/report/report_to_send.dart';
 import 'package:safe_streets/model/report/violation_image.dart';
 import 'package:safe_streets/model/user/user.dart';
 import 'package:safe_streets/services/firebase_storage_service.dart';
@@ -22,7 +21,7 @@ class CreateReportPage extends StatelessWidget {
   Widget build(BuildContext context) {
     User u = Provider.of<User>(context, listen: true);
     final violations = Violation.values;
-    ReportToSend reportToSend = u.initReport();
+    u.initReport();
     return WillPopScope(
         child: Scaffold(
           key: _scaffoldKey,
@@ -32,12 +31,13 @@ class CreateReportPage extends StatelessWidget {
               IconButton(
                   icon: Icon(Icons.camera_alt),
                   onPressed: () async {
-                    if (reportToSend.images.length < 5) {
+                    if (u.currReport.images.length < 5) {
                       File f = await ImagePicker.pickImage(
                           source: ImageSource.camera, imageQuality: 50);
                       //check if I actually took the photo or I pressed "back"
                       if (f != null) {
-                        if (reportToSend.images.length == 0)
+                        showProgress(context);
+                        if (u.currReport.images.length == 0)
                           await u.getPosition();
                         Map m = await _recognizePlate(f);
                         ViolationImage vi = new ViolationImage(
@@ -46,53 +46,17 @@ class CreateReportPage extends StatelessWidget {
                             accuracy: m.values.first);
                         //this will rebuild gui , because it calls notify listeners
                         u.addImageToReport(
-                            image: vi, reportToSend: reportToSend);
+                            image: vi, reportToSend: u.currReport);
+                        Navigator.pop(context);
                       }
                     }
                   }),
-              IconButton(
-                  icon: Icon(Icons.send),
-                  onPressed: () async {
-                    if (reportToSend.images.length > 0) {
-                      final storage =
-                          Provider.of<FirebaseStorageService>(context);
-                      //upload images to storage
-                      for (ViolationImage image in reportToSend.images) {
-                        image.downloadLink = await storage.uploadImages(
-                            image: image,
-                            mail: u.email,
-                            timestamp:
-                                reportToSend.time.millisecondsSinceEpoch);
-                      }
-                      var rightTuple = Firestore.instance
-                          .collection("users")
-                          .document(u.email);
-                      //upload model in map form to the database, passing links to images just produced
-                      await rightTuple.updateData({
-                        'reportSent':
-                            FieldValue.arrayUnion([reportToSend.toMap()])
-                      });
-                      //delete temp images from device storage
-                      await reportToSend.removeAllImages();
-                      //add report to user reports
-                      u.addReportToList(reportToSend);
-                      //reset currReport
-                      u.currReport = null;
-                      //re fetch  documents that changed
-                      await u.getAllReports();
-                      Navigator.pop(context);
-                    } else {
-                      final snackBar =
-                          SnackBar(content: Text("send at least one image"));
-                      _scaffoldKey.currentState.showSnackBar(snackBar);
-                    }
-                  })
+              _buttonTopRight(u, context)
             ],
           ),
           body: Center(
             child: Column(
               children: <Widget>[
-                Text(u.location.address == null ? "" : u.location.address),
                 TextField(
                   onChanged: (currDescription) =>
                       u.addNoteToReport(currDescription),
@@ -101,7 +65,7 @@ class CreateReportPage extends StatelessWidget {
                 DropdownButton<String>(
                   hint: Text("choose a violation"),
                   icon: Icon(Icons.drive_eta),
-                  value: reportToSend.violation.toString(),
+                  value: u.currReport.violation.toString(),
                   items: (violations).map((Violation value) {
                     return new DropdownMenuItem<String>(
                       value: value.toString(),
@@ -110,22 +74,22 @@ class CreateReportPage extends StatelessWidget {
                   }).toList(),
                   onChanged: (String newViolation) {
                     u.setViolationToReport(
-                        reportToSend: reportToSend, newViolation: newViolation);
+                        reportToSend: u.currReport, newViolation: newViolation);
                   },
                 ),
                 Expanded(
                   child: ListView.builder(
-                      itemCount: reportToSend.images.length,
+                      itemCount: u.currReport.images.length,
                       itemBuilder: (context, int) {
-                        return Image.file(reportToSend.images[int].imageFile);
+                        return Image.file(u.currReport.images[int].imageFile);
                       }),
-                ),
+                )
               ],
             ),
           ),
         ),
         onWillPop: () {
-          reportToSend.removeAllImages();
+          u.currReport.removeAllImages();
           u.currReport = null;
           Navigator.pop(context);
           return Future(() => false);
@@ -172,5 +136,86 @@ class CreateReportPage extends StatelessWidget {
       plate += '$text\n';
     }
     return plate;
+  }*/
+
+  Widget _buttonTopRight(User u, BuildContext context) {
+    if (!u.loadingReport) {
+      return IconButton(
+          icon: Icon(Icons.send),
+          onPressed: () async {
+            if (u.currReport.images.length > 0) {
+              u.isLoadingReport = true;
+              final storage = Provider.of<FirebaseStorageService>(context);
+              //upload images to storage
+              for (ViolationImage image in u.currReport.images) {
+                image.downloadLink = await storage.uploadImages(
+                    image: image,
+                    mail: u.email,
+                    timestamp: u.currReport.time.millisecondsSinceEpoch);
+              }
+              var rightTuple =
+                  Firestore.instance.collection("users").document(u.email);
+              //upload model in map form to the database, passing links to images just produced
+              await rightTuple.updateData({
+                'reportSent': FieldValue.arrayUnion([u.currReport.toMap()])
+              });
+              //delete temp images from device storage
+              await u.currReport.removeAllImages();
+              //add report to user reports
+              u.addReportToList(u.currReport);
+              //reset currReport
+              u.currReport = null;
+              //re fetch  documents that changed
+              await u.getAllReports();
+              u.isLoadingReport = false;
+              Navigator.pop(context);
+            } else {
+              final snackBar =
+                  SnackBar(content: Text("send at least one image"));
+              _scaffoldKey.currentState.showSnackBar(snackBar);
+            }
+          });
+    } else
+      return CircularProgressIndicator(
+        backgroundColor: Colors.cyanAccent,
+      );
+  }
+
+  void showProgress(BuildContext context) {
+    showDialog(context: context,builder: (context2) {
+      return Dialog(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
+        child: new Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            new CircularProgressIndicator(),
+            SizedBox(width: 10.0,),
+            new Text("Loading"),
+          ],
+        ),
+      );
+    });
+  }
+
+/*Widget _displayImages(User u) {
+    if (!u.loadingImage) {
+      return Expanded(
+        child: ListView.builder(
+            itemCount: u.currReport.images.length,
+            itemBuilder: (context, int) {
+              return Image.file(u.currReport.images[int].imageFile);
+            }),
+      );
+    } else {
+      return Expanded(
+        child: ListView.builder(
+            itemCount: lengthImages,
+            itemBuilder: (context, int) {
+              if (int != lengthImages-1)
+                return Image.file(u.currReport.images[int].imageFile);
+              else
+                return SizedBox(child: CircularProgressIndicator(),height: 5.0,width: 5.0,);
+            }),
+      );
+    }
   }*/
 }
