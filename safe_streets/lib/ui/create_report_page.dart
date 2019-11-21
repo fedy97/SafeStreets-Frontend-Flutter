@@ -81,7 +81,6 @@ class CreateReportPage extends StatelessWidget {
                       //re fetch  documents that changed
                       await u.getAllReports();
                       Navigator.pop(context);
-                      Navigator.pop(context);
                     } else {
                       final snackBar =
                           SnackBar(content: Text("send at least one image"));
@@ -128,7 +127,6 @@ class CreateReportPage extends StatelessWidget {
         onWillPop: () {
           reportToSend.removeAllImages();
           u.currReport = null;
-          Navigator.pop(context);
           Navigator.pop(context);
           return Future(() => false);
         });

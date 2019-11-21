@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:safe_streets/model/enum/level.dart';
 import 'package:safe_streets/model/enum/violation.dart';
 import 'package:safe_streets/model/location.dart';
@@ -101,7 +102,11 @@ abstract class User extends ChangeNotifier {
       markerId = MarkerId(_reportsGet.indexOf(iter.current).toString());
       final Marker marker = Marker(
           onTap: () async {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) => viewReportPage()));
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => ChangeNotifierProvider<User>.value(
+                      value: this,
+                      child: viewReportPage(),
+                    )));
           },
           markerId: markerId,
           position: LatLng(iter.current.reportPosition.lat,
@@ -123,10 +128,11 @@ abstract class User extends ChangeNotifier {
   }
 
   Future getAllReports() async {
+    reportsGet.clear();
     var list = await Firestore.instance.collection("users").getDocuments();
-    var iter = list.documentChanges;
-    for (DocumentChange doc in iter) {
-      List list = doc.document.data['reportSent'];
+    var iter = list.documents;
+    for (DocumentSnapshot doc in iter) {
+      List list = doc.data['reportSent'];
       int i = 0;
       while (i < list.length) {
         this.reportsGet.add(ReportToGet.fromMap(
