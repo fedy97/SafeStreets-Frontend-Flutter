@@ -19,6 +19,7 @@ abstract class User extends ChangeNotifier {
   List<ReportToGet> _reportsGet;
   Location _location;
   ReportToSend currReport;
+  ReportToGet _currViewedReport;
   bool _loadingReport = false;
 
   User(String email, String uid, Level level) {
@@ -101,8 +102,11 @@ abstract class User extends ChangeNotifier {
     var iter = _reportsGet.iterator;
     while (iter.moveNext()) {
       markerId = MarkerId(_reportsGet.indexOf(iter.current).toString());
-      final Marker marker = Marker(
+      Marker marker = Marker(
           onTap: () async {
+            //HERE IS THE PROBLEM, ALWAYS THE LAST
+            print(markerId.value.toString());
+            this.setCurrViewedReport = _reportsGet[int.parse(markerId.value)];
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => ChangeNotifierProvider<User>.value(
                       value: this,
@@ -149,6 +153,15 @@ abstract class User extends ChangeNotifier {
   set isLoadingReport(bool value) {
     _loadingReport = value;
     notifyListeners();
+  }
+
+
+  ReportToGet get currViewedReport => _currViewedReport;
+
+  set setCurrViewedReport(ReportToGet value) {
+    _currViewedReport = value;
+    if (value != null)
+      notifyListeners();
   }
 
   Widget viewReportPage();

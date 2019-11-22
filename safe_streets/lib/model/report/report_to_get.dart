@@ -1,11 +1,21 @@
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:safe_streets/model/report/report.dart';
 
 import '../enum/violation.dart';
 import '../location.dart';
 
 class ReportToGet extends Report {
+  Marker marker;
+
   ReportToGet(
-      {time, note, feedback, reportPosition, violation, emailUser, imagesLite})
+      {time,
+      note,
+      feedback,
+      reportPosition,
+      violation,
+      emailUser,
+      imagesLite,
+      marker})
       : super(
             time: time,
             emailUser: emailUser,
@@ -15,7 +25,8 @@ class ReportToGet extends Report {
             feedback: feedback,
             imagesLite: imagesLite);
 
-  factory ReportToGet.fromMap(Map<String, dynamic> data, String emailUser) {
+  factory ReportToGet.fromMap(
+      Map<String, dynamic> data, String emailUser) {
     if (data == null) return null;
     var timeData = data['time'];
     var note = data['note'];
@@ -33,17 +44,16 @@ class ReportToGet extends Report {
         Violation.values.firstWhere((test) => test.toString() == violationData);
     //print(imagesLite.toString());
     return ReportToGet(
-      time: time,
-      emailUser: emailUser,
-      feedback: feedback,
-      imagesLite: Map<String, dynamic>.from(imagesLite),
-      note: note,
-      reportPosition: reportLocation,
-      violation: violation,
-    );
+        time: time,
+        emailUser: emailUser,
+        feedback: feedback,
+        imagesLite: Map<String, dynamic>.from(imagesLite),
+        note: note,
+        reportPosition: reportLocation,
+        violation: violation);
   }
 
-  /*@override
+/*@override
   String toString() {
     try {
       return time.millisecondsSinceEpoch.toString() +
