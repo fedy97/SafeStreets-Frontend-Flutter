@@ -11,12 +11,17 @@ class ViewReportCitizen extends StatelessWidget {
         appBar: AppBar(
           title: Text("Report Page"),
         ),
-        body: ListView.builder(
-            itemCount: u.currViewedReport.imagesLite['links'].length,
-            shrinkWrap: true,
-            itemBuilder: (context, int) {
-              return Image.network(u.currViewedReport.imagesLite['links'][int]);
-            }),
+        body: Column(children: <Widget>[
+          Text(u.currViewedReport.violation.toString()),
+          Text(u.currViewedReport.note != null ? u.currViewedReport.note : "no note"),
+          Text(u.currViewedReport.time.toIso8601String()),
+          ListView.builder(
+              itemCount: u.currViewedReport.imagesLite['links'].length,
+              shrinkWrap: true,
+              itemBuilder: (context, int) {
+                return Image.network(u.currViewedReport.imagesLite['links'][int]);
+              }),
+        ],),
       ),
       onWillPop: () {
         u.setCurrViewedReport = null;
