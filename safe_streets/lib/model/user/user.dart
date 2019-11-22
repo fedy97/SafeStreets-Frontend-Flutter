@@ -101,8 +101,8 @@ abstract class User extends ChangeNotifier {
     MarkerId markerId;
     var iter = _reportsGet.iterator;
     while (iter.moveNext()) {
-      markerId = MarkerId(_reportsGet.indexOf(iter.current).toString());
-      Marker marker = Marker(
+      final markerId = MarkerId(_reportsGet.indexOf(iter.current).toString());
+      final Marker marker = Marker(
           onTap: () async {
             //HERE IS THE PROBLEM, ALWAYS THE LAST
             print(markerId.value.toString());
