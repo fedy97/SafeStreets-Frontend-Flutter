@@ -45,8 +45,7 @@ class CreateReportPage extends StatelessWidget {
                             plate: m.keys.first,
                             accuracy: m.values.first);
                         //this will rebuild gui , because it calls notify listeners
-                        u.addImageToReport(
-                            image: vi, reportToSend: u.currReport);
+                        u.addImageToReport(image: vi);
                         Navigator.pop(context);
                       }
                     }
@@ -69,12 +68,15 @@ class CreateReportPage extends StatelessWidget {
                   items: (violations).map((Violation value) {
                     return new DropdownMenuItem<String>(
                       value: value.toString(),
-                      child: new Text(value.toString()),
+                      child: Text(value
+                          .toString()
+                          .replaceAll("_", " ")
+                          .replaceAll("Violation.", "")
+                          .toUpperCase()),
                     );
                   }).toList(),
                   onChanged: (String newViolation) {
-                    u.setViolationToReport(
-                        reportToSend: u.currReport, newViolation: newViolation);
+                    u.setViolationToReport(newViolation: newViolation);
                   },
                 ),
                 Expanded(
@@ -162,7 +164,7 @@ class CreateReportPage extends StatelessWidget {
               //delete temp images from device storage
               await u.currReport.removeAllImages();
               //add report to user reports
-              u.addReportToList(u.currReport);
+              u.addReportToList();
               //reset currReport
               u.currReport = null;
               //re fetch  documents that changed
@@ -182,18 +184,24 @@ class CreateReportPage extends StatelessWidget {
   }
 
   void showProgress(BuildContext context) {
-    showDialog(context: context,builder: (context2) {
-      return Dialog(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
-        child: new Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            new CircularProgressIndicator(),
-            SizedBox(width: 10.0,),
-            new Text("Loading"),
-          ],
-        ),
-      );
-    });
+    showDialog(
+        context: context,
+        builder: (context2) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16.0)),
+            child: new Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                new CircularProgressIndicator(),
+                SizedBox(
+                  width: 10.0,
+                ),
+                new Text("Loading"),
+              ],
+            ),
+          );
+        });
   }
 
 /*Widget _displayImages(User u) {

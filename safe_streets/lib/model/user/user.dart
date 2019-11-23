@@ -62,20 +62,19 @@ abstract class User extends ChangeNotifier {
     return currReport;
   }
 
-  void setViolationToReport({ReportToSend reportToSend, String newViolation}) {
-    reportToSend.violation =
+  void setViolationToReport({String newViolation}) {
+    currReport.violation =
         Violation.values.firstWhere((test) => test.toString() == newViolation);
     notifyListeners();
   }
 
-  //TODO @arg reportToSend is actually currReport, can be omitted
-  void setLocationToReport({Location location, ReportToSend reportToSend}) {
-    reportToSend.reportPosition = location;
+  void setLocationToReport({Location location}) {
+    currReport.reportPosition = location;
     //no need to notify listeners here
   }
 
-  void addImageToReport({ViolationImage image, ReportToSend reportToSend}) {
-    reportToSend.addImage(image);
+  void addImageToReport({ViolationImage image}) {
+    currReport.addImage(image);
     notifyListeners();
   }
 
@@ -90,8 +89,8 @@ abstract class User extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addReportToList(ReportToSend reportToSend) {
-    myReports.add(reportToSend);
+  void addReportToList() {
+    myReports.add(currReport);
 
     notifyListeners();
   }
@@ -127,7 +126,7 @@ abstract class User extends ChangeNotifier {
         desiredAccuracy: LocationAccuracy.best);
     Location l = new Location(currentPos.longitude, currentPos.latitude);
     if (this.currReport != null)
-      this.setLocationToReport(reportToSend: this.currReport, location: l);
+      this.setLocationToReport(location: l);
     //here I notify listeners
     this.setLocation(l);
   }
@@ -160,8 +159,6 @@ abstract class User extends ChangeNotifier {
 
   set setCurrViewedReport(ReportToGet value) {
     _currViewedReport = value;
-    if (value != null)
-      notifyListeners();
   }
 
   Widget viewReportPage();
