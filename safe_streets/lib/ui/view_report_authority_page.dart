@@ -6,11 +6,45 @@ class ViewReportAuthority extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     User u = Provider.of<User>(context);
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Report Page"),
+    return WillPopScope(
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Report Page"),
+        ),
+        body: Column(
+          children: <Widget>[
+            Text(u.currViewedReport.violation
+                .toString()
+                .replaceAll("_", " ")
+                .replaceAll("Violation.", "")
+                .toUpperCase()),
+            Text(u.currViewedReport.note != null
+                ? u.currViewedReport.note
+                : "no note"),
+            Text(u.currViewedReport.time
+                .toIso8601String()
+                .split(".")[0]
+                .replaceAll("T", " at ")),
+            Expanded(
+              child: ListView.builder(
+                  itemCount: u.currViewedReport.imagesLite['links'].length,
+                  itemBuilder: (context, int) {
+                    return Stack(
+                      children: <Widget>[
+                        Image.network(
+                            u.currViewedReport.imagesLite['links'][int]),
+                      ],
+                    );
+                  }),
+            ),
+          ],
+        ),
       ),
-      body: Container(),
+      onWillPop: () {
+        u.setCurrViewedReport = null;
+        Navigator.pop(context);
+        return Future(() => false);
+      },
     );
   }
 }

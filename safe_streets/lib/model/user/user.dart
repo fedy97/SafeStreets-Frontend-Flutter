@@ -15,7 +15,7 @@ abstract class User extends ChangeNotifier {
   String _email;
   String _uid;
   Level _level;
-  List<ReportToSend> myReports;
+  List<ReportToGet> myReports;
   List<ReportToGet> _reportsGet;
   Location _location;
   ReportToSend currReport;
@@ -65,6 +65,7 @@ abstract class User extends ChangeNotifier {
   void setViolationToReport({String newViolation}) {
     currReport.violation =
         Violation.values.firstWhere((test) => test.toString() == newViolation);
+    //in order to re-render the dropdown menu with the new value
     notifyListeners();
   }
 
@@ -81,18 +82,6 @@ abstract class User extends ChangeNotifier {
   void addNoteToReport(String note) {
     currReport.addNote(note);
     //no need to notify changes when typing a description
-  }
-
-  void removeLastReport() {
-    myReports.last.removeAllImages();
-    myReports.removeLast();
-    notifyListeners();
-  }
-
-  void addReportToList() {
-    myReports.add(currReport);
-
-    notifyListeners();
   }
 
   Map<MarkerId, Marker> toMarker(BuildContext context) {
@@ -125,8 +114,7 @@ abstract class User extends ChangeNotifier {
     Position currentPos = await geoLocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.best);
     Location l = new Location(currentPos.longitude, currentPos.latitude);
-    if (this.currReport != null)
-      this.setLocationToReport(location: l);
+    if (this.currReport != null) this.setLocationToReport(location: l);
     //here I notify listeners
     this.setLocation(l);
   }
@@ -134,9 +122,9 @@ abstract class User extends ChangeNotifier {
   Future getAllReports() async {
     reportsGet.clear();
     var list = await Firestore.instance.collection("users").getDocuments();
-    var iter = list.documents;
-    for (DocumentSnapshot doc in iter) {
-      List list = doc.data['reportSent'];
+    var iter = list.documentChanges;
+    for (DocumentChange doc in iter) {
+      List list = doc.document.data['reportSent'];
       int i = 0;
       while (i < list.length) {
         this.reportsGet.add(ReportToGet.fromMap(
@@ -144,8 +132,14 @@ abstract class User extends ChangeNotifier {
         i++;
       }
     }
+    notifyListeners();
   }
 
+  void fillMyReports() {
+    for (ReportToGet reportToGet in _reportsGet) {
+      if (reportToGet.emailUser == this.email) myReports.add(reportToGet);
+    }
+  }
 
   bool get loadingReport => _loadingReport;
 
@@ -154,7 +148,6 @@ abstract class User extends ChangeNotifier {
     notifyListeners();
   }
 
-
   ReportToGet get currViewedReport => _currViewedReport;
 
   set setCurrViewedReport(ReportToGet value) {
@@ -162,4 +155,25 @@ abstract class User extends ChangeNotifier {
   }
 
   Widget viewReportPage();
+
+  void showProgress(BuildContext context) {
+    showDialog(
+        context: context,
+        builder: (context2) {
+          return Dialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16.0)),
+            child: new Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                new CircularProgressIndicator(),
+                SizedBox(
+                  width: 10.0,
+                ),
+                new Text("Loading"),
+              ],
+            ),
+          );
+        });
+  }
 }

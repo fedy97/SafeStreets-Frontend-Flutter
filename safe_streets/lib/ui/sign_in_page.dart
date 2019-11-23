@@ -34,11 +34,14 @@ class SignInPage extends StatelessWidget {
               child: Text('Sign in'),
               onPressed: () async {
                 if (_email != "" && _email.contains("@") && _password != "") {
-
                   FirebaseUser user =
                       await auth.signInWithEmailAndPassword(_email, _password);
                   DocumentSnapshot map = await fetchMap(user);
                   User u = createUser(map, user);
+                  u.showProgress(context);
+                  await u.getAllReports();
+                  await u.getPosition();
+                  Navigator.pop(context);
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(

@@ -17,7 +17,8 @@ class HomePage extends StatelessWidget {
     User u = Provider.of<User>(context, listen: true);
     Set<Marker> markers = Set<Marker>.of(u.toMarker(context).values);
     return Scaffold(
-        floatingActionButton: FloatingActionButton(child: Icon(Icons.add_a_photo),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add_a_photo),
           onPressed: () {
             Navigator.push(
                 context,
@@ -52,8 +53,15 @@ class HomePage extends StatelessWidget {
               ListTile(
                 title: Text("My Reports"),
                 onTap: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyReportsPage()));
+                  u.fillMyReports();
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ChangeNotifierProvider<User>.value(
+                                value: u,
+                                child: MyReportsPage(),
+                              )));
                 },
                 leading: Icon(Icons.assistant_photo),
               )
@@ -61,6 +69,16 @@ class HomePage extends StatelessWidget {
           ),
         ),
         appBar: AppBar(
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.refresh),
+              onPressed: () async {
+                u.showProgress(context);
+                await u.getAllReports();
+                Navigator.pop(context);
+              },
+            )
+          ],
           title: Text("SafeStreet"),
         ),
         body: Center(

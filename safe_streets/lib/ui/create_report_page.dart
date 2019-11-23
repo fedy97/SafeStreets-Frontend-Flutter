@@ -36,7 +36,7 @@ class CreateReportPage extends StatelessWidget {
                           source: ImageSource.camera, imageQuality: 50);
                       //check if I actually took the photo or I pressed "back"
                       if (f != null) {
-                        showProgress(context);
+                        u.showProgress(context);
                         if (u.currReport.images.length == 0)
                           await u.getPosition();
                         Map m = await _recognizePlate(f);
@@ -50,7 +50,45 @@ class CreateReportPage extends StatelessWidget {
                       }
                     }
                   }),
-              _buttonTopRight(u, context)
+              IconButton(
+                  icon: Icon(Icons.send),
+                  onPressed: () async {
+                    if (u.currReport.images.length > 0) {
+                      u.showProgress(context);
+                      final storage =
+                          Provider.of<FirebaseStorageService>(context);
+                      //upload images to storage
+                      for (ViolationImage image in u.currReport.images) {
+                        image.downloadLink = await storage.uploadImages(
+                            image: image,
+                            mail: u.email,
+                            timestamp:
+                                u.currReport.time.millisecondsSinceEpoch);
+                      }
+                      var rightTuple = Firestore.instance
+                          .collection("users")
+                          .document(u.email);
+                      //upload model in map form to the database, passing links to images just produced
+                      await rightTuple.updateData({
+                        'reportSent':
+                            FieldValue.arrayUnion([u.currReport.toMap()])
+                      });
+                      //delete temp images from device storage
+                      await u.currReport.removeAllImages();
+                      //reset currReport
+                      u.currReport = null;
+                      //re fetch  documents that changed
+                      await u.getAllReports();
+                      //pop the loading bar
+                      Navigator.pop(context);
+                      //return to homepage
+                      Navigator.pop(context);
+                    } else {
+                      final snackBar =
+                          SnackBar(content: Text("send at least one image"));
+                      _scaffoldKey.currentState.showSnackBar(snackBar);
+                    }
+                  })
             ],
           ),
           body: Center(
@@ -139,70 +177,6 @@ class CreateReportPage extends StatelessWidget {
     }
     return plate;
   }*/
-
-  Widget _buttonTopRight(User u, BuildContext context) {
-    if (!u.loadingReport) {
-      return IconButton(
-          icon: Icon(Icons.send),
-          onPressed: () async {
-            if (u.currReport.images.length > 0) {
-              u.isLoadingReport = true;
-              final storage = Provider.of<FirebaseStorageService>(context);
-              //upload images to storage
-              for (ViolationImage image in u.currReport.images) {
-                image.downloadLink = await storage.uploadImages(
-                    image: image,
-                    mail: u.email,
-                    timestamp: u.currReport.time.millisecondsSinceEpoch);
-              }
-              var rightTuple =
-                  Firestore.instance.collection("users").document(u.email);
-              //upload model in map form to the database, passing links to images just produced
-              await rightTuple.updateData({
-                'reportSent': FieldValue.arrayUnion([u.currReport.toMap()])
-              });
-              //delete temp images from device storage
-              await u.currReport.removeAllImages();
-              //add report to user reports
-              u.addReportToList();
-              //reset currReport
-              u.currReport = null;
-              //re fetch  documents that changed
-              await u.getAllReports();
-              u.isLoadingReport = false;
-              Navigator.pop(context);
-            } else {
-              final snackBar =
-                  SnackBar(content: Text("send at least one image"));
-              _scaffoldKey.currentState.showSnackBar(snackBar);
-            }
-          });
-    } else
-      return CircularProgressIndicator(
-        backgroundColor: Colors.cyanAccent,
-      );
-  }
-
-  void showProgress(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (context2) {
-          return Dialog(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(16.0)),
-            child: new Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                new CircularProgressIndicator(),
-                SizedBox(
-                  width: 10.0,
-                ),
-                new Text("Loading"),
-              ],
-            ),
-          );
-        });
-  }
 
 /*Widget _displayImages(User u) {
     if (!u.loadingImage) {
