@@ -17,6 +17,6 @@ class FirebaseStorageService {
 
   String _createPath(ViolationImage image, String mail, String timestamp, int index) {
     //mail/timestampRecord/imagesList
-    return "$mail/$timestamp/" + index.toString();
+    return "$mail/$timestamp/" + index.toString() + ".jpg";
   }
 }

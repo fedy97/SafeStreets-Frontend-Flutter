@@ -92,7 +92,6 @@ abstract class User extends ChangeNotifier {
       final markerId = MarkerId(_reportsGet.indexOf(iter.current).toString());
       final Marker marker = Marker(
           onTap: () async {
-            print(markerId.value.toString());
             this.setCurrViewedReport = _reportsGet[int.parse(markerId.value)];
             Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) => ChangeNotifierProvider<User>.value(
