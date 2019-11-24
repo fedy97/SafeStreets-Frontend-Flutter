@@ -62,8 +62,8 @@ class CreateReportPage extends StatelessWidget {
                         image.downloadLink = await storage.uploadImages(
                             image: image,
                             mail: u.email,
-                            timestamp:
-                                u.currReport.time.millisecondsSinceEpoch);
+                            timestamp: u.currReport.time.millisecondsSinceEpoch,
+                            index: u.currReport.images.indexOf(image));
                       }
                       var rightTuple = Firestore.instance
                           .collection("users")

@@ -92,7 +92,6 @@ abstract class User extends ChangeNotifier {
       final markerId = MarkerId(_reportsGet.indexOf(iter.current).toString());
       final Marker marker = Marker(
           onTap: () async {
-            //HERE IS THE PROBLEM, ALWAYS THE LAST
             print(markerId.value.toString());
             this.setCurrViewedReport = _reportsGet[int.parse(markerId.value)];
             Navigator.of(context).push(MaterialPageRoute(
@@ -128,14 +127,16 @@ abstract class User extends ChangeNotifier {
       int i = 0;
       while (i < list.length) {
         this.reportsGet.add(ReportToGet.fromMap(
-            Map<String, dynamic>.from(list[i]), this.email));
+            Map<String, dynamic>.from(list[i]), doc.document.documentID));
         i++;
       }
     }
+    _fillMyReports();
     notifyListeners();
   }
 
-  void fillMyReports() {
+  void _fillMyReports() {
+    myReports.clear();
     for (ReportToGet reportToGet in _reportsGet) {
       if (reportToGet.emailUser == this.email) myReports.add(reportToGet);
     }

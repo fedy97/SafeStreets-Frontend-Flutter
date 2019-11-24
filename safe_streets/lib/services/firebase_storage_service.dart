@@ -6,8 +6,8 @@ class FirebaseStorageService {
   Future<String> uploadImages(
       {@required ViolationImage image,
       @required String mail,
-      @required int timestamp}) async {
-    String path = _createPath(image, mail, timestamp.toString());
+      @required int timestamp, @required int index}) async {
+    String path = _createPath(image, mail, timestamp.toString(), index);
     final storageRef = FirebaseStorage.instance.ref().child(path);
     final uploadTask = storageRef.putFile(image.imageFile, StorageMetadata());
     final snapshot = await uploadTask.onComplete;
@@ -15,8 +15,8 @@ class FirebaseStorageService {
     return await snapshot.ref.getDownloadURL();
   }
 
-  String _createPath(ViolationImage image, String mail, String timestamp) {
+  String _createPath(ViolationImage image, String mail, String timestamp, int index) {
     //mail/timestampRecord/imagesList
-    return "$mail/$timestamp/" + image.imageFile.path.split("/").last;
+    return "$mail/$timestamp/" + index.toString();
   }
 }

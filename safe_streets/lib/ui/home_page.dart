@@ -53,7 +53,6 @@ class HomePage extends StatelessWidget {
               ListTile(
                 title: Text("My Reports"),
                 onTap: () {
-                  u.fillMyReports();
                   Navigator.push(
                       context,
                       MaterialPageRoute(

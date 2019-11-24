@@ -38,7 +38,7 @@ class _AuthManagerState extends State<AuthManager> {
                 int i = 0;
                 while (i < list.length) {
                   u.reportsGet.add(ReportToGet.fromMap(
-                      Map<String, dynamic>.from(list[i]), u.email));
+                      Map<String, dynamic>.from(list[i]), doc.documentID));
                   i++;
                 }
               }

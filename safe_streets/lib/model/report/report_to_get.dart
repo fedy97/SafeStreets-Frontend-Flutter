@@ -1,11 +1,10 @@
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:safe_streets/model/report/report.dart';
 
 import '../enum/violation.dart';
 import '../location.dart';
 
 class ReportToGet extends Report {
-  Marker marker;
+  Map<String, dynamic> sendableReport;
 
   ReportToGet(
       {time,
@@ -15,7 +14,8 @@ class ReportToGet extends Report {
       violation,
       emailUser,
       imagesLite,
-      marker})
+      marker,
+      this.sendableReport})
       : super(
             time: time,
             emailUser: emailUser,
@@ -25,8 +25,7 @@ class ReportToGet extends Report {
             feedback: feedback,
             imagesLite: imagesLite);
 
-  factory ReportToGet.fromMap(
-      Map<String, dynamic> data, String emailUser) {
+  factory ReportToGet.fromMap(Map<String, dynamic> data, String emailUser) {
     if (data == null) return null;
     var timeData = data['time'];
     var note = data['note'];
@@ -42,7 +41,7 @@ class ReportToGet extends Report {
         Location(double.tryParse(long), double.tryParse(lat));
     Violation violation =
         Violation.values.firstWhere((test) => test.toString() == violationData);
-    //print(imagesLite.toString());
+
     return ReportToGet(
         time: time,
         emailUser: emailUser,
@@ -50,9 +49,10 @@ class ReportToGet extends Report {
         imagesLite: Map<String, dynamic>.from(imagesLite),
         note: note,
         reportPosition: reportLocation,
-        violation: violation);
+        violation: violation,
+        sendableReport: data);
   }
-
+}
 /*@override
   String toString() {
     try {
@@ -68,4 +68,3 @@ class ReportToGet extends Report {
     }
     return null;
   }*/
-}
