@@ -9,6 +9,18 @@ class ViewReportAuthority extends StatelessWidget {
     return WillPopScope(
       child: Scaffold(
         appBar: AppBar(
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(Icons.error),
+                onPressed: () async {
+                  //TODO fine the report
+                }),
+            IconButton(
+                icon: Icon(Icons.assistant_photo),
+                onPressed: () async {
+                  //TODO send feedback
+                }),
+          ],
           title: Text("Report Page"),
         ),
         body: Column(
@@ -29,14 +41,10 @@ class ViewReportAuthority extends StatelessWidget {
               child: ListView.builder(
                   itemCount: u.currViewedReport.imagesLite['links'].length,
                   itemBuilder: (context, int) {
-                    return Stack(
-                      children: <Widget>[
-                        Image.network(
-                            u.currViewedReport.imagesLite['links'][int]),
-                      ],
-                    );
+                    return Image.network(
+                        u.currViewedReport.imagesLite['links'][int]);
                   }),
-            ),
+            )
           ],
         ),
       ),

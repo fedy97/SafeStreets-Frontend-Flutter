@@ -130,11 +130,11 @@ abstract class User extends ChangeNotifier {
         i++;
       }
     }
-    _fillMyReports();
+    fillMyReports();
     notifyListeners();
   }
 
-  void _fillMyReports() {
+  void fillMyReports() {
     myReports.clear();
     for (ReportToGet reportToGet in _reportsGet) {
       if (reportToGet.emailUser == this.email) myReports.add(reportToGet);

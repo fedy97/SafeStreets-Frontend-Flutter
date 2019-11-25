@@ -9,6 +9,13 @@ class ViewReportCitizen extends StatelessWidget {
     return WillPopScope(
       child: Scaffold(
         appBar: AppBar(
+          actions: <Widget>[
+            IconButton(
+                icon: Icon(Icons.assistant_photo),
+                onPressed: () async {
+                  //TODO send feedback
+                })
+          ],
           title: Text("Report Page"),
         ),
         body: Column(
@@ -21,7 +28,10 @@ class ViewReportCitizen extends StatelessWidget {
             Text(u.currViewedReport.note != null
                 ? u.currViewedReport.note
                 : "no note"),
-            Text(u.currViewedReport.time.toIso8601String().split(".")[0].replaceAll("T", " at ")),
+            Text(u.currViewedReport.time
+                .toIso8601String()
+                .split(".")[0]
+                .replaceAll("T", " at ")),
             Expanded(
               child: ListView.builder(
                   itemCount: u.currViewedReport.imagesLite['links'].length,
