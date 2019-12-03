@@ -10,6 +10,7 @@ class ReportToGet extends Report {
       {time,
       note,
       feedback,
+      feedbackSenders,
       reportPosition,
       violation,
       emailUser,
@@ -23,6 +24,7 @@ class ReportToGet extends Report {
             note: note,
             reportPosition: reportPosition,
             feedback: feedback,
+            feedbackSenders: feedbackSenders,
             imagesLite: imagesLite);
 
   factory ReportToGet.fromMap(Map<String, dynamic> data, String emailUser) {
@@ -33,6 +35,7 @@ class ReportToGet extends Report {
     var reportPositionData = data['location'];
     var violationData = data['violation'];
     var imagesLite = data['images'];
+    var feedbackSenders = data['feedbackSenders'];
 
     DateTime time = DateTime.fromMillisecondsSinceEpoch(timeData);
     String long = reportPositionData.toString().split(",").last;
@@ -46,6 +49,7 @@ class ReportToGet extends Report {
         time: time,
         emailUser: emailUser,
         feedback: feedback,
+        feedbackSenders: List<String>.from(feedbackSenders),
         imagesLite: Map<String, dynamic>.from(imagesLite),
         note: note,
         reportPosition: reportLocation,

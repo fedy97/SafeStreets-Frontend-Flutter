@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:safe_streets/model/user/user.dart';
@@ -13,7 +14,27 @@ class ViewReportCitizen extends StatelessWidget {
             IconButton(
                 icon: Icon(Icons.assistant_photo),
                 onPressed: () async {
-                  //TODO send feedback
+                  if (!u.currViewedReport.feedbackSenders.contains(u.email)) {
+                    u.showProgress(context);
+                    var updatedTuple = Firestore.instance
+                        .collection("users")
+                        .document(u.currViewedReport.emailUser);
+                    updatedTuple.updateData({
+                      'reportSent':
+                      FieldValue.arrayRemove([u.currViewedReport.sendableReport])
+                    });
+                    u.currViewedReport.sendableReport['feedback']++;
+                    List<String> curr = List<String>.from(u.currViewedReport.sendableReport['feedbackSenders']);
+                    curr.add(u.email);
+                    u.currViewedReport.sendableReport['feedbackSenders'] = curr;
+                    updatedTuple.updateData({
+                      'reportSent':
+                      FieldValue.arrayUnion([u.currViewedReport.sendableReport])
+                    });
+                    u.currViewedReport.feedbackSenders.add(u.email);
+                    await u.getAllReports();
+                    Navigator.pop(context);
+                  }
                 })
           ],
           title: Text("Report Page"),
@@ -41,6 +62,15 @@ class ViewReportCitizen extends StatelessWidget {
                         Positioned(
                             child: Image.network(
                                 u.currViewedReport.imagesLite['links'][int])),
+                        Positioned(
+                            top: 20,
+                            right: 20,
+                            child: IconButton(
+                              icon: Icon(Icons.assistant_photo),
+                              onPressed: () async {
+                                //TODO send feedback
+                              },
+                            )),
                         //this will cover the plate
                         Positioned(
                           bottom: 10,

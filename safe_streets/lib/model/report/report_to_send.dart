@@ -26,22 +26,29 @@ class ReportToSend extends Report {
     List<String> downloadLinks = new List();
     List<String> plates = new List();
     List<String> accuracyList = new List();
+    List<int> feedback = new List();
+    List<List<String>> imageFeedbackSenders = new List();
+    List<String> feedbackSenders = new List();
     for (ViolationImage image in images) {
       downloadLinks.add(image.downloadLink);
       accuracyList.add(image.accuracy.toString());
       plates.add(image.plate);
+      feedback.add(0);
     }
     return {
       'note': note,
       'images': {
         'links': downloadLinks,
         'plates': plates,
-        'accuracy': accuracyList
+        'accuracy': accuracyList,
+        'imageFeedback' : feedback,
+        'imageFeedbackSenders' : imageFeedbackSenders
       },
       'violation': violation.toString(),
       'location': reportPosition.toString(),
       'time': time.millisecondsSinceEpoch,
-      'feedback' : 0
+      'feedback' : 0,
+      'feedbackSenders' : feedbackSenders
     };
   }
 

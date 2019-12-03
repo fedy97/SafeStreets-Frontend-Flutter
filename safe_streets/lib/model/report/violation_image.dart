@@ -8,8 +8,10 @@ class ViolationImage {
   String plate = "";
   double accuracy = 0;
   String downloadLink = "";
+  int feedback = 0;
+  List<String> imageFeedbackSenders;
 
-  ViolationImage({@required this.imageFile, @required this.plate,@required this.accuracy}) {
+  ViolationImage({@required this.imageFile, @required this.plate, @required this.accuracy}) {
     if (this.plate != "") isSensitive = true;
   }
 }
