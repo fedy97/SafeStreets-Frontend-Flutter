@@ -23,7 +23,7 @@
     The components’ functions contained in the application are described in the following list:
     \begin{itemize}
         \item \textbf{ReportMap Manager:} it takes care of showing on the map all the report with the correct color of pointer. It does that using the position of the report retrieved by gps on device. It interacts with map provider to shows all the reports in the correct position and also with database provider to retrieve the report position. Furthermore if a user clicks on a pointer of a report, this manager shows all the information of selected report concerning the type of user: if a citizen the plate are obscured otherwise they aren’t.
-        \item \textbf{NewReport Manager:} it manages the insertion of a new report: procedures to validate the correctness and completeness of the report and to retrieve the position of the user using the gps on the device. It interacts with plate recognizer provider to recognizes the plate in the image so this manager can obscure the position of the plate it the picture.It checks if there is a report of same type, in the same position and at the same date (using violationQuery manager) and the manager sends the report to the database  provider which stores it.
+        \item \textbf{NewReport Manager:} it manages the insertion of a new report: procedures to validate the correctness and completeness of the report and to retrieve the position of the user using the gps on the device. It interacts with plate recognizer provider to recognizes the plate in the image so this manager can obscure the position of the plate it the picture.It checks if there is a report of same type, in the same position and at the same date (using violationQuery manager) and the manager sends the report to the database provider which stores it.
         \item \textbf{Access Manager:} it manages the sign up and login of the users. In particular, it interacts with authentication provider (which contains all the procedures to register a new customer and to authenticate a registered one). For the sign up of an authority is mandatory insert not only mail address and a password but also the ID. Access manager also interacts with database provider on which there are stored the mails of the users. This is useful for keep an association between the user and all his reports.
         \item \textbf{UserReportVisualization Manager:} it manages the visualization of all reports of one user. In particular interacts with database provider from which takes reports stored. It shows all the reports of a user and also the possible actions on it: delete, modify, feedback area and only for authority it displays the field to check if a report is used to generate a traffic tickets.
         \item \textbf{ViolationQuery Manager:} it manages all the procedures to make a query on the database (through the database provider) to retrieve same specific data. User, unsafeArea manager, statistics manager and also NewReport manager use violationQuery manager to obtain data. Users have a dedicated area in the application where they can make a query by setting different fields (data, type, zone). UnsafeArea manager uses it to retrieve information in this way can fins unsafe area. Statistics manager use violationQuery manager to build statistics on the reports and the NewReport manager checks correctness of a report that is going to be add by checking position and data of report already stored in the database.
@@ -81,7 +81,7 @@
         %\includegraphics[scale = 1]{assets/deployment.png}\\[1.6 cm]
         %\caption[\textit{Deployment} Diagram]{Deployment diagram of the application.}
     \end{figure}
-    This sequence diagram shows the process that provide the map of the unsafe are in a city, crossing the report collected by safe street and the accidens data provided by the local municipality. The user send a request, providing the location that would like to interrogate. The UserMobileApp send the request to the UnsafeAreaManager,  which has the task of manage that kind of request. First, it get the accident list from the local municipality, and than get all the report collected into the indicated area. These informations are than crosesed and processed in order to define the unsafe areas, giving different weights to different type of violations. The data produced are than passed to the ReportMapManager, that mark the areas denoted as dangerous on the map. The map is then showed to the user. After that, the UnsafeAreaManager process the information on the violations and the accidents to find possible solutions, considering the type of the violations reported and the nearness of the accidents to the violations. If it is able to define possible solutions, these are send to the municipality.
+    This sequence diagram shows the process that provide the map of the unsafe are in a city, crossing the report collected by safe street and the accidens data provided by the local municipality. The user send a request, providing the location that would like to interrogate. The UserMobileApp send the request to the UnsafeAreaManager, which has the task of manage that kind of request. First, it get the accident list from the local municipality, and than get all the report collected into the indicated area. These informations are than crosesed and processed in order to define the unsafe areas, giving different weights to different type of violations. The data produced are than passed to the ReportMapManager, that mark the areas denoted as dangerous on the map. The map is then showed to the user. After that, the UnsafeAreaManager process the information on the violations and the accidents to find possible solutions, considering the type of the violations reported and the nearness of the accidents to the violations. If it is able to define possible solutions, these are send to the municipality.
     \subsection{Send Violation's picture Feedback}\label{subsec:send-violation's-picture-feedback}
     \begin{figure}[H]
         %\centering
@@ -144,7 +144,7 @@
     \newpage
     \section{Selected Architectural Styles and Patterns}\label{sec:selected-architectural-styles-and-patterns}
     \textbf{Three Tier Client Server} \\
-    As already mentioned in section 2.3, we chosen a multitiered architecture composed by three tiers: presentation, logic and data.
+    As already mentioned in section 2.3, we chosen a multi-tiered architecture composed by three tiers: presentation, logic and data.
 
     The advantages of this choice are in terms of decoupling of the complexity of the system making him more flexible to future modification and in this way also more reusable. This division also provides more security to the system in fat it separates the access to data from the layer where then logic for presentation and for the interaction with the customer is located.
     \\
@@ -173,5 +173,28 @@
     \end{itemize}
     \newpage
     \section{Other Design Decisions}\label{sec:other-design-decisions}
+    \textbf{Distributed Logic} \\
+    The application logic is distributed between the back-end and the app view so the client is in the middle of think think and fat one.
+
+    In fact some processes are executed on the mobile view for instance take the position (through the GPS) //******* so the load of data processing and transformation is put both on the client side and on the server side
+
+    This lead to a more balanced distribution of process and a more efficient system.
+    \\
+    \\
+    \textbf{Choice of Providers} \\
+    Starting from security and scalability reason, we have decided to lean on different providers for the more complexes and sensitives functionalities of SafeStreets.
+    \begin{itemize}
+        \item \textbf{Authentication Provier:} Regarding the authentication provider we want a service that can: \begin{enumerate}
+                                                                                                                     \item Register new users
+                                                                                                                     \item Authenticate the registered ones
+                                                                                                                 \end{enumerate}
+        The best effort is the encryption of the password that is useful in terms of security.
+        \item \textbf{Map Provider:} It’s fundamental in SafeStreets app for display report on a map. Furthermore the map provider must be able to displays the position of the user and of the reports on the map.
+        \item \textbf{Plate Recognizer Provider:} For recognize a plate from a picture, we decide to choose a provider that it’s be able from a photo to keep the plate (text format).
+        \item \textbf{Database Provider:} Database system are complex, difficult and time-consuming to design also for the developers requires an initial training so from this point of view is more convenient to take one ready-made.
+
+        We want a database that stores reports with all their information and also be able to retrieve information about one user from his mail.
+
+    \end{itemize}
 
 \end{document}
