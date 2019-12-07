@@ -14,7 +14,7 @@
     Database provider, Plate recognition provider, map provider and authentication provider.
     \begin{figure}[H]
         \centering
-        \includegraphics[scale = 1.3]{assets/overview.png}\\[1.6 cm]
+        \includegraphics[scale = 1.1]{assets/overview.png}\\[1.6 cm]
         \caption[\textit{OverView} Diagram]{Overview diagram of the application.}
     \end{figure}
     \section{Component View}\label{sec:component-view}
@@ -79,6 +79,7 @@
         \item \textbf{Database Authority:} it is used by SafeStreets in particular w.r.t component diagram, unsafeArea manger and statisticsManager
         exploit it to use data about accidents.
     \end{itemize}
+    \newpage
     \section{Deployment View}\label{sec:deployment-view}
     In the following image the SafeStreets deployment diagram is represented: it shows the execution architecture of the system
     and represents the distribution (deployment) of software artifacts to deployment targets (nodes).
@@ -100,6 +101,7 @@
         \item \textbf{Data Tier:} Here information is stored and retrieved from two databases: authority database for the incidents and the other one
         for the reports and user information. The information is then passed back to the logic tier for processing and then eventually back to the user.
     \end{itemize}
+    \newpage
     \section{Run-Time View}\label{sec:run-time-view}
     \subsection{Upload New Report}\label{subsec:upload-new-report}
     \begin{figure}[H]
@@ -176,53 +178,53 @@
     \\
     \textbf{AccessManager:}
     \begin{itemize}
-        \item Function signup: given email, password and id(mandatory only if authority), a new instance of User is return by the authentication provider,
+        \item \textit{Function} signup: given email, password and id(mandatory only if authority), a new instance of User is return by the authentication provider,
         and the new user is now stored in the database with its email and level(standard or complete, according to the id provided).
-        \item Function login: given the email and password, will return a User object given by the authentication provider.
+        \item \textit{Function} login: given the email and password, will return a User object given by the authentication provider.
     \end{itemize}
     \textbf{NewReportManager:}
     \begin{itemize}
-        \item     Function checkConstraintsOnReport: this function is used to check for example if at least one image is uploaded, will return true or false.
-        \item     Function recognizePlates: given a list of images, the application will use an API in order to recognize plates text
+        \item     \textit{Function} checkConstraintsOnReport: this function is used to check for example if at least one image is uploaded, will return true or false.
+        \item     \textit{Function} recognizePlates: given a list of images, the application will use an API in order to recognize plates text
         if present and will be put it in a list, one string for each image.
-        \item     Function getPosition: this function will be called as soon as the first image is taken, will retrieve the user position using GPS.
-        \item     Function checkForSimilarReports: this function will make sure that there are no other reports of the same violation in the same spot.
-        \item     Function storeReport: the report will be then stored in the database, ready to be fetched by the other users.
-        \item     Function getTime: this function will set the time of the report and will be taken from the device.
+        \item     \textit{Function} getPosition: this function will be called as soon as the first image is taken, will retrieve the user position using GPS.
+        \item     \textit{Function} checkForSimilarReports: this function will make sure that there are no other reports of the same violation in the same spot.
+        \item     \textit{Function} storeReport: the report will be then stored in the database, ready to be fetched by the other users.
+        \item     \textit{Function} getTime: this function will set the time of the report and will be taken from the device.
     \end{itemize}
     \textbf{ReportMapManager:}
     \begin{itemize}
-        \item     Function showListOfMarkers: display all markers created on the map
-        \item     Function addMarkerToList: given a report, the associated marker is created and return true if no errors occur.
-        \item     Function markArea: once the crossed info between SafeStreet and the municipality are calculated, the most dangerous areas are marked.
+        \item     \textit{Function} showListOfMarkers: display all markers created on the map
+        \item     \textit{Function} addMarkerToList: given a report, the associated marker is created and return true if no errors occur.
+        \item     \textit{Function} markArea: once the crossed info between SafeStreet and the municipality are calculated, the most dangerous areas are marked.
     \end{itemize}
     \textbf{StatisticsManager:}
     \begin{itemize}
-        \item     Function showStats: given the current user’s email that is logged, the right stats are loaded depending on the level of the user.
+        \item     \textit{Function} showStats: given the current user’s email that is logged, the right stats are loaded depending on the level of the user.
     \end{itemize}
     \textbf{UserReportVisualizationManager:}
     \begin{itemize}
-        \item     Function displayReport: the report selected on the map will be shown, displaying partial or complete data (visible plates for example)
+        \item     \textit{Function} displayReport: the report selected on the map will be shown, displaying partial or complete data (visible plates for example)
         depending on the level of the user.
-        \item     Function incrementFeedbackReport: given a report, increment the counter of the negative feedback on that report.
-        \item     Function incrementFeedbackPicture: given a picture inside a report, increment the counter of the negative feedback on that image.
-        \item     Function sendFeedback: given a report, increment the counter of all feedback on that report.
-        \item     Function fineReport: this method is available only for authorities, given a report will be marked as fined on the map.
-        \item     Function removeReport: given a report, if that report belongs to the user who wants to perform that action, it will be deleted.
+        \item     \textit{Function} incrementFeedbackReport: given a report, increment the counter of the negative feedback on that report.
+        \item     \textit{Function} incrementFeedbackPicture: given a picture inside a report, increment the counter of the negative feedback on that image.
+        \item     \textit{Function} sendFeedback: given a report, increment the counter of all feedback on that report.
+        \item     \textit{Function} fineReport: this method is available only for authorities, given a report will be marked as fined on the map.
+        \item     \textit{Function} removeReport: given a report, if that report belongs to the user who wants to perform that action, it will be deleted.
         Moreover, this function will also be called when the reports reaches the maximum number of negative feedback.
-        \item     Function removePicture: when the maximum number of negative feedback on the single image is reached, the picture will be deleted.
-        \item     Function retrieveReports: this method is called either once the map is loaded or whenever the user taps on the refresh button.
+        \item     \textit{Function} removePicture: when the maximum number of negative feedback on the single image is reached, the picture will be deleted.
+        \item     \textit{Function} retrieveReports: this method is called either once the map is loaded or whenever the user taps on the refresh button.
     \end{itemize}
     \textbf{UnsafeAreaManager:}
     \begin{itemize}
-        \item     Function displayUnsafeAreas: given a map of information, all the unsafe areas will be displayed on the map
-        \item     Function getPossibleInterventions: from the map of all crossed information received by the API of the municipality,
+        \item     \textit{Function} displayUnsafeAreas: given a map of information, all the unsafe areas will be displayed on the map
+        \item     \textit{Function} getPossibleInterventions: from the map of all crossed information received by the API of the municipality,
         the possible interventions are created according to a precise algorithm that compares the places of the accidents with the violation’s report
         in the same places.
     \end{itemize}
     \textbf{ViolationQueryManager:}
     \begin{itemize}
-        \item     Function queryDb: this method is used both by UnsafeAreaManager and StatisticsManager in order to cross all the information necessary to do their job.
+        \item     \textit{Function} queryDb: this method is used both by UnsafeAreaManager and StatisticsManager in order to cross all the information necessary to do their job.
         In addition to that, it is used by the user to query reports by date or violation type for example.
     \end{itemize}
     \newpage
