@@ -9,7 +9,7 @@ class MyReportsPage extends StatelessWidget {
     User u = Provider.of<User>(context, listen: true);
     return WillPopScope(
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(title: Text("My Reports"),),
         body: ListView.builder(
             itemCount: u.myReports.length,
             itemBuilder: (context, int) {
