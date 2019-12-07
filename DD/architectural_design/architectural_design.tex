@@ -222,15 +222,29 @@
     \end{itemize}
     \newpage
     \section{Selected Architectural Styles and Patterns}\label{sec:selected-architectural-styles-and-patterns}
-    \textbf{Three Tier Client Server} \\
+    \subsection{Three Tier Architecture}\label{subsec:three-tier-architecture}
     As already mentioned in section 2.3, we chosen a multi-tiered architecture composed by three tiers: presentation, logic and data.
     The advantages of this choice are in terms of decoupling of the complexity of the system making him more flexible to future modification
     and in this way also more reusable.
     This division also provides more security to the system in fat it separates the access to data from the layer where then logic for presentation
     and for the interaction with the customer is located.
-    \\
-    \\
-    \textbf{MVVM (Model-View-ViewModel)} \\
+    \subsection{Serverless Approach}\label{subsec:serverless-approach}
+    \begin{itemize}
+        \item \textbf{Performance:} we want the database access to be fast and in order to do that could be useful to directly query it and get all the tuples locally.
+        Moreover, using this approach the database has a local cache that stores query results for future use.
+        When a client app issues a query, if the SDK determines that the cache contains up-to-date results for that query, the results can come directly from the cache.
+        The obvious benefit here is that network bandwidth and latency are reduced.
+        The results appear faster, even while offline, and the end user pays less data costs to see those results.
+        If you make the request indirectly through a server, there is absolutely no client-side caching done by default.
+        If you want to cache the results, you’ll have to do that on the client, using some mechanism you choose.
+        \item \textbf{Price:} is tied (partly) to how much data the app reads.
+        As mentioned previously, the local cache can prevent many data reads from happening on the server.
+        Data coming from cache, unchanged on the server, prevents the cost of the query and the cost of the bandwidth to bring that data to the app.
+        If you query indirectly through a server in the middle, you will pay for the cost of the query in addition to the cost of the execution of the function.
+        Usually the server SDKs you use do not cache data, so each execution pays the full cost of the query, and its data transfer.
+    \end{itemize}
+
+    \subsection{MVVM (Model-View-ViewModel)}\label{subsec:mvvmmodel-view-viewmodel}
     MVVM facilitates a separation of development of the graphical user interface - be it via a markup language or GUI code -
     from development of the business logic or back-end logic (the data model).
     The view model of MVVM is a value converter, meaning the view model is responsible for exposing (converting) the data objects from the model
@@ -244,16 +258,14 @@
     It’s simple and allows the view to directly communicate with the backend.
     Because of this, MVVM single page applications can move quickly and fluidly and save information to the database continuously
     (Google Docs would be a perfect example).
-    \\
-    \\
-    \textbf{RESTful Architecture} \\
+
+    \subsection{RESTful Architecture}\label{subsec:restful-architecture}
     The communication between SafeStreets and their users is done via HTTP requests following REST principles.
     REST (Representation State Transfer) is an architectural style for communication based on strict use of HTTP request types.
     One of the most important REST principles is that the interaction between the client and server is stateless between requests.
     Each request from the client to the server must contain all of the information necessary to understand the request.
     The client would not notice if the server were to be restarted at any point between the requests.
     The RESTful HTTP requests are categorized according to method types as the following:
-    \\
     \begin{itemize}
         \item GET: used to retrieve resource representation/information only - and not to modify it in any way.
         \item POST: used to create a new resource into the collection of resources.
