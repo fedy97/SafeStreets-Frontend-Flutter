@@ -220,6 +220,11 @@
         the possible interventions are created according to a precise algorithm that compares the places of the accidents with the violation’s report
         in the same places.
     \end{itemize}
+    \textbf{ViolationQueryManager:}
+    \begin{itemize}
+        \item     Function queryDb: this method is used both by UnsafeAreaManager and StatisticsManager in order to cross all the information necessary to do their job.
+        In addition to that, it is used by the user to query reports by date or violation type for example.
+    \end{itemize}
     \newpage
     \section{Selected Architectural Styles and Patterns}\label{sec:selected-architectural-styles-and-patterns}
     \subsection{Three Tier Architecture}\label{subsec:three-tier-architecture}
