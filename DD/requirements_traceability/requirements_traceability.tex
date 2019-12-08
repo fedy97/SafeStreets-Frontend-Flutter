@@ -3,9 +3,10 @@
 
 \begin{document}
     \chapter{Requirements traceability}\label{ch:requirements-traceability}
-    Here a mapping between requirements defined in the RASD and the design components in the logic application that will ensure their fulfillment in a direct way,
-    some other components that are indirectly needed to enforce some requirements are not mentioned in the list,
-    but their role has been made clear through some comment is shown:
+    Below is shown a mapping between requirements defined in the RASD and the design components in the logic application
+    that will ensure their fulfillment in a direct way.
+    Other components that are indirectly needed to enforce some requirements are not mentioned in the list,
+    but their role has been made clear through some comments:
     \begin{enumerate}
         \requirement{1} Unregistered user cannot use SafeStreets.
         \begin{itemize}
@@ -18,7 +19,7 @@
             \item \textbf{Access manager}: it checks if all the fields of the registration are filled in the correct way.
         \end{itemize}
 
-        \requirement{3} In signing up, an authority must also provide an ID.
+        \requirement{3} In signing up, an authority must also provide an ID\@.
         \begin{itemize}
             \item \textbf{Access manager}: it checks if all the fields of the registration are filled in the correct way.
         \end{itemize}
@@ -64,13 +65,13 @@
 
         \requirement{11} Authorities can see all the sensitive information contained in a report.
         \begin{itemize}
-            \item \textbf{UserReportVisualization manager}: this manager based on the type of user can show or not the sensible information of one report.
+            \item \textbf{UserReportVisualization manager}: this manager, based on the type of user, can show or not the sensible information of one report.
             For the citizens shows the images with the plate blurred.
         \end{itemize}
 
         \requirement{12} Citizens cannot see sensitive information in a report.
         \begin{itemize}
-            \item \textbf{UserReportVisualization manager}: this manager based on the type of user can show or not the sensible information of one report.
+            \item \textbf{UserReportVisualization manager}: this manager, based on the type of user, can show or not the sensible information of one report.
             For the citizens shows the images with the plate blurred.
         \end{itemize}
 
@@ -89,39 +90,39 @@
             \item \textbf{UserReportVisualization manager}: this manager manages all the operation on one report, in this case the editing of a report.
         \end{itemize}
 
-        \requirement{16} Users can upload valid reports.
+        \requirement{16} Users can upload \textit{valid} reports.
         \begin{itemize}
-            \item \textbf{NewReport manager}: this manager allow one user to upload a report.
+            \item \textbf{NewReport manager}: this manager allows one user to upload a report.
         \end{itemize}
 
         \requirement{17} A report must contain at least one image.
         \begin{itemize}
-            \item \textbf{NewReport manager}: this manager checks the completeness and the correctness of one report that it’s going to be add.
+            \item \textbf{NewReport manager}: this manager checks the completeness and the correctness of one report that it’s going to be added.
         \end{itemize}
 
         \requirement{18} A report must indicate the type of violation.
         \begin{itemize}
-            \item \textbf{NewReport manager}: this manager checks the completeness and the correctness of one report that it’s going to be add.
+            \item \textbf{NewReport manager}: this manager checks the completeness and the correctness of one report that it’s going to be added.
         \end{itemize}
 
-        \requirement{19} A report is valid if and only if R17 and R18 are satisfied.
+        \requirement{19} A report is \textit{valid} if and only if R17 and R18 are satisfied.
         \begin{itemize}
-            \item \textbf{NewReport manager}: this manager checks the completeness and the correctness of one report that it’s going to be add.
+            \item \textbf{NewReport manager}: this manager checks the completeness and the correctness of one report that it’s going to be added.
         \end{itemize}
 
         \requirement{20} Images containing sensitive information (like license plates) must be blurred by the system.
         \begin{itemize}
-            \item \textbf{NewReport manager} and plate recognizer provider: this manager using the plate recognizer provider,
-            is able to blurred the plate on the images uploaded with a report.
+            \item \textbf{NewReport manager} and plate recognizer provider: this manager, using the plate recognizer provider,
+            is able to get the pixels of the plates on the images uploaded with a report.
         \end{itemize}
 
         \requirement{21} The system must notify the user if the report submitted is not valid.
         \begin{itemize}
-            \item \textbf{NewReport manager}: this manager checks the completeness and the correctness of one report that it’s going to be add.
-            If it doesn’t respect all the constraints, the user will be notified.
+            \item \textbf{NewReport manager}: this manager checks the completeness and the correctness of one report that it’s going to be added.
+            If it does not respect all the constraints, the user will be notified.
         \end{itemize}
 
-        \requirement{22} For each type of statistics there must be at least user from which SafeStreets takes data.
+        \requirement{22} For each type of statistics there must be at least one user from which SafeStreets takes data.
         \begin{itemize}
             \item \textbf{Statistics manager}: this manager checks all the conditions to build one type of statistic.
         \end{itemize}
@@ -138,22 +139,22 @@
 
         \requirement{25} Authorities can see suggestions for possible interventions.
         \begin{itemize}
-            \item \textbf{UnsafeArea manager}: for each unsafe area, this manager suggests possible interventions to authority.
-            The suggestions are based on the type of unsafe area(type of most crime committed).
+            \item \textbf{UnsafeArea manager}: for each unsafe area, this manager suggests possible interventions to authorities.
+            The suggestions are based on the type of unsafe area (type of most accidents committed).
         \end{itemize}
 
         \requirement{26} During adding a new report, if there is a report of same type, in the same position and at the same date,
         SafeStreets shows the report stored to the user if the violation is the same.
         \begin{itemize}
             \item \textbf{NewReport manager} and database provider: this manager checks the correctness of a new report.
-            \item \textbf{ViolationQuery manager} and database provider: this manager checks if a report that is going to be add has the same position
+            \item \textbf{ViolationQuery manager} and database provider: this manager checks if a report that is going to be added has the same position
             and data of at least one report already stored in the database.
         \end{itemize}
 
         \requirement{27} Authorities can mark a report as “fined”.
         \begin{itemize}
-            \item \textbf{UserReportVisualization manager}: this manager manages all the operation on one report, in this case the specific “ fined field”
-            of a report that is available only for the authority
+            \item \textbf{UserReportVisualization manager}: this manager manages all the operation on one report, in this case the specific “fined field”
+            of a report that is available only for the authorities.
         \end{itemize}
 
         \requirement{28} User can query SafeStreets to achieve a specific report.
@@ -174,7 +175,7 @@
         p{.17\linewidth} | p{.12\linewidth} |}
             \hline
             \textbf{R} & \textbf{Access manager} & \textbf{NewReport manager} & \textbf{ReportMap manager} & \textbf{Statistics manager} &
-            \textbf{UnsafeArea manager} & \textbf{UserReport- -Visualization manager} & \textbf{Violation- -Query manager}\\ \hline
+            \textbf{UnsafeArea manager} & \textbf{UserReport- Visualization manager} & \textbf{Violation- Query manager}\\ \hline
             \textbf{1} & Yes & & & & & & \\ \hline
             \textbf{2} & Yes & & & & & & \\ \hline
             \textbf{3} & Yes & & & & & & \\ \hline
