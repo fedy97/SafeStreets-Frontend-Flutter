@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:safe_streets/model/user/user.dart';
 
+import '../feedback_sender.dart';
+
 class ViewReportAuthority extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,9 @@ class ViewReportAuthority extends StatelessWidget {
             IconButton(
                 icon: Icon(Icons.assistant_photo),
                 onPressed: () async {
-                  //TODO send feedback
+                  u.showProgress(context);
+                  FeedbackSender.violationFeedback(u);
+                  Navigator.pop(context);
                 }),
           ],
           title: Text("Report Page"),
