@@ -90,7 +90,7 @@ class HomePage extends StatelessWidget {
               },
             )
           ],
-          title: Text("SafeStreet"),
+          title: Text("SafeStreets"),
         ),
         body: Center(
           child: Column(

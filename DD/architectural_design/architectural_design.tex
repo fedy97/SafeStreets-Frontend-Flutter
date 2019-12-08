@@ -4,12 +4,10 @@
 \begin{document}
     \chapter{Architectural Design}\label{ch:architectural-design}
     \section{Overview}\label{sec:overview}
-    From an external point of view, users using their smartphones, exploits the different services offered by SafeStreets that are different for citizen and authority.
-
-    The application to be developed is based on one application component ( application logic) which manages the interactions between different components of the system.
-
+    From an external point of view, users using their smartphones, exploit the different services offered by SafeStreets that are different for citizens and authorities.
+    The application to be developed is based on one application component (application logic) which manages the interactions between different components of the system.
     Application logic is present both in the mobile view and in the back-end logic.
-    In mobile view there is the management of the GUI and of the connection with other useful components present in the smartphone: GPS and camera;
+    In the mobile view there is the management of the GUI and the connection with other useful components present in the smartphone: GPS and camera;
     while in the back-end logic there is the most of the logic and also the interfaces to external services:
     Database provider, Plate recognition provider, map provider and authentication provider.
     \begin{figure}[H]
@@ -25,41 +23,42 @@
     \end{figure}
     The components’ functions contained in the application are described in the following list:
     \begin{itemize}
-        \item \textbf{ReportMap Manager:} it takes care of showing on the map all the report with the correct color of pointer.
+        \item \textbf{ReportMap Manager:} it takes care of showing on the map all the reports with the correct color of the marker.
         It does that using the position of the report retrieved by gps on device.
         It interacts with map provider to shows all the reports in the correct position and also with database provider to retrieve the report position.
-        Furthermore if a user clicks on a pointer of a report, this manager shows all the information of selected report concerning the type of user:
-        if a citizen the plate are obscured otherwise they aren’t.
+        Furthermore if a user clicks on a marker of a report, this manager shows all the information of selected report concerning the type of user:
+        if a citizen the plate are obscured otherwise they are not.
         \item \textbf{NewReport Manager:} it manages the insertion of a new report: procedures to validate the correctness and completeness of the report
         and to retrieve the position of the user using the gps on the device.
-        It interacts with plate recognizer provider to recognizes the plate in the image so this manager can obscure the position of the plate it the picture.
-        It checks if there is a report of same type, in the same position and at the same date (using violationQuery manager)
+        It interacts with plate recognizer provider to recognize the plate in the image so this manager can obscure the position of the plate in the picture.
+        It checks if there is a report of the same type, in the same position and at the same date (using violationQuery manager)
         and the manager sends the report to the database provider which stores it.
         \item \textbf{Access Manager:} it manages the sign up and login of the users.
         In particular, it interacts with authentication provider (which contains all the procedures to register a new customer and to authenticate a registered one).
-        For the sign up of an authority is mandatory insert not only mail address and a password but also the ID\@.
+        For the sign up of an authority is mandatory to insert not only mail address and a password but also the ID\@.
         Access manager also interacts with database provider on which there are stored the mails of the users.
         This is useful for keep an association between the user and all his reports.
         \item \textbf{UserReportVisualization Manager:} it manages the visualization of all reports of one user.
-        In particular interacts with database provider from which takes reports stored.
-        It shows all the reports of a user and also the possible actions on it: delete, modify, feedback area and only for authority
+        In particular interacts with database provider from which it takes reports stored.
+        It shows all the reports of a user and also the possible actions on it: delete, modify, feedback areas and only for authority
         it displays the field to check if a report is used to generate a traffic tickets.
         \item \textbf{ViolationQuery Manager:} it manages all the procedures to make a query on the database (through the database provider)
         to retrieve same specific data.
-        User, unsafeArea manager, statistics manager and also NewReport manager use violationQuery manager to obtain data.
+        User, UnsafeArea manager, Statistics manager and also NewReport manager use ViolationQuery manager to obtain data.
         Users have a dedicated area in the application where they can make a query by setting different fields (data, type, zone).
-        UnsafeArea manager uses it to retrieve information in this way can fins unsafe area.
-        Statistics manager use violationQuery manager to build statistics on the reports and the NewReport manager checks correctness of a report
-        that is going to be add by checking position and data of report already stored in the database.
+        UnsafeArea manager uses it to retrieve information so that it can find unsafe areas.
+        Statistics manager uses ViolationQuery manager to build statistics on the reports and the NewReport manager checks correctness of a report
+        that is going to be added by checking position and data of report already stored in the database.
         \item \textbf{Statistics Manager:} it takes care of building statistics on the app through specific algorithms.
-        It retrieves data using both database provider in which are stored data about reports and databases of authority in which are stored data about accidents.
-        In particular it builds statistics on effectiveness of the application analyzing the feedback by authority (reports used for generate traffic tickets)
-        and on the crimes.for all type of statistics, this manager checks if there is at least one user from which it takes data.
+        It retrieves data using both database provider in which are stored data about reports and database of authorities in which are stored data about accidents.
+        In particular it builds statistics on effectiveness of the application analyzing the feedback by authorities (reports used for generate traffic tickets)
+        and on the accidents.
+        For all type of statistics, this manager checks if there is at least one user from which it takes data.
         \item \textbf{UnsafeAreaManager:} it takes care of showing on the map the unsafe areas.
-        It, using services provided by violationQuery manager and also data from the authority database,
-        finds unsafe areas and it displays on the map information retrieved.
-        Furthermore only for authorities it show suggestions for possible intervention in that specific area.
-        \item \textbf{UserMobile App:} it’s the application on users devices, it interacts with all the services provided by the different managers,
+        It finds unsafe areas and displays on the map the information retrieved by using services provided by ViolationQuery manager
+        and also data from the authority database.
+        Furthermore, only for authorities, it shows suggestions for possible interventions in that specific area.
+        \item \textbf{UserMobile App:} it’s the application installed on users devices, it interacts with all the services provided by the different managers,
         it also exploits the map provider on which there are all reports with their own position.
         It takes the user interaction and feedback.
         It manages GUI and also the permission of the user to use the GPS and the camera.
@@ -70,13 +69,13 @@
     \begin{itemize}
         \item \textbf{Plate Recognition Provider:} it is used to recognize the plate of a car from a picture loaded by a user.
         \item \textbf{Map Provider:} it provides a real time map of the globe.
-        \item \textbf{Authentication Provider:} it manages the access of a registered users and the registration of new one.
-        \item \textbf{Database Provider:} it is used to store all the information regarded the reports and the user information.
+        \item \textbf{Authentication Provider:} it manages the access of a registered user and the registration of new one.
+        \item \textbf{Database Provider:} it is used to store all the information regarded the reports and the users information.
     \end{itemize}
     \textbf{Other Components:}
     \\
     \begin{itemize}
-        \item \textbf{Database Authority:} it is used by SafeStreets in particular w.r.t component diagram, unsafeArea manger and statisticsManager
+        \item \textbf{Database Authority:} it is used by SafeStreets in particular w.r.t component diagram, UnsafeArea manager and StatisticsManager
         exploit it to use data about accidents.
     \end{itemize}
     \newpage
@@ -90,7 +89,7 @@
         \includegraphics[scale = 1.6]{assets/deployment.png}\\[1.6 cm]
         \caption[\textit{Deployment} Diagram]{Deployment diagram of the application.}
     \end{figure}
-    In the diagram, external systems are represented through the interface that they offered.
+    In the diagram, external systems are represented through the interface that they offer.
     The system is divided into three different tiers and represents the common architectural style:
     \begin{itemize}
         \item \textbf{Presentation Tier:} The top-most level of the application is the user interface.
@@ -98,8 +97,9 @@
         \item \textbf{Logic Tier:} This layer coordinates the application, processes commands, makes logical decision and evaluations, and performs calculations.
         It moves and processes data between the two surrounding layers and this happens for all the managers of back-end logic.
         It also interacts with the different interfaces through which the providers offer their services.
-        \item \textbf{Data Tier:} Here information is stored and retrieved from two databases: authority database for the incidents and the other one
-        for the reports and user information. The information is then passed back to the logic tier for processing and then eventually back to the user.
+        \item \textbf{Data Tier:} Here information is stored and retrieved from two databases: authority database for the accidents and the other one
+        for the reports and users information.
+        The information is then passed back to the logic tier for processing and then eventually back to the user.
     \end{itemize}
     \newpage
     \section{Run-Time View}\label{sec:run-time-view}
@@ -109,11 +109,11 @@
         %\includegraphics[scale = 1]{assets/deployment.png}\\[1.6 cm]
         %\caption[\textit{Deployment} Diagram]{Deployment diagram of the application.}
     \end{figure}
-    This sequence diagram shows the process that allow a user to upload a new violation report.
-    The information about the violation are send to the UserMobileApp, except for the position that is obtained by UserMobileApp throw the user device GPS\@.
+    This sequence diagram shows the process that allows a user to upload a new violation report.
+    The information about the violation are sent to the UserMobileApp, except for the position that is obtained by UserMobileApp through the user device GPS\@.
     Then the database is queried to check if a violation with a similar date and time has already been reported.
-    In that case, the NewReportManager send a request to the user to confirm the upload.
-    If the answer is positive, or if a similar report has not been found at all, it uses all the collected information to create a dossier and store it in the database.
+    In that case, the NewReportManager sends a request to the user to confirm the upload.
+    If the answer is positive, or if a similar report has not been found at all, it uses all the collected information to create a dossier and stores it in the database.
     Otherwise, if the user do not confirm the upload, the operation is aborted.
     \subsection{Daily Violation Map Request}\label{subsec:daily-violation-map-request}
     \begin{figure}[H]
@@ -121,14 +121,13 @@
         %\includegraphics[scale = 1]{assets/deployment.png}\\[1.6 cm]
         %\caption[\textit{Deployment} Diagram]{Deployment diagram of the application.}
     \end{figure}
-    In this sequence diagram is shown the process that provide to the user the daily violation map.
-    It starts with a request from the user, that is followed with the collection of the collection of the information about the user position:
-    this information is useful in order to set the map at the user location as default.
+    In this sequence diagram is shown the process that provides the user with the daily violation map.
+    It starts with a request from the user, that is followed with the collection of the information about the user position:
+    this information is useful in order to set the map at the user's location as default.
     Then the database is queried to collect all the report stored in the last 24 hours.
-    Every report is than passed to the ReportMapManager,that mark the position of the report.
+    Every report is than passed to the ReportMapManager, that marks the position of the report.
     The map thus obtained is than shown to the user.
-
-    The sequence diagram shows than what happens in case that the user requires the dossier by clicking on the report marker:
+    After that, the sequence diagram shows what happens in case that the user requires the dossier by clicking on the report marker:
     a request is sent from the UserMobileApp to the UserReportVisualizationManager, that uses the email to get the access level of the user and provides
     a dossier that contains only the accessible information.
     \subsection{Unsafe Area Request}\label{subsec:unsafe-area-request}
@@ -196,7 +195,7 @@
     \begin{itemize}
         \item     \textit{Function} showListOfMarkers: display all markers created on the map
         \item     \textit{Function} addMarkerToList: given a report, the associated marker is created and return true if no errors occur.
-        \item     \textit{Function} markArea: once the crossed info between SafeStreet and the municipality are calculated, the most dangerous areas are marked.
+        \item     \textit{Function} markArea: once the crossed info between SafeStreets and the municipality are calculated, the most dangerous areas are marked.
     \end{itemize}
     \textbf{StatisticsManager:}
     \begin{itemize}
