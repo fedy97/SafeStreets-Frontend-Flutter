@@ -39,18 +39,6 @@ class HomePage extends StatelessWidget {
                     Text(u.level == Level.standard ? "Citizen" : "Authority"),
               ),
               ListTile(
-                title: Text("Logout"),
-                onTap: () async {
-                  Navigator.pop(context);
-                  final auth =
-                      Provider.of<FirebaseAuthService>(context, listen: false);
-                  await auth.signOut();
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => SignInPage()));
-                },
-                leading: Icon(Icons.exit_to_app),
-              ),
-              ListTile(
                 title: Text("My Reports"),
                 onTap: () {
                   Navigator.push(
@@ -63,7 +51,31 @@ class HomePage extends StatelessWidget {
                               )));
                 },
                 leading: Icon(Icons.assistant_photo),
-              )
+              ),
+              ListTile(
+                title: Text("Statistics"),
+                onTap: () async {
+                },
+                leading: Icon(Icons.view_list),
+              ),
+              ListTile(
+                title: Text("Query Report"),
+                onTap: () async {
+                },
+                leading: Icon(Icons.search),
+              ),
+              ListTile(
+                title: Text("Logout"),
+                onTap: () async {
+                  Navigator.pop(context);
+                  final auth =
+                      Provider.of<FirebaseAuthService>(context, listen: false);
+                  await auth.signOut();
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (context) => SignInPage()));
+                },
+                leading: Icon(Icons.exit_to_app),
+              ),
             ],
           ),
         ),
@@ -78,7 +90,7 @@ class HomePage extends StatelessWidget {
               },
             )
           ],
-          title: Text("SafeStreet"),
+          title: Text("SafeStreets"),
         ),
         body: Center(
           child: Column(

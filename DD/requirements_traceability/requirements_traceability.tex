@@ -1,0 +1,212 @@
+\providecommand{\rasd}{..}
+\documentclass[../RASD.tex]{subfiles}
+
+\begin{document}
+    \chapter{Requirements traceability}\label{ch:requirements-traceability}
+    Below is shown a mapping between requirements defined in the RASD and the design components in the logic application
+    that will ensure their fulfillment in a direct way.
+    Other components that are indirectly needed to enforce some requirements are not mentioned in the list,
+    but their role has been made clear through some comments:
+    \begin{enumerate}
+        \requirement{1} Unregistered user cannot use SafeStreets.
+        \begin{itemize}
+            \item \textbf{Access manager} and authentication provider : with the services offered by authentication provider,
+            Access manager checks if a user is registered or not.
+        \end{itemize}
+
+        \requirement{2} In signing up, users must provide an email and a password.
+        \begin{itemize}
+            \item \textbf{Access manager}: it checks if all the fields of the registration are filled in the correct way.
+        \end{itemize}
+
+        \requirement{3} In signing up, an authority must also provide an ID\@.
+        \begin{itemize}
+            \item \textbf{Access manager}: it checks if all the fields of the registration are filled in the correct way.
+        \end{itemize}
+
+        \requirement{4} In signing up, users must accept “terms \& conditions”.
+        \begin{itemize}
+            \item \textbf{Access manger} and authentication provider: in sign up access manager shows “terms \& conditions” to the user.
+        \end{itemize}
+
+        \requirement{5} SafeStreets identifies a user by its email.
+        \begin{itemize}
+            \item \textbf{Access Manager}: each user has an identifier which is the user mail.
+        \end{itemize}
+
+        \requirement{6} SafeStreets collects user data in its database.
+        \begin{itemize}
+            \item \textbf{Access manager} and database provider: for each user access manager stores user mail in the database provider
+            to keep an association between the user and his reports.
+        \end{itemize}
+
+        \requirement{7} SafeStreets stores all reports in its database.
+        \begin{itemize}
+            \item \textbf{NewReport manager} and database provider: when user adds a new report, it is stored through the database provider.
+        \end{itemize}
+
+        \requirement{8} SafeStreets retrieves reports from its database.
+        \begin{itemize}
+            \item \textbf{ViolationQuery manager} and database provider: this manager contains all the procedures to make a query on the database
+            to retrieve some specific data.
+        \end{itemize}
+
+        \requirement{9} SafeStreets authenticates a user when tries to log in.
+        \begin{itemize}
+            \item \textbf{Access manager} and authentication provider: through the services offered by the authentication provider, access manager logs in a user.
+        \end{itemize}
+
+        \requirement{10} Users can view the reports in the map.
+        \begin{itemize}
+            \item \textbf{ReportMap manager} and map provider: this requirements is the main functionality of this manager.
+            It displays all the daily reports on the map.
+        \end{itemize}
+
+
+        \requirement{11} Authorities can see all the sensitive information contained in a report.
+        \begin{itemize}
+            \item \textbf{UserReportVisualization manager}: this manager, based on the type of user, can show or not the sensible information of one report.
+            For the citizens shows the images with the plate blurred.
+        \end{itemize}
+
+        \requirement{12} Citizens cannot see sensitive information in a report.
+        \begin{itemize}
+            \item \textbf{UserReportVisualization manager}: this manager, based on the type of user, can show or not the sensible information of one report.
+            For the citizens shows the images with the plate blurred.
+        \end{itemize}
+
+        \requirement{13} Users can view unsafe areas in the map.
+        \begin{itemize}
+            \item \textbf{Unsafe area manager} and map provider: this manager shows unsafe areas on the map archived from the map provider.
+        \end{itemize}
+
+        \requirement{14} Users can delete reports they submitted within a day.
+        \begin{itemize}
+            \item \textbf{UserReportVisualization manager}: this manager manages all the operation on one report, in this case the deletion of a report.
+        \end{itemize}
+
+        \requirement{15} Users can edit reports they submitted within a day.
+        \begin{itemize}
+            \item \textbf{UserReportVisualization manager}: this manager manages all the operation on one report, in this case the editing of a report.
+        \end{itemize}
+
+        \requirement{16} Users can upload \textit{valid} reports.
+        \begin{itemize}
+            \item \textbf{NewReport manager}: this manager allows one user to upload a report.
+        \end{itemize}
+
+        \requirement{17} A report must contain at least one image.
+        \begin{itemize}
+            \item \textbf{NewReport manager}: this manager checks the completeness and the correctness of one report that it’s going to be added.
+        \end{itemize}
+
+        \requirement{18} A report must indicate the type of violation.
+        \begin{itemize}
+            \item \textbf{NewReport manager}: this manager checks the completeness and the correctness of one report that it’s going to be added.
+        \end{itemize}
+
+        \requirement{19} A report is \textit{valid} if and only if R17 and R18 are satisfied.
+        \begin{itemize}
+            \item \textbf{NewReport manager}: this manager checks the completeness and the correctness of one report that it’s going to be added.
+        \end{itemize}
+
+        \requirement{20} Images containing sensitive information (like license plates) must be blurred by the system.
+        \begin{itemize}
+            \item \textbf{NewReport manager} and plate recognizer provider: this manager, using the plate recognizer provider,
+            is able to get the pixels of the plates on the images uploaded with a report.
+        \end{itemize}
+
+        \requirement{21} The system must notify the user if the report submitted is not valid.
+        \begin{itemize}
+            \item \textbf{NewReport manager}: this manager checks the completeness and the correctness of one report that it’s going to be added.
+            If it does not respect all the constraints, the user will be notified.
+        \end{itemize}
+
+        \requirement{22} For each type of statistics there must be at least one user from which SafeStreets takes data.
+        \begin{itemize}
+            \item \textbf{Statistics manager}: this manager checks all the conditions to build one type of statistic.
+        \end{itemize}
+
+        \requirement{23} A user can access to feedback area for each report.
+        \begin{itemize}
+            \item \textbf{UserReportVisualization manager}: this manager manages all the operation on one report, in this case the feedback area of a report.
+        \end{itemize}
+
+        \requirement{24} A user can select negative feedback for each report.
+        \begin{itemize}
+            \item \textbf{UserReportVisualization manager}: this manager manages all the operations on one report, in this case the feedback area of a report.
+        \end{itemize}
+
+        \requirement{25} Authorities can see suggestions for possible interventions.
+        \begin{itemize}
+            \item \textbf{UnsafeArea manager}: for each unsafe area, this manager suggests possible interventions to authorities.
+            The suggestions are based on the type of unsafe area (type of most accidents committed).
+        \end{itemize}
+
+        \requirement{26} During adding a new report, if there is a report of same type, in the same position and at the same date,
+        SafeStreets shows the report stored to the user if the violation is the same.
+        \begin{itemize}
+            \item \textbf{NewReport manager} and database provider: this manager checks the correctness of a new report.
+            \item \textbf{ViolationQuery manager} and database provider: this manager checks if a report that is going to be added has the same position
+            and data of at least one report already stored in the database.
+        \end{itemize}
+
+        \requirement{27} Authorities can mark a report as “fined”.
+        \begin{itemize}
+            \item \textbf{UserReportVisualization manager}: this manager manages all the operation on one report, in this case the specific “fined field”
+            of a report that is available only for the authorities.
+        \end{itemize}
+
+        \requirement{28} User can query SafeStreets to achieve a specific report.
+        \begin{itemize}
+            \item \textbf{ViolationQuery manager} and database provider: Users have a dedicated area in the application where they can make a query
+            by setting different fields (data, type, zone).
+        \end{itemize}
+
+        \requirement{29} SafeStreets retrieves incidents from municipality database.
+        \begin{itemize}
+            \item \textbf{Statistics manager} and database authority: It retrieves data using database of the authority in which are stored data about accidents.
+        \end{itemize}
+    \end{enumerate}
+
+    \newpage
+    %%traceability matrix
+        \begin{longtable}{| p{.02\linewidth} | p{.10\linewidth} | p{.14\linewidth} | p{.14\linewidth} | p{.105\linewidth} | p{.14\linewidth} |
+        p{.17\linewidth} | p{.12\linewidth} |}
+            \hline
+            \textbf{R} & \textbf{Access manager} & \textbf{NewReport manager} & \textbf{ReportMap manager} & \textbf{Statistics manager} &
+            \textbf{UnsafeArea manager} & \textbf{UserReport- Visualization manager} & \textbf{Violation- Query manager}\\ \hline
+            \textbf{1} & Yes & & & & & & \\ \hline
+            \textbf{2} & Yes & & & & & & \\ \hline
+            \textbf{3} & Yes & & & & & & \\ \hline
+            \textbf{4} & Yes & & & & & & \\ \hline
+            \textbf{5} & Yes & & & & & & \\ \hline
+            \textbf{6} & Yes & & & & & & \\ \hline
+            \textbf{7} & & Yes & & & & & \\ \hline
+            \textbf{8} & & & & & & & Yes\\ \hline
+            \textbf{9} & Yes & & & & & & \\ \hline
+            \textbf{10} & & & Yes & & & & \\ \hline
+            \textbf{11} & & & & & & Yes & \\ \hline
+            \textbf{12} & & & & & & Yes & \\ \hline
+            \textbf{13} & & & & & Yes & & \\ \hline
+            \textbf{14} & & & & & & Yes & \\ \hline
+            \textbf{15} & & & & & & Yes & \\ \hline
+            \textbf{16} & & Yes & & & & & \\ \hline
+            \textbf{17} & & Yes & & & & & \\ \hline
+            \textbf{18} & & Yes & & & & & \\ \hline
+            \textbf{19} & & Yes & & & & & \\ \hline
+            \textbf{20} & & Yes & & & & & \\ \hline
+            \textbf{21} & & Yes & & & & & \\ \hline
+            \textbf{22} & & & & Yes & & & \\ \hline
+            \textbf{23} & & & & & & Yes & \\ \hline
+            \textbf{24} & & & & & & Yes & \\ \hline
+            \textbf{25} & & & & & Yes & & \\ \hline
+            \textbf{26} & & Yes & & & & & Yes \\ \hline
+            \textbf{27} & & & & & & Yes & \\ \hline
+            \textbf{28} & & & & & & & Yes\\ \hline
+            \textbf{29} & & & & Yes & & & \\ \hline
+            \caption[\textit{Traceability matrix}]{\textit{Traceability matrix}}
+        \end{longtable}
+
+
+\end{document}

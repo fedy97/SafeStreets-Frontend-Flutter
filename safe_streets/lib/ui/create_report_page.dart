@@ -42,8 +42,8 @@ class CreateReportPage extends StatelessWidget {
                         Map m = await _recognizePlate(f);
                         ViolationImage vi = new ViolationImage(
                             imageFile: f,
-                            plate: m.keys.first,
-                            accuracy: m.values.first);
+                            plate: m["plate"],
+                            accuracy: m["score"]);
                         //this will rebuild gui , because it calls notify listeners
                         u.addImageToReport(image: vi);
                         Navigator.pop(context);
@@ -136,7 +136,7 @@ class CreateReportPage extends StatelessWidget {
         });
   }
 
-  Future<Map<String, double>> _recognizePlate(File f) async {
+  Future<Map<String, dynamic>> _recognizePlate(File f) async {
     String token = "af4446d6d28223c73ac5c091814ee32a7fce6ede";
     try {
       dio.FormData formData = dio.FormData.fromMap({
@@ -153,7 +153,11 @@ class CreateReportPage extends StatelessWidget {
       if (resp.length > 0)
         score = double.parse(response.data['results'][0]['score'].toString());
       if (resp.length > 0 && score != null && score > 0.8) {
-        return {response.data['results'][0]['plate'].toString(): score};
+        return {
+          "plate": response.data['results'][0]['plate'].toString(),
+          "score": score,
+          "box": response.data['results'][0]['box'].toString()
+        };
       }
     } catch (e, stack) {
       print(stack.toString());

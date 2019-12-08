@@ -4,18 +4,35 @@
 \begin{document}
     \chapter{Introduction}\label{ch:introduction}
     \section{Purpose}\label{sec:purpose}
-    \newpage
+    The Design Document (DD) aims to specify in more details the technical, functional description on the system-to-be.
+    In particular, it provides an overall guidance to the architecture of the system, it describes the main components,
+    their interface and deployment, it also focuses on run-time behavior, design pattern, implementation, integration and test planning.
+    In this way, this document is mainly aimed to the developers in fact it represents a guide during the development process.
     \section{Scope}\label{sec:scope}
+    With reference to what has been stated in the RASD document, SafeStreets intends to provide users with the possibility
+    to notify authorities when traffic violations occur, and in particular parking violations.
+    The application allows users to send pictures of violations, including their date, time, and position, to authorities.
+    In more details, SafeStreets stores the information provided by users, completing it with suitable meta-data.
+    In addition, the application allows both end users and authorities to mine the information that has been received.
+    Of course, different levels of visibility could be offered to different roles.
+    If the municipality offers a service that allows users to retrieve the information about the accidents that occur on the territory of the municipality,
+    SafeStreets can cross this information with its own data to identify potentially unsafe areas, and suggest possible interventions.
+    In addition, the municipality could offer a service that takes the information about the violations coming from SafeStreets, and generates traffic tickets from it.
+    This addition information about issued tickets can be used by SafeStreets to build statistics.
     \newpage
     \section{Definitions, Acronyms, Abbreviations}\label{sec:definitions,-acronyms,-abbreviations}
     \subsection{Definitions}\label{subsec:definitions}
     \begin{itemize}
-        \item \textbf{User:} is a general customer that use the application. It is used to refer to both an authority and a ciziten.
-        \item \textbf{Citizen:} is the basic customer of the application. He can upload violations and query the system to get statistics on a selected area.
-        \item \textbf{Authority:} advanced customer of the application, is a registered user that is qualified to make fines and view sensitive information. Must verify himself during the registration.
-        \item \textbf{Municipality:} is always intended as the local municipality. Every municipality provides and receives information exactly and only about its own jurisdiction.
+        \item \textbf{User:} is a general customer that use the application.
+        It is used to refer to both an authority and a citizen.
+        \item \textbf{Citizen:} is the basic customer of the application.
+        He can upload violations and query the system to get statistics on a selected area.
+        \item \textbf{Authority:} advanced customer of the application, is a registered user that is qualified to make fines and view sensitive information.
+        Must verify himself during the registration.
+        \item \textbf{Municipality:} is always intended as the local municipality.
+        Every municipality provides and receives information exactly and only about its own jurisdiction.
         \item \textbf{Violation:} is a general infringement reported by a user.
-        \item  \textbf{Dossier:} is the instance of a violation on the system, that includes the pictures, position, classification, textual specification and fine mark.
+        \item  \textbf{Dossier:} is the instance of a violation on the system, that includes the pictures, position, classification, textual specification and the mark.
     \end{itemize}
 
     \subsection{Acronyms}\label{subsec:acronyms}
@@ -43,17 +60,25 @@
     \newpage
     \section{Document structure}\label{sec:document-structure}
     \textbf{Chapter 1: Introduction.}
+    A general introduction and overview of the Design Document.
+    It aims giving general but exhaustive information about what this document is going to explain.
     \\
     \textbf{Chapter 2: Architectural design.}
+    This section contains an overview of the high level components of the system-to-be and then a more detailed description of three architecture views:
+    component view, deployment view and runtime view.
+    Finally it shows the chosen architecture styles and patterns.
     \\
     \textbf{Chapter 3: User interface design.}
+    This section contains the UX Diagrams of the system to be according to the mockups given in the RASD.
     \\
-    \textbf{Chapter 4: requirements traceability.}
+    \textbf{Chapter 4: Requirements Traceability.}
+    This section explains how the requirements defined in the RASD map to the design elements defined in this document.
     \\
     \textbf{Chapter 5: Implementation, integration and test plan.}
+    This section identifies the order in which it is planned to implement the sub-components of the system,
+    the integration of such sub-components and test the integration.
     \\
     \textbf{Chapter 6: Effort Spent.} A summary of the worked time by each member of the group.
-    \\
-    \textbf{Chapter 7: References.} Some useful documents that we followed in order to produce this document.
+    At the end there are an Appendix and a Bibliography.
 
 \end{document}
