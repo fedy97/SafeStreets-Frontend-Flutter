@@ -69,7 +69,7 @@
     \begin{itemize}
         \item \textbf{Plate Recognition Provider:} it is used to recognize the plate of a car from a picture loaded by a user.
         \item \textbf{Map Provider:} it provides a real time map of the globe.
-        \item \textbf{Authentication Provider:} it manages the access of a registered user and the registration of new one.
+        \item \textbf{Authentication Provider:} it manages the access of the registered users and the registration of the new ones.
         \item \textbf{Database Provider:} it is used to store all the information regarded the reports and the users information.
     \end{itemize}
     \textbf{Other Components:}
@@ -105,21 +105,22 @@
     \section{Run-Time View}\label{sec:run-time-view}
     \subsection{Upload New Report}\label{subsec:upload-new-report}
     \begin{figure}[H]
-        %\centering
-        %\includegraphics[scale = 1]{assets/deployment.png}\\[1.6 cm]
-        %\caption[\textit{Deployment} Diagram]{Deployment diagram of the application.}
+        \centering
+        \includegraphics[scale = 2]{assets/sequence_diagrams/uploadReport.png}\\
+        \caption[\textit{Sequence} Diagram (\textit{Upload a report})]{Sequence diagram of uploading a report.}
     \end{figure}
     This sequence diagram shows the process that allows a user to upload a new violation report.
-    The information about the violation are sent to the UserMobileApp, except for the position that is obtained by UserMobileApp through the user device GPS\@.
-    Then the database is queried to check if a violation with a similar date and time has already been reported.
+    The information about the violation are sent to the UserMobileApp, except for the position that is obtained by UserMobileApp itself
+    through the user device GPS. The request is forwarded to the NewReportManager,
+    that calls the ViolationQueryManager to check if a similar report has already been uploaded.
     In that case, the NewReportManager sends a request to the user to confirm the upload.
     If the answer is positive, or if a similar report has not been found at all, it uses all the collected information to create a dossier and stores it in the database.
-    Otherwise, if the user do not confirm the upload, the operation is aborted.
+    Otherwise, if the user does not confirm the upload, the operation is aborted.
     \subsection{Daily Violation Map Request}\label{subsec:daily-violation-map-request}
     \begin{figure}[H]
-        %\centering
-        %\includegraphics[scale = 1]{assets/deployment.png}\\[1.6 cm]
-        %\caption[\textit{Deployment} Diagram]{Deployment diagram of the application.}
+        \centering
+        \includegraphics[scale = 2]{assets/sequence_diagrams/violationMapRequest.png}\\
+        \caption[\textit{Sequence} Diagram (\textit{Show reports on map})]{Sequence diagram of showing the map with all the reports.}
     \end{figure}
     In this sequence diagram is shown the process that provides the user with the daily violation map.
     It starts with a request from the user, that is followed with the collection of the information about the user position:
@@ -130,39 +131,41 @@
     After that, the sequence diagram shows what happens in case that the user requires the dossier by clicking on the report marker:
     a request is sent from the UserMobileApp to the UserReportVisualizationManager, that uses the email to get the access level of the user and provides
     a dossier that contains only the accessible information.
+    \newpage
     \subsection{Unsafe Area Request}\label{subsec:unsafe-area-request}
     \begin{figure}[H]
-        %\centering
-        %\includegraphics[scale = 1]{assets/deployment.png}\\[1.6 cm]
-        %\caption[\textit{Deployment} Diagram]{Deployment diagram of the application.}
+        \centering
+        \includegraphics[scale = 2]{assets/sequence_diagrams/unsafeAreaRequest.png}\\
+        \caption[\textit{Sequence} Diagram (\textit{Show unsafe areas})]{Sequence diagram of requesting unsafe areas.}
     \end{figure}
-    This sequence diagram shows the process that provide the map of the unsafe are in a city,
-    crossing the report collected by safe street and the accidents data provided by the local municipality.
-    The user send a request, providing the location that would like to interrogate.
-    The UserMobileApp send the request to the UnsafeAreaManager, which has the task of manage that kind of request.
-    First, it get the accident list from the local municipality, and than get all the report collected into the indicated area.
-    These information are than crossed and processed in order to define the unsafe areas, giving different weights to different type of violations.
-    The data produced are than passed to the ReportMapManager, that mark the areas denoted as dangerous on the map.
+    This sequence diagram shows the process that provides the map of the unsafe are in a city,
+    crossing the report collected by SafeStreets and the accidents data provided by the local municipality.
+    The user sends a request, providing the location that would like to interrogate.
+    The UserMobileApp forwards the request to the UnsafeAreaManager,  which has the task of managing this particular kind of feature.
+    First, it gets the accident list from the local municipality, then calls the ViolationQueryManager to get all the reported violations
+    in the selected area from the database.
+    This information is now crossed and processed in order to define the possible unsafe areas, by giving different weights to different type of violations.
+    The data produced is than passed to the ReportMapManager, that interacts with the map provider to mark the areas denoted as dangerous.
     The map is then showed to the user.
-    After that, the UnsafeAreaManager process the information on the violations and the accidents to find possible solutions,
-    considering the type of the violations reported and the nearness of the accidents to the violations.
-    If it is able to define possible solutions, these are send to the municipality.
+    After that, the UnsafeAreaManager processes the information on the violations and the accidents to find possible solutions,
+    considering the type of the violations reported and the nearness of the accidents to them.
+    If it is able to define possible solutions, these are sent to the municipality.
     \subsection{Send Violation's picture Feedback}\label{subsec:send-violation's-picture-feedback}
     \begin{figure}[H]
-        %\centering
-        %\includegraphics[scale = 1]{assets/deployment.png}\\[1.6 cm]
-        %\caption[\textit{Deployment} Diagram]{Deployment diagram of the application.}
+        \centering
+        \includegraphics[scale = 2]{assets/sequence_diagrams/sendFeedback.png}\\
+        \caption[\textit{Sequence} Diagram (\textit{Send feedback to picture})]{Sequence diagram of sending a picture feedback.}
     \end{figure}
-    This last sequence diagram show a situation in which a user give a feedback on a picture of a report.
-    First, the user required the dossier of a report, that is provided to him by the UserReportVisualizationManager,
-    that has the task to show him only the data that are allowed to his authorization level.
-    Than, the user can decide to send a feedback of a picture: in that case, the information on the picture and the email of the user
-    are send to the UserReportVisualizationManager, that first check if the picture has already a feedback associated to the user's email.
-    If it already exist, the operation is aborted;
-    otherwise, the reporting is accepted and different situations could occur.
-    In the standard scenario, if the picture did not already have 5 reports, the feedback is just associated to the picture itself.
-    Otherwise, if the picture had already collected 5 feedback, it is deleted from the dossier of the violation, deleting it from the database;
-    now, if the violation has no more associated picture, it is entirely deleted from the database, since it has no more picture to validate the report.
+    This last sequence diagram shows a situation in which a user gives a feedback on a picture of a report.
+    Firstly, the user requires the dossier of a report, that is got from the database by the ViolationQueryManager and showed by the UserReportVisualizationManager,
+    that has the task to show him only the data that are allowed by his authorization level.
+    Secondly the user can decide to send a feedback of a picture: in that case, the information on the picture itself and the email of the user
+    are sent to the UserReportVisualizationManager, that first checks whether the picture has already a feedback associated to the user’s email.
+    If it already exists, the operation is aborted;
+    otherwise, the reporting is accepted, and different situations can occur.
+    In the standard scenario, if the picture does not already have 5 feedback, a counter is incremented.
+    Otherwise, if the picture has already collected 5 feedback, it is deleted from the dossier of the violation and from the database;
+    now, if the violation has no more associated pictures, it is entirely deleted from the database, since it has no more photos to validate the report.
     \newpage
     \section{Component Interfaces}\label{sec:component-interfaces}
     \begin{figure}[H]
