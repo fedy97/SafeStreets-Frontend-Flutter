@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:safe_streets/model/user/user.dart';
 
+import '../feedback_sender.dart';
+
 class ViewReportCitizen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -14,27 +16,9 @@ class ViewReportCitizen extends StatelessWidget {
             IconButton(
                 icon: Icon(Icons.assistant_photo),
                 onPressed: () async {
-                  if (!u.currViewedReport.feedbackSenders.contains(u.email)) {
-                    u.showProgress(context);
-                    var updatedTuple = Firestore.instance
-                        .collection("users")
-                        .document(u.currViewedReport.emailUser);
-                    updatedTuple.updateData({
-                      'reportSent':
-                      FieldValue.arrayRemove([u.currViewedReport.sendableReport])
-                    });
-                    u.currViewedReport.sendableReport['feedback']++;
-                    List<String> curr = List<String>.from(u.currViewedReport.sendableReport['feedbackSenders']);
-                    curr.add(u.email);
-                    u.currViewedReport.sendableReport['feedbackSenders'] = curr;
-                    updatedTuple.updateData({
-                      'reportSent':
-                      FieldValue.arrayUnion([u.currViewedReport.sendableReport])
-                    });
-                    u.currViewedReport.feedbackSenders.add(u.email);
-                    await u.getAllReports();
-                    Navigator.pop(context);
-                  }
+                  u.showProgress(context);
+                  FeedbackSender.violationFeedback(u);
+                  Navigator.pop(context);
                 })
           ],
           title: Text("Report Page"),
@@ -68,7 +52,9 @@ class ViewReportCitizen extends StatelessWidget {
                             child: IconButton(
                               icon: Icon(Icons.assistant_photo),
                               onPressed: () async {
-                                //TODO send feedback
+                                u.showProgress(context);
+                                //TODO FeedbackSender.pictureFeedback(u, int);
+                                Navigator.pop(context);
                               },
                             )),
                         //this will cover the plate
