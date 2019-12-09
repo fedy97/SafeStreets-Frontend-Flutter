@@ -105,9 +105,9 @@
     \section{Run-Time View}\label{sec:run-time-view}
     \subsection{Upload New Report}\label{subsec:upload-new-report}
     \begin{figure}[H]
-        %\centering
-        %\includegraphics[scale = 1]{assets/deployment.png}\\[1.6 cm]
-        %\caption[\textit{Deployment} Diagram]{Deployment diagram of the application.}
+        \centering
+        \includegraphics[scale = 2]{assets/sequence_diagrams/uploadReport.png}\\
+        \caption[\textit{Sequence} Diagram (\textit{Upload a report})]{Sequence diagram of uploading a report.}
     \end{figure}
     This sequence diagram shows the process that allows a user to upload a new violation report.
     The information about the violation are sent to the UserMobileApp, except for the position that is obtained by UserMobileApp itself
@@ -118,9 +118,9 @@
     Otherwise, if the user does not confirm the upload, the operation is aborted.
     \subsection{Daily Violation Map Request}\label{subsec:daily-violation-map-request}
     \begin{figure}[H]
-        %\centering
-        %\includegraphics[scale = 1]{assets/deployment.png}\\[1.6 cm]
-        %\caption[\textit{Deployment} Diagram]{Deployment diagram of the application.}
+        \centering
+        \includegraphics[scale = 2]{assets/sequence_diagrams/violationMapRequest.png}\\
+        \caption[\textit{Sequence} Diagram (\textit{Show reports on map})]{Sequence diagram of showing the map with all the reports.}
     \end{figure}
     In this sequence diagram is shown the process that provides the user with the daily violation map.
     It starts with a request from the user, that is followed with the collection of the information about the user position:
@@ -131,11 +131,12 @@
     After that, the sequence diagram shows what happens in case that the user requires the dossier by clicking on the report marker:
     a request is sent from the UserMobileApp to the UserReportVisualizationManager, that uses the email to get the access level of the user and provides
     a dossier that contains only the accessible information.
+    \newpage
     \subsection{Unsafe Area Request}\label{subsec:unsafe-area-request}
     \begin{figure}[H]
-        %\centering
-        %\includegraphics[scale = 1]{assets/deployment.png}\\[1.6 cm]
-        %\caption[\textit{Deployment} Diagram]{Deployment diagram of the application.}
+        \centering
+        \includegraphics[scale = 2]{assets/sequence_diagrams/unsafeAreaRequest.png}\\
+        \caption[\textit{Sequence} Diagram (\textit{Show unsafe areas})]{Sequence diagram of requesting unsafe areas.}
     \end{figure}
     This sequence diagram shows the process that provides the map of the unsafe are in a city,
     crossing the report collected by SafeStreets and the accidents data provided by the local municipality.
@@ -151,9 +152,9 @@
     If it is able to define possible solutions, these are sent to the municipality.
     \subsection{Send Violation's picture Feedback}\label{subsec:send-violation's-picture-feedback}
     \begin{figure}[H]
-        %\centering
-        %\includegraphics[scale = 1]{assets/deployment.png}\\[1.6 cm]
-        %\caption[\textit{Deployment} Diagram]{Deployment diagram of the application.}
+        \centering
+        \includegraphics[scale = 2]{assets/sequence_diagrams/sendFeedback.png}\\
+        \caption[\textit{Sequence} Diagram (\textit{Send feedback to picture})]{Sequence diagram of sending a picture feedback.}
     \end{figure}
     This last sequence diagram shows a situation in which a user gives a feedback on a picture of a report.
     Firstly, the user requires the dossier of a report, that is got from the database by the ViolationQueryManager and showed by the UserReportVisualizationManager,
