@@ -196,4 +196,24 @@
         \caption[\textit{Integration} Diagram of the authority database]{Integration diagram of the authority database.}
     \end{figure}
 
+    \newpage
+    \section{Algorithm}\label{sec:algorithm}
+    This section will provide some general indication about the significant algorithms that will be developed within the system.
+    \subsection{Unsafe Area Search}\label{subsec:unsafe-area-search}
+    Determinate the unsafe area is one of the most critical aspect of the system, because of the lack of a objective criteria to determinate when an area is more dangerous than another.
+    The data that will be used for this algorithm are the reports collected by SafeStreet and the accidents provided by the municipality.
+    Each of them will be associated to some parameters that will bee used to valuate the impact that they have on the danger level of the area; for semplicity they will both be referred as reports from now on
+    \begin{itemize}
+        \item \textbf{dangerLevel:} every report category will be associate to a value that will set the basic danger level of the area.
+        \item \textbf{timePassed:} is a coefficient that will decrease with the time passed from the reporting. The idea is that a report will be less relevant as the time from its occurrence pass.
+        \item \textbf{influenceDistance:} is a parameter that set the radius of the circle in which the report has a relevant influence. It can be different for different for different report category.
+    \end{itemize}
+    Since the accidents will be provided by the municipality, it will be possible that some information will miss: in that case, a default value will be assigned.
+    The algorithm will work as following: every accidents will mark an unsafe area defined by its influenceDistance.
+    To these area will be assigned a value equal to their dangerLevel, eventually corrected with the timePassed parameter, and if some area will overlap their danger level will be sum.
+    Finally, if the violation reported in the marked zone will be used to increment the unsafe level, according with their parameters.
+    After processing the data, the system will check for the violations in the previously determined area that have a danger value beyond a certain threshold and will provide a default solution for the most reported category.
+
+
+
 \end{document}

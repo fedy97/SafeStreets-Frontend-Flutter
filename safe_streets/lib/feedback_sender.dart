@@ -34,7 +34,7 @@ abstract class FeedbackSender {
     }
   }
 
-  static Future pictureFeedback(User u, int pictureNumber) async {
+  /*static Future pictureFeedback(User u, int pictureNumber) async {
     if (!u.currViewedReport.imagesLite['imageFeedbackSenders']
         .contains(u.email)) {
       var updatedTuple = Firestore.instance
@@ -66,4 +66,5 @@ abstract class FeedbackSender {
       await u.getAllReports();
     }
   }
+  */
 }
