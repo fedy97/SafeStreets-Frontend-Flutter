@@ -35,13 +35,18 @@ abstract class FeedbackSender {
   }
 
   static Future pictureFeedback(User u, int pictureNumber) async {
-    String feedbackSenders = List<String>.from(u.currViewedReport.sendableReport['images']['imageFeedbackSenders']).elementAt(pictureNumber);
+    // check if the user already gave a feedback about the picture
+    String feedbackSenders = List<String>.from(
+            u.currViewedReport.sendableReport['images']['imageFeedbackSenders'])
+        .elementAt(pictureNumber);
     bool userFound = false;
     List<String> feedbacker = feedbackSenders.split(" ");
-    for (String x in feedbacker){
+    for (String x in feedbacker) {
       if (x == u.email) userFound = true;
     }
-    if (!userFound) {
+    if (userFound)
+      return;
+    else {
       var updatedTuple = Firestore.instance
           .collection("users")
           .document(u.currViewedReport.emailUser);
@@ -50,28 +55,52 @@ abstract class FeedbackSender {
             FieldValue.arrayRemove([u.currViewedReport.sendableReport])
       });
 
-      List<int> feedbackCounter = List<int>.from(u.currViewedReport.sendableReport['images']['imageFeedback']);
-      feedbackCounter.replaceRange(pictureNumber, pictureNumber, [feedbackCounter.elementAt(pictureNumber) + 1]);
-      List<String> curr1 = List<String>.from(
-          u.currViewedReport.sendableReport['images']['imageFeedbackSenders']);
-      curr1.replaceRange(pictureNumber, pictureNumber, [curr1.elementAt(pictureNumber) + " " + u.email]);
-      List<int> curr2 = List<int>.from(u.currViewedReport.sendableReport['images']['imageFeedback']);
-      curr2.replaceRange(pictureNumber, pictureNumber, [curr2.elementAt(pictureNumber) + 1]);
-      u.currViewedReport.sendableReport['images']['imageFeedbackSenders'] = curr1;
-      u.currViewedReport.sendableReport['images']['imageFeedback'] = curr2;
-      updatedTuple.updateData({
-        'reportSent': FieldValue.arrayUnion([u.currViewedReport.sendableReport])
-      });
-      u.currViewedReport.imagesLite['imageFeedbackSenders'] = curr1;
-      u.currViewedReport.imagesLite['imageFeedback'] = curr2;
-      // TODO if there are 5 feedback, remove the
-      /*if (List<int>.from(u.currViewedReport.imagesLite['imageFeedback']).elementAt(pictureNumber) >= 5) {
+      if (u.currViewedReport.sendableReport['images']['imageFeedback'].elementAt(pictureNumber) >= 4) {
+        // if last picture with 4 report, delete the report
+        if (u.currViewedReport.sendableReport['images'].size() <= 1)
+          return;
+        // if 4 report but more than 1 picture, delete the picture
+        else {
+          var images = u.currViewedReport.sendableReport['images'];
+          images['accuracy'].removeAt(pictureNumber);
+          images['boxes'].removeAt(pictureNumber);
+          images['imageFeedback'].removeAt(pictureNumber);
+          images['imageFeedbackSenders'].removeAt(pictureNumber);
+          images['links'].removeAt(pictureNumber);
+          images['plates'].removeAt(pictureNumber);
+          updatedTuple.updateData({
+            'reportSent':
+            FieldValue.arrayUnion([u.currViewedReport.sendableReport])
+          });
+          u.currViewedReport.images.removeAt(pictureNumber);
+        }
+      }
+      // if less than 4 feedback, add one
+      else {
+        List<int> feedbackCounter = List<int>.from(
+            u.currViewedReport.sendableReport['images']['imageFeedback']);
+        feedbackCounter.replaceRange(pictureNumber, pictureNumber + 1,
+            [feedbackCounter.elementAt(pictureNumber) + 1]);
+        List<String> curr1 = List<String>.from(u.currViewedReport
+            .sendableReport['images']['imageFeedbackSenders']);
+        curr1.replaceRange(pictureNumber, pictureNumber + 1,
+            [curr1.elementAt(pictureNumber) + " " + u.email]);
+        List<int> curr2 = List<int>.from(
+            u.currViewedReport.sendableReport['images']['imageFeedback']);
+        curr2.replaceRange(pictureNumber, pictureNumber + 1,
+            [curr2.elementAt(pictureNumber) + 1]);
+        u.currViewedReport.sendableReport['images']['imageFeedbackSenders'] =
+            curr1;
+        u.currViewedReport.sendableReport['images']['imageFeedback'] = curr2;
         updatedTuple.updateData({
           'reportSent':
-              FieldValue.arrayRemove(u.currViewedReport.sendableReport['images'])
+          FieldValue.arrayUnion([u.currViewedReport.sendableReport])
         });
+        u.currViewedReport.imagesLite['imageFeedbackSenders'] = curr1;
+        u.currViewedReport.imagesLite['imageFeedback'] = curr2;
       }
-      await u.getAllReports();*/
+
+      await u.getAllReports();
     }
   }
 }

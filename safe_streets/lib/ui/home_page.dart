@@ -101,6 +101,7 @@ class HomePage extends StatelessWidget {
                     ? Container()
                     : GoogleMap(
                         myLocationEnabled: true,
+                        minMaxZoomPreference: new MinMaxZoomPreference(0, 0),
                         initialCameraPosition: CameraPosition(
                             target: LatLng(u.location.lat, u.location.long),
                             zoom: 15.0),
