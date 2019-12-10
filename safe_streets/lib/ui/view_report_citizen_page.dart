@@ -58,14 +58,14 @@ class ViewReportCitizen extends StatelessWidget {
                               },
                             )),
                         //this will cover the plate
-                        Positioned(
+                        u.currViewedReport.imagesLite['boxes'][int].length != 1 ? Positioned(
                           bottom: 10,
                           height: 50,
                           width: 50,
                           child: Container(
                             color: Colors.yellow,
                           ),
-                        )
+                        ) : SizedBox.shrink()
                       ],
                     );
                   }),
