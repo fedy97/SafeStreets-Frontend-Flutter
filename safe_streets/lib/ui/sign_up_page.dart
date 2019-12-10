@@ -61,12 +61,12 @@ class SignUpPage extends StatelessWidget {
                   final auth = Provider.of<FirebaseAuthService>(context);
                   Map<String, dynamic> map =
                       createUserMap(email: _email, idAuthority: idAuthority);
+                  FirebaseUser u = await auth.createUserWithEmailAndPassword(
+                      _email, _password);
                   await Firestore.instance
                       .collection("users")
                       .document(_email)
                       .setData(map);
-                  FirebaseUser u = await auth.createUserWithEmailAndPassword(
-                      _email, _password);
                   Navigator.pop(context);
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => AuthManager()));
