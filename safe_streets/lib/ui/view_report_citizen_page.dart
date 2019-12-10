@@ -81,7 +81,7 @@ class ViewReportCitizen extends StatelessWidget {
                                         2 -
                                     (u.currViewedReport.imagesLite['boxes'][int]
                                             ['ymin']) /
-                                        2),
+                                        2)+5,
                                 child: Container(
                                   color: Colors.yellow,
                                 ),
