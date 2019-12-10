@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:safe_streets/model/user/user.dart';
+import 'package:safe_streets/services/utilities.dart';
 
 import '../feedback_sender.dart';
 
@@ -15,7 +16,7 @@ class ViewReportCitizen extends StatelessWidget {
             IconButton(
                 icon: Icon(Icons.assistant_photo),
                 onPressed: () async {
-                  u.showProgress(context);
+                  Utilities.showProgress(context);
                   FeedbackSender.violationFeedback(u);
                   Navigator.pop(context);
                 })
@@ -52,7 +53,7 @@ class ViewReportCitizen extends StatelessWidget {
                               color: Colors.blue,
                               child: Icon(Icons.assistant_photo),
                               onPressed: () async {
-                                u.showProgress(context);
+                                Utilities.showProgress(context);
                                 FeedbackSender.pictureFeedback(u, int);
                                 Navigator.pop(context);
                               },

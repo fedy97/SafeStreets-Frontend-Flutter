@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:safe_streets/model/user/user.dart';
+import 'package:safe_streets/services/utilities.dart';
 
 class MyReportsPage extends StatelessWidget {
   @override
@@ -20,7 +21,7 @@ class MyReportsPage extends StatelessWidget {
                   trailing: IconButton(
                       icon: Icon(Icons.delete),
                       onPressed: () async {
-                        u.showProgress(context);
+                        Utilities.showProgress(context);
                         var rightTuple = Firestore.instance
                             .collection("users")
                             .document(u.email);

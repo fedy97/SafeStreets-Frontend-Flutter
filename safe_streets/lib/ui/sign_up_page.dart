@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:safe_streets/auth_manager.dart';
 import 'package:safe_streets/services/firebase_auth_service.dart';
+import 'package:safe_streets/services/utilities.dart';
 
 class SignUpPage extends StatelessWidget {
   static final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -50,6 +51,12 @@ class SignUpPage extends StatelessWidget {
                     _password != "" &&
                     _password == _confirmPassword &&
                     Provider.of<ValueNotifier<bool>>(context,listen: false).value) {
+                  Utilities.showProgress(context);
+                  if (idAuthority != "")
+                    if(await checkIdAlreadyPresent(context)) {
+                      Navigator.pop(context);
+                      return;
+                    }
                   final auth = Provider.of<FirebaseAuthService>(context);
                   Map<String, dynamic> map =
                       createUserMap(email: _email, idAuthority: idAuthority);
@@ -59,6 +66,7 @@ class SignUpPage extends StatelessWidget {
                       .setData(map);
                   FirebaseUser u = await auth.createUserWithEmailAndPassword(
                       _email, _password);
+                  Navigator.pop(context);
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => AuthManager()));
                 } else if (!Provider.of<ValueNotifier<bool>>(context,listen: false).value) {
@@ -84,5 +92,20 @@ class SignUpPage extends StatelessWidget {
       'idAuthority': idAuthority != "" ? idAuthority : null,
       'reportSent': []
     };
+  }
+
+  Future<bool> checkIdAlreadyPresent(BuildContext context) async {
+    final auth = Provider.of<FirebaseAuthService>(context);
+    QuerySnapshot query = await Firestore.instance
+        .collection("users").getDocuments();
+    for (DocumentSnapshot doc in query.documents) {
+      if (doc.data["level"] == "complete" && doc.data["idAuthority"] == idAuthority) {
+        final snackBar =
+        SnackBar(content: Text("id authority already used"));
+        _scaffoldKey.currentState.showSnackBar(snackBar);
+        return true;
+      }
+    }
+    return false;
   }
 }

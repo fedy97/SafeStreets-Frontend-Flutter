@@ -12,6 +12,7 @@ import 'package:safe_streets/model/enum/violation.dart';
 import 'package:safe_streets/model/report/violation_image.dart';
 import 'package:safe_streets/model/user/user.dart';
 import 'package:safe_streets/services/firebase_storage_service.dart';
+import 'package:safe_streets/services/utilities.dart';
 
 class CreateReportPage extends StatelessWidget {
   static final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -35,7 +36,7 @@ class CreateReportPage extends StatelessWidget {
                           source: ImageSource.camera, imageQuality: 50);
                       //check if I actually took the photo or I pressed "back"
                       if (f != null) {
-                        u.showProgress(context);
+                        Utilities.showProgress(context);
                         if (u.currReport.images.length == 0)
                           await u.getPosition();
                         Map m = await _recognizePlate(f);
@@ -54,7 +55,7 @@ class CreateReportPage extends StatelessWidget {
                   icon: Icon(Icons.send),
                   onPressed: () async {
                     if (u.currReport.images.length > 0) {
-                      u.showProgress(context);
+                      Utilities.showProgress(context);
                       final storage =
                           Provider.of<FirebaseStorageService>(context);
                       //upload images to storage

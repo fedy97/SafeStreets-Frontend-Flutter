@@ -6,6 +6,7 @@ import 'package:safe_streets/model/user/authority.dart';
 import 'package:safe_streets/model/user/citizen.dart';
 import 'package:safe_streets/model/user/user.dart';
 import 'package:safe_streets/services/firebase_auth_service.dart';
+import 'package:safe_streets/services/utilities.dart';
 import 'package:safe_streets/ui/sign_up_page.dart';
 
 import 'home_page.dart';
@@ -38,7 +39,7 @@ class SignInPage extends StatelessWidget {
                       await auth.signInWithEmailAndPassword(_email, _password);
                   DocumentSnapshot map = await fetchMap(user);
                   User u = createUser(map, user);
-                  u.showProgress(context);
+                  Utilities.showProgress(context);
                   await u.getAllReports();
                   await u.getPosition();
                   Navigator.pop(context);

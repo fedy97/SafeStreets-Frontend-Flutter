@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:safe_streets/model/enum/level.dart';
 import 'package:safe_streets/model/user/user.dart';
 import 'package:safe_streets/services/firebase_auth_service.dart';
+import 'package:safe_streets/services/utilities.dart';
 import 'package:safe_streets/ui/create_report_page.dart';
 import 'package:safe_streets/ui/sign_in_page.dart';
 
@@ -84,7 +85,7 @@ class HomePage extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.refresh),
               onPressed: () async {
-                u.showProgress(context);
+                Utilities.showProgress(context);
                 await u.getAllReports();
                 Navigator.pop(context);
               },
