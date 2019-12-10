@@ -53,7 +53,7 @@ class ViewReportCitizen extends StatelessWidget {
                               child: Icon(Icons.assistant_photo),
                               onPressed: () async {
                                 u.showProgress(context);
-                                //TODO FeedbackSender.pictureFeedback(u, int);
+                                FeedbackSender.pictureFeedback(u, int);
                                 Navigator.pop(context);
                               },
                             )),

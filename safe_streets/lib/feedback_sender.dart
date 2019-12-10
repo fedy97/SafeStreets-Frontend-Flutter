@@ -34,9 +34,14 @@ abstract class FeedbackSender {
     }
   }
 
-  /*static Future pictureFeedback(User u, int pictureNumber) async {
-    if (!u.currViewedReport.imagesLite['imageFeedbackSenders']
-        .contains(u.email)) {
+  static Future pictureFeedback(User u, int pictureNumber) async {
+    String feedbackSenders = List<String>.from(u.currViewedReport.sendableReport['images']['imageFeedbackSenders']).elementAt(pictureNumber);
+    bool userFound = false;
+    List<String> feedbacker = feedbackSenders.split(" ");
+    for (String x in feedbacker){
+      if (x == u.email) userFound = true;
+    }
+    if (!userFound) {
       var updatedTuple = Firestore.instance
           .collection("users")
           .document(u.currViewedReport.emailUser);
@@ -45,26 +50,28 @@ abstract class FeedbackSender {
             FieldValue.arrayRemove([u.currViewedReport.sendableReport])
       });
 
-      u.currViewedReport.sendableReport['images']['imageFeedback']++;
-      List<List<String>> curr = List<List<String>>.from(
-          u.currViewedReport.sendableReport['image.imageFeedbackSenders']);
-      curr.elementAt(pictureNumber).add(u.email);
-      u.currViewedReport.sendableReport['image.imageFeedbackSenders'] = curr;
-      print(curr);
+      List<int> feedbackCounter = List<int>.from(u.currViewedReport.sendableReport['images']['imageFeedback']);
+      feedbackCounter.replaceRange(pictureNumber, pictureNumber, [feedbackCounter.elementAt(pictureNumber) + 1]);
+      List<String> curr1 = List<String>.from(
+          u.currViewedReport.sendableReport['images']['imageFeedbackSenders']);
+      curr1.replaceRange(pictureNumber, pictureNumber, [curr1.elementAt(pictureNumber) + " " + u.email]);
+      List<int> curr2 = List<int>.from(u.currViewedReport.sendableReport['images']['imageFeedback']);
+      curr2.replaceRange(pictureNumber, pictureNumber, [curr2.elementAt(pictureNumber) + 1]);
+      u.currViewedReport.sendableReport['images']['imageFeedbackSenders'] = curr1;
+      u.currViewedReport.sendableReport['images']['imageFeedback'] = curr2;
       updatedTuple.updateData({
         'reportSent': FieldValue.arrayUnion([u.currViewedReport.sendableReport])
       });
-      u.currViewedReport.imagesLite['imageFeedbackSenders'[pictureNumber]]
-          .add(u.email);
-      // if there are 5 feedback, remove the report
-      if (u.currViewedReport.feedback >= 5) {
+      u.currViewedReport.imagesLite['imageFeedbackSenders'] = curr1;
+      u.currViewedReport.imagesLite['imageFeedback'] = curr2;
+      // TODO if there are 5 feedback, remove the
+      /*if (List<int>.from(u.currViewedReport.imagesLite['imageFeedback']).elementAt(pictureNumber) >= 5) {
         updatedTuple.updateData({
           'reportSent':
-              FieldValue.arrayRemove([u.currViewedReport.sendableReport])
+              FieldValue.arrayRemove(u.currViewedReport.sendableReport['images'])
         });
       }
-      await u.getAllReports();
+      await u.getAllReports();*/
     }
   }
-  */
 }

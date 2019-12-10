@@ -12,7 +12,7 @@ class ViolationImage {
   List<String> imageFeedbackSenders;
   Map<String, dynamic> box;
 
-  ViolationImage({@required this.imageFile, @required this.plate, @required this.accuracy, @required this.box}) {
+  ViolationImage({@required this.imageFile, @required this.plate, @required this.accuracy, @required this.box, this.imageFeedbackSenders}) {
     if (this.plate != "") isSensitive = true;
   }
 }

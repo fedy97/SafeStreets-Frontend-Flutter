@@ -28,7 +28,7 @@ class ReportToSend extends Report {
     List<Map<String, dynamic>> boxes = new List();
     List<String> accuracyList = new List();
     List<int> feedback = new List();
-    List<List<String>> imageFeedbackSenders = new List();
+    List<String> imageFeedbackSenders = new List();
     List<String> feedbackSenders = new List();
     for (ViolationImage image in images) {
       downloadLinks.add(image.downloadLink);
@@ -36,6 +36,7 @@ class ReportToSend extends Report {
       plates.add(image.plate);
       image.box == null ? boxes.add({"empty" : 0}) : boxes.add(image.box);
       feedback.add(0);
+      imageFeedbackSenders.add("");
     }
     return {
       'note': note,
