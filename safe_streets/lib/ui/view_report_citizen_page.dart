@@ -44,8 +44,11 @@ class ViewReportCitizen extends StatelessWidget {
                     return Stack(
                       children: <Widget>[
                         Positioned(
-                            child: Image.network(
-                                u.currViewedReport.imagesLite['links'][int])),
+                          child: FadeInImage.assetNetwork(
+                              placeholder: 'assets/loading.gif',
+                              image: u.currViewedReport.imagesLite['links']
+                                  [int]),
+                        ),
                         Positioned(
                             top: 20,
                             right: 20,
@@ -59,15 +62,31 @@ class ViewReportCitizen extends StatelessWidget {
                               },
                             )),
                         //this will cover the plate only if there actually is a plate in the image
-                        u.currViewedReport.imagesLite['boxes'][int].length != 1 ? Positioned(
-                          left: (u.currViewedReport.imagesLite['boxes'][int]['xmin'])/2,
-                          width: ((u.currViewedReport.imagesLite['boxes'][int]['xmax'])/2 - (u.currViewedReport.imagesLite['boxes'][int]['xmin'])/2),
-                          top: (u.currViewedReport.imagesLite['boxes'][int]['ymin'])/2,
-                          height: ((u.currViewedReport.imagesLite['boxes'][int]['ymax'])/2 - (u.currViewedReport.imagesLite['boxes'][int]['ymin'])/2),
-                          child: Container(
-                            color: Colors.yellow,
-                          ),
-                        ) : SizedBox.shrink()
+                        u.currViewedReport.imagesLite['boxes'][int].length != 1
+                            ? Positioned(
+                                left: (u.currViewedReport.imagesLite['boxes']
+                                        [int]['xmin']) /
+                                    2,
+                                width: ((u.currViewedReport.imagesLite['boxes']
+                                            [int]['xmax']) /
+                                        2 -
+                                    (u.currViewedReport.imagesLite['boxes'][int]
+                                            ['xmin']) /
+                                        2),
+                                top: (u.currViewedReport.imagesLite['boxes']
+                                        [int]['ymin']) /
+                                    2,
+                                height: ((u.currViewedReport.imagesLite['boxes']
+                                            [int]['ymax']) /
+                                        2 -
+                                    (u.currViewedReport.imagesLite['boxes'][int]
+                                            ['ymin']) /
+                                        2),
+                                child: Container(
+                                  color: Colors.yellow,
+                                ),
+                              )
+                            : SizedBox.shrink()
                       ],
                     );
                   }),

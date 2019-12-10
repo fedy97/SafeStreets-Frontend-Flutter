@@ -46,8 +46,9 @@ class ViewReportAuthority extends StatelessWidget {
               child: ListView.builder(
                   itemCount: u.currViewedReport.imagesLite['links'].length,
                   itemBuilder: (context, int) {
-                    return Image.network(
-                        u.currViewedReport.imagesLite['links'][int]);
+                    return FadeInImage.assetNetwork(
+                        placeholder: 'assets/loading.gif',
+                        image: u.currViewedReport.imagesLite['links'][int]);
                   }),
             )
           ],
