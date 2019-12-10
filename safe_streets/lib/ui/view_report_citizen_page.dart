@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:safe_streets/model/user/user.dart';
@@ -49,8 +48,9 @@ class ViewReportCitizen extends StatelessWidget {
                         Positioned(
                             top: 20,
                             right: 20,
-                            child: IconButton(
-                              icon: Icon(Icons.assistant_photo),
+                            child: RaisedButton(
+                              color: Colors.blue,
+                              child: Icon(Icons.assistant_photo),
                               onPressed: () async {
                                 u.showProgress(context);
                                 //TODO FeedbackSender.pictureFeedback(u, int);

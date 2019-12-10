@@ -10,8 +10,9 @@ class ViolationImage {
   String downloadLink = "";
   int feedback = 0;
   List<String> imageFeedbackSenders;
+  Map<String, dynamic> box;
 
-  ViolationImage({@required this.imageFile, @required this.plate, @required this.accuracy}) {
+  ViolationImage({@required this.imageFile, @required this.plate, @required this.accuracy, @required this.box}) {
     if (this.plate != "") isSensitive = true;
   }
 }

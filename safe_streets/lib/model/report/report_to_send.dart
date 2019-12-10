@@ -25,6 +25,7 @@ class ReportToSend extends Report {
   Map<String, dynamic> toMap() {
     List<String> downloadLinks = new List();
     List<String> plates = new List();
+    List<Map<String, dynamic>> boxes = new List();
     List<String> accuracyList = new List();
     List<int> feedback = new List();
     List<List<String>> imageFeedbackSenders = new List();
@@ -33,6 +34,7 @@ class ReportToSend extends Report {
       downloadLinks.add(image.downloadLink);
       accuracyList.add(image.accuracy.toString());
       plates.add(image.plate);
+      image.box == null ? boxes.add({"empty" : 0}) : boxes.add(image.box);
       feedback.add(0);
     }
     return {
@@ -40,6 +42,7 @@ class ReportToSend extends Report {
       'images': {
         'links': downloadLinks,
         'plates': plates,
+        'boxes': boxes,
         'accuracy': accuracyList,
         'imageFeedback' : feedback,
         'imageFeedbackSenders' : imageFeedbackSenders

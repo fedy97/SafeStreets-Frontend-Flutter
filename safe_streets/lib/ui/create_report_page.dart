@@ -41,6 +41,7 @@ class CreateReportPage extends StatelessWidget {
                           await u.getPosition();
                         Map m = await _recognizePlate(f);
                         ViolationImage vi = new ViolationImage(
+                            box: m["box"],
                             imageFile: f,
                             plate: m["plate"],
                             accuracy: m["score"]);
@@ -156,13 +157,13 @@ class CreateReportPage extends StatelessWidget {
         return {
           "plate": response.data['results'][0]['plate'].toString(),
           "score": score,
-          "box": response.data['results'][0]['box'].toString()
+          "box": response.data['results'][0]['box']
         };
       }
     } catch (e, stack) {
       print(stack.toString());
     }
-    return {"": 0};
+    return {"plate": "", "score": 0.0, "box": null};
   }
 
 /*Future<String> _recognizeText(List<ViolationImage> pictures) async {
