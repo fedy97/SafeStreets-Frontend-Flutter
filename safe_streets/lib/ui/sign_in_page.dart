@@ -60,8 +60,9 @@ class SignInPage extends StatelessWidget {
             RaisedButton(
               child: Text("Sign Up"),
               onPressed: () {
+                ValueNotifier<bool> checked = ValueNotifier(false);
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => SignUpPage()));
+                    MaterialPageRoute(builder: (context) => ChangeNotifierProvider<ValueNotifier<bool>>.value(value: checked,child: SignUpPage(),)));
               },
             )
           ],

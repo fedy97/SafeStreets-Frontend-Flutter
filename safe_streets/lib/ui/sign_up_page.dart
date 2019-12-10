@@ -7,12 +7,11 @@ import 'package:safe_streets/services/firebase_auth_service.dart';
 
 class SignUpPage extends StatelessWidget {
   static final _scaffoldKey = GlobalKey<ScaffoldState>();
-
+  static String _email = "";
+  static String _password = "";
+  static String _confirmPassword = "";
+  static String idAuthority = "";
   Widget build(BuildContext context) {
-    String _email = "";
-    String _password = "";
-    String _confirmPassword = "";
-    String idAuthority = "";
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(title: Text('Sign Up')),
@@ -34,13 +33,23 @@ class SignUpPage extends StatelessWidget {
             TextField(
                 decoration: InputDecoration(hintText: "enter id authority"),
                 onChanged: (id) => idAuthority = id),
+            Consumer<ValueNotifier<bool>>(builder: (context, value2, child) {
+              return CheckboxListTile(
+                  title: Text("accept terms"),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  value: value2.value,
+                  onChanged: (value) {
+                    value2.value = value;
+                  });
+            }),
             RaisedButton(
               child: Text("Sign Up"),
               onPressed: () async {
                 if (_email != "" &&
                     _email.contains("@") &&
                     _password != "" &&
-                    _password == _confirmPassword) {
+                    _password == _confirmPassword &&
+                    Provider.of<ValueNotifier<bool>>(context,listen: false).value) {
                   final auth = Provider.of<FirebaseAuthService>(context);
                   Map<String, dynamic> map =
                       createUserMap(email: _email, idAuthority: idAuthority);
@@ -50,12 +59,12 @@ class SignUpPage extends StatelessWidget {
                       .setData(map);
                   FirebaseUser u = await auth.createUserWithEmailAndPassword(
                       _email, _password);
-                  /*wait Firestore.instance
-                      .collection("users")
-                      .document(_email)
-                      .updateData({'uid': u.uid});*/
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => AuthManager()));
+                } else if (!Provider.of<ValueNotifier<bool>>(context,listen: false).value) {
+                  final snackBar =
+                      SnackBar(content: Text("you must accept the terms"));
+                  _scaffoldKey.currentState.showSnackBar(snackBar);
                 } else {
                   final snackBar =
                       SnackBar(content: Text("invalid email or password"));

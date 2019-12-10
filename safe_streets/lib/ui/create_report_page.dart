@@ -14,7 +14,6 @@ import 'package:safe_streets/model/user/user.dart';
 import 'package:safe_streets/services/firebase_storage_service.dart';
 
 class CreateReportPage extends StatelessWidget {
-  final Geolocator geoLocator = Geolocator()..forceAndroidLocationManager;
   static final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
