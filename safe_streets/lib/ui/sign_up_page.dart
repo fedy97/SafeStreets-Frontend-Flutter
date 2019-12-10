@@ -57,6 +57,7 @@ class SignUpPage extends StatelessWidget {
                       Navigator.pop(context);
                       return;
                     }
+                  try {
                   final auth = Provider.of<FirebaseAuthService>(context);
                   Map<String, dynamic> map =
                       createUserMap(email: _email, idAuthority: idAuthority);
@@ -69,6 +70,12 @@ class SignUpPage extends StatelessWidget {
                   Navigator.pop(context);
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => AuthManager()));
+                  } catch(e, stack){
+                    final snackBar =
+                    SnackBar(content: Text(Utilities.printError(e.toString())));
+                    _scaffoldKey.currentState.showSnackBar(snackBar);
+                    Navigator.pop(context);
+                  }
                 } else if (!Provider.of<ValueNotifier<bool>>(context,listen: false).value) {
                   final snackBar =
                       SnackBar(content: Text("you must accept the terms"));

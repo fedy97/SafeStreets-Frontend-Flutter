@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class Utilities {
-
   static void showProgress(BuildContext context) {
     showDialog(
         context: context,
@@ -23,4 +22,12 @@ class Utilities {
         });
   }
 
+  static String printError(String errorToParse) {
+    if (errorToParse.split("(")[0] == "PlatformException") {
+      String first = errorToParse.split("(")[1];
+      String second = first.split(", ")[1];
+      return second;
+    }
+    return errorToParse;
+  }
 }
