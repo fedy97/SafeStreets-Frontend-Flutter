@@ -55,14 +55,12 @@ class HomePage extends StatelessWidget {
               ),
               ListTile(
                 title: Text("Statistics"),
-                onTap: () async {
-                },
+                onTap: () async {},
                 leading: Icon(Icons.view_list),
               ),
               ListTile(
                 title: Text("Query Report"),
-                onTap: () async {
-                },
+                onTap: () async {},
                 leading: Icon(Icons.search),
               ),
               ListTile(
@@ -96,7 +94,10 @@ class HomePage extends StatelessWidget {
         body: Center(
           child: Column(
             children: <Widget>[
-              Text("Reports downloaded: " + markers.length.toString()),
+              Text("Reports displayed: " +
+                  markers.length.toString() +
+                  ", Reports downloaded:" +
+                  u.reportsGet.length.toString()),
               Expanded(
                 child: u.location == null
                     ? Container()

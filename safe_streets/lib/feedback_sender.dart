@@ -1,33 +1,33 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import 'model/user/user.dart';
 
 abstract class FeedbackSender {
-  static Future violationFeedback(
-    User u,
-  ) async {
+  static Future violationFeedback(User u,) async {
     if (!u.currViewedReport.feedbackSenders.contains(u.email)) {
       var updatedTuple = Firestore.instance
           .collection("users")
           .document(u.currViewedReport.emailUser);
-      updatedTuple.updateData({
+      await updatedTuple.updateData({
         'reportSent':
-            FieldValue.arrayRemove([u.currViewedReport.sendableReport])
+        FieldValue.arrayRemove([u.currViewedReport.sendableReport])
       });
       u.currViewedReport.sendableReport['feedback']++;
       List<String> curr = List<String>.from(
           u.currViewedReport.sendableReport['feedbackSenders']);
       curr.add(u.email);
       u.currViewedReport.sendableReport['feedbackSenders'] = curr;
-      updatedTuple.updateData({
+      await updatedTuple.updateData({
         'reportSent': FieldValue.arrayUnion([u.currViewedReport.sendableReport])
       });
       u.currViewedReport.feedbackSenders.add(u.email);
       // if there are 5 feedback, remove the report
       if (u.currViewedReport.feedback >= 5) {
-        updatedTuple.updateData({
+        await updatedTuple.updateData({
           'reportSent':
-              FieldValue.arrayRemove([u.currViewedReport.sendableReport])
+          FieldValue.arrayRemove([u.currViewedReport.sendableReport])
         });
       }
       await u.getAllReports();
@@ -37,7 +37,7 @@ abstract class FeedbackSender {
   static Future pictureFeedback(User u, int pictureNumber) async {
     // check if the user already gave a feedback about the picture
     String feedbackSenders = List<String>.from(
-            u.currViewedReport.sendableReport['images']['imageFeedbackSenders'])
+        u.currViewedReport.sendableReport['images']['imageFeedbackSenders'])
         .elementAt(pictureNumber);
     bool userFound = false;
     List<String> feedbacker = feedbackSenders.split(" ");
@@ -50,12 +50,14 @@ abstract class FeedbackSender {
       var updatedTuple = Firestore.instance
           .collection("users")
           .document(u.currViewedReport.emailUser);
-      updatedTuple.updateData({
+      await updatedTuple.updateData({
         'reportSent':
-            FieldValue.arrayRemove([u.currViewedReport.sendableReport])
+        FieldValue.arrayRemove([u.currViewedReport.sendableReport])
       });
 
-      if (u.currViewedReport.sendableReport['images']['imageFeedback'].elementAt(pictureNumber) >= 4) {
+      if (u.currViewedReport.sendableReport['images']['imageFeedback']
+          .elementAt(pictureNumber) >=
+          4) {
         // if last picture with 4 report, delete the report
         if (u.currViewedReport.sendableReport['images'].size() <= 1)
           return;
@@ -68,7 +70,7 @@ abstract class FeedbackSender {
           images['imageFeedbackSenders'].removeAt(pictureNumber);
           images['links'].removeAt(pictureNumber);
           images['plates'].removeAt(pictureNumber);
-          updatedTuple.updateData({
+          await updatedTuple.updateData({
             'reportSent':
             FieldValue.arrayUnion([u.currViewedReport.sendableReport])
           });
@@ -81,8 +83,8 @@ abstract class FeedbackSender {
             u.currViewedReport.sendableReport['images']['imageFeedback']);
         feedbackCounter.replaceRange(pictureNumber, pictureNumber + 1,
             [feedbackCounter.elementAt(pictureNumber) + 1]);
-        List<String> curr1 = List<String>.from(u.currViewedReport
-            .sendableReport['images']['imageFeedbackSenders']);
+        List<String> curr1 = List<String>.from(u
+            .currViewedReport.sendableReport['images']['imageFeedbackSenders']);
         curr1.replaceRange(pictureNumber, pictureNumber + 1,
             [curr1.elementAt(pictureNumber) + " " + u.email]);
         List<int> curr2 = List<int>.from(
@@ -92,7 +94,7 @@ abstract class FeedbackSender {
         u.currViewedReport.sendableReport['images']['imageFeedbackSenders'] =
             curr1;
         u.currViewedReport.sendableReport['images']['imageFeedback'] = curr2;
-        updatedTuple.updateData({
+        await updatedTuple.updateData({
           'reportSent':
           FieldValue.arrayUnion([u.currViewedReport.sendableReport])
         });
@@ -101,6 +103,43 @@ abstract class FeedbackSender {
       }
 
       await u.getAllReports();
+    }
+  }
+
+  static Future fineReport(User u, BuildContext context,
+      GlobalKey<ScaffoldState> key) async {
+    //check if it is already fined
+    if (u.currViewedReport.fined == true) {
+      final snackBar = SnackBar(content: Text("already fined"));
+      key.currentState.showSnackBar(snackBar);
+      return;
+    }
+    //check if the report actually contains a plate
+    bool onePlate = false;
+    for (String plate in u.currViewedReport.imagesLite['plates']) {
+      if (plate != "") onePlate = true;
+    }
+    if (onePlate) {
+      //now we are good to go
+      var updatedTuple = Firestore.instance
+          .collection("users")
+          .document(u.currViewedReport.emailUser);
+      await updatedTuple.updateData({
+        'reportSent':
+        FieldValue.arrayRemove([u.currViewedReport.sendableReport])
+      });
+      u.currViewedReport.sendableReport['fined'] = true;
+      await updatedTuple.updateData({
+        'reportSent': FieldValue.arrayUnion([u.currViewedReport.sendableReport])
+      });
+      //update the report locally
+      u.currViewedReport.fined = true;
+      final snackBar = SnackBar(content: Text("report fined successfully"));
+      key.currentState.showSnackBar(snackBar);
+    } else {
+      final snackBar = SnackBar(content: Text("no plates here"));
+          key.currentState.showSnackBar(snackBar);
+      return;
     }
   }
 }
