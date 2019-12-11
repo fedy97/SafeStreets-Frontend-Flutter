@@ -16,7 +16,8 @@ class ReportToGet extends Report {
       emailUser,
       imagesLite,
       marker,
-      this.sendableReport})
+      this.sendableReport,
+      fined})
       : super(
             time: time,
             emailUser: emailUser,
@@ -25,7 +26,8 @@ class ReportToGet extends Report {
             reportPosition: reportPosition,
             feedback: feedback,
             feedbackSenders: feedbackSenders,
-            imagesLite: imagesLite);
+            imagesLite: imagesLite,
+            fined: fined);
 
   factory ReportToGet.fromMap(Map<String, dynamic> data, String emailUser) {
     if (data == null) return null;
@@ -36,6 +38,7 @@ class ReportToGet extends Report {
     var violationData = data['violation'];
     var imagesLite = data['images'];
     var feedbackSenders = data['feedbackSenders'];
+    var fined = data['fined'];
 
     DateTime time = DateTime.fromMillisecondsSinceEpoch(timeData);
     String long = reportPositionData.toString().split(",").last;
@@ -54,7 +57,8 @@ class ReportToGet extends Report {
         note: note,
         reportPosition: reportLocation,
         violation: violation,
-        sendableReport: data);
+        sendableReport: data,
+        fined: fined);
   }
 }
 /*@override

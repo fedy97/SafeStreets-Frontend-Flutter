@@ -52,7 +52,8 @@ class ReportToSend extends Report {
       'location': reportPosition.toString(),
       'time': time.millisecondsSinceEpoch,
       'feedback' : 0,
-      'feedbackSenders' : feedbackSenders
+      'feedbackSenders' : feedbackSenders,
+      'fined' : false
     };
   }
 
