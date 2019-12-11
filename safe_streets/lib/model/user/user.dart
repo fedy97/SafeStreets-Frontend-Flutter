@@ -36,10 +36,6 @@ abstract class User extends ChangeNotifier {
 
   String get email => _email;
 
-  bool isAuthority() {
-    return level.toString() == "standard" ? false : true;
-  }
-
   List<ReportToGet> get reportsGet => _reportsGet;
 
   void setLocation(Location value) async {
@@ -89,20 +85,24 @@ abstract class User extends ChangeNotifier {
     MarkerId markerId;
     var iter = _reportsGet.iterator;
     while (iter.moveNext()) {
-      final markerId = MarkerId(_reportsGet.indexOf(iter.current).toString());
-      final Marker marker = Marker(
-          onTap: () async {
-            this.setCurrViewedReport = _reportsGet[int.parse(markerId.value)];
-            Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => ChangeNotifierProvider<User>.value(
-                      value: this,
-                      child: viewReportPage(),
-                    )));
-          },
-          markerId: markerId,
-          position: LatLng(iter.current.reportPosition.lat,
-              iter.current.reportPosition.long));
-      map[markerId] = marker;
+      //check if the report is in the range of the 24 hours
+      if (int.tryParse(DateTime.now().difference(iter.current.time).toString().split(":")[0]) < 24) {
+        final markerId = MarkerId(_reportsGet.indexOf(iter.current).toString());
+        final Marker marker = Marker(
+            onTap: () async {
+              this.setCurrViewedReport = _reportsGet[int.parse(markerId.value)];
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) =>
+                  ChangeNotifierProvider<User>.value(
+                    value: this,
+                    child: viewReportPage(),
+                  )));
+            },
+            markerId: markerId,
+            position: LatLng(iter.current.reportPosition.lat,
+                iter.current.reportPosition.long));
+        map[markerId] = marker;
+      }
     }
     return map;
   }
