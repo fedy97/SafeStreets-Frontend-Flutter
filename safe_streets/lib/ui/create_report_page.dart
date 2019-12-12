@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:safe_streets/model/enum/violation.dart';
@@ -107,7 +108,9 @@ class CreateReportPage extends StatelessWidget {
     try {
       dio.FormData formData = dio.FormData.fromMap({
         'upload': await dio.MultipartFile.fromFile(f.path,
-            filename: f.path.split("/").last)
+            filename: f.path
+                .split("/")
+                .last)
       });
       var http = dio.Dio();
       dio.Response response = await http.post(
@@ -134,7 +137,7 @@ class CreateReportPage extends StatelessWidget {
   Future sendReport(User u, BuildContext context) async {
     if (u.currReport.images.length > 0) {
       Utilities.showProgress(context);
-      if (await alreadyExist()) {}
+      //if (await alreadyExist(u)) {}
       final storage = Provider.of<FirebaseStorageService>(context);
       //upload images to storage
       for (ViolationImage image in u.currReport.images) {
@@ -165,8 +168,27 @@ class CreateReportPage extends StatelessWidget {
     }
   }
 
-  Future<bool> alreadyExist() async {
+  Future<bool> alreadyExist(User u) async {
     //TODO
+    for (var reportCurr in u.reportsGet) {
+      //check time and violation type, if they coincide, go to next check that is the position check
+      if (u.currReport.time
+          .difference(reportCurr.time)
+          .inHours < 24 && u.currReport.violation.toString() ==
+          reportCurr.violation.toString()) {
+        double distance = await Geolocator().distanceBetween(
+            u.currReport.reportPosition.lat, u.currReport.reportPosition.long,
+            reportCurr.reportPosition.lat, reportCurr.reportPosition.long);
+        //position check
+        if (distance < 10) {
+          //we have to distinguish if in the report there is a plate or not
+          for (var image in u.currReport.images) {
+            if (reportCurr.imagesLite["plates"].contains(image.plate) && image.plate != "")
+              return true;
+          }
+        }
+      }
+    }
     return false;
   }
 }
