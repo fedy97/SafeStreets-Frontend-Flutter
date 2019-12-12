@@ -5,7 +5,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:safe_streets/model/enum/violation.dart';
@@ -54,41 +53,7 @@ class CreateReportPage extends StatelessWidget {
               IconButton(
                   icon: Icon(Icons.send),
                   onPressed: () async {
-                    if (u.currReport.images.length > 0) {
-                      Utilities.showProgress(context);
-                      final storage =
-                          Provider.of<FirebaseStorageService>(context);
-                      //upload images to storage
-                      for (ViolationImage image in u.currReport.images) {
-                        image.downloadLink = await storage.uploadImages(
-                            image: image,
-                            mail: u.email,
-                            timestamp: u.currReport.time.millisecondsSinceEpoch,
-                            index: u.currReport.images.indexOf(image));
-                      }
-                      var rightTuple = Firestore.instance
-                          .collection("users")
-                          .document(u.email);
-                      //upload model in map form to the database, passing links to images just produced
-                      await rightTuple.updateData({
-                        'reportSent':
-                            FieldValue.arrayUnion([u.currReport.toMap()])
-                      });
-                      //delete temp images from device storage
-                      await u.currReport.removeAllImages();
-                      //reset currReport
-                      u.currReport = null;
-                      //re fetch  documents that changed
-                      await u.getAllReports();
-                      //pop the loading bar
-                      Navigator.pop(context);
-                      //return to homepage
-                      Navigator.pop(context);
-                    } else {
-                      final snackBar =
-                          SnackBar(content: Text("send at least one image"));
-                      _scaffoldKey.currentState.showSnackBar(snackBar);
-                    }
+                    await sendReport(u, context);
                   })
             ],
           ),
@@ -166,43 +131,42 @@ class CreateReportPage extends StatelessWidget {
     return {"plate": "", "score": 0.0, "box": null};
   }
 
-/*Future<String> _recognizeText(List<ViolationImage> pictures) async {
-    String plate = "";
-    final FirebaseVisionImage file =
-        FirebaseVisionImage.fromFile(pictures[0].imageFile);
-    TextRecognizer textRecognizer = FirebaseVision.instance.textRecognizer();
-    VisionText visionText = await textRecognizer.processImage(file);
-    final String text = visionText.text;
-    for (TextBlock block in visionText.blocks) {
-      final Rect boundingBox = block.boundingBox;
-      final List<Offset> cornerPoints = block.cornerPoints;
-      final String text = block.text;
-      final List<RecognizedLanguage> languages = block.recognizedLanguages;
-      plate += '$text\n';
-    }
-    return plate;
-  }*/
-
-/*Widget _displayImages(User u) {
-    if (!u.loadingImage) {
-      return Expanded(
-        child: ListView.builder(
-            itemCount: u.currReport.images.length,
-            itemBuilder: (context, int) {
-              return Image.file(u.currReport.images[int].imageFile);
-            }),
-      );
+  Future sendReport(User u, BuildContext context) async {
+    if (u.currReport.images.length > 0) {
+      Utilities.showProgress(context);
+      if (await alreadyExist()) {}
+      final storage = Provider.of<FirebaseStorageService>(context);
+      //upload images to storage
+      for (ViolationImage image in u.currReport.images) {
+        image.downloadLink = await storage.uploadImages(
+            image: image,
+            mail: u.email,
+            timestamp: u.currReport.time.millisecondsSinceEpoch,
+            index: u.currReport.images.indexOf(image));
+      }
+      var rightTuple = Firestore.instance.collection("users").document(u.email);
+      //upload model in map form to the database, passing links to images just produced
+      await rightTuple.updateData({
+        'reportSent': FieldValue.arrayUnion([u.currReport.toMap()])
+      });
+      //delete temp images from device storage
+      await u.currReport.removeAllImages();
+      //reset currReport
+      u.currReport = null;
+      //re fetch  documents that changed
+      await u.getAllReports();
+      //pop the loading bar
+      Navigator.pop(context);
+      //return to homepage
+      Navigator.pop(context);
     } else {
-      return Expanded(
-        child: ListView.builder(
-            itemCount: lengthImages,
-            itemBuilder: (context, int) {
-              if (int != lengthImages-1)
-                return Image.file(u.currReport.images[int].imageFile);
-              else
-                return SizedBox(child: CircularProgressIndicator(),height: 5.0,width: 5.0,);
-            }),
-      );
+      final snackBar = SnackBar(content: Text("send at least one image"));
+      _scaffoldKey.currentState.showSnackBar(snackBar);
     }
-  }*/
+  }
+
+  Future<bool> alreadyExist() async {
+    //TODO
+    return false;
+  }
 }

@@ -3,33 +3,169 @@
   results: [
     {
       box: {
-        ymin: 104,
-        xmin: 58,
-        ymax: 437,
-        xmax: 726
+        ymin: 859,
+        xmin: 291,
+        ymax: 939,
+        xmax: 461
       },
-      plate: bg122sn,
+      plate: ee000hg,
+      region: {
+        score: 0.488,
+        code: it
+      },
       vehicle: {
+        score: 0.346,
         type: Car
       },
       score: 0.9,
       candidates: [
         {
           score: 0.9,
-          plate: bg122sn
+          plate: ee000hg
         },
         {
-          score: 0.778,
-          plate: bgi22sn
+          score: 0.899,
+          plate: ee00ohg
+        },
+        {
+          score: 0.899,
+          plate: ee0o0hg
+        },
+        {
+          score: 0.899,
+          plate: eeo00hg
+        },
+        {
+          score: 0.897,
+          plate: ee0oohg
+        },
+        {
+          score: 0.897,
+          plate: eeo0ohg
+        },
+        {
+          score: 0.897,
+          plate: eeoo0hg
+        },
+        {
+          score: 0.896,
+          plate: eeooohg
         }
       ],
-      dscore: 0.574
+      dscore: 0.766
+    },
+    {
+      box: {
+        ymin: 322,
+        xmin: 186,
+        ymax: 450,
+        xmax: 544
+      },
+      plate: fv181ex,
+      region: {
+        score: 0.808,
+        code: it
+      },
+      vehicle: {
+        score: 0.346,
+        type: Car
+      },
+      score: 0.903,
+      candidates: [
+        {
+          score: 0.903,
+          plate: fv181ex
+        },
+        {
+          score: 0.782,
+          plate: fvi81ex
+        },
+        {
+          score: 0.78,
+          plate: fv18iex
+        },
+        {
+          score: 0.78,
+          plate: fv1b1ex
+        },
+        {
+          score: 0.66,
+          plate: fvi8iex
+        },
+        {
+          score: 0.659,
+          plate: fvib1ex
+        },
+        {
+          score: 0.6
+          I/flutter
+          (18180): 58,
+          plate: fv1biex
+        },
+        {
+          score: 0.537,
+          plate: fvibiex
+        }
+      ],
+      dscore: 0.714
+    },
+    {
+      box: {
+        ymin: 897,
+        xmin: 38,
+        ymax: 965,
+        xmax: 206
+      },
+      plate: er606hg,
+      region: {
+        score: 0.646,
+        code: it
+      },
+      vehicle: {
+        score: 0.346,
+        type: Car
+      },
+      score: 0.894,
+      candidates: [
+        {
+          score: 0.894,
+          plate: er606hg
+        },
+        {
+          score: 0.892,
+          plate: er6o6hg
+        }
+      ],
+      dscore: 0.615
+    },
+    {
+      box: {
+        ymin: 838,
+        xmin: 547,
+        ymax: 888,
+        xmax: 675
+      },
+      plate: er606hg,
+      region: {
+        score: 0.839,
+        code: it
+      },
+      vehicle: {
+        score: 0.346,
+        type: Car
+      },
+      score: 0.899,
+      candidates: [
+        {
+          score: 0.899,
+          plate: er606hg
+        },
+        {
+          score: 0.897,
+          plate: er6o6hg
+        }
+      ],
+      dscore: 0.589
     }
-  ],
-  filename: 22_37_bscaled_eab8f382-c0a8-47a1-b7d4-c2bcd1bbda641067249838468634382.jpg,
-  version: 1,
-  camera_id: null,
-  timestamp: 2019-11-17T22
-  :
-  37: 06.100869Z
+  ]
 }
