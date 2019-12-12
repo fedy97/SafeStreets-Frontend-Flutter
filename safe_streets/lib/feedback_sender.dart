@@ -31,6 +31,9 @@ abstract class FeedbackSender {
         });
       }
       await u.getAllReports();
+      final snackBar = SnackBar(
+          content: Text("feedback to report sent successfully!"));
+      key.currentState.showSnackBar(snackBar);
     } else {
       final snackBar = SnackBar(
           content: Text("you have already given a feedback to this report!"));
@@ -112,6 +115,9 @@ abstract class FeedbackSender {
       }
 
       await u.getAllReports();
+      final snackBar = SnackBar(
+          content: Text("picture feedback sent successfully!"));
+      key.currentState.showSnackBar(snackBar);
     }
   }
 
