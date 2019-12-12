@@ -15,6 +15,14 @@ class MyReportsPage extends StatelessWidget {
             itemCount: u.myReports.length,
             itemBuilder: (context, int) {
               return ListTile(
+                onTap: () async {
+                  u.setCurrViewedReport = u.myReports[int];
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ChangeNotifierProvider<User>.value(
+                        value: u,
+                        child: u.viewReportPage(),
+                      )));
+                },
                   leading: Icon(Icons.report_problem),
                   title: Text("Report ${int + 1}, " +
                       u.myReports[int].time.toIso8601String()),
