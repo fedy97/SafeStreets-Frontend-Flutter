@@ -19,14 +19,14 @@ class ViewReportAuthority extends StatelessWidget {
                 icon: Icon(Icons.error),
                 onPressed: () async {
                   Utilities.showProgress(context);
-                  await FeedbackSender.fineReport(u, context, _scaffoldKey);
+                  await FeedbackSender.fineReport(u, _scaffoldKey);
                   Navigator.pop(context);
                 }),
             IconButton(
                 icon: Icon(Icons.assistant_photo),
                 onPressed: () async {
                   Utilities.showProgress(context);
-                  await FeedbackSender.violationFeedback(u);
+                  await FeedbackSender.violationFeedback(u, _scaffoldKey);
                   Navigator.pop(context);
                 }),
           ],
@@ -63,7 +63,7 @@ class ViewReportAuthority extends StatelessWidget {
                               child: Icon(Icons.assistant_photo),
                               onPressed: () async {
                                 Utilities.showProgress(context);
-                                FeedbackSender.pictureFeedback(u, int);
+                                FeedbackSender.pictureFeedback(u, int, _scaffoldKey);
                                 Navigator.pop(context);
                               },
                             )),

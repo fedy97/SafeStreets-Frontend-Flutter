@@ -6,18 +6,20 @@ import 'package:safe_streets/services/utilities.dart';
 import '../feedback_sender.dart';
 
 class ViewReportCitizen extends StatelessWidget {
+  static final _scaffoldKey = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     User u = Provider.of<User>(context);
     return WillPopScope(
       child: Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
           actions: <Widget>[
             IconButton(
                 icon: Icon(Icons.assistant_photo),
                 onPressed: () async {
                   Utilities.showProgress(context);
-                  FeedbackSender.violationFeedback(u);
+                  FeedbackSender.violationFeedback(u, _scaffoldKey);
                   Navigator.pop(context);
                 })
           ],
@@ -57,7 +59,7 @@ class ViewReportCitizen extends StatelessWidget {
                               child: Icon(Icons.assistant_photo),
                               onPressed: () async {
                                 Utilities.showProgress(context);
-                                FeedbackSender.pictureFeedback(u, int);
+                                FeedbackSender.pictureFeedback(u, int, _scaffoldKey);
                                 Navigator.pop(context);
                               },
                             )),
