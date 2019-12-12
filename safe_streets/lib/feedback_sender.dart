@@ -116,18 +116,18 @@ abstract class FeedbackSender {
   }
 
   static Future fineReport(User u, GlobalKey<ScaffoldState> key) async {
-    //check if it is already fined
+    //check if it is already fined THIS report
     if (u.currViewedReport.fined == true) {
       final snackBar = SnackBar(content: Text("already fined"));
       key.currentState.showSnackBar(snackBar);
       return;
     }
     //check if the report actually contains a plate
-    bool onePlate = false;
+    String onePlate = "";
     for (String plate in u.currViewedReport.imagesLite['plates']) {
-      if (plate != "") onePlate = true;
+      if (plate != "") onePlate = plate;
     }
-    if (onePlate) {
+    if (onePlate != "") {
       //now we are good to go
       var updatedTuple = Firestore.instance
           .collection("users")
@@ -140,6 +140,19 @@ abstract class FeedbackSender {
       await updatedTuple.updateData({
         'reportSent': FieldValue.arrayUnion([u.currViewedReport.sendableReport])
       });
+      //check if already present in db a fine with that plate
+      //if so, increment the counter else set counter to 1 and create the fine tuple
+      var doc = await Firestore.instance.collection("fines").document(onePlate).get();
+      if (!doc.exists)
+        await Firestore.instance
+            .collection("fines")
+            .document(onePlate)
+            .setData({"count": 1});
+      else
+        await Firestore.instance
+            .collection("fines")
+            .document(onePlate)
+            .updateData({'count': FieldValue.increment(1)});
       //update the report locally
       u.currViewedReport.fined = true;
       final snackBar = SnackBar(content: Text("report fined successfully"));

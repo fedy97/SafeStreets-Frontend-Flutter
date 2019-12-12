@@ -13,11 +13,10 @@ import 'home_page.dart';
 
 class SignInPage extends StatelessWidget {
   static final _scaffoldKey = GlobalKey<ScaffoldState>();
-
+  static String _email = "";
+  static String _password = "";
   Widget build(BuildContext context) {
     final auth = Provider.of<FirebaseAuthService>(context);
-    String _email = "";
-    String _password = "";
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(title: Text('Sign in')),
@@ -34,7 +33,7 @@ class SignInPage extends StatelessWidget {
             RaisedButton(
               child: Text('Sign in'),
               onPressed: () async {
-                if (_email != "" && _email.contains("@") && _password != "") {
+                try {
                   FirebaseUser user =
                       await auth.signInWithEmailAndPassword(_email, _password);
                   DocumentSnapshot map = await fetchMap(user);
@@ -51,9 +50,9 @@ class SignInPage extends StatelessWidget {
                                 value: u,
                                 child: HomePage(),
                               )));
-                } else {
+                } catch(error) {
                   final snackBar =
-                      SnackBar(content: Text("invalid email or password"));
+                      SnackBar(content: Text(Utilities.printError(error.toString())));
                   _scaffoldKey.currentState.showSnackBar(snackBar);
                 }
               },
