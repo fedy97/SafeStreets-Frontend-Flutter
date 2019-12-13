@@ -18,7 +18,7 @@ class Statistics extends StatelessWidget {
           ),
           body: Column(children: <Widget>[
             SizedBox(
-              height: 5,
+              height: 10,
             ),
             Center(child: Text(
               "Effectiveness",
@@ -26,13 +26,24 @@ class Statistics extends StatelessWidget {
             ),),
             Align(child: Text(
               "Total reports number: " + u.reportsGet.length.toString(),),
-              alignment: Alignment.topLeft, ),
+              alignment: Alignment.topLeft,
+              ),
 
             Align(child:Text(
                 "Number of reports fined: " + u.totalFinedReport().toString(),),
             alignment: Alignment.topLeft,),
             Align(child:Text(
-              "effectiveness %: " + (u.totalFinedReport() % u.reportsGet.length).toString()),
+              "ratio: " + ((u.totalFinedReport() / u.reportsGet.length)*100).toString()+ "%"),
+              alignment: Alignment.topLeft,),
+            SizedBox(
+              height: 10,
+            ),
+            Center(child: Text(
+              "Daily Reports",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,),
+            ),),
+            Align(child:Text(
+              "Number of reports: " + u.totalDailyReport().toString()),
               alignment: Alignment.topLeft,),
           ]),
         ),

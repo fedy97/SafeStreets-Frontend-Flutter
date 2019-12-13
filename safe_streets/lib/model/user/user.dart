@@ -162,12 +162,27 @@ abstract class User extends ChangeNotifier {
   }
 
   int totalFinedReport(){
-    int i=0;
+    int fined=0, daily =0;
     for (ReportToGet reportToGet in _reportsGet){
-      if (reportToGet.fined) i++;
+      if (reportToGet.fined) fined++;
     }
-    return i;
+    return fined;
   }
+
+  int totalDailyReport(){
+    int daily =0;
+    for (ReportToGet reportToGet in _reportsGet){
+      if (int.tryParse(DateTime.now()
+          .difference(reportToGet.time)
+          .toString()
+          .split(":")[0]) <
+          24) daily++;
+    }
+    return daily;
+  }
+
+
+
 
   Widget viewReportPage();
 }
