@@ -7,6 +7,7 @@ import 'package:safe_streets/services/firebase_auth_service.dart';
 import 'package:safe_streets/services/utilities.dart';
 import 'package:safe_streets/ui/create_report_page.dart';
 import 'package:safe_streets/ui/sign_in_page.dart';
+import 'package:safe_streets/ui/statistics.dart';
 
 import 'my_reports_page.dart';
 
@@ -55,7 +56,16 @@ class HomePage extends StatelessWidget {
               ),
               ListTile(
                 title: Text("Statistics"),
-                onTap: () async {},
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                          ChangeNotifierProvider<User>.value(
+                            value: u,
+                            child: Statistics(),
+                          )));
+                },
                 leading: Icon(Icons.view_list),
               ),
               ListTile(

@@ -161,5 +161,13 @@ abstract class User extends ChangeNotifier {
     _currViewedReport = value;
   }
 
+  int totalFinedReport(){
+    int i=0;
+    for (ReportToGet reportToGet in _reportsGet){
+      if (reportToGet.fined) i++;
+    }
+    return i;
+  }
+
   Widget viewReportPage();
 }
