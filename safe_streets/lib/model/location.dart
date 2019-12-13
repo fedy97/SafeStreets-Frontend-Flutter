@@ -19,7 +19,7 @@ class Location {
     List<Placemark> p = await geoLocator.placemarkFromCoordinates(
         lat, long);
     Placemark place = p[0];
-    return "${place.locality}, ${place.postalCode}, ${place.country}, ${place.thoroughfare}, ${place.subThoroughfare}";
+    return "${place.locality},${place.postalCode},${place.country}";
   }
 
   @override

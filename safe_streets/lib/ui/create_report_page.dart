@@ -37,8 +37,9 @@ class CreateReportPage extends StatelessWidget {
                       //check if I actually took the photo or I pressed "back"
                       if (f != null) {
                         Utilities.showProgress(context);
-                        if (u.currReport.images.length == 0)
+                        if (u.currReport.images.length == 0) {
                           await u.getPosition();
+                        }
                         Map m = await _recognizePlate(f);
                         ViolationImage vi = new ViolationImage(
                             box: m["box"],
@@ -108,9 +109,7 @@ class CreateReportPage extends StatelessWidget {
     try {
       dio.FormData formData = dio.FormData.fromMap({
         'upload': await dio.MultipartFile.fromFile(f.path,
-            filename: f.path
-                .split("/")
-                .last)
+            filename: f.path.split("/").last)
       });
       var http = dio.Dio();
       dio.Response response = await http.post(
@@ -172,19 +171,20 @@ class CreateReportPage extends StatelessWidget {
     //TODO
     for (var reportCurr in u.reportsGet) {
       //check time and violation type, if they coincide, go to next check that is the position check
-      if (u.currReport.time
-          .difference(reportCurr.time)
-          .inHours < 24 && u.currReport.violation.toString() ==
-          reportCurr.violation.toString()) {
+      if (u.currReport.time.difference(reportCurr.time).inHours < 24 &&
+          u.currReport.violation.toString() ==
+              reportCurr.violation.toString()) {
         double distance = await Geolocator().distanceBetween(
-            u.currReport.reportPosition.lat, u.currReport.reportPosition.long,
-            reportCurr.reportPosition.lat, reportCurr.reportPosition.long);
+            u.currReport.reportPosition.lat,
+            u.currReport.reportPosition.long,
+            reportCurr.reportPosition.lat,
+            reportCurr.reportPosition.long);
         //position check
         if (distance < 10) {
           //we have to distinguish if in the report there is a plate or not
           for (var image in u.currReport.images) {
-            if (reportCurr.imagesLite["plates"].contains(image.plate) && image.plate != "")
-              return true;
+            if (reportCurr.imagesLite["plates"].contains(image.plate) &&
+                image.plate != "") return true;
           }
         }
       }
