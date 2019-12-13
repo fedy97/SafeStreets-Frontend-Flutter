@@ -40,7 +40,6 @@ abstract class User extends ChangeNotifier {
 
   void setLocation(Location value) async {
     _location = value;
-    //await _location.setAddress();
     notifyListeners();
   }
 
@@ -119,6 +118,7 @@ abstract class User extends ChangeNotifier {
     Position currentPos = await geoLocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.best);
     Location l = new Location(currentPos.longitude, currentPos.latitude);
+    await l.setAddress();
     if (this.currReport != null) this.setLocationToReport(location: l);
     //here I notify listeners
     this.setLocation(l);

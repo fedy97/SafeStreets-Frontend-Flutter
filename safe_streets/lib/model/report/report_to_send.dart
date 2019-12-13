@@ -50,6 +50,7 @@ class ReportToSend extends Report {
       },
       'violation': violation.toString(),
       'location': reportPosition.toString(),
+      'zone': reportPosition.address,
       'time': time.millisecondsSinceEpoch,
       'feedback' : 0,
       'feedbackSenders' : feedbackSenders,
