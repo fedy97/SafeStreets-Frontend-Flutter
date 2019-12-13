@@ -21,7 +21,7 @@ class Statistics extends StatelessWidget {
               height: 10,
             ),
             Center(child: Text(
-              "Effectiveness",
+              "Effectiveness".toUpperCase(),
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,),
             ),),
             Align(child: Text(
@@ -33,17 +33,32 @@ class Statistics extends StatelessWidget {
                 "Number of reports fined: " + u.totalFinedReport().toString(),),
             alignment: Alignment.topLeft,),
             Align(child:Text(
-              "ratio: " + ((u.totalFinedReport() / u.reportsGet.length)*100).toString()+ "%"),
+              "Ratio: " + ((u.totalFinedReport() / u.reportsGet.length)*100).toString()+ "%"),
               alignment: Alignment.topLeft,),
             SizedBox(
               height: 10,
             ),
             Center(child: Text(
-              "Daily Reports",
+              "Daily Reports".toUpperCase(),
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,),
             ),),
             Align(child:Text(
               "Number of reports: " + u.totalDailyReport().toString()),
+              alignment: Alignment.topLeft,),
+            SizedBox(
+              height: 10,
+            ),
+            Center(child: Text(
+              "Most committed violation".toUpperCase(),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20,),
+            ),),
+            Align(child:Text(
+              //TODO stampare *tutte* le violazioni commesse il maggior numero di volte u.mostCommittedCrime().keys.iterator.current
+                "Violation type: " + u.mostCommittedCrime().keys.first.toString().replaceAll("_", " ")
+                    .replaceAll("Violation.", "") ),
+              alignment: Alignment.topLeft,),
+            Align(child:Text(
+                "Committed times: " + u.mostCommittedCrime().values.first.toString()),
               alignment: Alignment.topLeft,),
           ]),
         ),

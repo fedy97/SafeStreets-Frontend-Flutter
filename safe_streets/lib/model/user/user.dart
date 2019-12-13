@@ -161,28 +161,54 @@ abstract class User extends ChangeNotifier {
     _currViewedReport = value;
   }
 
-  int totalFinedReport(){
-    int fined=0, daily =0;
-    for (ReportToGet reportToGet in _reportsGet){
+  int totalFinedReport() {
+    int fined = 0, daily = 0;
+    for (ReportToGet reportToGet in _reportsGet) {
       if (reportToGet.fined) fined++;
     }
     return fined;
   }
 
-  int totalDailyReport(){
-    int daily =0;
-    for (ReportToGet reportToGet in _reportsGet){
+  int totalDailyReport() {
+    int daily = 0;
+    for (ReportToGet reportToGet in _reportsGet) {
       if (int.tryParse(DateTime.now()
-          .difference(reportToGet.time)
-          .toString()
-          .split(":")[0]) <
+              .difference(reportToGet.time)
+              .toString()
+              .split(":")[0]) <
           24) daily++;
     }
     return daily;
   }
 
 
-
+   ///It returns a map that contains the most committed violations and the number of times. It is the same for all.
+  Map <Violation, int> mostCommittedCrime() {
+    int doubleParking = 0, parkingOnZebra = 0, parkingOnPavement = 0;
+    for (ReportToGet reportToGet in _reportsGet) {
+      switch (reportToGet.violation) {
+        case Violation.double_parking:
+          doubleParking++;
+          break;
+        case Violation.parking_on_zebra_crossing:
+          parkingOnZebra++;
+          break;
+        case Violation.parking_on_pavement:
+          parkingOnPavement++;
+          break;
+        case Violation.other_violation:
+          break;
+      }
+    }
+    var map = new Map<Violation, int>();
+    if(doubleParking >= parkingOnZebra && doubleParking >= parkingOnPavement )
+      map[Violation.double_parking] = doubleParking;
+    else if(parkingOnZebra >= doubleParking && parkingOnZebra >= parkingOnPavement )
+      map[Violation.parking_on_zebra_crossing] = parkingOnZebra;
+    else if(parkingOnPavement >= doubleParking && parkingOnPavement >= parkingOnZebra )
+      map[Violation.parking_on_pavement] = parkingOnPavement;
+    return map;
+  }
 
   Widget viewReportPage();
 }
