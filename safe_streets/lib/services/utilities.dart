@@ -41,4 +41,31 @@ class Utilities {
     final pattern = new RegExp('.{1,800}'); // 800 is the size of each chunk
     pattern.allMatches(text).forEach((match) => print(match.group(0)));
   }
+
+  static Future<bool> showAlert(BuildContext context, String message) async {
+    bool result = false;
+    await showDialog(
+        context: context,
+        child: AlertDialog(
+          title: new Text("Alert"),
+          content: new Text(message),
+          actions: <Widget>[
+            // usually buttons at the bottom of the dialog
+            FlatButton(
+              child: Text("Close"),
+              onPressed: () {
+                Navigator.pop(context);
+                result = false;
+              },
+            ),
+            FlatButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  result = true;
+                },
+                child: Text("Ok"))
+          ],
+        ));
+    return result;
+  }
 }

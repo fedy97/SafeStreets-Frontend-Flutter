@@ -61,10 +61,10 @@ class HomePage extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                          ChangeNotifierProvider<User>.value(
-                            value: u,
-                            child: Statistics(),
-                          )));
+                              ChangeNotifierProvider<User>.value(
+                                value: u,
+                                child: Statistics(),
+                              )));
                 },
                 leading: Icon(Icons.view_list),
               ),
@@ -104,10 +104,6 @@ class HomePage extends StatelessWidget {
         body: Center(
           child: Column(
             children: <Widget>[
-              Text("Reports displayed: " +
-                  markers.length.toString() +
-                  ", Reports downloaded:" +
-                  u.reportsGet.length.toString()),
               Expanded(
                 child: u.location == null
                     ? Container()

@@ -136,21 +136,29 @@ class CreateReportPage extends StatelessWidget {
   Future sendReport(User u, BuildContext context) async {
     if (u.currReport.images.length > 0) {
       Utilities.showProgress(context);
-      //if (await alreadyExist(u)) {}
-      final storage = Provider.of<FirebaseStorageService>(context);
-      //upload images to storage
-      for (ViolationImage image in u.currReport.images) {
-        image.downloadLink = await storage.uploadImages(
-            image: image,
-            mail: u.email,
-            timestamp: u.currReport.time.millisecondsSinceEpoch,
-            index: u.currReport.images.indexOf(image));
+      bool uploadAnyway = true;
+      if (await alreadyExist(context, u)) {
+        uploadAnyway = await Utilities.showAlert(context,
+            "this report may already exist, do you want to upload it anyway?");
+        print(uploadAnyway);
       }
-      var rightTuple = Firestore.instance.collection("users").document(u.email);
-      //upload model in map form to the database, passing links to images just produced
-      await rightTuple.updateData({
-        'reportSent': FieldValue.arrayUnion([u.currReport.toMap()])
-      });
+      if (uploadAnyway) {
+        final storage = Provider.of<FirebaseStorageService>(context);
+        //upload images to storage
+        for (ViolationImage image in u.currReport.images) {
+          image.downloadLink = await storage.uploadImages(
+              image: image,
+              mail: u.email,
+              timestamp: u.currReport.time.millisecondsSinceEpoch,
+              index: u.currReport.images.indexOf(image));
+        }
+        var rightTuple =
+            Firestore.instance.collection("users").document(u.email);
+        //upload model in map form to the database, passing links to images just produced
+        await rightTuple.updateData({
+          'reportSent': FieldValue.arrayUnion([u.currReport.toMap()])
+        });
+      }
       //delete temp images from device storage
       await u.currReport.removeAllImages();
       //reset currReport
@@ -167,8 +175,7 @@ class CreateReportPage extends StatelessWidget {
     }
   }
 
-  Future<bool> alreadyExist(User u) async {
-    //TODO
+  Future<bool> alreadyExist(BuildContext context, User u) async {
     for (var reportCurr in u.reportsGet) {
       //check time and violation type, if they coincide, go to next check that is the position check
       if (u.currReport.time.difference(reportCurr.time).inHours < 24 &&
@@ -182,10 +189,11 @@ class CreateReportPage extends StatelessWidget {
         //position check
         if (distance < 10) {
           //we have to distinguish if in the report there is a plate or not
-          for (var image in u.currReport.images) {
+          /*for (var image in u.currReport.images) {
             if (reportCurr.imagesLite["plates"].contains(image.plate) &&
                 image.plate != "") return true;
-          }
+          }*/
+          return true;
         }
       }
     }
