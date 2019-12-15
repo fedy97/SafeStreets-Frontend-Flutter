@@ -81,7 +81,6 @@ abstract class User extends ChangeNotifier {
 
   Map<MarkerId, Marker> toMarker(BuildContext context) {
     Map<MarkerId, Marker> map = Map();
-    MarkerId markerId;
     var iter = _reportsGet.iterator;
     while (iter.moveNext()) {
       //check if the report is in the range of the 24 hours
