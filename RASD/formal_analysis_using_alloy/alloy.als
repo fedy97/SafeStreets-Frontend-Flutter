@@ -11,7 +11,8 @@ sig Image {
 	negativeFeedback: one Int
 }{imageID > 0}
 
-// Every report must have exactly one ID, one type, one date, one time, one fine mark and one feedback counter, at least one image and at most one description
+// Every report must have exactly one ID, one type, one date, one time,
+//one fine mark and one feedback counter, at least one image and at most one description
 sig Report {
     numberID: one Int,
     type: one ViolationType,
@@ -143,12 +144,14 @@ fact noReportWithMOreThanFiveOrNegativeFeedback{
 
 // A daily map contains only report with its same date
 fact dailyMapHasOnlyTodayReport{
-	all map : DailyMap, dossier : Report | dossier in map.dailyViolation iff dossier.date = map.day
+	all map : DailyMap, dossier : Report | dossier in map.dailyViolation
+	iff dossier.date = map.day
 }
 
 // Every report is reported by exactly one user
 fact dossierReportedByExactlyOneUser{
-	no disj u1, u2 : User | some violation : Report | (violation in u1.reportsUploaded) and (violation in u2.reportsUploaded)
+	no disj u1, u2 : User | some violation : Report | (violation in u1.reportsUploaded) and
+	(violation in u2.reportsUploaded)
 }
 
 // Every daily map is associated to a different date
@@ -163,7 +166,8 @@ fact everyReportWithinADailyMap{
 
 // Every sting can exist only within a description, an email or a password
 fact stringOnlyWithinContext{
-	all s1: string | some r1: Report, u1: User | s1 in r1.description or s1 in u1.email or s1 in u1.password
+	all s1: string | some r1: Report, u1: User | s1 in r1.description or s1 in u1.email
+	or s1 in u1.password
 }
 
 pred world1 {
@@ -171,7 +175,8 @@ pred world1 {
 	#Image = 4
 	#Citizen = 1
 	#Authority = 1
-	(some disj i1, i2: Image | some disj r1, r2: Report | i1 in r1.images and i2 in r2.images and r1 in Citizen.reportsUploaded and r2 in Authority.reportsUploaded)
+	(some disj i1, i2: Image | some disj r1, r2: Report | i1 in r1.images and i2 in r2.images
+	and r1 in Citizen.reportsUploaded and r2 in Authority.reportsUploaded)
 }
 
 run world1 for 4 but 1 DailyMap
