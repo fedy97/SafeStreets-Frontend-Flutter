@@ -13,6 +13,7 @@ class Statistics extends StatelessWidget {
     User u = Provider.of<User>(context, listen: true);
     int finedReports = StatsManager.totalFinedReport(u);
     int dailyReports = StatsManager.totalDailyReport(u);
+    var sortedMap = StatsManager.mostCommittedCrime(u);
     return WillPopScope(
         child: Scaffold(
           key: _scaffoldKey,
@@ -63,8 +64,7 @@ class Statistics extends StatelessWidget {
               ),
             ),
             Align(
-              child: Text("Number of reports: " +
-                  dailyReports.toString()),
+              child: Text("Number of reports: " + dailyReports.toString()),
               alignment: Alignment.topLeft,
             ),
             SizedBox(
@@ -83,17 +83,15 @@ class Statistics extends StatelessWidget {
               child: Text(
                   //TODO stampare *tutte* le violazioni commesse il maggior numero di volte u.mostCommittedCrime().keys.iterator.current
                   "Violation type: " +
-                      StatsManager.mostCommittedCrime(u)
-                          .keys
-                          .first
+                      sortedMap.keys.first
                           .toString()
                           .replaceAll("_", " ")
                           .replaceAll("Violation.", "")),
               alignment: Alignment.topLeft,
             ),
             Align(
-              child: Text("Committed times: " +
-                  StatsManager.mostCommittedCrime(u).values.first.toString()),
+              child:
+                  Text("Committed times: " + sortedMap.values.first.toString()),
               alignment: Alignment.topLeft,
             ),
           ]),
