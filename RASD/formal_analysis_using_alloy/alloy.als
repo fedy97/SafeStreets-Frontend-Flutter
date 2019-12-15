@@ -166,6 +166,24 @@ fact stringOnlyWithinContext{
 	all s1: string | some r1: Report, u1: User | s1 in r1.description or s1 in u1.email or s1 in u1.password
 }
 
-pred show {}
+pred world1 {
+	#Report = 2
+	#Image = 4
+	#Citizen = 1
+	#Authority = 1
+	(some disj i1, i2: Image | some disj r1, r2: Report | i1 in r1.images and i2 in r2.images and r1 in Citizen.reportsUploaded and r2 in Authority.reportsUploaded)
+}
 
-run show for 5 but exactly 0 Report, exactly 1 Citizen, exactly 0 Authority
+run world1 for 4 but 1 DailyMap
+
+pred world2 {
+	#DailyMap = 2
+	#Report = 3
+	(some disj r1, r2: Report | some disj m1, m2: DailyMap | r1.date = m1.day and r2.date = m2.day)
+}
+
+run world2 for 4
+
+pred world3 { }
+
+run world3 for 5
