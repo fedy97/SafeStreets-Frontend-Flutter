@@ -4,137 +4,143 @@
 \begin{document}
     \chapter{Introduction}\label{ch:introduction}
     \section{Purpose}\label{sec:purpose}
-        \subsection{General Purpose}\label{subsec:general-purpose}
-        The purpose of the Requirement Analysis and Specification Document (RASD) is to give a clear and non-ambiguos analysis of SafeStreets,
-        an application that will be implemented, describing every aspects of it like functional/non-functional requirements, constraints,
-        domain assumptions, providing use cases and scenerios of the external world.
-        Moreover, a more formal analysis of some relevant functions of the system will be provided using Alloy,
-        a declarative specification language for expressing complex structural constraints and behavior in a software system.
+    \subsection{General Purpose}\label{subsec:general-purpose}
+    The purpose of the Requirement Analysis and Specification Document (RASD) is to give a clear and non-ambiguos analysis of SafeStreets,
+    an application that will be implemented, describing every aspects of it like functional/non-functional requirements, constraints,
+    domain assumptions, providing use cases and scenerios of the external world.
+    Moreover, a more formal analysis of some relevant functions of the system will be provided using Alloy,
+    a declarative specification language for expressing complex structural constraints and behavior in a software system.
 
-        The application will allow every user to take pictures of a violation and send them with the date, time, position,
-        a scan of the license plate and an optional brief description to SafeStreets, that will give access to these information
-        to both citizens and police officers, with different levels of visibility.
+    The application will allow every user to take pictures of a violation and send them with the date, time, position,
+    a scan of the license plate and an optional brief description to SafeStreets, that will give access to these information
+    to both citizens and police officers, with different levels of visibility.
 
-        If the municipality provides information about the accidents that occur in its territory, the system will be able to cross these data with its own,
-        to define dangerous areas and suggest possible interventions.
-        One of the objectives of SafeStreets is to help authorities to detect infringements;
-        in order to do that, it will ensure that data will not be tempered, to prevent malicious corruptions by offenders.
-        The authorities that will use SafeStreets to make fines will have the possibility to mark the violation on the system,
-        to both provide a feedback to the citizens and allow SafeStreets to compile statistics.
+    If the municipality provides information about the accidents that occur in its territory, the system will be able to cross these data with its own,
+    to define dangerous areas and suggest possible interventions.
+    One of the objectives of SafeStreets is to help authorities to detect infringements;
+    in order to do that, it will ensure that data will not be tempered, to prevent malicious corruptions by offenders.
+    The authorities that will use SafeStreets to make fines will have the possibility to mark the violation on the system,
+    to both provide a feedback to the citizens and allow SafeStreets to compile statistics.
 
     \subsection{Goals}\label{subsec:goals}
-        SafeStreets is a service provided to people to notify both other people and authorities about traffic violations.
-        There are two different classes of users to whom the software is addressed: citizens and authorities, which have two different ways to interact with the application.
-        In order to perform correctly, the software-to-be will have to grant that some services will be guaranteed.
-        Below is given a list of all the goal of the software-to-be:
-        \begin{enumerate}
-            \goal{1} The application will allow users to upload pictures of the traffic violations, including pictures, date, time, classification, and optionally a textual description.
-            \goal{2} The application will allow users to view a map of the violations registered in the last day.
-            \goal{3} The application will allow users to see the violations uploaded by other users;
-            however, citizens won’t be able to see sensitive pictures, while authorities will be allowed.
-            \goal{4} Users will be able to query the system to get all the reported violations that correspond to some temporal, geographical or categorical parameters.
-            \goal{5} Users can give a feedback about violations uploaded by other users to SafeStreets.
-            \goal{6} If SafeStreets can get the information about accidents by the municipality, it will give the possibility to merge them with its data to identify potentially unsafe areas.
-            \goal{7}If SafeStreets can get the information about accidents by the municipality, it will give the possibility to merge them with its data to suggest possible interventions.
-            \goal{8}The system will use the information about violations, accidents and fines that will collect by both users and authorities to build statistics.
-        \end{enumerate}
+    SafeStreets is a service provided to people to notify both other people and authorities about traffic violations.
+    There are two different classes of users to whom the software is addressed: citizens and authorities, which have two different ways to interact with the application.
+    In order to perform correctly, the software-to-be will have to grant that some services will be guaranteed.
+    Below is given a list of all the goal of the software-to-be:
+    \begin{enumerate}
+        \goal{1} The application will allow users to upload pictures of the traffic violations, including pictures, date, time, classification, and optionally a textual description.
+        \goal{2} The application will allow users to view a map of the violations registered in the last day.
+        \goal{3} The application will allow users to see the violations uploaded by other users;
+        however, citizens won’t be able to see sensitive pictures, while authorities will be allowed.
+        \goal{4} Users will be able to query the system to get all the reported violations that correspond to some temporal, geographical or categorical parameters.
+        \goal{5} Users can give a feedback about violations uploaded by other users to SafeStreets.
+        \goal{6} If SafeStreets can get the information about accidents by the municipality, it will give the possibility to merge them with its data to identify potentially unsafe areas.
+        \goal{7}If SafeStreets can get the information about accidents by the municipality, it will give the possibility to merge them with its data to suggest possible interventions.
+        \goal{8}The system will use the information about violations, accidents and fines that will collect by both users and authorities to build statistics.
+    \end{enumerate}
     \newpage
     \section{Scope}\label{sec:scope}
-        \subsection{World, Machine and Shared phenomena}\label{subsec:world,-machine-and-shared-phenomena}
-        According to \textit{The World and the Machine} we can divide every system into two parts:
+    \subsection{World, Machine and Shared phenomena}\label{subsec:world,-machine-and-shared-phenomena}
+    According to \textit{The World and the Machine} we can divide every system into two parts:
+    \begin{itemize}
+        \item The \textbf{machine}, which is the portion of system to be developed;
+        \item The \textbf{world}, which is the portion of the real-world affected by the machine.
+    \end{itemize}
+    As a consequence we can classify phenomena in three different types:
+    \begin{itemize}
+        \item \textbf{World phenomena}: phenomena that the machine cannot observe;
+        \item \textbf{Machine phenomena}: phenomena located entirely in the machine;
+        \item \textbf{Shared phenomena}: phenomena that can be controlled by the world and observed by the machine or controlled by the machine and observed by the world;
+    \end{itemize}
+    Below we give an analysis of the three phenomenas described above:
+    \begin{itemize}
+        \item \textbf{World Phenomena}
         \begin{itemize}
-            \item The \textbf{machine}, which is the portion of system to be developed;
-            \item The \textbf{world}, which is the portion of the real-world affected by the machine.
+            \item Users recognize the type of violation that occurred;
+            \item People commit violations;
+            \item People perform incidents;
+            \item Police emits traffic tickets.
         \end{itemize}
-        As a consequence we can classify phenomena in three different types:
+        \item \textbf{Machine Phenomena}
         \begin{itemize}
-            \item \textbf{World phenomena}: phenomena that the machine cannot observe;
-            \item \textbf{Machine phenomena}: phenomena located entirely in the machine;
-            \item \textbf{Shared phenomena}: phenomena that can be controlled by the world and observed by the machine or controlled by the machine and observed by the world;
+            \item Machine manages database queries;
+            \item Machine stores information (users and pictures with data)
+            \\ on the database
+            \item Machine manages interfaces with external software.
         \end{itemize}
-        Below we give an analysis of the three phenomenas described above:
+        \item \textbf{Shared Phenomena}
         \begin{itemize}
-            \item \textbf{World Phenomena}
-            \begin{itemize}
-                \item Users recognize the type of violation that occurred;
-                \item People commit violations;
-                \item People perform incidents;
-                \item Police emits traffic tickets.
-            \end{itemize}
-            \item \textbf{Machine Phenomena}
-            \begin{itemize}
-                \item Machine manages database queries;
-                \item Machine stores information (users and pictures with data)
-                \\ on the database
-                \item Machine manages interfaces with external software.
-            \end{itemize}
-            \item \textbf{Shared Phenomena}
-            \begin{itemize}
-                \item Users have to take and upload the pictures of the violations;
-                \item Users query the system about violations;
-                \item The machine gets the information about the accidents by the local municipality;
-                \item The machine crosses information about accidents and violations to submit possible interventions, that can be both considered or not;
-                \item The municipality can mark reported violations as fined, to allow the system to perform statistics about effectiveness of SafeStreets.
-            \end{itemize}
+            \item Users have to take and upload the pictures of the violations;
+            \item Users query the system about violations;
+            \item The machine gets the information about the accidents by the local municipality;
+            \item The machine crosses information about accidents and violations to submit possible interventions, that can be both considered or not;
+            \item The municipality can mark reported violations as fined, to allow the system to perform statistics about effectiveness of SafeStreets.
         \end{itemize}
+    \end{itemize}
 
-        \newpage
-        %%%%%%%%%
-        \begin{center}
-            \begin{tabular}{ ||c|c|c|| }
+    \newpage
+    %%%%%%%%%
+    \begin{center}
+        \begin{tabular}{ ||c|c|c|| }
 
-                \hline
-                \textbf{Phenomenon} & \textbf{Shared} & \textbf{Who controls it} \\ \hline
-                Users recognize the type of violation that occurred & N & W \\ \hline
-                People commit violations & N & W\\ \hline
-                People perform accidents & N & W\\ \hline
-                Police emits traffic tickets & N & W\\ \hline
-                Machine manages database queries & N & M\\ \hline
-                \makecell{Machine stores information (users and pictures with data)
-                \\ on the database} & N & M\\ \hline
-                Machine manages interfaces with external software & N & M\\ \hline
-                Users have to take and upload the pictures of the violations & Y & W\\ \hline
-                Users query the system to get violations & Y & W\\ \hline
-                \makecell{The machine gets the information about the accidents
-                \\from the local municipality} & Y & M\\ \hline
-                \makecell{Machine crosses information about accidents
-                \\and violations to submit possible interventions,
-                \\that can be both considered or not} & Y & M\\ \hline
-                \makecell{The municipality can mark reported violations as fined, \\ to allow the system
-                to perform statistics about \\ the effectiveness of SafeStreets.} & Y & W\\
+            \hline
+            \textbf{Phenomenon} & \textbf{Shared} & \textbf{Who controls it} \\ \hline
+            Users recognize the type of violation that occurred & N & W \\ \hline
+            People commit violations & N & W\\ \hline
+            People perform accidents & N & W\\ \hline
+            Police emits traffic tickets & N & W\\ \hline
+            Machine manages database queries & N & M\\ \hline
+            \makecell{Machine stores information (users and pictures with data)
+            \\ on the database} & N & M\\ \hline
+            Machine manages interfaces with external software & N & M\\ \hline
+            Users have to take and upload the pictures of the violations & Y & W\\ \hline
+            Users query the system to get violations & Y & W\\ \hline
+            \makecell{The machine gets the information about the accidents
+            \\from the local municipality} & Y & M\\ \hline
+            \makecell{Machine crosses information about accidents
+            \\and violations to submit possible interventions,
+            \\that can be both considered or not} & Y & M\\ \hline
+            \makecell{The municipality can mark reported violations as fined, \\ to allow the system
+            to perform statistics about \\ the effectiveness of SafeStreets.} & Y & W\\
 
-                \hline
-            \end{tabular}
-        \end{center}
-        %%%%%%%%%
+            \hline
+        \end{tabular}
+    \end{center}
+    %%%%%%%%%
     \newpage
     \section{Definitions, Acronyms, Abbreviations}\label{sec:definitions,-acronyms,-abbreviations}
-        \subsection{Definitions}\label{subsec:definitions}
-        \begin{itemize}
-            \item \textbf{User:} is a general customer that use the application. It is used to refer to both an authority and a ciziten.
-            \item \textbf{Citizen:} is the basic customer of the application. He can upload violations and query the system to get statistics on a selected area.
-            \item \textbf{Authority:} advanced customer of the application, is a registered user that is qualified to make fines and view sensitive information. Must verify himself during the registration.
-            \item \textbf{Municipality:} is always intended as the local municipality. Every municipality provides and receives information exactly and only about its own jurisdiction.
-            \item \textbf{Violation:} is a general infringement reported by a user.
-            \item  \textbf{Dossier:} is the instance of a violation on the system, that includes the pictures, position, classification, textual specification and fine mark.
-        \end{itemize}
+    \subsection{Definitions}\label{subsec:definitions}
+    \begin{itemize}
+        \item \textbf{User:} is a general customer that use the application.
+        It is used to refer to both an authority and a citizen.
+        \item \textbf{Citizen:} is the basic customer of the application.
+        He can upload violations and query the system to get statistics on a selected area.
+        \item \textbf{Authority:} advanced customer of the application, is a registered user that is qualified to make fines and view sensitive information.
+        Must verify himself during the registration.
+        \item \textbf{Municipality:} is always intended as the local municipality.
+        Every municipality provides and receives information exactly and only about its own jurisdiction.
+        \item \textbf{Violation:} is a general infringement reported by a user.
+        \item \textbf{Dossier:} is the instance of a violation on the system, that includes the pictures, position, classification, textual specification and fine mark.
+        \item \textbf{Authority database}: is the database in which are stored all data about incidents.
+        This data are uploaded by authority while the interface to access the database is offered by the municipality.
+        Safestreets uses this interface to retrieve data from the database.
+    \end{itemize}
+    \subsection{Acronyms}\label{subsec:acronyms}
+    \begin{itemize}
+        \item RASD: Requirement Analysis and Specification Document
+        \item LP: License Plate
+        \item GPS: Global Positioning System
+        \item API: Application Programming Interface
+        \item UML: Unified Modeling Language
+    \end{itemize}
 
-        \subsection{Acronyms}\label{subsec:acronyms}
-        \begin{itemize}
-            \item RASD: Requirement Analysis and Specification Document
-            \item LP: License Plate
-            \item GPS: Global Positioning System
-            \item API: Application Programming Interface
-            \item UML: Unified Modeling Language
-        \end{itemize}
-
-        \subsection{Abbreviations}\label{subsec:abbreviations}
-        \begin{itemize}
-            \item $[Gn]$: n-goal.
-            \item $[Dn]$: n-domain assumption.
-            \item $[Rn]$: n-functional requirement.
-            \item $[UCn]$: n-use case.
-        \end{itemize}
+    \subsection{Abbreviations}\label{subsec:abbreviations}
+    \begin{itemize}
+        \item $[Gn]$: n-goal.
+        \item $[Dn]$: n-domain assumption.
+        \item $[Rn]$: n-functional requirement.
+        \item $[UCn]$: n-use case.
+    \end{itemize}
 
     \section{Reference Documents}\label{sec:reference-documents}
     This document follows ISO/IEC/IEEE 29148:2011 and IEEE 830:1998 standard for software product specifications.
