@@ -59,7 +59,8 @@ class ViewReportCitizen extends StatelessWidget {
                               child: Icon(Icons.assistant_photo),
                               onPressed: () async {
                                 Utilities.showProgress(context);
-                                FeedbackSender.pictureFeedback(u, int, _scaffoldKey);
+                                FeedbackSender.pictureFeedback(
+                                    u, int, _scaffoldKey);
                                 Navigator.pop(context);
                               },
                             )),
@@ -79,11 +80,12 @@ class ViewReportCitizen extends StatelessWidget {
                                         [int]['ymin']) /
                                     2,
                                 height: ((u.currViewedReport.imagesLite['boxes']
-                                            [int]['ymax']) /
-                                        2 -
-                                    (u.currViewedReport.imagesLite['boxes'][int]
-                                            ['ymin']) /
-                                        2)+5,
+                                                [int]['ymax']) /
+                                            2 -
+                                        (u.currViewedReport.imagesLite['boxes']
+                                                [int]['ymin']) /
+                                            2) +
+                                    5,
                                 child: Container(
                                   color: Colors.yellow,
                                 ),

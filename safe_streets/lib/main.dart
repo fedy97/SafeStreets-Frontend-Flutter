@@ -13,13 +13,13 @@ class SafeStreets extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider<FirebaseAuthService>(
-          builder: (_) => FirebaseAuthService(),
+          create: (_) => FirebaseAuthService(),
         ),
         Provider<FirebaseStorageService>(
-          builder: (_) => FirebaseStorageService(),
+          create: (_) => FirebaseStorageService(),
         )
       ],
-      child: MaterialApp(
+      child: MaterialApp(debugShowCheckedModeBanner: false,
         home: AuthManager(),
       ),
     );
