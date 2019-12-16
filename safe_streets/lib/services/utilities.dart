@@ -68,4 +68,35 @@ class Utilities {
         ));
     return result;
   }
+
+  static Future<String> showAlertWithBoxes(
+      BuildContext context, List<String> plates) async {
+    String result = "";
+    int value;
+    await showDialog(
+        context: context,
+        child: Center(
+            child: AlertDialog(
+          title: new Text("Choose one"),
+          content: ListView.builder(
+              itemCount: plates.length,
+              itemBuilder: (context, int) {
+                return RadioListTile(
+                    value: plates[int],
+                    groupValue: value,
+                    onChanged: (i) {
+                      value = i;
+                    });
+              }),
+          actions: <Widget>[
+            FlatButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  //TODO
+                },
+                child: Text("Ok"))
+          ],
+        )));
+    return result;
+  }
 }

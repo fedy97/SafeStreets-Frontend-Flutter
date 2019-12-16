@@ -19,7 +19,7 @@ class ViewReportAuthority extends StatelessWidget {
               IconButton(
                   icon: Icon(Icons.error),
                   onPressed: () async {
-                    await FeedbackSender.fineReport(u, _scaffoldKey);
+                    await FeedbackSender.fineReport(u, _scaffoldKey,context);
                   }),
               IconButton(
                   icon: Icon(Icons.assistant_photo),
