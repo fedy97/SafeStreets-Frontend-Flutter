@@ -44,7 +44,6 @@ class SignInPage extends StatelessWidget {
               TextFormField(
                 decoration: const InputDecoration(
                   border: UnderlineInputBorder(),
-                  filled: true,
                   icon: Icon(Icons.email),
                   hintText: 'Your email address',
                   labelText: 'E-mail',
@@ -59,7 +58,6 @@ class SignInPage extends StatelessWidget {
                 obscureText: true,
                 decoration: const InputDecoration(
                   border: UnderlineInputBorder(),
-                  filled: true,
                   icon: Icon(Icons.vpn_key),
                   labelText: 'Password',
                 ),
@@ -68,7 +66,8 @@ class SignInPage extends StatelessWidget {
                 },
               ),
               SizedBox(height: 24.0),
-              OutlineButton(
+              OutlineButton(splashColor: Colors.blue,
+                borderSide: BorderSide(color: Colors.blue,width: 2.0),
                 child: Text('Sign in'),
                 onPressed: () async {
                   try {

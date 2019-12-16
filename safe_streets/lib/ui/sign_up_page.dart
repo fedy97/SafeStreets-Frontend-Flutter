@@ -16,24 +16,60 @@ class SignUpPage extends StatelessWidget {
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(title: Text('Sign Up')),
-      body: Center(
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
           children: <Widget>[
-            TextField(
-                decoration: InputDecoration(hintText: "enter email"),
-                onChanged: (currEmail) => _email = currEmail),
-            TextField(
-                decoration: InputDecoration(hintText: "enter password"),
-                obscureText: true,
-                onChanged: (currPassword) => _password = currPassword),
-            TextField(
-              decoration: InputDecoration(hintText: "reinsert password"),
-              obscureText: true,
-              onChanged: (currPassword) => _confirmPassword = currPassword,
+            TextFormField(
+              decoration: const InputDecoration(
+                border: UnderlineInputBorder(),
+                icon: Icon(Icons.email),
+                hintText: 'Your email address',
+                labelText: 'E-mail*',
+              ),
+              keyboardType: TextInputType.emailAddress,
+              onChanged: (String value) {
+                _email = value;
+              },
             ),
-            TextField(
-                decoration: InputDecoration(hintText: "enter id authority"),
-                onChanged: (id) => idAuthority = id),
+            SizedBox(height: 14.0),
+            TextFormField(
+              obscureText: true,
+              decoration: const InputDecoration(
+                border: UnderlineInputBorder(),
+                icon: Icon(Icons.vpn_key),
+                labelText: 'Password*',
+                helperText: "at least 6 characters",
+              ),
+              onChanged: (String value) {
+                _password = value;
+              },
+            ),
+            SizedBox(height: 14.0),
+            TextFormField(
+              obscureText: true,
+              decoration: const InputDecoration(
+                border: UnderlineInputBorder(),
+                icon: Icon(Icons.vpn_key),
+                labelText: 'Confirm Password*',
+              ),
+              onChanged: (String value) {
+                _confirmPassword = value;
+              },
+            ),
+            SizedBox(height: 14.0),
+            TextFormField(
+              obscureText: true,
+              decoration: const InputDecoration(
+                border: UnderlineInputBorder(),
+                icon: Icon(Icons.fiber_pin),
+                labelText: 'ID authority',
+              ),
+              onChanged: (String value) {
+                idAuthority = value;
+              },
+            ),
+            SizedBox(height: 14.0),
             Consumer<ValueNotifier<bool>>(builder: (context, value2, child) {
               return CheckboxListTile(
                   title: Text("accept terms"),
@@ -43,7 +79,7 @@ class SignUpPage extends StatelessWidget {
                     value2.value = value;
                   });
             }),
-            RaisedButton(
+            OutlineButton(splashColor: Colors.blue,borderSide: BorderSide(color: Colors.blue,width: 2.0),
               child: Text("Sign Up"),
               onPressed: () async {
                 if (_email != "" &&
