@@ -4,9 +4,20 @@
 \begin{document}
     \chapter{Introduction}\label{ch:introduction}
     \section{Purpose}\label{sec:purpose}
-
+    This Document contains a detailed and exhaustive explanation of the implementation of the SafeStreets project.
+    The purpose of this document is to explicitly detail the rationale of all choices made and provide a complete overview of how the project source code is structured and designed.
+    The document also tackles the software testing activities and shows what are the main tests that have been performed on the product.
     \section{Scope}\label{sec:scope}
-
+    This  document  is  a  follow  up  on  the  previous  two,  \textit{Requirement  analysis  and  Specification document} and \textit{Design Document}:  it will describe the prototype for SafeStreets system that has been developed in accordance to them.
+    It's important to remember that SafeStreets intends to provide users with the possibility to notify authorities when traffic violations occur, and in particular parking violations.
+    The application allows users to send pictures of violations, including their date, time, and position, to authorities.
+    In more details, SafeStreets stores the information provided by users, completing it with suitable meta-data.
+    In addition, the application allows both end users and authorities to mine the information that has been received.
+    Of course, different levels of visibility could be offered to different roles.
+    If the municipality offers a service that allows users to retrieve the information about the accidents that occur on the territory of the municipality,
+    SafeStreets can cross this information with its own data to identify potentially unsafe areas, and suggest possible interventions.
+    In addition, the municipality could offer a service that takes the information about the violations coming from SafeStreets, and generates traffic tickets from it.
+    This addition information about issued tickets can be used by SafeStreets to build statistics.
     \newpage
     \section{Definitions, Acronyms, Abbreviations}\label{sec:definitions,-acronyms,-abbreviations}
     \subsection{Definitions}\label{subsec:definitions}
@@ -50,8 +61,8 @@
     \end{itemize}
     \section{Document structure}\label{sec:document-structure}
     \textbf{Chapter 1: Introduction.}
-    A general introduction and overview of the Design Document.
+    A general introduction and overview of the \textit{Implementation and testing document}.
     It aims giving general but exhaustive information about what this document is going to explain.
-    
+
 
 \end{document}
