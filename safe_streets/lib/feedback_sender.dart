@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:safe_streets/services/utilities.dart';
 
 import 'model/user/user.dart';
 
@@ -121,7 +122,7 @@ abstract class FeedbackSender {
     }
   }
 
-  static Future fineReport(User u, GlobalKey<ScaffoldState> key) async {
+  static Future fineReport(User u, GlobalKey<ScaffoldState> key, BuildContext context) async {
     //check if it is already fined THIS report
     if (u.currViewedReport.fined == true) {
       final snackBar = SnackBar(content: Text("already fined"));
@@ -129,11 +130,11 @@ abstract class FeedbackSender {
       return;
     }
     //check if the report actually contains a plate
-    String onePlate = "";
+    List<String> plates = new List();
     for (String plate in u.currViewedReport.imagesLite['plates']) {
-      if (plate != "") onePlate = plate;
+      if (plate != "") plates.add(plate);
     }
-    if (onePlate != "") {
+    if (plates.length > 0) {
       //now we are good to go
       var updatedTuple = Firestore.instance
           .collection("users")
@@ -146,6 +147,11 @@ abstract class FeedbackSender {
       await updatedTuple.updateData({
         'reportSent': FieldValue.arrayUnion([u.currViewedReport.sendableReport])
       });
+
+      String onePlate = plates[0];
+      if (plates.length>1) {
+        //onePlate = await Utilities.showAlertWithBoxes(context, plates);
+      }
       //check if already present in db a fine with that plate
       //if so, increment the counter else set counter to 1 and create the fine tuple
       var doc = await Firestore.instance.collection("fines").document(onePlate).get();

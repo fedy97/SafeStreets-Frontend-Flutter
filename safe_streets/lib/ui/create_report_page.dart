@@ -152,7 +152,6 @@ class CreateReportPage extends StatelessWidget {
       if (await alreadyExist(context, u)) {
         uploadAnyway = await Utilities.showAlert(context,
             "this report may already exist, do you want to upload it anyway?");
-        print(uploadAnyway);
       }
       if (uploadAnyway) {
         final storage = Provider.of<FirebaseStorageService>(context);
