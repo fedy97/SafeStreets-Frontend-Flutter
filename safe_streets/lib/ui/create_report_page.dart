@@ -59,14 +59,22 @@ class CreateReportPage extends StatelessWidget {
                   })
             ],
           ),
-          body: Center(
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(
               children: <Widget>[
-                TextField(
+                SizedBox(height: 14.0),
+                TextFormField(
                   onChanged: (currDescription) =>
                       u.addNoteToReport(currDescription),
-                  decoration: InputDecoration(hintText: "brief description"),
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    helperText: 'Write some additional notes',
+                    labelText: 'Note',
+                  ),
+                  maxLines: 3,
                 ),
+                SizedBox(height: 14.0),
                 DropdownButton<String>(
                   hint: Text("choose a violation"),
                   icon: Icon(Icons.drive_eta),
@@ -85,11 +93,15 @@ class CreateReportPage extends StatelessWidget {
                     u.setViolationToReport(newViolation: newViolation);
                   },
                 ),
+                SizedBox(height: 14.0),
                 Expanded(
                   child: ListView.builder(
                       itemCount: u.currReport.images.length,
                       itemBuilder: (context, int) {
-                        return Image.file(u.currReport.images[int].imageFile);
+                        return Column(children: <Widget>[
+                        Image.file(u.currReport.images[int].imageFile),
+                          Divider(color: Colors.blue,)
+                        ],);
                       }),
                 )
               ],
