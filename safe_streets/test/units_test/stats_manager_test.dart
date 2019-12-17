@@ -40,6 +40,7 @@ void main() {
 
   test('three violations uploaded of the same type are the most committed', () {
     //setup
+    u.reportsGet.clear();
     report1.time = data;
     report1.violation = Violation.double_parking;
     u.reportsGet.add(report1);
@@ -59,6 +60,7 @@ void main() {
 
   test('two violations uploaded of the same type and of another type, the two ones are the most committed', () {
     //setup
+    u.reportsGet.clear();
     report1.time = data;
     report1.violation = Violation.double_parking;
     u.reportsGet.add(report1);
