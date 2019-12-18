@@ -9,7 +9,7 @@ import 'package:safe_streets/services/stats_manager.dart';
 void main() {
   //setup
   User u = new Citizen("test@test.com", "test");
-  DateTime data = new DateTime(2019);
+  DateTime data = DateTime.now();
   ReportToGet report0 = new ReportToGet();
   ReportToGet report1 = new ReportToGet();
   ReportToGet report2 = new ReportToGet();
@@ -58,7 +58,7 @@ void main() {
     expect(max,3);
   });
 
-  test('two violations uploaded of the same type and of another type, the two ones are the most committed', () {
+  test('two violations uploaded of the same type and one of another type, the two ones are the most committed', () {
     //setup
     u.reportsGet.clear();
     report1.time = data;
@@ -77,5 +77,85 @@ void main() {
     expect(result, Violation.double_parking);
     expect(max,2);
   });
+  
+  test('zero violation uploaded today ', () {
+    //setup
+    u.reportsGet.clear();
+    report0.time = new DateTime(2019);
+    report0.violation = Violation.double_parking;
+    u.reportsGet.add(report0);
+    //run
+    final result = StatsManager.totalDailyReport(u);
+    //verify
+    expect(result, 0);
+  });
+
+  test('one violation uploaded today ', () {
+    //setup
+    u.reportsGet.clear();
+    report0.time = data;
+    report0.violation = Violation.double_parking;
+    u.reportsGet.add(report0);
+    //run
+    final result = StatsManager.totalDailyReport(u);
+    //verify
+    expect(result, 1);
+  });
+
+  test('one violation uploaded today and one yesterday', () {
+    //setup
+    u.reportsGet.clear();
+    report0.time = data;
+    report0.violation = Violation.double_parking;
+    u.reportsGet.add(report0);
+    report1.time = new DateTime(2019);//it's set to 2019-01-01 00:00:00.000
+    u.reportsGet.add(report1);
+    //run
+    final result = StatsManager.totalDailyReport(u);
+    //verify
+    expect(result, 1);
+  });
+
+  test('one report uploaded and not fined', () {
+    //setup
+    u.reportsGet.clear();
+    report0.time = data;
+    report0.violation = Violation.double_parking;
+    report0.fined = false;
+    u.reportsGet.add(report0);
+    //run
+    final result = StatsManager.totalFinedReport(u);
+    //verify
+    expect(result, 0);
+  });
+
+  test('one report uploaded and fined', () {
+    //setup
+    u.reportsGet.clear();
+    report0.time = data;
+    report0.violation = Violation.double_parking;
+    report0.fined = true;
+    u.reportsGet.add(report0);
+    //run
+    final result = StatsManager.totalFinedReport(u);
+    //verify
+    expect(result, 1);
+  });
+
+  test('one report uploaded and fined and one not', () {
+    //setup
+    u.reportsGet.clear();
+    report0.time = data;
+    report0.violation = Violation.double_parking;
+    report0.fined = true;
+    u.reportsGet.add(report0);
+    report1.fined = false;
+    u.reportsGet.add(report1);
+    //run
+    final result = StatsManager.totalFinedReport(u);
+    //verify
+    expect(result, 1);
+  });
+
 
 }
