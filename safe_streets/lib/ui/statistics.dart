@@ -22,7 +22,7 @@ class Statistics extends StatelessWidget {
           ),
           body: Column(children: <Widget>[
             SizedBox(
-              height: 10,
+              height: 20,
             ),
             Center(
               child: Text(
@@ -30,6 +30,8 @@ class Statistics extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
+                  color: Colors.blueAccent,
+                  fontStyle: FontStyle.italic,
                 ),
               ),
             ),
@@ -52,7 +54,7 @@ class Statistics extends StatelessWidget {
               alignment: Alignment.topLeft,
             ),
             SizedBox(
-              height: 10,
+              height: 20,
             ),
             Center(
               child: Text(
@@ -60,6 +62,8 @@ class Statistics extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
+                  color: Colors.blueAccent,
+                  fontStyle: FontStyle.italic,
                 ),
               ),
             ),
@@ -68,7 +72,7 @@ class Statistics extends StatelessWidget {
               alignment: Alignment.topLeft,
             ),
             SizedBox(
-              height: 10,
+              height: 20,
             ),
             Center(
               child: Text(
@@ -76,6 +80,8 @@ class Statistics extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
+                  color: Colors.blueAccent,
+                  fontStyle: FontStyle.italic,
                 ),
               ),
             ),
