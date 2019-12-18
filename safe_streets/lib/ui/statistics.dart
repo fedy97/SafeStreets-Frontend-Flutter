@@ -39,19 +39,19 @@ class Statistics extends StatelessWidget {
               child: Text(
                 "Total reports number: " + u.reportsGet.length.toString(),
               ),
-              alignment: Alignment.topLeft,
+              alignment: Alignment.center,
             ),
             Align(
               child: Text(
                 "Number of reports fined: " + finedReports.toString(),
               ),
-              alignment: Alignment.topLeft,
+              alignment: Alignment.center,
             ),
             Align(
               child: Text("Ratio: " +
                   ((finedReports / u.reportsGet.length) * 100).toString() +
                   "%"),
-              alignment: Alignment.topLeft,
+              alignment: Alignment.center,
             ),
             SizedBox(
               height: 20,
@@ -69,7 +69,7 @@ class Statistics extends StatelessWidget {
             ),
             Align(
               child: Text("Number of reports: " + dailyReports.toString()),
-              alignment: Alignment.topLeft,
+              alignment: Alignment.center,
             ),
             SizedBox(
               height: 20,
@@ -93,12 +93,12 @@ class Statistics extends StatelessWidget {
                           .toString()
                           .replaceAll("_", " ")
                           .replaceAll("Violation.", "")),
-              alignment: Alignment.topLeft,
+              alignment: Alignment.center,
             ),
             Align(
               child:
                   Text("Committed times: " + sortedMap.values.first.toString()),
-              alignment: Alignment.topLeft,
+              alignment: Alignment.center,
             ),
           ]),
         ),

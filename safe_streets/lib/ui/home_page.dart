@@ -8,6 +8,7 @@ import 'package:safe_streets/services/utilities.dart';
 import 'package:safe_streets/ui/create_report_page.dart';
 import 'package:safe_streets/ui/sign_in_page.dart';
 import 'package:safe_streets/ui/statistics.dart';
+import 'package:safe_streets/ui/violation_query.dart';
 
 import 'my_reports_page.dart';
 
@@ -70,7 +71,16 @@ class HomePage extends StatelessWidget {
               ),
               ListTile(
                 title: Text("Query Report"),
-                onTap: () async {},
+                onTap: (){
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                          ChangeNotifierProvider<User>.value(
+                            value: u,
+                            child: ViolationQuery(),
+                          )));
+                },
                 leading: Icon(Icons.search),
               ),
               ListTile(
