@@ -55,7 +55,7 @@ class ViolationQuery extends StatelessWidget {
               IconButton(
                 icon: Icon(Icons.search),
                 color: Colors.blueAccent,
-                onPressed:()=> ViolationQueryManager.findReportCity(u, city),
+                onPressed:()=> ViolationQueryManager.queryResults(u, city),
                 //todo cambia scena e mostra i report trovati
               )
             ]),
