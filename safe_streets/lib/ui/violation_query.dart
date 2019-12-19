@@ -4,20 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:safe_streets/model/enum/violation.dart';
+import 'package:safe_streets/model/report/report_to_get.dart';
 import 'package:safe_streets/model/user/user.dart';
+import 'package:safe_streets/services/violation_query_manager.dart';
 
 class ViolationQuery extends StatelessWidget {
   static final _scaffoldKey = GlobalKey<ScaffoldState>();
   static String violation = Violation.values.first.toString();
+  static DateTime fromDate;
+  static DateTime toDate;
   static String city = "";
   static bool cityUsed = false;
   static bool violationUsed = false;
   static bool fromDateUsed = false;
   static bool toDateUsed = false;
-
+  static List<ReportToGet> results = List();
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     User u = Provider.of<User>(context, listen: true);
     final violations = Violation.values;
     return WillPopScope(
@@ -27,10 +30,16 @@ class ViolationQuery extends StatelessWidget {
             actions: <Widget>[
               IconButton(
                   icon: Icon(Icons.search),
-                  onPressed: () =>
-                      {} //ViolationQueryManager.queryResults(u, city),
-                  //todo cambia scena e mostra i report trovati
-                  )
+                  onPressed: () {
+                    List<bool> checks = List();
+                    checks.add(cityUsed);
+                    checks.add(violationUsed);
+                    checks.add(fromDateUsed);
+                    checks.add(toDateUsed);
+                    Violation violation2 = Violation.values.firstWhere((test) => test.toString() == violation);
+                    results = ViolationQueryManager.queryResults(u, city, violation2, fromDate, toDate);
+                  }
+              )
             ],
             title: Text("Violation query"),
           ),
@@ -62,7 +71,6 @@ class ViolationQuery extends StatelessWidget {
               Row(
                 children: <Widget>[
                   DropdownButton<String>(
-                    icon: Icon(Icons.drive_eta),
                     value: violation,
                     items: (violations).map((Violation value) {
                       return new DropdownMenuItem<String>(
@@ -94,16 +102,18 @@ class ViolationQuery extends StatelessWidget {
               Row(
                 children: <Widget>[
                   Expanded(
-                      child: DateTimeField(decoration: InputDecoration(hintText: "From date"),
-                    format: DateFormat("dd-MM-yyyy"),
-                    onShowPicker: (context, currentValue) {
-                      return showDatePicker(
-                          context: context,
-                          firstDate: DateTime(1900),
-                          initialDate: currentValue ?? DateTime.now(),
-                          lastDate: DateTime(2100));
-                    },
-                  )),
+                      child: DateTimeField(onChanged: (date) {
+                        fromDate = date;
+                      }, decoration: InputDecoration(hintText: "From date"),
+                        format: DateFormat("dd-MM-yyyy"),
+                        onShowPicker: (context, currentValue) {
+                          return showDatePicker(
+                              context: context,
+                              firstDate: DateTime(1900),
+                              initialDate: currentValue ?? DateTime.now(),
+                              lastDate: DateTime(2100));
+                        },
+                      )),
                   Expanded(
                       child: Checkbox(
                           value: fromDateUsed,
@@ -119,7 +129,9 @@ class ViolationQuery extends StatelessWidget {
               Row(
                 children: <Widget>[
                   Expanded(
-                      child: DateTimeField(decoration: InputDecoration(hintText: "To date"),
+                      child: DateTimeField(onChanged: (date) {
+                        toDate = date;
+                      }, decoration: InputDecoration(hintText: "To date"),
                         format: DateFormat("dd-MM-yyyy"),
                         onShowPicker: (context, currentValue) {
                           return showDatePicker(
@@ -141,7 +153,20 @@ class ViolationQuery extends StatelessWidget {
               SizedBox(
                 height: 14.0,
               ),
-              //ListView.builder(itemCount: ,itemBuilder: (context, int) {})
+              Expanded(child: ListView.builder(itemCount: results.length,itemBuilder: (context, int) {
+                return ListTile(
+                    onTap: () async {
+                      u.setCurrViewedReport = results[int];
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => ChangeNotifierProvider<User>.value(
+                            value: u,
+                            child: u.viewReportPage(),
+                          )));
+                    },
+                    leading: Icon(Icons.report_problem),
+                    title: Text("Report ${int + 1}, " +
+                        u.myReports[int].time.toIso8601String()));
+              }))
             ]),
           ),
         ),
