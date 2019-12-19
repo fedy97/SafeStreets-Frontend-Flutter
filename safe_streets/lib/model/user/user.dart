@@ -64,6 +64,10 @@ abstract class User extends ChangeNotifier {
     notifyListeners();
   }
 
+  void updateUI() {
+    notifyListeners();
+  }
+
   void setLocationToReport({Location location}) {
     currReport.reportPosition = location;
     //no need to notify listeners here
