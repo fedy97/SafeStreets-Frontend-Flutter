@@ -5,7 +5,7 @@ import 'package:safe_streets/model/user/user.dart';
 class ViolationQueryManager {
   static List<ReportToGet> queryResults(User u, String city,
       Violation violation, DateTime timeFrom, DateTime timeTo) {
-    List<ReportToGet> results;
+    List<ReportToGet> results = new List<ReportToGet>();
     for (ReportToGet reportToGet in u.reportsGet) {
       if (reportToGet.reportPosition.address
               .toLowerCase()
