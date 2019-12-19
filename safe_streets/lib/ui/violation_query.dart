@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:safe_streets/model/enum/violation.dart';
 import 'package:safe_streets/model/report/report_to_get.dart';
 import 'package:safe_streets/model/user/user.dart';
+import 'package:safe_streets/services/utilities.dart';
 import 'package:safe_streets/services/violation_query_manager.dart';
 
 class ViolationQuery extends StatelessWidget {
@@ -31,6 +32,7 @@ class ViolationQuery extends StatelessWidget {
               IconButton(
                   icon: Icon(Icons.search),
                   onPressed: () {
+                    Utilities.showProgress(context);
                     List<bool> checks = List();
                     checks.add(cityUsed);
                     checks.add(violationUsed);
@@ -38,6 +40,8 @@ class ViolationQuery extends StatelessWidget {
                     checks.add(toDateUsed);
                     Violation violation2 = Violation.values.firstWhere((test) => test.toString() == violation);
                     results = ViolationQueryManager.queryResults(u, city, violation2, fromDate, toDate);
+                    u.updateUI();
+                    Navigator.pop(context);
                   }
               )
             ],
