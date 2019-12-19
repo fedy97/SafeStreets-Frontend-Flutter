@@ -32,6 +32,12 @@ class ViolationQuery extends StatelessWidget {
               IconButton(
                   icon: Icon(Icons.search),
                   onPressed: () {
+                    if ((fromDateUsed && fromDate == null) || (toDateUsed && toDate == null) || (cityUsed && city=="")) {
+                      final snackBar = SnackBar(
+                          content: Text("you have checked something without inputting the value"));
+                      _scaffoldKey.currentState.showSnackBar(snackBar);
+                      return;
+                    }
                     Utilities.showProgress(context);
                     List<bool> checks = List();
                     checks.add(cityUsed);
