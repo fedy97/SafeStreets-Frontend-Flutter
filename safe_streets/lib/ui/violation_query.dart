@@ -51,7 +51,7 @@ class ViolationQuery extends StatelessWidget {
             ],
             title: Text("Violation query"),
           ),
-          body: Padding(
+          body: SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(children: <Widget>[
               SizedBox(height: 14.0),
@@ -161,7 +161,7 @@ class ViolationQuery extends StatelessWidget {
               SizedBox(
                 height: 14.0,
               ),
-              Expanded(child: ListView.builder(itemCount: results.length,itemBuilder: (context, int) {
+              ListView.builder(shrinkWrap: true,itemCount: results.length,itemBuilder: (context, int) {
                 return ListTile(
                     onTap: () async {
                       u.setCurrViewedReport = results[int];
@@ -174,7 +174,7 @@ class ViolationQuery extends StatelessWidget {
                     leading: Icon(Icons.report_problem),
                     title: Text("Report ${int + 1}, " +
                         results[int].time.toIso8601String()));
-              }))
+              })
             ]),
           ),
         ),
