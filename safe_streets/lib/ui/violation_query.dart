@@ -78,7 +78,7 @@ class ViolationQuery extends StatelessWidget {
               SizedBox(height: 14.0),
               Row(
                 children: <Widget>[
-                  DropdownButton<String>(
+                  Expanded(child: DropdownButton<String>(
                     value: violation,
                     items: (violations).map((Violation value) {
                       return new DropdownMenuItem<String>(
@@ -94,14 +94,13 @@ class ViolationQuery extends StatelessWidget {
                       violation = newViolation;
                       u.updateUI();
                     },
-                  ),
-                  Expanded(
-                      child: Checkbox(
+                  ),),
+                  Checkbox(
                           value: violationUsed,
                           onChanged: (val) {
                             violationUsed = val;
                             u.updateUI();
-                          }))
+                          })
                 ],
               ),
               SizedBox(
@@ -122,13 +121,12 @@ class ViolationQuery extends StatelessWidget {
                               lastDate: DateTime(2100));
                         },
                       )),
-                  Expanded(
-                      child: Checkbox(
+                         Checkbox(
                           value: fromDateUsed,
                           onChanged: (val) {
                             fromDateUsed = val;
                             u.updateUI();
-                          }))
+                          })
                 ],
               ),
               SizedBox(
@@ -149,13 +147,12 @@ class ViolationQuery extends StatelessWidget {
                               lastDate: DateTime(2100));
                         },
                       )),
-                  Expanded(
-                      child: Checkbox(
+                  Checkbox(
                           value: toDateUsed,
                           onChanged: (val) {
                             toDateUsed = val;
                             u.updateUI();
-                          }))
+                          })
                 ],
               ),
               SizedBox(

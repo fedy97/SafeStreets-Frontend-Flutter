@@ -100,7 +100,7 @@ class ViolationQueryManager {
       }
 
       if (!active[0] && !active[1] && !active[2] && !active[3]) {
-        //nessun filtro attivo
+        results=u.reportsGet;
         break;
       }
     }
