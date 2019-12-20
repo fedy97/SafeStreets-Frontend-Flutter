@@ -45,7 +45,7 @@ class ViolationQuery extends StatelessWidget {
                     checks.add(fromDateUsed);
                     checks.add(toDateUsed);
                     Violation violation2 = Violation.values.firstWhere((test) => test.toString() == violation);
-                    results = ViolationQueryManager.queryResults(u, city, violation2, fromDate, toDate);
+                    results = ViolationQueryManager.queryResults(u, city, violation2, fromDate, toDate, checks);
                     u.updateUI();
                     Navigator.pop(context);
                   }
