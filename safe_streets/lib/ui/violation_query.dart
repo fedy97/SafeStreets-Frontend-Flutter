@@ -31,13 +31,15 @@ class ViolationQuery extends StatelessWidget {
             actions: <Widget>[
               IconButton(
                   icon: Icon(Icons.search),
-                  onPressed: () {
+                  onPressed: () async {
                     if ((fromDateUsed && fromDate == null) || (toDateUsed && toDate == null) || (cityUsed && city=="")) {
                       final snackBar = SnackBar(
                           content: Text("you have checked something without inputting the value"));
                       _scaffoldKey.currentState.showSnackBar(snackBar);
                       return;
                     }
+                    Utilities.showProgress(context);
+                    await u.getAllReports();
                     List<bool> checks = List();
                     checks.add(cityUsed);
                     checks.add(violationUsed);
@@ -46,6 +48,7 @@ class ViolationQuery extends StatelessWidget {
                     Violation violation2 = Violation.values.firstWhere((test) => test.toString() == violation);
                     results = ViolationQueryManager.queryResults(u, city, violation2, fromDate, toDate, checks);
                     u.updateUI();
+                    Navigator.pop(context);
                     final snackBar = SnackBar(
                         content: Text(results.length.toString() + " reports found"));
                     _scaffoldKey.currentState.showSnackBar(snackBar);
