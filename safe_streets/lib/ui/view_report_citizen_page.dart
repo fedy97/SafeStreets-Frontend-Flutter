@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:safe_streets/model/user/user.dart';
-import 'package:safe_streets/services/utilities.dart';
 
 import '../feedback_sender.dart';
 
@@ -25,7 +24,7 @@ class ViewReportCitizen extends StatelessWidget {
             title: Text("Report Page"),
           ),
           body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 0.0),
             child: Column(
               children: <Widget>[
                 SizedBox(
@@ -70,7 +69,8 @@ class ViewReportCitizen extends StatelessWidget {
                                     top: 20,
                                     right: 20,
                                     child: OutlineButton(
-                                      borderSide: BorderSide(color: Colors.blue),
+                                      borderSide:
+                                          BorderSide(color: Colors.blue),
                                       child: Icon(Icons.assistant_photo),
                                       onPressed: () async {
                                         //Utilities.showProgress(context);
@@ -85,9 +85,9 @@ class ViewReportCitizen extends StatelessWidget {
                                         1
                                     ? Positioned(
                                         left: ((u.currViewedReport
-                                                    .imagesLite['boxes'][int]
-                                                ['xmin']) /
-                                            2) - 16,
+                                                        .imagesLite['boxes']
+                                                    [int]['xmin']) /
+                                                2),
                                         width: ((u.currViewedReport
                                                         .imagesLite['boxes']
                                                     [int]['xmax']) /
@@ -97,9 +97,9 @@ class ViewReportCitizen extends StatelessWidget {
                                                     [int]['xmin']) /
                                                 2),
                                         top: ((u.currViewedReport
-                                                    .imagesLite['boxes'][int]
-                                                ['ymin']) /
-                                            2) - 16,
+                                                        .imagesLite['boxes']
+                                                    [int]['ymin']) /
+                                                2),
                                         height: ((u.currViewedReport
                                                             .imagesLite['boxes']
                                                         [int]['ymax']) /
@@ -116,7 +116,9 @@ class ViewReportCitizen extends StatelessWidget {
                                     : SizedBox.shrink()
                               ],
                             ),
-                            Divider(color: Colors.blue,)
+                            Divider(
+                              color: Colors.blue,
+                            )
                           ],
                         );
                       }),

@@ -30,7 +30,7 @@ class ViewReportAuthority extends StatelessWidget {
             title: Text("Report Page"),
           ),
           body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 0.0),
             child: Column(
               children: <Widget>[
                 SizedBox(
