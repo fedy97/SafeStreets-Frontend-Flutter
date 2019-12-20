@@ -4,8 +4,9 @@ class Location {
   double long;
   double lat;
   String address = "";
-  final Geolocator geoLocator = Geolocator()
-    ..forceAndroidLocationManager;
+  String city = "";
+  final Geolocator geoLocator = Geolocator()..forceAndroidLocationManager;
+
   Location(double long, double lat) {
     this.long = long;
     this.lat = lat;
@@ -16,14 +17,14 @@ class Location {
   }
 
   Future<String> _getAddressFromLatLng(double lat, double long) async {
-    List<Placemark> p = await geoLocator.placemarkFromCoordinates(
-        lat, long);
+    List<Placemark> p = await geoLocator.placemarkFromCoordinates(lat, long);
     Placemark place = p[0];
+    city = place.locality;
     return "${place.locality},${place.postalCode},${place.country}";
   }
 
   @override
-  String toString(){
+  String toString() {
     //remove spaces in address
     return "$lat,$long";
   }

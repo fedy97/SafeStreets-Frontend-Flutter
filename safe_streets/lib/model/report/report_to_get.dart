@@ -39,12 +39,15 @@ class ReportToGet extends Report {
     var imagesLite = data['images'];
     var feedbackSenders = data['feedbackSenders'];
     var fined = data['fined'];
+    var zone = data['zone'];
 
     DateTime time = DateTime.fromMillisecondsSinceEpoch(timeData);
     String long = reportPositionData.toString().split(",").last;
     String lat = reportPositionData.toString().split(",").first;
     Location reportLocation =
         Location(double.tryParse(long), double.tryParse(lat));
+    reportLocation.address = zone;
+    reportLocation.city = reportLocation.address.split(",")[0];
     Violation violation =
         Violation.values.firstWhere((test) => test.toString() == violationData);
 
