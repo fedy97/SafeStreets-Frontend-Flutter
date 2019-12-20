@@ -25,7 +25,7 @@ class ViolationQuery extends StatelessWidget {
     User u = Provider.of<User>(context, listen: true);
     final violations = Violation.values;
     return WillPopScope(
-        child: Scaffold(
+        child: Scaffold(resizeToAvoidBottomPadding: false,
           key: _scaffoldKey,
           appBar: AppBar(
             actions: <Widget>[
@@ -51,7 +51,7 @@ class ViolationQuery extends StatelessWidget {
             ],
             title: Text("Violation query"),
           ),
-          body: SingleChildScrollView(
+          body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(children: <Widget>[
               SizedBox(height: 14.0),
@@ -78,7 +78,7 @@ class ViolationQuery extends StatelessWidget {
               SizedBox(height: 14.0),
               Row(
                 children: <Widget>[
-                  Expanded(child: DropdownButton<String>(
+                  DropdownButton<String>(
                     value: violation,
                     items: (violations).map((Violation value) {
                       return new DropdownMenuItem<String>(
@@ -94,13 +94,13 @@ class ViolationQuery extends StatelessWidget {
                       violation = newViolation;
                       u.updateUI();
                     },
-                  ),),
-                  Checkbox(
-                          value: violationUsed,
-                          onChanged: (val) {
-                            violationUsed = val;
-                            u.updateUI();
-                          })
+                  ),
+                  Expanded(child: Checkbox(
+                      value: violationUsed,
+                      onChanged: (val) {
+                        violationUsed = val;
+                        u.updateUI();
+                      })),
                 ],
               ),
               SizedBox(
@@ -158,7 +158,7 @@ class ViolationQuery extends StatelessWidget {
               SizedBox(
                 height: 14.0,
               ),
-              ListView.builder(shrinkWrap: true,itemCount: results.length,itemBuilder: (context, int) {
+              Expanded(child: ListView.builder(shrinkWrap: true,itemCount: results.length,itemBuilder: (context, int) {
                 return ListTile(
                     onTap: () async {
                       u.setCurrViewedReport = results[int];
@@ -171,7 +171,7 @@ class ViolationQuery extends StatelessWidget {
                     leading: Icon(Icons.report_problem),
                     title: Text("Report ${int + 1}, " +
                         results[int].time.toIso8601String()));
-              })
+              })),
             ]),
           ),
         ),
