@@ -46,6 +46,9 @@ class ViolationQuery extends StatelessWidget {
                     Violation violation2 = Violation.values.firstWhere((test) => test.toString() == violation);
                     results = ViolationQueryManager.queryResults(u, city, violation2, fromDate, toDate, checks);
                     u.updateUI();
+                    final snackBar = SnackBar(
+                        content: Text(results.length.toString() + " reports found"));
+                    _scaffoldKey.currentState.showSnackBar(snackBar);
                   }
               )
             ],
@@ -103,15 +106,12 @@ class ViolationQuery extends StatelessWidget {
                       })),
                 ],
               ),
-              SizedBox(
-                height: 14.0,
-              ),
               Row(
                 children: <Widget>[
                   Expanded(
                       child: DateTimeField(onChanged: (date) {
                         fromDate = date;
-                      }, decoration: InputDecoration(hintText: "From date"),
+                      }, decoration: InputDecoration(helperText: "inclusive",hintText: "From date"),
                         format: DateFormat("dd-MM-yyyy"),
                         onShowPicker: (context, currentValue) {
                           return showDatePicker(
@@ -129,15 +129,12 @@ class ViolationQuery extends StatelessWidget {
                           })
                 ],
               ),
-              SizedBox(
-                height: 14.0,
-              ),
               Row(
                 children: <Widget>[
                   Expanded(
                       child: DateTimeField(onChanged: (date) {
                         toDate = date;
-                      }, decoration: InputDecoration(hintText: "To date"),
+                      }, decoration: InputDecoration(hintText: "To date",helperText: "exclusive"),
                         format: DateFormat("dd-MM-yyyy"),
                         onShowPicker: (context, currentValue) {
                           return showDatePicker(
