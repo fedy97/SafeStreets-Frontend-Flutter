@@ -2,6 +2,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:safe_streets/model/enum/violation.dart';
 import 'package:safe_streets/model/location.dart';
 import 'package:safe_streets/model/report/report_to_get.dart';
+import 'package:safe_streets/model/report/report_to_send.dart';
+import 'package:safe_streets/model/report/violation_image.dart';
 import 'package:safe_streets/model/user/citizen.dart';
 import 'package:safe_streets/model/user/user.dart';
 import 'package:safe_streets/services/violation_query_manager.dart';
@@ -10,7 +12,7 @@ void main() {
   //setup
   User u = new Citizen("test@test.com", "test");
   DateTime date = DateTime.now();
-  ReportToGet report0 = new ReportToGet();
+  ReportToGet report0;
   ReportToGet report1 = new ReportToGet();
   ReportToGet report2 = new ReportToGet();
   ReportToGet report3 = new ReportToGet();
@@ -20,10 +22,14 @@ void main() {
     //setup
     u.reportsGet.clear();
     bound.clear();
-    report0.reportPosition = new Location(45.4773, 9.1815);
-    report0.reportPosition.address = "Milano";
-    report0.time = DateTime.parse("2010-07-20 20:18:04Z");
-    report0.violation = Violation.double_parking;
+    ReportToSend reportToSend = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend.reportPosition.address = "Milano,20131,Italy";
+    report0 = ReportToGet.fromMap(reportToSend.toMap(), u.email);
     u.reportsGet.add(report0);
     String city = "Milano";
     DateTime timeFrom = DateTime.parse("2000-07-20 20:18:04Z");
@@ -46,15 +52,23 @@ void main() {
     //setup
     u.reportsGet.clear();
     bound.clear();
-    report0.reportPosition = new Location(45.4773, 9.1815);
-    report0.reportPosition.address = "Milano";
-    report0.time = DateTime.parse("2010-07-20 20:18:04Z");
-    report0.violation = Violation.double_parking;
+    ReportToSend reportToSend = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend.reportPosition.address = "Milano,20131,Italy";
+    report0 = ReportToGet.fromMap(reportToSend.toMap(), u.email);
     u.reportsGet.add(report0);
-    report1.reportPosition = new Location(10.0, 11.0);
-    report1.reportPosition.address = "Torino";
-    report1.time = DateTime.parse("2005-07-20 20:18:04Z");
-    report1.violation = Violation.double_parking;
+    ReportToSend reportToSend1 = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend1.reportPosition.address = "Torino,20131,Italy";
+    report1 = ReportToGet.fromMap(reportToSend1.toMap(), u.email);
     u.reportsGet.add(report1);
     String city = "Milano";
     DateTime timeFrom = DateTime.parse("2000-07-20 20:18:04Z");
@@ -79,15 +93,23 @@ void main() {
     //setup
     u.reportsGet.clear();
     bound.clear();
-    report0.reportPosition = new Location(45.4773, 9.1815);
-    report0.reportPosition.address = "Milano";
-    report0.time = DateTime.parse("2010-07-20 20:18:04Z");
-    report0.violation = Violation.parking_on_pavement;
+    ReportToSend reportToSend = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend.reportPosition.address = "Milano,20131,Italy";
+    report0 = ReportToGet.fromMap(reportToSend.toMap(), u.email);
     u.reportsGet.add(report0);
-    report1.reportPosition = new Location(10.0, 11.0);
-    report1.reportPosition.address = "Milano";
-    report1.time = DateTime.parse("2005-07-20 20:18:04Z");
-    report1.violation = Violation.parking_on_pavement;
+    ReportToSend reportToSend1 = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend1.reportPosition.address = "Milano,20131,Italy";
+    report1 = ReportToGet.fromMap(reportToSend1.toMap(), u.email);
     u.reportsGet.add(report1);
     String city = "Milano";
     DateTime timeFrom = DateTime.parse("2000-07-20 20:18:04Z");
@@ -99,7 +121,7 @@ void main() {
     //run
     List<ReportToGet> results = new List<ReportToGet>();
     results = ViolationQueryManager.queryResults(
-        u, city, Violation.parking_on_pavement, timeFrom, timeTo, bound);
+        u, city, Violation.other_violation, timeFrom, timeTo, bound);
     final max = results.length;
     //verify
     expect(report0, results.first);
@@ -110,15 +132,23 @@ void main() {
     //setup
     u.reportsGet.clear();
     bound.clear();
-    report0.reportPosition = new Location(45.4773, 9.1815);
-    report0.reportPosition.address = "Milano";
-    report0.time = DateTime.parse("2010-07-20 20:18:04Z");
-    report0.violation = Violation.double_parking;
+    ReportToSend reportToSend = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend.reportPosition.address = "Milano,20131,Italy";
+    report0 = ReportToGet.fromMap(reportToSend.toMap(), u.email);
     u.reportsGet.add(report0);
-    report1.reportPosition = new Location(10.0, 11.0);
-    report1.reportPosition.address = "Milano";
-    report1.time = DateTime.parse("2018-07-20 20:18:04Z");
-    report1.violation = Violation.double_parking;
+    ReportToSend reportToSend1 = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend1.reportPosition.address = "Milano,20131,Italy";
+    report1 = ReportToGet.fromMap(reportToSend1.toMap(), u.email);
     u.reportsGet.add(report1);
     String city = "Milano";
     DateTime timeFrom = DateTime.parse("2000-07-20 20:18:04Z");
@@ -142,15 +172,23 @@ void main() {
     //setup
     u.reportsGet.clear();
     bound.clear();
-    report0.reportPosition = new Location(45.4773, 9.1815);
-    report0.reportPosition.address = "Milano";
-    report0.time = DateTime.parse("2010-07-20 20:18:04Z");
-    report0.violation = Violation.double_parking;
+    ReportToSend reportToSend = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend.reportPosition.address = "Milano,20131,Italy";
+    report0 = ReportToGet.fromMap(reportToSend.toMap(), u.email);
     u.reportsGet.add(report0);
-    report1.reportPosition = new Location(10.0, 11.0);
-    report1.reportPosition.address = "Milano";
-    report1.time = DateTime.parse("2018-07-20 20:18:04Z");
-    report1.violation = Violation.double_parking;
+    ReportToSend reportToSend1 = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend1.reportPosition.address = "Milano,20131,Italy";
+    report1 = ReportToGet.fromMap(reportToSend1.toMap(), u.email);
     u.reportsGet.add(report1);
     String city = "Milano";
     DateTime timeFrom = DateTime.parse("2020-07-20 20:18:04Z");
@@ -176,15 +214,23 @@ void main() {
     //setup
     u.reportsGet.clear();
     bound.clear();
-    report0.reportPosition = new Location(45.4773, 9.1815);
-    report0.reportPosition.address = "Milano";
-    report0.time = DateTime.parse("2010-07-20 20:18:04Z");
-    report0.violation = Violation.double_parking;
+    ReportToSend reportToSend = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend.reportPosition.address = "Milano,20131,Italy";
+    report0 = ReportToGet.fromMap(reportToSend.toMap(), u.email);
     u.reportsGet.add(report0);
-    report1.reportPosition = new Location(10.0, 11.0);
-    report1.reportPosition.address = "Milano";
-    report1.time = DateTime.parse("2018-07-20 20:18:04Z");
-    report1.violation = Violation.double_parking;
+    ReportToSend reportToSend1 = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend1.reportPosition.address = "Milano,20131,Italy";
+    report1 = ReportToGet.fromMap(reportToSend1.toMap(), u.email);
     u.reportsGet.add(report1);
     String city = "Milano";
     DateTime timeFrom = DateTime.parse("2020-07-20 20:18:04Z");
@@ -210,15 +256,23 @@ void main() {
     //setup
     u.reportsGet.clear();
     bound.clear();
-    report0.reportPosition = new Location(45.4773, 9.1815);
-    report0.reportPosition.address = "Milano";
-    report0.time = DateTime.parse("2010-07-20 20:18:04Z");
-    report0.violation = Violation.double_parking;
+    ReportToSend reportToSend = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend.reportPosition.address = "Milano,20131,Italy";
+    report0 = ReportToGet.fromMap(reportToSend.toMap(), u.email);
     u.reportsGet.add(report0);
-    report1.reportPosition = new Location(10.0, 11.0);
-    report1.reportPosition.address = "Milano";
-    report1.time = DateTime.parse("2018-07-20 20:18:04Z");
-    report1.violation = Violation.double_parking;
+    ReportToSend reportToSend1 = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend1.reportPosition.address = "Milano,20131,Italy";
+    report1 = ReportToGet.fromMap(reportToSend1.toMap(), u.email);
     u.reportsGet.add(report1);
     String city = "Milano";
     DateTime timeFrom = DateTime.parse("2000-07-20 20:18:04Z");
@@ -244,15 +298,23 @@ void main() {
     //setup
     u.reportsGet.clear();
     bound.clear();
-    report0.reportPosition = new Location(45.4773, 9.1815);
-    report0.reportPosition.address = "Milano";
-    report0.time = DateTime.parse("2010-07-20 20:18:04Z");
-    report0.violation = Violation.double_parking;
+    ReportToSend reportToSend = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend.reportPosition.address = "Milano,20131,Italy";
+    report0 = ReportToGet.fromMap(reportToSend.toMap(), u.email);
     u.reportsGet.add(report0);
-    report1.reportPosition = new Location(10.0, 11.0);
-    report1.reportPosition.address = "Milano";
-    report1.time = DateTime.parse("2018-07-20 20:18:04Z");
-    report1.violation = Violation.double_parking;
+    ReportToSend reportToSend1 = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend1.reportPosition.address = "Milano,20131,Italy";
+    report1 = ReportToGet.fromMap(reportToSend1.toMap(), u.email);
     u.reportsGet.add(report1);
     String city = "Milano";
     DateTime timeFrom = DateTime.parse("2020-07-20 20:18:04Z");
@@ -272,25 +334,34 @@ void main() {
     expect(max, 2);
   });
 
+  //todo
   test(
       'Two report respects the bounds of the query(no bounds on violation and timeFrom and timeTo',
       () {
     //setup
     u.reportsGet.clear();
     bound.clear();
-    report0.reportPosition = new Location(45.4773, 9.1815);
-    report0.reportPosition.address = "Milano";
-    report0.time = DateTime.parse("2010-07-20 20:18:04Z");
-    report0.violation = Violation.double_parking;
+    ReportToSend reportToSend = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend.reportPosition.address = "Milano,20131,Italy";
+    report0 = ReportToGet.fromMap(reportToSend.toMap(), u.email);
     u.reportsGet.add(report0);
-    report1.reportPosition = new Location(10.0, 11.0);
-    report1.reportPosition.address = "Milano";
-    report1.time = DateTime.parse("2018-07-20 20:18:04Z");
-    report1.violation = Violation.double_parking;
+    ReportToSend reportToSend1 = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend1.reportPosition.address = "Milano,20131,Italy";
+    report1 = ReportToGet.fromMap(reportToSend1.toMap(), u.email);
     u.reportsGet.add(report1);
     String city = "Milano";
-    DateTime timeFrom = DateTime.parse("2020-07-20 20:18:04Z");
-    DateTime timeTo = DateTime.parse("2020-07-20 20:18:04Z");
+    DateTime timeFrom = DateTime.parse("2000-07-20 20:18:04Z");
+    DateTime timeTo = date;
     bound.add(true); //city
     bound.add(false); //violation
     bound.add(false); //timeFrom
@@ -312,15 +383,23 @@ void main() {
     //setup
     u.reportsGet.clear();
     bound.clear();
-    report0.reportPosition = new Location(45.4773, 9.1815);
-    report0.reportPosition.address = "Milano";
-    report0.time = DateTime.parse("2010-07-20 20:18:04Z");
-    report0.violation = Violation.double_parking;
+    ReportToSend reportToSend = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend.reportPosition.address = "Milano,20131,Italy";
+    report0 = ReportToGet.fromMap(reportToSend.toMap(), u.email);
     u.reportsGet.add(report0);
-    report1.reportPosition = new Location(10.0, 11.0);
-    report1.reportPosition.address = "Milano";
-    report1.time = DateTime.parse("2018-07-20 20:18:04Z");
-    report1.violation = Violation.double_parking;
+    ReportToSend reportToSend1 = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend1.reportPosition.address = "Milano,20131,Italy";
+    report1 = ReportToGet.fromMap(reportToSend1.toMap(), u.email);
     u.reportsGet.add(report1);
     String city = "Torino";
     DateTime timeFrom = DateTime.parse("2000-07-20 20:18:04Z");
@@ -346,15 +425,23 @@ void main() {
     //setup
     u.reportsGet.clear();
     bound.clear();
-    report0.reportPosition = new Location(45.4773, 9.1815);
-    report0.reportPosition.address = "Milano";
-    report0.time = DateTime.parse("2010-07-20 20:18:04Z");
-    report0.violation = Violation.double_parking;
+    ReportToSend reportToSend = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend.reportPosition.address = "Milano,20131,Italy";
+    report0 = ReportToGet.fromMap(reportToSend.toMap(), u.email);
     u.reportsGet.add(report0);
-    report1.reportPosition = new Location(10.0, 11.0);
-    report1.reportPosition.address = "Milano";
-    report1.time = DateTime.parse("2018-07-20 20:18:04Z");
-    report1.violation = Violation.double_parking;
+    ReportToSend reportToSend1 = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend1.reportPosition.address = "Milano,20131,Italy";
+    report1 = ReportToGet.fromMap(reportToSend1.toMap(), u.email);
     u.reportsGet.add(report1);
     String city = "Torino";
     DateTime timeFrom = date;
@@ -380,15 +467,23 @@ void main() {
     //setup
     u.reportsGet.clear();
     bound.clear();
-    report0.reportPosition = new Location(45.4773, 9.1815);
-    report0.reportPosition.address = "Milano";
-    report0.time = DateTime.parse("2010-07-20 20:18:04Z");
-    report0.violation = Violation.double_parking;
+    ReportToSend reportToSend = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend.reportPosition.address = "Milano,20131,Italy";
+    report0 = ReportToGet.fromMap(reportToSend.toMap(), u.email);
     u.reportsGet.add(report0);
-    report1.reportPosition = new Location(10.0, 11.0);
-    report1.reportPosition.address = "Milano";
-    report1.time = DateTime.parse("2018-07-20 20:18:04Z");
-    report1.violation = Violation.double_parking;
+    ReportToSend reportToSend1 = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend1.reportPosition.address = "Milano,20131,Italy";
+    report1 = ReportToGet.fromMap(reportToSend1.toMap(), u.email);
     u.reportsGet.add(report1);
     String city = "Torino";
     DateTime timeFrom = date;
@@ -414,15 +509,23 @@ void main() {
     //setup
     u.reportsGet.clear();
     bound.clear();
-    report0.reportPosition = new Location(45.4773, 9.1815);
-    report0.reportPosition.address = "Milano";
-    report0.time = DateTime.parse("2010-07-20 20:18:04Z");
-    report0.violation = Violation.parking_on_pavement;
+    ReportToSend reportToSend = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend.reportPosition.address = "Milano,20131,Italy";
+    report0 = ReportToGet.fromMap(reportToSend.toMap(), u.email);
     u.reportsGet.add(report0);
-    report1.reportPosition = new Location(10.0, 11.0);
-    report1.reportPosition.address = "Milano";
-    report1.time = DateTime.parse("2005-07-20 20:18:04Z");
-    report1.violation = Violation.parking_on_pavement;
+    ReportToSend reportToSend1 = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend1.reportPosition.address = "Milano,20131,Italy";
+    report1 = ReportToGet.fromMap(reportToSend1.toMap(), u.email);
     u.reportsGet.add(report1);
     String city = "Torino";
     DateTime timeFrom = DateTime.parse("2000-07-20 20:18:04Z");
@@ -448,15 +551,23 @@ void main() {
     //setup
     u.reportsGet.clear();
     bound.clear();
-    report0.reportPosition = new Location(45.4773, 9.1815);
-    report0.reportPosition.address = "Milano";
-    report0.time = DateTime.parse("2010-07-20 20:18:04Z");
-    report0.violation = Violation.parking_on_pavement;
+    ReportToSend reportToSend = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend.reportPosition.address = "Milano,20131,Italy";
+    report0 = ReportToGet.fromMap(reportToSend.toMap(), u.email);
     u.reportsGet.add(report0);
-    report1.reportPosition = new Location(10.0, 11.0);
-    report1.reportPosition.address = "Milano";
-    report1.time = DateTime.parse("2005-07-20 20:18:04Z");
-    report1.violation = Violation.parking_on_pavement;
+    ReportToSend reportToSend1 = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend1.reportPosition.address = "Milano,20131,Italy";
+    report1 = ReportToGet.fromMap(reportToSend1.toMap(), u.email);
     u.reportsGet.add(report1);
     String city = "Torino";
     DateTime timeFrom = DateTime.parse("2000-07-20 20:18:04Z");
@@ -481,15 +592,23 @@ void main() {
     //setup
     u.reportsGet.clear();
     bound.clear();
-    report0.reportPosition = new Location(45.4773, 9.1815);
-    report0.reportPosition.address = "Milano";
-    report0.time = DateTime.parse("2010-07-20 20:18:04Z");
-    report0.violation = Violation.parking_on_pavement;
+    ReportToSend reportToSend = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend.reportPosition.address = "Milano,20131,Italy";
+    report0 = ReportToGet.fromMap(reportToSend.toMap(), u.email);
     u.reportsGet.add(report0);
-    report1.reportPosition = new Location(10.0, 11.0);
-    report1.reportPosition.address = "Milano";
-    report1.time = DateTime.parse("2005-07-20 20:18:04Z");
-    report1.violation = Violation.parking_on_pavement;
+    ReportToSend reportToSend1 = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend1.reportPosition.address = "Milano,20131,Italy";
+    report1 = ReportToGet.fromMap(reportToSend1.toMap(), u.email);
     u.reportsGet.add(report1);
     String city = "Torino";
     DateTime timeFrom = date;
@@ -515,15 +634,23 @@ void main() {
     //setup
     u.reportsGet.clear();
     bound.clear();
-    report0.reportPosition = new Location(45.4773, 9.1815);
-    report0.reportPosition.address = "Milano";
-    report0.time = DateTime.parse("2010-07-20 20:18:04Z");
-    report0.violation = Violation.parking_on_pavement;
+    ReportToSend reportToSend = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend.reportPosition.address = "Milano,20131,Italy";
+    report0 = ReportToGet.fromMap(reportToSend.toMap(), u.email);
     u.reportsGet.add(report0);
-    report1.reportPosition = new Location(10.0, 11.0);
-    report1.reportPosition.address = "Milano";
-    report1.time = DateTime.parse("2005-07-20 20:18:04Z");
-    report1.violation = Violation.parking_on_pavement;
+    ReportToSend reportToSend1 = ReportToSend(
+        reportPosition: new Location(45.4773, 9.1815),
+        time: DateTime.parse("2010-07-20 20:18:04Z"),
+        violation: Violation.double_parking,
+        images: new List<ViolationImage>(),
+        emailUser: u.email);
+    reportToSend1.reportPosition.address = "Milano,20131,Italy";
+    report1 = ReportToGet.fromMap(reportToSend1.toMap(), u.email);
     u.reportsGet.add(report1);
     String city = "Torino";
     DateTime timeFrom = date;
