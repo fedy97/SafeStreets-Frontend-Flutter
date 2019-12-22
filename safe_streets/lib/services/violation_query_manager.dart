@@ -15,8 +15,9 @@ class ViolationQueryManager {
     for (ReportToGet reportToGet in u.reportsGet) {
       if (active[0] && active[1] && active[2] && active[3]) {
         //Tutti i filtri attivi
-        if (reportToGet.reportPosition.city.toLowerCase() ==
-                city.toLowerCase() &&
+        if (reportToGet.reportPosition.address
+                .toLowerCase()
+                .contains(city.toLowerCase()) &&
             reportToGet.violation == violation &&
             reportToGet.time.isBefore(timeTo) &&
             reportToGet.time.isAfter(timeFrom)) {
@@ -25,40 +26,55 @@ class ViolationQueryManager {
       }
       if (active[0] && active[1] && active[2] && !active[3]) {
         //non attivo timeTo
-        if (reportToGet.reportPosition.city.toLowerCase() ==
-                city.toLowerCase() &&
+        if (reportToGet.reportPosition.address
+                .toLowerCase()
+                .contains(city.toLowerCase()) &&
             reportToGet.violation == violation &&
             reportToGet.time.isAfter(timeFrom)) results.add(reportToGet);
       }
+
+      if (active[0] && active[1] && !active[2] && active[3]) {
+        //non attivo timeFrom
+        if (reportToGet.reportPosition.address
+                .toLowerCase()
+                .contains(city.toLowerCase()) &&
+            reportToGet.violation == violation &&
+            reportToGet.time.isBefore(timeTo)) results.add(reportToGet);
+      }
+
       if (active[0] && active[1] && !active[2] && !active[3]) {
         //non attivo data
-        if (reportToGet.reportPosition.city.toLowerCase() ==
-                city.toLowerCase() &&
+        if (reportToGet.reportPosition.address
+                .toLowerCase()
+                .contains(city.toLowerCase()) &&
             reportToGet.violation == violation) results.add(reportToGet);
       }
       if (active[0] && !active[1] && active[2] && active[3]) {
         //filtro sulla violazione non attivo
-        if (reportToGet.reportPosition.city.toLowerCase() ==
-                city.toLowerCase() &&
+        if (reportToGet.reportPosition.address
+                .toLowerCase()
+                .contains(city.toLowerCase()) &&
             reportToGet.time.isBefore(timeTo) &&
-            reportToGet.time.isAfter(timeFrom)) results.add(reportToGet);
+            reportToGet.time.isAfter(timeFrom)) {
+          results.add(reportToGet);
+        }
       }
       if (active[0] && !active[1] && active[2] && !active[3]) {
         // filtro sulle violazioni e sul timeTo non attivi
-        if (reportToGet.reportPosition.city.toLowerCase() ==
+        if (reportToGet.reportPosition.address.toLowerCase() ==
                 city.toLowerCase() &&
             reportToGet.time.isAfter(timeFrom)) results.add(reportToGet);
       }
       if (active[0] && !active[1] && !active[2] && active[3]) {
         // filtro sulle violazioni e sulla timeFrom non attivi
-        if (reportToGet.reportPosition.city.toLowerCase() ==
+        if (reportToGet.reportPosition.address.toLowerCase() ==
                 city.toLowerCase() &&
             reportToGet.time.isBefore(timeTo)) results.add(reportToGet);
       }
       if (active[0] && !active[1] && !active[2] && !active[3]) {
         // filtro sulla violazione, su time From, su timeTo non attivi
-        if (reportToGet.reportPosition.city.toLowerCase() == city.toLowerCase())
-          results.add(reportToGet);
+        if (reportToGet.reportPosition.address.toLowerCase() ==
+            city.toLowerCase()) results.add(reportToGet);
       }
       if (!active[0] && active[1] && active[2] && active[3]) {
         //filtro sulla posizione non attivo
@@ -75,7 +91,7 @@ class ViolationQueryManager {
       if (!active[0] && active[1] && !active[2] && active[3]) {
         //Filtri sulla posizione e su timeFrom non attivi
         if (reportToGet.violation == violation &&
-            reportToGet.time.isAfter(timeFrom)) results.add(reportToGet);
+            reportToGet.time.isBefore(timeTo)) results.add(reportToGet);
       }
 
       if (!active[0] && active[1] && !active[2] && !active[3]) {
@@ -100,8 +116,7 @@ class ViolationQueryManager {
       }
 
       if (!active[0] && !active[1] && !active[2] && !active[3]) {
-        results=u.reportsGet;
-        break;
+        results = u.reportsGet;
       }
     }
     return results;
