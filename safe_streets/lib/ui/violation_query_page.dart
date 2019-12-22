@@ -175,6 +175,18 @@ class ViolationQuery extends StatelessWidget {
             ]),
           ),
         ),
-        onWillPop: null);
+        onWillPop: () {
+          results.clear();
+          city = "";
+          toDate= null;
+          fromDate=null;
+          violation=Violation.values.first.toString();
+          cityUsed = false;
+          violationUsed = false;
+          fromDateUsed = false;
+          toDateUsed = false;
+          Navigator.pop(context);
+          return Future(() => false);
+        });
   }
 }
