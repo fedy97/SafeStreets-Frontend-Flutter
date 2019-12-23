@@ -170,7 +170,8 @@ class ViolationQuery extends StatelessWidget {
                     },
                     leading: Icon(Icons.report_problem),
                     title: Text("Report ${int + 1}, " +
-                        results[int].time.toIso8601String()));
+                        results[int].time.toIso8601String().split(".")[0]
+                            .replaceAll("T", " at ")));
               })),
             ]),
           ),

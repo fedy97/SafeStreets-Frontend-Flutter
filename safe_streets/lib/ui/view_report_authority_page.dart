@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:safe_streets/model/user/user.dart';
-import 'package:safe_streets/services/utilities.dart';
 
 import '../feedback_sender.dart';
 
@@ -19,7 +18,7 @@ class ViewReportAuthority extends StatelessWidget {
               IconButton(
                   icon: Icon(Icons.error),
                   onPressed: () async {
-                    await FeedbackSender.fineReport(u, _scaffoldKey,context);
+                    await FeedbackSender.fineReport(u, _scaffoldKey, context);
                   }),
               IconButton(
                   icon: Icon(Icons.assistant_photo),
@@ -72,8 +71,9 @@ class ViewReportAuthority extends StatelessWidget {
                                 Positioned(
                                     top: 20,
                                     right: 20,
-                                    child: OutlineButton(
-                                      borderSide: BorderSide(color: Colors.blue),
+                                    child: RaisedButton(
+                                      color: Colors.blue,
+                                      shape: CircleBorder(),
                                       child: Icon(Icons.assistant_photo),
                                       onPressed: () async {
                                         FeedbackSender.pictureFeedback(

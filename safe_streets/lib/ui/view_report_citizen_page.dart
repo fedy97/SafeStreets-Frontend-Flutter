@@ -6,6 +6,7 @@ import '../feedback_sender.dart';
 
 class ViewReportCitizen extends StatelessWidget {
   static final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     /*final screen = MediaQuery.of(context).size;
@@ -70,10 +71,10 @@ class ViewReportCitizen extends StatelessWidget {
                                 ),
                                 Positioned(
                                     top: 20,
-                                    right: 20,
-                                    child: OutlineButton(
-                                      borderSide:
-                                          BorderSide(color: Colors.blue),
+                                    right: 10,
+                                    child: RaisedButton(
+                                      color: Colors.blue,
+                                      shape: CircleBorder(),
                                       child: Icon(Icons.assistant_photo),
                                       onPressed: () async {
                                         //Utilities.showProgress(context);
@@ -87,12 +88,32 @@ class ViewReportCitizen extends StatelessWidget {
                                             .length !=
                                         1
                                     ? Positioned(
-                                        left: ((u.currViewedReport.imagesLite['boxes'][int]['xmin']) / 2),
-                                        width: ((u.currViewedReport.imagesLite['boxes'][int]['xmax']) / 2 -
-                                            (u.currViewedReport.imagesLite['boxes'][int]['xmin']) / 2) + 5,
-                                        top: ((u.currViewedReport.imagesLite['boxes'][int]['ymin']) / 2),
-                                        height: ((u.currViewedReport.imagesLite['boxes'][int]['ymax']) / 2 -
-                                                (u.currViewedReport.imagesLite['boxes'][int]['ymin']) / 2) + 5,
+                                        left: ((u.currViewedReport
+                                                    .imagesLite['boxes'][int]
+                                                ['xmin']) /
+                                            2),
+                                        width: ((u.currViewedReport
+                                                            .imagesLite['boxes']
+                                                        [int]['xmax']) /
+                                                    2 -
+                                                (u.currViewedReport
+                                                            .imagesLite['boxes']
+                                                        [int]['xmin']) /
+                                                    2) +
+                                            5,
+                                        top: ((u.currViewedReport
+                                                    .imagesLite['boxes'][int]
+                                                ['ymin']) /
+                                            2),
+                                        height: ((u.currViewedReport
+                                                            .imagesLite['boxes']
+                                                        [int]['ymax']) /
+                                                    2 -
+                                                (u.currViewedReport
+                                                            .imagesLite['boxes']
+                                                        [int]['ymin']) /
+                                                    2) +
+                                            5,
                                         child: Container(
                                           color: Colors.yellow,
                                         ),
