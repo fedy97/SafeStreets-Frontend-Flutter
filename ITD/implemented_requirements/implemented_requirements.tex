@@ -3,8 +3,201 @@
 
 \begin{document}
     \chapter{Requirements}\label{ch:requirements}
+    This section describes which functional requirements were implemented in the presented SafeStreets prototype in reference to the ones already stated in the RASD.
     \section{Implemented requirements}\label{sec:implemented-requirements}
-    \subsection{User registration}\label{subsec:user-registration}
-    \subsection{User authentication}\label{subsec:user-authentication}
-    \section{Partially or not implemented functionality}\label{sec:partially-or-not-implemented-funcionality}
+    We decide to implement two of the three functionality that defines the SafeStreets project. In addition to the basic functionality where the application stores the information provided by users, completing it with suitable metadata; we developt also functionality that allows the generation of traffic tickets from the municipality and the building of statistics from the application.
+    \newline Below is shown a mapping between requirements and the implemented ones.
+    \begin{enumerate}
+        \requirement{1} Unregistered users cannot use SafeStreets.
+        \begin{itemize}
+            \item Implemented.
+        \end{itemize}
+
+        \requirement{2} In signing up, users must provide an email and a password.
+        \begin{itemize}
+            \item Implemented.
+        \end{itemize}
+
+        \requirement{3} In signing up, an authority must also provide an ID\@.
+        \begin{itemize}
+            \item Implemented.
+        \end{itemize}
+
+        \requirement{4} In signing up, users must accept “terms \& conditions”.
+        \begin{itemize}
+            \item Implemented.
+        \end{itemize}
+
+        \requirement{5} SafeStreets identifies a user by its email.
+        \begin{itemize}
+            \item Implemented.
+        \end{itemize}
+
+        \requirement{6} SafeStreets collects user data in its database.
+        \begin{itemize}
+            \item Implemented.
+        \end{itemize}
+
+        \requirement{7} SafeStreets stores all reports in its database.
+        \begin{itemize}
+            \item Implemented.
+        \end{itemize}
+
+        \requirement{8} SafeStreets retrieves reports from its database.
+        \begin{itemize}
+            \item Implemented.
+        \end{itemize}
+
+        \requirement{9} SafeStreets authenticates a user when tries to log in.
+        \begin{itemize}
+            \item Implemented.
+        \end{itemize}
+
+        \requirement{10} Users can view the reports in the map.
+        \begin{itemize}
+            \item Implemented.
+        \end{itemize}
+
+
+        \requirement{11} Authorities can see all the sensitive information contained in a report.
+        \begin{itemize}
+            \item Implemented.
+        \end{itemize}
+
+        \requirement{12} Citizens cannot see sensitive information in a report.
+        \begin{itemize}
+            \item Implemented.
+        \end{itemize}
+
+        \requirement{13} Users can view unsafe areas in the map.
+        \begin{itemize}
+            \item Not implemented.
+        \end{itemize}
+
+        \requirement{14} Users can delete reports they submitted within a day.
+        \begin{itemize}
+            \item Implemented.
+        \end{itemize}
+
+        \requirement{15} Users can edit reports they submitted within a day.
+        \begin{itemize}
+            \item Not implemented.
+        \end{itemize}
+
+        \requirement{16} Users can upload \textit{valid} reports.
+        \begin{itemize}
+            \item Implemented.
+        \end{itemize}
+
+        \requirement{17} A report must contain at least one image.
+        \begin{itemize}
+            \item Implemented.
+        \end{itemize}
+
+        \requirement{18} A report must indicate the type of violation.
+        \begin{itemize}
+            \item Implemented.
+        \end{itemize}
+
+        \requirement{19} A report is \textit{valid} if and only if R17 and R18 are satisfied.
+        \begin{itemize}
+            \item Implemented.
+        \end{itemize}
+
+        \requirement{20} Images containing sensitive information (like license plates) must be blurred by the system.
+        \begin{itemize}
+            \item Implemented.
+        \end{itemize}
+
+        \requirement{21} The system must notify the user if the report submitted is not valid.
+        \begin{itemize}
+            \item Implemented.
+        \end{itemize}
+
+        \requirement{22} For each type of statistics there must be at least one user from which SafeStreets takes data.
+        \begin{itemize}
+            \item Implemented.
+        \end{itemize}
+
+        \requirement{23} A user can access to feedback area for each report.
+        \begin{itemize}
+            \item Implemented.
+        \end{itemize}
+
+        \requirement{24} A user can select negative feedback for each report.
+        \begin{itemize}
+            \item Implemented.
+        \end{itemize}
+
+        \requirement{25} Authorities can see suggestions for possible interventions.
+        \begin{itemize}
+            \item Not implemented.
+        \end{itemize}
+
+        \requirement{26} During adding a new report, if there is a report of same type, in the same position and at the same date,
+        SafeStreets shows the report stored to the user if the violation is the same.
+        \begin{itemize}
+            \item Implemented.
+        \end{itemize}
+
+        \requirement{27} Authorities can mark a report as “fined”.
+        \begin{itemize}
+            \item Implemented.
+        \end{itemize}
+
+        \requirement{28} User can query SafeStreets to achieve a specific report.
+        \begin{itemize}
+            \item Implemented.
+        \end{itemize}
+
+        \requirement{29} SafeStreets retrieves incidents from municipality database.
+        \begin{itemize}
+            \item Not implemented.
+        \end{itemize}
+    \end{enumerate}
+
+    \newpage
+    %%traceability matrix
+    \begin{adjustwidth}{+2cm}{}
+        \begin{longtable}[H]
+        {|| p{.10\linewidth} || p{.40\linewidth} ||
+        p{.19\linewidth} | p{.13\linewidth} |}
+            \hline
+            \textbf{\makecell{R}} & \textbf{\makecell{Implemented}} \\ \hline
+            \textbf{1} & \textit{Yes} \\ \hline
+            \textbf{2} & \textit{Yes} \\ \hline
+            \textbf{3} & \textit{Yes} \\ \hline
+            \textbf{4} & \textit{Yes} \\ \hline
+            \textbf{5} & \textit{Yes} \\ \hline
+            \textbf{6} & \textit{Yes} \\ \hline
+            \textbf{7} & \textit{Yes} \\ \hline
+            \textbf{8} & \textit{Yes} \\ \hline
+            \textbf{9} & \textit{Yes} \\ \hline
+            \textbf{10} & \textit{Yes} \\ \hline
+            \textbf{11} & \textit{Yes} \\ \hline
+            \textbf{12} & \textit{Yes} \\ \hline
+            \textbf{13} & \textit{No} \\ \hline
+            \textbf{14} & \textit{Yes} \\ \hline
+            \textbf{15} & \textit{No} \\ \hline
+            \textbf{16} & \textit{Yes} \\ \hline
+            \textbf{17} & \textit{Yes} \\ \hline
+            \textbf{18} & \textit{Yes} \\ \hline
+            \textbf{19} & \textit{Yes} \\ \hline
+            \textbf{20} & \textit{Yes} \\ \hline
+            \textbf{21} & \textit{Yes} \\ \hline
+            \textbf{22} & \textit{Yes} \\ \hline
+            \textbf{23} & \textit{Yes} \\ \hline
+            \textbf{24} & \textit{Yes} \\ \hline
+            \textbf{25} & \textit{No} \\ \hline
+            \textbf{26} & \textit{Yes} \\ \hline
+            \textbf{27} & \textit{Yes} \\ \hline
+            \textbf{28} & \textit{Yes} \\ \hline
+            \textbf{29} & \textit{No} \\ \hline
+            \caption[\textit{Traceability matrix}]{\textit{Traceability matrix}}
+        \end{longtable}
+    \end{adjustwidth}
+
+    %  \subsection{User registration}\label{subsec:user-registration}
+    % \subsection{User authentication}\label{subsec:user-authentication}
+    %\section{Partially or not implemented functionality}\label{sec:partially-or-not-implemented-funcionality}
 \end{document}
