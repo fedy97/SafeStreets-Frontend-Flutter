@@ -64,7 +64,7 @@
 \pagestyle{fancy}
 \fancyhead{}
 \fancyfoot{}
-\fancyhead[L]{\slshape\MakeUppercase{\textbf{DD}}}
+\fancyhead[L]{\slshape\MakeUppercase{\textbf{ITD}}}
 \fancyhead[R]{\slshape{Morreale,Maddes,Innocente}}
 \fancyfoot[C]{\thepage}
 \renewcommand{\footrulewidth}{1pt}
@@ -74,7 +74,7 @@
 \parindent 0ex
 
 
-\providecommand{\rasd}{.}
+\providecommand{\itd}{.}
 \newcommand\requirement[1]{\item[{[R#1]}] }
 \newcommand\goal[1]{\item[{[G#1]}] }
 \newcommand\assumption[1]{\item[{[D#1]}] }
@@ -96,21 +96,29 @@
         \textsc{\large - v1.0 -}\\[1 cm]
 
         \begin{minipage}{0.4\textwidth}
-            \begin{flushleft} \large
-            \emph{Authors:}\\
-            \textbf{Morreale} Federico \\
-            \textbf{Maddes} Evandro \\
-            \textbf{Innocente} Federico
+            \begin{flushleft}
+                \large
+                \emph{Authors:}\\
+                \textbf{Morreale} Federico \\
+                \textbf{Maddes} Evandro \\
+                \textbf{Innocente} Federico
             \end{flushleft}
         \end{minipage}~
         \begin{minipage}{0.4\textwidth}
-            \begin{flushright} \large
-            \emph{Student Number:} \\
-            945258 \\
-            945642 \\
-            870726
+            \begin{flushright}
+                \large
+                \emph{Student Number:} \\
+                945258 \\
+                945642 \\
+                870726
             \end{flushright}
         \end{minipage}\\[2 cm]
+        {
+        \href{https://github.com/fedy97/MorrealeMaddesInnocente}{\emph{Github repository}}
+        }\\
+        {
+        \href{https://github.com/fedy97/MorrealeMaddesInnocente/tree/master/safe_streets}{\emph{Source code repository}}
+        }\\[1 cm]
         {\large January \nth{12} , 2020}\\[2 cm]
 
         \vfill
@@ -128,6 +136,10 @@
 
     \newpage
     \subfile{introduction/introduction.tex}
+    \subfile{implemented_requirements/implemented_requirements.tex}
+    \subfile{development_frameworks/development_frameworks.tex}
+    \subfile{Structure_of_the_source_code/Structure_of_the_source_code.tex}
+    \subfile{testing/testing.tex}
     \subfile{installation_instructions/installation_instructions.tex}
 
 
