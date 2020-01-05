@@ -17,10 +17,15 @@ class Location {
   }
 
   Future<String> _getAddressFromLatLng(double lat, double long) async {
-    List<Placemark> p = await geoLocator.placemarkFromCoordinates(lat, long);
-    Placemark place = p[0];
-    city = place.locality;
-    return "${place.locality},${place.postalCode},${place.country}";
+    try {
+      List<Placemark> p = await geoLocator.placemarkFromCoordinates(lat, long);
+      Placemark place = p[0];
+      city = place.locality;
+      return "${place.locality},${place.postalCode},${place.country}";
+    } catch (e,trace) {
+      return "empty,empty,empty";
+    }
+
   }
 
   @override
