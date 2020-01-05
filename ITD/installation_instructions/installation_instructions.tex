@@ -1,0 +1,70 @@
+\providecommand{\rasd}{..}
+\documentclass[../RASD.tex]{subfiles}
+
+\begin{document}
+    \chapter{Installation Instructions}\label{ch:installation-instructions}
+\section{Flutter Application Setup}\label{sec:flutter-application-setup}
+In this section will be present all the necessary information to build the
+Flutter project.
+\subsection{Install Flutter Framework}\label{subsec:install-flutter-framework}
+Detailed installation instructions of the framework depending on the operating system (Windows, MacOS, Linux)
+    can be found following
+    \href{https://flutter.dev/docs/get-started/install}{\textit{this}} link.
+    our team did not test flutter on Windows.
+\subsection{Install Plugins on Android Studio}\label{subsec:install-plugins-on-android-studio}
+    Flutter runs on both Intellij and Android Studio IDE, so you can choose which one to use.
+    Android studio can be found \href{https://developer.android.com/studio}{\textit{here}}.
+    Once you have installed it, you have to download the plugins for Flutter and Dart (that is the programming language on which flutter is built).
+    In order to do that:
+    \begin{enumerate}
+        \item Start Android Studio.
+        \item Open plugin preferences (Preferences > Plugins on macOS, File > Settings > Plugins on Windows and Linux).
+        \item Select Marketplace, select the Flutter plugin and click Install.
+        \item Click Yes when prompted to install the Dart plugin.
+        \item Click Restart when prompted.
+    \end{enumerate}
+\subsection{Install Plugins on IntelliJ}\label{subsec:install-plugins-on-intellij}
+    IntelliJ can be found \href{https://www.jetbrains.com/idea/download/}{\textit{here}}.
+    you need version 2017.1 or later.
+    Once you have installed it, you have to download the plugins for Flutter and Dart (that is the programming language on which flutter is built).
+    In order to do that:
+    \begin{enumerate}
+        \item Start IntelliJ.
+        \item Open plugins tab (File > Settings > Plugins).
+        \item Select Marketplace, search for the Flutter plugin and click Install.
+        \item Click Yes when prompted to install the Dart plugin.
+        If it does not ask it, install it manually.
+        \item Click Restart when prompted.
+    \end{enumerate}
+\subsection{Install Android Emulator on Android Studio}\label{subsec:install-android-emulator-on-android-studio}
+    Our team used IntelliJ, so we leave the installation instructions
+    \href{https://docs.expo.io/versions/latest/workflow/android-studio-emulator/}{\textit{here}}.
+    a FULL-HD screen resolution device is recommended(1080x1920).
+\subsection{Install Android Emulator on IntelliJ}\label{subsec:install-android-emulator-on-intellij}
+    On IntelliJ:
+    \begin{enumerate}
+        \item Go to Tools > Android > AVD Manager
+        \item Click on Create Virtual Device
+        \item Select a Device (a FULL-HD screen resolution device is recommended(1080x1920))
+        \item Click Next
+        \item Download Pie or Q from the list, then click Next
+        \item Click Finish
+    \end{enumerate}
+    You have now installed android emulator.
+\subsection{Use your own Android phone}\label{subsec:use-your-own-android-phone}
+    Alternatively, you can use your own smartphone to test the app, you have to activate debug usb from
+    the developer options of your device and have adb services installed on your PC.
+
+\subsection{Get Project Dependencies}\label{subsec:get-project-dependencies}
+    Once you have done everything above, you can now navigate to `MorrealeMaddesInnocente
+    /safestreets/pubspec.yaml'
+    and click on packages get on the top right (if you are using Intellij), or simply open the terminal and run
+    `flutter packages get'.
+    If something goes wrong, run `flutter doctor' in the terminal.
+\subsection{Run the Application}\label{subsec:run-the-application}
+    Open the android emulator (or connect your device) and then go to
+    `MorrealeMaddesInnocente/safestreets/lib/main.dart` and click on the green arrow.
+    If you do not find the arrow, go to Edit Configurations and click on the `+` top left,
+    then click Flutter and in the `Dart Entrypoint' you select the file main.dart.
+    Now you can run the App, the first run will take longer than usual, don't worry.
+\end{document}
