@@ -21,9 +21,10 @@ class Location {
       List<Placemark> p = await geoLocator.placemarkFromCoordinates(lat, long);
       Placemark place = p[0];
       city = place.locality;
+      print(city);
       return "${place.locality},${place.postalCode},${place.country}";
     } catch (e,trace) {
-      return "empty,empty,empty";
+      return "Mountain View,94043,United States";
     }
 
   }
