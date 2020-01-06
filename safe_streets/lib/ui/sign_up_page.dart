@@ -12,6 +12,7 @@ class SignUpPage extends StatelessWidget {
   static String _password = "";
   static String _confirmPassword = "";
   static String idAuthority = "";
+
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
@@ -79,40 +80,46 @@ class SignUpPage extends StatelessWidget {
                     value2.value = value;
                   });
             }),
-            OutlineButton(splashColor: Colors.blue,borderSide: BorderSide(color: Colors.blue,width: 2.0),
+            OutlineButton(
+              splashColor: Colors.blue,
+              borderSide: BorderSide(color: Colors.blue, width: 2.0),
               child: Text("Sign Up"),
               onPressed: () async {
                 if (_email != "" &&
                     _email.contains("@") &&
                     _password != "" &&
                     _password == _confirmPassword &&
-                    Provider.of<ValueNotifier<bool>>(context,listen: false).value) {
+                    Provider.of<ValueNotifier<bool>>(context, listen: false)
+                        .value) {
                   Utilities.showProgress(context);
-                  if (idAuthority != "")
-                    if(await checkIdAlreadyPresent(context)) {
-                      Navigator.pop(context);
-                      return;
-                    }
+                  if (idAuthority != "") if (await AccessManager
+                      .checkIdAlreadyPresent(
+                          _scaffoldKey, idAuthority, context)) {
+                    Navigator.pop(context);
+                    return;
+                  }
                   try {
-                  final auth = Provider.of<AccessManager>(context);
-                  Map<String, dynamic> map =
-                      createUserMap(email: _email, idAuthority: idAuthority);
-                  FirebaseUser u = await auth.createUserWithEmailAndPassword(
-                      _email, _password);
-                  await Firestore.instance
-                      .collection("users")
-                      .document(_email)
-                      .setData(map);
-                  Navigator.pop(context);
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => AuthManager()));
-                  } catch(e, stack){
-                    final snackBar =
-                    SnackBar(content: Text(Utilities.printError(e.toString())));
+                    final auth = Provider.of<AccessManager>(context);
+                    Map<String, dynamic> map = AccessManager.createUserMap(
+                        email: _email, idAuthority: idAuthority);
+                    FirebaseUser u = await auth.createUserWithEmailAndPassword(
+                        _email, _password);
+                    await Firestore.instance
+                        .collection("users")
+                        .document(_email)
+                        .setData(map);
+                    Navigator.pop(context);
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => AuthManager()));
+                  } catch (e, stack) {
+                    final snackBar = SnackBar(
+                        content: Text(Utilities.printError(e.toString())));
                     _scaffoldKey.currentState.showSnackBar(snackBar);
                     Navigator.pop(context);
                   }
-                } else if (!Provider.of<ValueNotifier<bool>>(context,listen: false).value) {
+                } else if (!Provider.of<ValueNotifier<bool>>(context,
+                        listen: false)
+                    .value) {
                   final snackBar =
                       SnackBar(content: Text("you must accept the terms"));
                   _scaffoldKey.currentState.showSnackBar(snackBar);
@@ -127,28 +134,5 @@ class SignUpPage extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Map<String, dynamic> createUserMap({@required email, idAuthority}) {
-    return {
-      'level': idAuthority == "" ? 'standard' : 'complete',
-      'idAuthority': idAuthority != "" ? idAuthority : null,
-      'reportSent': []
-    };
-  }
-
-  Future<bool> checkIdAlreadyPresent(BuildContext context) async {
-    final auth = Provider.of<AccessManager>(context);
-    QuerySnapshot query = await Firestore.instance
-        .collection("users").getDocuments();
-    for (DocumentSnapshot doc in query.documents) {
-      if (doc.data["level"] == "complete" && doc.data["idAuthority"] == idAuthority) {
-        final snackBar =
-        SnackBar(content: Text("id authority already used"));
-        _scaffoldKey.currentState.showSnackBar(snackBar);
-        return true;
-      }
-    }
-    return false;
   }
 }

@@ -1,4 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:safe_streets/model/user/authority.dart';
+import 'package:safe_streets/model/user/citizen.dart';
+import 'package:safe_streets/model/user/user.dart';
 
 class AccessManager {
   final _firebaseAuth = FirebaseAuth.instance;
@@ -35,5 +41,36 @@ class AccessManager {
 
   Future<void> signOut() async {
     return await _firebaseAuth.signOut();
+  }
+
+  static User createUserObject(DocumentSnapshot map, FirebaseUser user) {
+    if (map.data['level'] == "standard") {
+      return new Citizen(user.email, user.uid);
+    } else {
+      return new Authority(user.email, user.uid, map.data['idAuthority']);
+    }
+  }
+
+  static Map<String, dynamic> createUserMap({@required email, idAuthority}) {
+    return {
+      'level': idAuthority == "" ? 'standard' : 'complete',
+      'idAuthority': idAuthority != "" ? idAuthority : null,
+      'reportSent': []
+    };
+  }
+
+  static Future<bool> checkIdAlreadyPresent(GlobalKey<ScaffoldState> scaffold,
+      String id, BuildContext context) async {
+    final auth = Provider.of<AccessManager>(context);
+    QuerySnapshot query =
+        await Firestore.instance.collection("users").getDocuments();
+    for (DocumentSnapshot doc in query.documents) {
+      if (doc.data["level"] == "complete" && doc.data["idAuthority"] == id) {
+        final snackBar = SnackBar(content: Text("id authority already used"));
+        scaffold.currentState.showSnackBar(snackBar);
+        return true;
+      }
+    }
+    return false;
   }
 }
