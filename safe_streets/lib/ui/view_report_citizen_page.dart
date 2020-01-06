@@ -9,10 +9,10 @@ class ViewReportCitizen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    /*final screen = MediaQuery.of(context).size;
+    final screen = MediaQuery.of(context).size;
     final width = screen.width;
     final height = screen.height;
-    print(width.toString() + " , " + height.toString());*/
+    print(width.toString() + " , " + height.toString());
     User u = Provider.of<User>(context);
     return WillPopScope(
       child: Scaffold(
@@ -91,7 +91,7 @@ class ViewReportCitizen extends StatelessWidget {
                                         left: ((u.currViewedReport
                                                     .imagesLite['boxes'][int]
                                                 ['xmin']) /
-                                            2) / 2,
+                                            2) / 4,
                                         width: ((u.currViewedReport
                                                             .imagesLite['boxes']
                                                         [int]['xmax']) /
@@ -99,11 +99,11 @@ class ViewReportCitizen extends StatelessWidget {
                                                 (u.currViewedReport
                                                             .imagesLite['boxes']
                                                         [int]['xmin']) /
-                                                    2) / 5,
+                                                    2) / 5 + 5,
                                         top: ((u.currViewedReport
                                                     .imagesLite['boxes'][int]
                                                 ['ymin']) /
-                                            2) / 3.3,
+                                            2) / 4,
                                         height: ((u.currViewedReport
                                                             .imagesLite['boxes']
                                                         [int]['ymax']) /
@@ -111,7 +111,7 @@ class ViewReportCitizen extends StatelessWidget {
                                                 (u.currViewedReport
                                                             .imagesLite['boxes']
                                                         [int]['ymin']) /
-                                                    2) / 5,
+                                                    2) / 5 + 5,
                                         child: Container(
                                           color: Colors.yellow,
                                         ),
