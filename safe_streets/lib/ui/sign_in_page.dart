@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:safe_streets/model/user/authority.dart';
 import 'package:safe_streets/model/user/citizen.dart';
 import 'package:safe_streets/model/user/user.dart';
-import 'package:safe_streets/services/firebase_auth_service.dart';
+import 'package:safe_streets/services/access_manager.dart';
 import 'package:safe_streets/services/utilities.dart';
 import 'package:safe_streets/ui/sign_up_page.dart';
 
@@ -17,7 +17,7 @@ class SignInPage extends StatelessWidget {
   static String _password = "";
 
   Widget build(BuildContext context) {
-    final auth = Provider.of<FirebaseAuthService>(context);
+    final auth = Provider.of<AccessManager>(context);
     return Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(title: Text('Sign in'),actions: <Widget>[

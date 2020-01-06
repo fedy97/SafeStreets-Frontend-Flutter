@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:safe_streets/auth_manager.dart';
-import 'package:safe_streets/services/firebase_auth_service.dart';
+import 'package:safe_streets/services/access_manager.dart';
 import 'package:safe_streets/services/utilities.dart';
 
 class SignUpPage extends StatelessWidget {
@@ -94,7 +94,7 @@ class SignUpPage extends StatelessWidget {
                       return;
                     }
                   try {
-                  final auth = Provider.of<FirebaseAuthService>(context);
+                  final auth = Provider.of<AccessManager>(context);
                   Map<String, dynamic> map =
                       createUserMap(email: _email, idAuthority: idAuthority);
                   FirebaseUser u = await auth.createUserWithEmailAndPassword(
@@ -138,7 +138,7 @@ class SignUpPage extends StatelessWidget {
   }
 
   Future<bool> checkIdAlreadyPresent(BuildContext context) async {
-    final auth = Provider.of<FirebaseAuthService>(context);
+    final auth = Provider.of<AccessManager>(context);
     QuerySnapshot query = await Firestore.instance
         .collection("users").getDocuments();
     for (DocumentSnapshot doc in query.documents) {

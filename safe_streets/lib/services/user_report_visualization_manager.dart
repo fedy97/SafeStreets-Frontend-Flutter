@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:safe_streets/services/utilities.dart';
+import 'package:safe_streets/model/user/user.dart';
 
-import 'model/user/user.dart';
-
-abstract class FeedbackSender {
+abstract class UserReportVisualizationManager {
   static Future violationFeedback(User u, GlobalKey<ScaffoldState> key) async {
     if (!u.currViewedReport.feedbackSenders.contains(u.email)) {
       var updatedTuple = Firestore.instance
@@ -32,8 +30,8 @@ abstract class FeedbackSender {
         });
       }
       await u.getAllReports();
-      final snackBar = SnackBar(
-          content: Text("feedback to report sent successfully!"));
+      final snackBar =
+          SnackBar(content: Text("feedback to report sent successfully!"));
       key.currentState.showSnackBar(snackBar);
     } else {
       final snackBar = SnackBar(
@@ -116,13 +114,14 @@ abstract class FeedbackSender {
       }
 
       await u.getAllReports();
-      final snackBar = SnackBar(
-          content: Text("picture feedback sent successfully!"));
+      final snackBar =
+          SnackBar(content: Text("picture feedback sent successfully!"));
       key.currentState.showSnackBar(snackBar);
     }
   }
 
-  static Future fineReport(User u, GlobalKey<ScaffoldState> key, BuildContext context) async {
+  static Future fineReport(
+      User u, GlobalKey<ScaffoldState> key, BuildContext context) async {
     //check if it is already fined THIS report
     if (u.currViewedReport.fined == true) {
       final snackBar = SnackBar(content: Text("already fined"));
@@ -149,12 +148,13 @@ abstract class FeedbackSender {
       });
 
       String onePlate = plates[0];
-      if (plates.length>1) {
+      if (plates.length > 1) {
         //onePlate = await Utilities.showAlertWithBoxes(context, plates);
       }
       //check if already present in db a fine with that plate
       //if so, increment the counter else set counter to 1 and create the fine tuple
-      var doc = await Firestore.instance.collection("fines").document(onePlate).get();
+      var doc =
+          await Firestore.instance.collection("fines").document(onePlate).get();
       if (!doc.exists)
         await Firestore.instance
             .collection("fines")

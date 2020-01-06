@@ -3,7 +3,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:safe_streets/model/enum/level.dart';
 import 'package:safe_streets/model/user/user.dart';
-import 'package:safe_streets/services/firebase_auth_service.dart';
+import 'package:safe_streets/services/access_manager.dart';
+import 'package:safe_streets/services/report_map_manager.dart';
 import 'package:safe_streets/services/utilities.dart';
 import 'package:safe_streets/ui/create_report_page.dart';
 import 'package:safe_streets/ui/sign_in_page.dart';
@@ -18,7 +19,8 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     User u = Provider.of<User>(context, listen: true);
-    Set<Marker> markers = Set<Marker>.of(u.toMarker(context).values);
+    Set<Marker> markers =
+        Set<Marker>.of(ReportMapManager.toMarker(u, context).values);
     return Scaffold(
         resizeToAvoidBottomPadding: false,
         floatingActionButton: FloatingActionButton(
@@ -89,7 +91,7 @@ class HomePage extends StatelessWidget {
                 onTap: () async {
                   Navigator.pop(context);
                   final auth =
-                      Provider.of<FirebaseAuthService>(context, listen: false);
+                      Provider.of<AccessManager>(context, listen: false);
                   await auth.signOut();
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => SignInPage()));

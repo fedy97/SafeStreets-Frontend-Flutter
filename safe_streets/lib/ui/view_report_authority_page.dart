@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:safe_streets/model/user/user.dart';
-
-import '../feedback_sender.dart';
+import 'package:safe_streets/services/user_report_visualization_manager.dart';
 
 class ViewReportAuthority extends StatelessWidget {
   static final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -18,12 +17,14 @@ class ViewReportAuthority extends StatelessWidget {
               IconButton(
                   icon: Icon(Icons.error),
                   onPressed: () async {
-                    await FeedbackSender.fineReport(u, _scaffoldKey, context);
+                    await UserReportVisualizationManager.fineReport(
+                        u, _scaffoldKey, context);
                   }),
               IconButton(
                   icon: Icon(Icons.assistant_photo),
                   onPressed: () async {
-                    await FeedbackSender.violationFeedback(u, _scaffoldKey);
+                    await UserReportVisualizationManager.violationFeedback(
+                        u, _scaffoldKey);
                   }),
             ],
             title: Text("Report Page"),
@@ -76,8 +77,9 @@ class ViewReportAuthority extends StatelessWidget {
                                       shape: CircleBorder(),
                                       child: Icon(Icons.assistant_photo),
                                       onPressed: () async {
-                                        FeedbackSender.pictureFeedback(
-                                            u, int, _scaffoldKey);
+                                        UserReportVisualizationManager
+                                            .pictureFeedback(
+                                                u, int, _scaffoldKey);
                                       },
                                     )),
                               ],
