@@ -10,7 +10,7 @@ import 'package:safe_streets/ui/sign_up_page.dart';
 import 'home_page.dart';
 
 class SignInPage extends StatelessWidget {
-  static final _scaffoldKey = GlobalKey<ScaffoldState>();
+  static var _scaffoldKey = GlobalKey<ScaffoldState>();
   static String _email = "";
   static String _password = "";
 
