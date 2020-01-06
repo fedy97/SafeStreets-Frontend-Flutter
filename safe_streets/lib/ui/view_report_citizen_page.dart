@@ -91,7 +91,7 @@ class ViewReportCitizen extends StatelessWidget {
                                         left: ((u.currViewedReport
                                                     .imagesLite['boxes'][int]
                                                 ['xmin']) /
-                                            2),
+                                            2) / 2,
                                         width: ((u.currViewedReport
                                                             .imagesLite['boxes']
                                                         [int]['xmax']) /
@@ -99,12 +99,11 @@ class ViewReportCitizen extends StatelessWidget {
                                                 (u.currViewedReport
                                                             .imagesLite['boxes']
                                                         [int]['xmin']) /
-                                                    2) +
-                                            5,
+                                                    2) / 5,
                                         top: ((u.currViewedReport
                                                     .imagesLite['boxes'][int]
                                                 ['ymin']) /
-                                            2),
+                                            2) / 3.3,
                                         height: ((u.currViewedReport
                                                             .imagesLite['boxes']
                                                         [int]['ymax']) /
@@ -112,8 +111,7 @@ class ViewReportCitizen extends StatelessWidget {
                                                 (u.currViewedReport
                                                             .imagesLite['boxes']
                                                         [int]['ymin']) /
-                                                    2) +
-                                            5,
+                                                    2) / 5,
                                         child: Container(
                                           color: Colors.yellow,
                                         ),
