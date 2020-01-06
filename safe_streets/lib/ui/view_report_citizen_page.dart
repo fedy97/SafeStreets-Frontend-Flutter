@@ -99,11 +99,10 @@ class ViewReportCitizen extends StatelessWidget {
                                                 (u.currViewedReport
                                                             .imagesLite['boxes']
                                                         [int]['xmin']) /
-                                                    2) / 5 + 5,
+                                                    2) / 5 + 20,
                                         top: ((u.currViewedReport
                                                     .imagesLite['boxes'][int]
-                                                ['ymin']) /
-                                            2) / 4,
+                                                ['ymin']) / 8) - 10,
                                         height: ((u.currViewedReport
                                                             .imagesLite['boxes']
                                                         [int]['ymax']) /
@@ -111,7 +110,7 @@ class ViewReportCitizen extends StatelessWidget {
                                                 (u.currViewedReport
                                                             .imagesLite['boxes']
                                                         [int]['ymin']) /
-                                                    2) / 5 + 5,
+                                                    2) / 5 + 50,
                                         child: Container(
                                           color: Colors.yellow,
                                         ),
