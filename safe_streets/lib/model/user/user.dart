@@ -9,6 +9,9 @@ import 'package:safe_streets/model/report/report_to_get.dart';
 import 'package:safe_streets/model/report/report_to_send.dart';
 import 'package:safe_streets/model/report/violation_image.dart';
 
+///this is the abstract class of a user in SafeStreets,
+///a user can be either Citizen or Authority.
+
 abstract class User extends ChangeNotifier {
   String _email;
   String _uid;

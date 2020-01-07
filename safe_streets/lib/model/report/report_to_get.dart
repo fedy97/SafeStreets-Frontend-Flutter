@@ -3,6 +3,10 @@ import 'package:safe_streets/model/report/report.dart';
 import '../enum/violation.dart';
 import '../location.dart';
 
+///this class is used to create report objects that are fetched
+///as maps from firebase, in fact there is a constructor "fromMap" that builds
+///the object from that map.
+
 class ReportToGet extends Report {
   Map<String, dynamic> sendableReport;
 
@@ -64,18 +68,3 @@ class ReportToGet extends Report {
         fined: fined);
   }
 }
-/*@override
-  String toString() {
-    try {
-      return time.millisecondsSinceEpoch.toString() +
-          emailUser +
-          feedback.toString() +
-          imagesLite.toString() +
-          note +
-          reportPosition.toString() +
-          violation.toString();
-    } catch (e, e1) {
-      print(e1);
-    }
-    return null;
-  }*/

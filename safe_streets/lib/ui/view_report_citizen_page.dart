@@ -3,6 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:safe_streets/model/user/user.dart';
 import 'package:safe_streets/services/user_report_visualization_manager.dart';
 
+///citizen view of a report,
+///plates must be covered here
+///please note that if you use a device with low resolution
+///the coverage will not work properly, this will be fixed
+
 class ViewReportCitizen extends StatelessWidget {
   static final _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -84,7 +89,7 @@ class ViewReportCitizen extends StatelessWidget {
                                         //Navigator.pop(context);
                                       },
                                     )),
-                                //this will cover the plate only if there actually is a plate in the image
+                                ///this will cover the plate only if there actually is a plate in the image
                                 u.currViewedReport.imagesLite['boxes'][int]
                                             .length !=
                                         1

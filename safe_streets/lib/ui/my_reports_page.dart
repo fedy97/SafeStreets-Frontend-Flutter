@@ -4,6 +4,9 @@ import 'package:provider/provider.dart';
 import 'package:safe_streets/model/user/user.dart';
 import 'package:safe_streets/services/utilities.dart';
 
+///here is the list page of all the reports
+///submitted by the logged user
+
 class MyReportsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -15,6 +18,7 @@ class MyReportsPage extends StatelessWidget {
             itemCount: u.myReports.length,
             itemBuilder: (context, int) {
               return ListTile(
+                ///this will open the report on tap
                 onTap: () async {
                   u.setCurrViewedReport = u.myReports[int];
                   Navigator.of(context).push(MaterialPageRoute(

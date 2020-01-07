@@ -1,6 +1,10 @@
 import 'package:safe_streets/model/report/report.dart';
 import 'package:safe_streets/model/report/violation_image.dart';
 
+///this class is used to create report object to send
+///to firebase, in fact there is a method called "toMap" that converts
+///this object to a json map, that firebase can read.
+
 class ReportToSend extends Report {
 
   ReportToSend({reportPosition, time, violation, images, emailUser})

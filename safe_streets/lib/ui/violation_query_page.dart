@@ -9,6 +9,8 @@ import 'package:safe_streets/model/user/user.dart';
 import 'package:safe_streets/services/utilities.dart';
 import 'package:safe_streets/services/violation_query_manager.dart';
 
+///violation query page
+
 class ViolationQuery extends StatelessWidget {
   static final _scaffoldKey = GlobalKey<ScaffoldState>();
   static String violation = Violation.values.first.toString();

@@ -12,6 +12,9 @@ import 'package:safe_streets/services/utilities.dart';
 import 'firebase_storage_service.dart';
 
 class NewReportManager {
+  ///this method will call the plate recognizer API, and will get a Map
+  ///with all the plates in the image as strings and their pixel position
+  ///in the image.
   static Future<Map<String, dynamic>> recognizePlate(File f) async {
     String token = "af4446d6d28223c73ac5c091814ee32a7fce6ede";
     try {
@@ -40,7 +43,9 @@ class NewReportManager {
     }
     return {"plate": "", "score": 0.0, "box": null};
   }
-
+  ///this function is called when the user taps on the send report button,
+  ///it checks if there is at least one image and if
+  ///the report has already been uploaded by others.
   static Future sendReport(
       User u, BuildContext context, GlobalKey<ScaffoldState> scaffold) async {
     if (u.currReport.images.length > 0) {
@@ -82,7 +87,10 @@ class NewReportManager {
       scaffold.currentState.showSnackBar(snackBar);
     }
   }
-
+  ///this will check if the report that is uploading is already present in the map,
+  ///checking time(in the last 24 hours), position(10 meters from other reports) and
+  ///violation type. If another report with that characteristics is found, the user is asked
+  ///if he wants to upload it anyway.
   static Future<bool> alreadyExist(BuildContext context, User u) async {
     for (var reportCurr in u.reportsGet) {
       //check time and violation type, if they coincide, go to next check that is the position check

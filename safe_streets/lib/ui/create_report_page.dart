@@ -11,6 +11,8 @@ import 'package:safe_streets/model/user/user.dart';
 import 'package:safe_streets/services/new_report_manager.dart';
 import 'package:safe_streets/services/utilities.dart';
 
+/// this is the creation page of a report
+
 class CreateReportPage extends StatelessWidget {
   static final _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -31,7 +33,7 @@ class CreateReportPage extends StatelessWidget {
                     if (u.currReport.images.length < 5) {
                       File f = await ImagePicker.pickImage(
                           source: ImageSource.camera, imageQuality: 50);
-                      //check if I actually took the photo or I pressed "back"
+                      ///check if I actually took the photo or I pressed "back"
                       if (f != null) {
                         Utilities.showProgress(context);
                         if (u.currReport.images.length == 0) {
@@ -43,7 +45,7 @@ class CreateReportPage extends StatelessWidget {
                             imageFile: f,
                             plate: m["plate"],
                             accuracy: m["score"]);
-                        //this will rebuild gui , because it calls notify listeners
+                        ///this will rebuild gui , because it calls notify listeners
                         u.addImageToReport(image: vi);
                         Navigator.pop(context);
                       }
@@ -52,6 +54,7 @@ class CreateReportPage extends StatelessWidget {
               IconButton(
                   icon: Icon(Icons.send),
                   onPressed: () async {
+                    //send the report to firebase
                     await NewReportManager.sendReport(u, context, _scaffoldKey);
                   })
             ],
@@ -110,6 +113,9 @@ class CreateReportPage extends StatelessWidget {
           ),
         ),
         onWillPop: () {
+          ///if the user aborts the operation,
+          ///this will delete the temporary image
+          ///from the device memory
           u.currReport.removeAllImages();
           u.currReport = null;
           Navigator.pop(context);

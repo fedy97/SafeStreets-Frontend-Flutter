@@ -6,6 +6,8 @@ import 'package:safe_streets/auth_manager.dart';
 import 'package:safe_streets/services/access_manager.dart';
 import 'package:safe_streets/services/utilities.dart';
 
+///this is the sign up page
+
 class SignUpPage extends StatelessWidget {
   static final _scaffoldKey = GlobalKey<ScaffoldState>();
   static String _email = "";
@@ -80,6 +82,7 @@ class SignUpPage extends StatelessWidget {
                     value2.value = value;
                   });
             }),
+            ///this is the sign up button
             OutlineButton(
               splashColor: Colors.blue,
               borderSide: BorderSide(color: Colors.blue, width: 2.0),

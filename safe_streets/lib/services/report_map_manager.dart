@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:safe_streets/model/user/user.dart';
 
 class ReportMapManager {
+  ///this method will create the set of all markers in the last 24 hours.
   static Map<MarkerId, Marker> toMarker(User u, BuildContext context) {
     Map<MarkerId, Marker> map = Map();
     DateTime now = DateTime.now();

@@ -6,8 +6,9 @@ import 'package:safe_streets/model/user/user.dart';
 import 'package:safe_streets/services/access_manager.dart';
 import 'package:safe_streets/services/utilities.dart';
 import 'package:safe_streets/ui/sign_up_page.dart';
-
 import 'home_page.dart';
+
+///this is the Login page
 
 class SignInPage extends StatelessWidget {
   static var _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -27,6 +28,7 @@ class SignInPage extends StatelessWidget {
                 style:
                     TextStyle(color: Colors.white, fontStyle: FontStyle.italic),
               ),
+              ///this will open the sign_up_page on click
               onPressed: () {
                 ValueNotifier<bool> checked = ValueNotifier(false);
                 Navigator.push(
@@ -71,6 +73,7 @@ class SignInPage extends StatelessWidget {
                 },
               ),
               SizedBox(height: 24.0),
+              ///this is the sign in button
               OutlineButton(
                 splashColor: Colors.blue,
                 borderSide: BorderSide(color: Colors.blue, width: 2.0),

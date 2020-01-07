@@ -42,7 +42,8 @@ class AccessManager {
   Future<void> signOut() async {
     return await _firebaseAuth.signOut();
   }
-
+  ///after the creation of the user in firebase, the object itself is needed
+  ///locally to perform actions
   static User createUserObject(DocumentSnapshot map, FirebaseUser user) {
     if (map.data['level'] == "standard") {
       return new Citizen(user.email, user.uid);
@@ -50,7 +51,8 @@ class AccessManager {
       return new Authority(user.email, user.uid, map.data['idAuthority']);
     }
   }
-
+  ///this is the map that will be sent to firebase when a new user is created
+  ///successfully.
   static Map<String, dynamic> createUserMap({@required email, idAuthority}) {
     return {
       'level': idAuthority == "" ? 'standard' : 'complete',
@@ -58,7 +60,8 @@ class AccessManager {
       'reportSent': []
     };
   }
-
+  ///this method will check if a user tries to create a account with a
+  ///already present id, in that case an error is thrown.
   static Future<bool> checkIdAlreadyPresent(GlobalKey<ScaffoldState> scaffold,
       String id, BuildContext context) async {
     final auth = Provider.of<AccessManager>(context);

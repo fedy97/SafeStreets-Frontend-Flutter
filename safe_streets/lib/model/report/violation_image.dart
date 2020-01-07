@@ -2,6 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 
+///this is the image object created by a user when he
+///takes a photo.
+
 class ViolationImage {
   File imageFile;
   bool isSensitive = false;

@@ -3,6 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:safe_streets/model/user/user.dart';
 import 'package:safe_streets/services/user_report_visualization_manager.dart';
 
+///authority view of a report
+///plates are not covered here
+
 class ViewReportAuthority extends StatelessWidget {
   static final _scaffoldKey = GlobalKey<ScaffoldState>();
 

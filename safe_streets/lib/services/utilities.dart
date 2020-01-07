@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Utilities {
+  ///this is a progress circular indicator
+  ///used when a page is waiting for something from the net.
   static void showProgress(BuildContext context) {
     showDialog(
         context: context,
@@ -21,7 +23,8 @@ class Utilities {
           );
         });
   }
-
+  ///this return some errors from firebase,
+  ///for example if the email is badly formatted during the sign up process
   static String printError(String errorToParse) {
     if (errorToParse.split("(")[0] == "PlatformException") {
       String first = errorToParse.split("(")[1];
@@ -31,17 +34,16 @@ class Utilities {
     return errorToParse;
   }
 
-  // ignore: slash_for_doc_comments
-  /**
-   * dart does not allow printing on the console more than TOT words, if you print something
-   * that is too long it will be cut out, with this everything will be printed
-   * useful for debug
-   */
+
+   ///dart does not allow printing on the console more than TOT words, if you print something
+   ///that is too long it will be cut out, with this everything will be printed
+   ///useful for debug
   static void printEverything(String text) {
     final pattern = new RegExp('.{1,800}'); // 800 is the size of each chunk
     pattern.allMatches(text).forEach((match) => print(match.group(0)));
   }
-
+  ///this will show a alert dialog with
+  ///a custom message with 2 buttons, "Ok" and "Close"
   static Future<bool> showAlert(BuildContext context, String message) async {
     bool result = false;
     await showDialog(
@@ -66,37 +68,6 @@ class Utilities {
                 child: Text("Ok"))
           ],
         ));
-    return result;
-  }
-
-  static Future<String> showAlertWithBoxes(
-      BuildContext context, List<String> plates) async {
-    String result = "";
-    int value;
-    await showDialog(
-        context: context,
-        child: Center(
-            child: AlertDialog(
-          title: new Text("Choose one"),
-          content: ListView.builder(
-              itemCount: plates.length,
-              itemBuilder: (context, int) {
-                return RadioListTile(
-                    value: plates[int],
-                    groupValue: value,
-                    onChanged: (i) {
-                      value = i;
-                    });
-              }),
-          actions: <Widget>[
-            FlatButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                  //TODO
-                },
-                child: Text("Ok"))
-          ],
-        )));
     return result;
   }
 }

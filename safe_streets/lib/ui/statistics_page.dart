@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 import 'package:safe_streets/model/user/user.dart';
 import 'package:safe_streets/services/stats_manager.dart';
 
+///statistics page
+
 class Statistics extends StatelessWidget {
   static final _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -87,7 +89,6 @@ class Statistics extends StatelessWidget {
             ),
             Align(
               child: Text(
-                  //TODO stampare *tutte* le violazioni commesse il maggior numero di volte u.mostCommittedCrime().keys.iterator.current
                   "Violation type: " +
                       sortedMap.keys.first
                           .toString()
