@@ -49,6 +49,7 @@ class SignInPage extends StatelessWidget {
             children: <Widget>[
               SizedBox(height: 24.0),
               TextFormField(
+                key: Key("email-field"),
                 decoration: const InputDecoration(
                   border: UnderlineInputBorder(),
                   icon: Icon(Icons.email),
@@ -62,6 +63,7 @@ class SignInPage extends StatelessWidget {
               ),
               SizedBox(height: 24.0),
               TextFormField(
+                key: Key("password-field"),
                 obscureText: true,
                 decoration: const InputDecoration(
                   border: UnderlineInputBorder(),
@@ -75,6 +77,7 @@ class SignInPage extends StatelessWidget {
               SizedBox(height: 24.0),
               ///this is the sign in button
               OutlineButton(
+                key: Key("signin"),
                 splashColor: Colors.blue,
                 borderSide: BorderSide(color: Colors.blue, width: 2.0),
                 child: Text('Sign in'),
@@ -102,6 +105,7 @@ class SignInPage extends StatelessWidget {
                                 )));
                   } catch (error) {
                     final snackBar = SnackBar(
+                      key: Key("snack1"),
                         content: Text(Utilities.printError(error.toString())));
                     _scaffoldKey.currentState.showSnackBar(snackBar);
                   }

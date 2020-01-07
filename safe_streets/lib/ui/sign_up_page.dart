@@ -24,6 +24,7 @@ class SignUpPage extends StatelessWidget {
         child: Column(
           children: <Widget>[
             TextFormField(
+              key: Key("email"),
               decoration: const InputDecoration(
                 border: UnderlineInputBorder(),
                 icon: Icon(Icons.email),
@@ -37,6 +38,7 @@ class SignUpPage extends StatelessWidget {
             ),
             SizedBox(height: 14.0),
             TextFormField(
+              key: Key("password1"),
               obscureText: true,
               decoration: const InputDecoration(
                 border: UnderlineInputBorder(),
@@ -50,6 +52,7 @@ class SignUpPage extends StatelessWidget {
             ),
             SizedBox(height: 14.0),
             TextFormField(
+              key: Key("password2"),
               obscureText: true,
               decoration: const InputDecoration(
                 border: UnderlineInputBorder(),
@@ -62,6 +65,7 @@ class SignUpPage extends StatelessWidget {
             ),
             SizedBox(height: 14.0),
             TextFormField(
+              key: Key("id"),
               obscureText: true,
               decoration: const InputDecoration(
                 border: UnderlineInputBorder(),
@@ -75,6 +79,7 @@ class SignUpPage extends StatelessWidget {
             SizedBox(height: 14.0),
             Consumer<ValueNotifier<bool>>(builder: (context, value2, child) {
               return CheckboxListTile(
+                key: Key("check"),
                   title: Text("accept terms"),
                   controlAffinity: ListTileControlAffinity.leading,
                   value: value2.value,
@@ -84,6 +89,7 @@ class SignUpPage extends StatelessWidget {
             }),
             ///this is the sign up button
             OutlineButton(
+                key: Key("signup"),
               splashColor: Colors.blue,
               borderSide: BorderSide(color: Colors.blue, width: 2.0),
               child: Text("Sign Up"),
@@ -124,7 +130,7 @@ class SignUpPage extends StatelessWidget {
                         listen: false)
                     .value) {
                   final snackBar =
-                      SnackBar(content: Text("you must accept the terms"));
+                      SnackBar(key:Key("snack1"),content: Text("you must accept the terms"));
                   _scaffoldKey.currentState.showSnackBar(snackBar);
                 } else {
                   final snackBar =

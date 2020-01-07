@@ -34,7 +34,8 @@ dependencies:
   #firebase_ml_vision: ^0.9.3+3
   dio: ^3.0.7
   queries: ^0.1.12
-  datetime_picker_formfield: ^0.4.3
+  datetime_picker_formfield: ^1.0.0
+  mockito: ^4.1.1
 
 dev_dependencies:
   flutter_test:

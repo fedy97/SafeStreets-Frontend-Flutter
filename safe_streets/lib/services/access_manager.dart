@@ -23,6 +23,15 @@ class AccessManager {
     return authResult.user;
   }
 
+  Future<bool> signIn(String email, String password) async {
+    try {
+      FirebaseUser u = await signInWithEmailAndPassword(email, password);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
   Future<FirebaseUser> createUserWithEmailAndPassword(
       String email, String password) async {
     final AuthResult authResult = await _firebaseAuth
