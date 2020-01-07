@@ -5,10 +5,15 @@ import 'package:provider/provider.dart';
 import 'package:safe_streets/model/report/report_to_get.dart';
 import 'package:safe_streets/ui/home_page.dart';
 import 'package:safe_streets/ui/sign_in_page.dart';
-
 import 'model/user/authority.dart';
 import 'model/user/citizen.dart';
 import 'model/user/user.dart';
+
+///this manager it is used to redirect the user,
+///to the right page when it opens the application:
+///if it is the first time or he previously logged  out, it will
+///be redirected to the sign in screen, otherwise it will directly go
+///to the home page(if it was already logged in).
 
 class AuthManager extends StatefulWidget {
   @override

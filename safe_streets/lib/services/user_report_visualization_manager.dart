@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:safe_streets/services/utilities.dart';
+import 'package:safe_streets/model/user/user.dart';
 
-import 'model/user/user.dart';
-
-abstract class FeedbackSender {
+abstract class UserReportVisualizationManager {
   static Future violationFeedback(User u, GlobalKey<ScaffoldState> key) async {
     if (!u.currViewedReport.feedbackSenders.contains(u.email)) {
       var updatedTuple = Firestore.instance
@@ -24,7 +22,7 @@ abstract class FeedbackSender {
         'reportSent': FieldValue.arrayUnion([u.currViewedReport.sendableReport])
       });
       u.currViewedReport.feedbackSenders.add(u.email);
-      // if there are 5 feedback, remove the report
+      /// if there are 5 feedback, remove the report
       if (u.currViewedReport.feedback >= 5) {
         await updatedTuple.updateData({
           'reportSent':
@@ -32,8 +30,8 @@ abstract class FeedbackSender {
         });
       }
       await u.getAllReports();
-      final snackBar = SnackBar(
-          content: Text("feedback to report sent successfully!"));
+      final snackBar =
+          SnackBar(content: Text("feedback to report sent successfully!"));
       key.currentState.showSnackBar(snackBar);
     } else {
       final snackBar = SnackBar(
@@ -45,7 +43,7 @@ abstract class FeedbackSender {
 
   static Future pictureFeedback(
       User u, int pictureNumber, GlobalKey<ScaffoldState> key) async {
-    // check if the user already gave a feedback about the picture
+    /// check if the user already gave a feedback about the picture
     String feedbackSenders = List<String>.from(
             u.currViewedReport.sendableReport['images']['imageFeedbackSenders'])
         .elementAt(pictureNumber);
@@ -71,10 +69,10 @@ abstract class FeedbackSender {
       if (u.currViewedReport.sendableReport['images']['imageFeedback']
               .elementAt(pictureNumber) >=
           4) {
-        // if last picture with 4 report, delete the report
+        /// if last picture with 4 report, delete the report
         if (u.currViewedReport.sendableReport['images'].size() <= 1)
           return;
-        // if 4 report but more than 1 picture, delete the picture
+        /// if 4 report but more than 1 picture, delete the picture
         else {
           var images = u.currViewedReport.sendableReport['images'];
           images['accuracy'].removeAt(pictureNumber);
@@ -90,7 +88,7 @@ abstract class FeedbackSender {
           u.currViewedReport.images.removeAt(pictureNumber);
         }
       }
-      // if less than 4 feedback, add one
+      /// if less than 4 feedback, add one
       else {
         List<int> feedbackCounter = List<int>.from(
             u.currViewedReport.sendableReport['images']['imageFeedback']);
@@ -116,26 +114,27 @@ abstract class FeedbackSender {
       }
 
       await u.getAllReports();
-      final snackBar = SnackBar(
-          content: Text("picture feedback sent successfully!"));
+      final snackBar =
+          SnackBar(content: Text("picture feedback sent successfully!"));
       key.currentState.showSnackBar(snackBar);
     }
   }
 
-  static Future fineReport(User u, GlobalKey<ScaffoldState> key, BuildContext context) async {
-    //check if it is already fined THIS report
+  static Future fineReport(
+      User u, GlobalKey<ScaffoldState> key, BuildContext context) async {
+    ///check if it is already fined THIS report
     if (u.currViewedReport.fined == true) {
       final snackBar = SnackBar(content: Text("already fined"));
       key.currentState.showSnackBar(snackBar);
       return;
     }
-    //check if the report actually contains a plate
+    ///check if the report actually contains a plate
     List<String> plates = new List();
     for (String plate in u.currViewedReport.imagesLite['plates']) {
       if (plate != "") plates.add(plate);
     }
     if (plates.length > 0) {
-      //now we are good to go
+      ///now we are good to go
       var updatedTuple = Firestore.instance
           .collection("users")
           .document(u.currViewedReport.emailUser);
@@ -149,12 +148,10 @@ abstract class FeedbackSender {
       });
 
       String onePlate = plates[0];
-      if (plates.length>1) {
-        //onePlate = await Utilities.showAlertWithBoxes(context, plates);
-      }
-      //check if already present in db a fine with that plate
-      //if so, increment the counter else set counter to 1 and create the fine tuple
-      var doc = await Firestore.instance.collection("fines").document(onePlate).get();
+      ///check if already present in db a fine with that plate
+      ///if so, increment the counter else set counter to 1 and create the fine tuple
+      var doc =
+          await Firestore.instance.collection("fines").document(onePlate).get();
       if (!doc.exists)
         await Firestore.instance
             .collection("fines")
@@ -165,7 +162,7 @@ abstract class FeedbackSender {
             .collection("fines")
             .document(onePlate)
             .updateData({'count': FieldValue.increment(1)});
-      //update the report locally
+      ///update the report locally
       u.currViewedReport.fined = true;
       final snackBar = SnackBar(content: Text("report fined successfully"));
       key.currentState.showSnackBar(snackBar);

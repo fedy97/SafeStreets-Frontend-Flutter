@@ -2,14 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:provider/provider.dart';
 import 'package:safe_streets/model/enum/level.dart';
 import 'package:safe_streets/model/enum/violation.dart';
 import 'package:safe_streets/model/location.dart';
 import 'package:safe_streets/model/report/report_to_get.dart';
 import 'package:safe_streets/model/report/report_to_send.dart';
 import 'package:safe_streets/model/report/violation_image.dart';
+
+///this is the abstract class of a user in SafeStreets,
+///a user can be either Citizen or Authority.
 
 abstract class User extends ChangeNotifier {
   String _email;
@@ -81,39 +82,6 @@ abstract class User extends ChangeNotifier {
   void addNoteToReport(String note) {
     currReport.addNote(note);
     //no need to notify changes when typing a description
-  }
-
-  Map<MarkerId, Marker> toMarker(BuildContext context) {
-    Map<MarkerId, Marker> map = Map();
-    var iter = _reportsGet.iterator;
-    while (iter.moveNext()) {
-      //check if the report is in the range of the 24 hours
-      if (int.tryParse(DateTime.now()
-              .difference(iter.current.time)
-              .toString()
-              .split(":")[0]) <
-          24) {
-        final markerId = MarkerId(_reportsGet.indexOf(iter.current).toString());
-        final Marker marker = Marker(
-            icon: !iter.current.fined
-                ? BitmapDescriptor.defaultMarkerWithHue(
-                    BitmapDescriptor.hueBlue)
-                : BitmapDescriptor.defaultMarker,
-            onTap: () async {
-              this.setCurrViewedReport = _reportsGet[int.parse(markerId.value)];
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => ChangeNotifierProvider<User>.value(
-                        value: this,
-                        child: viewReportPage(),
-                      )));
-            },
-            markerId: markerId,
-            position: LatLng(iter.current.reportPosition.lat,
-                iter.current.reportPosition.long));
-        map[markerId] = marker;
-      }
-    }
-    return map;
   }
 
   Future getPosition() async {

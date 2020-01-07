@@ -2,40 +2,47 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:safe_streets/model/user/authority.dart';
-import 'package:safe_streets/model/user/citizen.dart';
 import 'package:safe_streets/model/user/user.dart';
-import 'package:safe_streets/services/firebase_auth_service.dart';
+import 'package:safe_streets/services/access_manager.dart';
 import 'package:safe_streets/services/utilities.dart';
 import 'package:safe_streets/ui/sign_up_page.dart';
-
 import 'home_page.dart';
 
+///this is the Login page
+
 class SignInPage extends StatelessWidget {
-  static final _scaffoldKey = GlobalKey<ScaffoldState>();
+  static var _scaffoldKey = GlobalKey<ScaffoldState>();
   static String _email = "";
   static String _password = "";
 
   Widget build(BuildContext context) {
-    final auth = Provider.of<FirebaseAuthService>(context);
+    final auth = Provider.of<AccessManager>(context);
     return Scaffold(
         key: _scaffoldKey,
-        appBar: AppBar(title: Text('Sign in'),actions: <Widget>[
-          FlatButton(
-            child: Text("Create Account",style: TextStyle(color: Colors.white,fontStyle: FontStyle.italic),),
-            onPressed: () {
-              ValueNotifier<bool> checked = ValueNotifier(false);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                      ChangeNotifierProvider<ValueNotifier<bool>>.value(
-                        value: checked,
-                        child: SignUpPage(),
-                      )));
-            },
-          )
-        ],),
+        appBar: AppBar(
+          title: Text('Sign in'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text(
+                "Create Account",
+                style:
+                    TextStyle(color: Colors.white, fontStyle: FontStyle.italic),
+              ),
+              ///this will open the sign_up_page on click
+              onPressed: () {
+                ValueNotifier<bool> checked = ValueNotifier(false);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            ChangeNotifierProvider<ValueNotifier<bool>>.value(
+                              value: checked,
+                              child: SignUpPage(),
+                            )));
+              },
+            )
+          ],
+        ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Column(
@@ -66,15 +73,21 @@ class SignInPage extends StatelessWidget {
                 },
               ),
               SizedBox(height: 24.0),
-              OutlineButton(splashColor: Colors.blue,
-                borderSide: BorderSide(color: Colors.blue,width: 2.0),
+              ///this is the sign in button
+              OutlineButton(
+                splashColor: Colors.blue,
+                borderSide: BorderSide(color: Colors.blue, width: 2.0),
                 child: Text('Sign in'),
                 onPressed: () async {
                   try {
                     FirebaseUser user = await auth.signInWithEmailAndPassword(
                         _email, _password);
-                    DocumentSnapshot map = await fetchMap(user);
-                    User u = createUser(map, user);
+                    DocumentSnapshot map = await Firestore.instance
+                        .collection("users")
+                        .document(user.email)
+                        .snapshots()
+                        .first;
+                    User u = AccessManager.createUserObject(map, user);
                     Utilities.showProgress(context);
                     await u.getAllReports();
                     await u.getPosition();
@@ -97,21 +110,5 @@ class SignInPage extends StatelessWidget {
             ],
           ),
         ));
-  }
-
-  Future<DocumentSnapshot> fetchMap(FirebaseUser user) async {
-    return await Firestore.instance
-        .collection("users")
-        .document(user.email)
-        .snapshots()
-        .first;
-  }
-
-  User createUser(DocumentSnapshot map, FirebaseUser user) {
-    if (map.data['level'] == "standard") {
-      return new Citizen(user.email, user.uid);
-    } else {
-      return new Authority(user.email, user.uid, map.data['idAuthority']);
-    }
   }
 }

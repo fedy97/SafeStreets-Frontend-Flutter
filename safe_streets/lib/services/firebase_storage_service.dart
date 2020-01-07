@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:safe_streets/model/report/violation_image.dart';
 
 class FirebaseStorageService {
+  ///this will upload the images of a new report in the storage of firebase
   Future<String> uploadImages(
       {@required ViolationImage image,
       @required String mail,

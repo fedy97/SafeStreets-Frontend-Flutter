@@ -1,5 +1,3 @@
-import 'dart:collection';
-
 import 'package:queries/collections.dart';
 import 'package:safe_streets/model/enum/violation.dart';
 import 'package:safe_streets/model/report/report_to_get.dart';
@@ -25,11 +23,11 @@ class StatsManager {
     return daily;
   }
 
-  ///It returns a map that contains the most committed violations and the number of times. It is the same for all.
+  ///It returns a map that contains all the violations and the number of times that they occurred,
+  ///sorted by the most committed one descending.
   static Map<Violation, int> mostCommittedCrime(User u) {
     Map<Violation, int> crimes = new Map();
-    for (Violation violation in Violation.values)
-      crimes[violation] = 0;
+    for (Violation violation in Violation.values) crimes[violation] = 0;
     for (ReportToGet reportToGet in u.reportsGet) {
       crimes[reportToGet.violation] = crimes[reportToGet.violation] + 1;
     }

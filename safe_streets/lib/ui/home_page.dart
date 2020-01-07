@@ -3,14 +3,18 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:safe_streets/model/enum/level.dart';
 import 'package:safe_streets/model/user/user.dart';
-import 'package:safe_streets/services/firebase_auth_service.dart';
+import 'package:safe_streets/services/access_manager.dart';
+import 'package:safe_streets/services/report_map_manager.dart';
 import 'package:safe_streets/services/utilities.dart';
 import 'package:safe_streets/ui/create_report_page.dart';
 import 'package:safe_streets/ui/sign_in_page.dart';
 import 'package:safe_streets/ui/statistics_page.dart';
 import 'package:safe_streets/ui/violation_query_page.dart';
-
 import 'my_reports_page.dart';
+
+/// this is the home page of the application, from here
+/// we can navigate to the other sections of the app, like
+/// statistics, query page, my reports and logout.
 
 class HomePage extends StatelessWidget {
   static GoogleMapController mapController;
@@ -18,9 +22,12 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     User u = Provider.of<User>(context, listen: true);
-    Set<Marker> markers = Set<Marker>.of(u.toMarker(context).values);
+    ///create all the markers to display on the map
+    Set<Marker> markers =
+        Set<Marker>.of(ReportMapManager.toMarker(u, context).values);
     return Scaffold(
         resizeToAvoidBottomPadding: false,
+        //this is the button that opens create_report_page
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add_a_photo),
           onPressed: () {
@@ -33,6 +40,7 @@ class HomePage extends StatelessWidget {
                         )));
           },
         ),
+        /// here is the menu to navigate to other sections
         drawer: Drawer(
           child: ListView(
             padding: EdgeInsets.zero,
@@ -89,7 +97,7 @@ class HomePage extends StatelessWidget {
                 onTap: () async {
                   Navigator.pop(context);
                   final auth =
-                      Provider.of<FirebaseAuthService>(context, listen: false);
+                      Provider.of<AccessManager>(context, listen: false);
                   await auth.signOut();
                   Navigator.pushReplacement(context,
                       MaterialPageRoute(builder: (context) => SignInPage()));
