@@ -9,7 +9,7 @@ import 'model/user/authority.dart';
 import 'model/user/citizen.dart';
 import 'model/user/user.dart';
 
-///this manager it is used to redirect the user,
+///this manager is used to redirect the user,
 ///to the right page when it opens the application:
 ///if it is the first time or he previously logged  out, it will
 ///be redirected to the sign in screen, otherwise it will directly go
@@ -66,7 +66,9 @@ class _AuthManagerState extends State<AuthManager> {
   Widget build(BuildContext context) {
     if (logged == null)
       return Scaffold(
-        body: Center(child: CircularProgressIndicator(),),
+        body: Center(
+          child: CircularProgressIndicator(),
+        ),
       );
     else if (logged)
       return ChangeNotifierProvider<User>.value(value: u, child: HomePage());

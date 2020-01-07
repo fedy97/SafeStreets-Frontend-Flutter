@@ -19,7 +19,8 @@ class SafeStreets extends StatelessWidget {
           create: (_) => FirebaseStorageService(),
         )
       ],
-      child: MaterialApp(debugShowCheckedModeBanner: false,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: AuthManager(),
       ),
     );
