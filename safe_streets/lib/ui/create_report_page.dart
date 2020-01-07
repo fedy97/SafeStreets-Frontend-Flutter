@@ -154,7 +154,8 @@ class CreateReportPage extends StatelessWidget {
             "this report may already exist, do you want to upload it anyway?");
       }
       if (uploadAnyway) {
-        final storage = Provider.of<FirebaseStorageService>(context);
+        //todo Aggiunto lsten:false per risolvere ERROR
+        final storage = Provider.of<FirebaseStorageService>(context, listen:false);
         //upload images to storage
         for (ViolationImage image in u.currReport.images) {
           image.downloadLink = await storage.uploadImages(
