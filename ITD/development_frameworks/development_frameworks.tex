@@ -3,5 +3,73 @@
 
 \begin{document}
     \chapter{Development frameworks}\label{ch: development-frameworks}
-    \section{Programming language}\label{sec:programming-laguage}
+    In the following chapter is presented a list of the framework and technologies used to develop SafeStreets system.
+    \section{Adopted programming language}\label{sec:adopted-programming-laguage}
+    The programming language used are:
+    \subsection{Dart}\label{subsec:dart}
+    Dart is a object-oriented, class-based, client-optimized programming language used to build apps on multiple platform.
+    It has been used as language of the whole system, because of it's support of Flutter framework.
+    \newline
+    \textbf{Advantages}
+    \begin{itemize}
+        \item Flutter support: the main pro in the choice of dart is the support of flutter framework.
+        \item Object-oriented: allow to create a modular program and simplify code reusability.
+        \item Ahead of time: dart is ahead of time compiled to fast and predictable native code, to make it fast and fully customizable.
+        \item Just in time: dart can be just-in-time compiled for an exceptionally fast development cycle.
+        \item Secure: the dart language, compiler, interpreter, and runtime environment were each developed with security as objective.
+    \end{itemize}
+    \newline
+    \textbf{Disadvantages}
+    \begin{itemize}
+        \item Maturity: not as mature as other programming languages, like java.
+    \end{itemize}
+
+    \section{Adopted middle-wares}\label{sec:adopted-middle-wares}
+    \subsection{Flutter}\label{subsec:flutter}
+    Flutter is an user interface development kit developed by Google used to build application for multiple systems (mobile, web and desktop) from a single codebase.
+    It is based on Dart programming language.
+    \newline
+    \textbf{Advantages}
+    \begin{itemize}
+        \item Hot reload: it is possible to see the changes made to the code right away in the app.
+        \item Cross platform: flutter can e used to build applications for different platform with just one codebase.
+        \item Widgets: flutter takes everything on a widget approach, moduling and making everything intuitive.
+        \item Google support: since flutter has been developed by google, it give an easy and optimized interaction with the other Google products.
+    \end{itemize}
+    \newline
+    \textbf{Disadvantages}
+    \begin{itemize}
+        \item Maturity: even if the flutter is supported by Google that provide all its feature and many useful libraries, the framework is relatively new, so it may miss something compared with some older ome.
+    \end{itemize}
+    \newline
+    \subsection{Firebase}\label{subsec:firebase}
+    Firebase is a Google'g mobile platform that allow to store and synchronize data from web applications and mobile apps.
+    It is a NoSQL database with great resources, high availability and that can be quickly integrated into other software projects.
+    Firebase store data as huge JSON file document with dynamic schema.
+    It provide both a data and file database, and since it does not store data in table like the usual relational database, it is more flexible to store different type of information.
+    \newline
+    \textbf{Advantages}
+    \begin{itemize}
+        \item Easy implementation: firebase is think to be implemented in mobile and web application, so it perfectly fit in the context of SafeStreets.
+        \item Scalability: Firebase can easly scale in terms of size, virtually to infinity since it is provided by Google.
+        \item Data synchronization: firebase can instantly update data, making it powerful in the context of the application.
+        \item Secure: data stored in firebase are periodically backup and always encrypted when are managed.
+        \item Cost reduction: the using of Firebase allow to eliminate the managing of backend databases and corresponding hardware.
+        \item User interface: it is possible to access to date via user interface.
+    \end{itemize}
+    \newline
+    \textbf{Disadvantages}
+    \begin{itemize}
+        \item Limited querying capabilities: since the database is implemented as a single file, it is not possible to define relation like in a classic relational database, and because of that complex query are more difficult to be managed.
+    \end{itemize}
+    \newline
+
+    \section{Additional APIs}\label{sec:additional-apis}
+    \subsection{Google Maps}\label{subsec:google-maps}
+    Google Maps is Google's web mapping service.
+    It is one of the most accurate mapping service, and it can be easly integrate with Flutter since they are both have been developed by Google.
+    \subsection{Plate Recognizer}\label{subsec:plate-recognizer}
+    Plate Recognizer is a web service used to find the plates in a picture.
+    It can spot the position of the plates and read them, and works with the plats of almost every country in the world.
+
 \end{document}
