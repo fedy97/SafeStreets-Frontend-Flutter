@@ -38,8 +38,9 @@ dependencies:
   mockito: ^4.1.1
 
 dev_dependencies:
-  flutter_test:
+  flutter_driver:
     sdk: flutter
+  test:
 
 module:
   androidX: true
