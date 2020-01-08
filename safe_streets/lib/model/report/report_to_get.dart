@@ -31,7 +31,8 @@ class ReportToGet extends Report {
             feedback: feedback,
             feedbackSenders: feedbackSenders,
             imagesLite: imagesLite,
-            fined: fined);
+            fined: fined,
+  );
 
   factory ReportToGet.fromMap(Map<String, dynamic> data, String emailUser) {
     if (data == null) return null;

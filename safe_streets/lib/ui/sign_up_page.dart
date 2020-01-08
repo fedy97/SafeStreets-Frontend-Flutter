@@ -108,7 +108,7 @@ class SignUpPage extends StatelessWidget {
                     return;
                   }
                   try {
-                    final auth = Provider.of<AccessManager>(context);
+                    final auth = Provider.of<AccessManager>(context, listen: false);
                     Map<String, dynamic> map = AccessManager.createUserMap(
                         email: _email, idAuthority: idAuthority);
                     FirebaseUser u = await auth.createUserWithEmailAndPassword(
@@ -126,8 +126,7 @@ class SignUpPage extends StatelessWidget {
                     _scaffoldKey.currentState.showSnackBar(snackBar);
                     Navigator.pop(context);
                   }
-                } else if (!Provider.of<ValueNotifier<bool>>(context,
-                        listen: false)
+                } else if (!Provider.of<ValueNotifier<bool>>(context, listen: false)
                     .value) {
                   final snackBar =
                       SnackBar(key:Key("snack1"),content: Text("you must accept the terms"));

@@ -73,7 +73,7 @@ class AccessManager {
   ///already present id, in that case an error is thrown.
   static Future<bool> checkIdAlreadyPresent(GlobalKey<ScaffoldState> scaffold,
       String id, BuildContext context) async {
-    final auth = Provider.of<AccessManager>(context);
+    final auth = Provider.of<AccessManager>(context, listen: false);
     QuerySnapshot query =
         await Firestore.instance.collection("users").getDocuments();
     for (DocumentSnapshot doc in query.documents) {
