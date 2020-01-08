@@ -23,6 +23,7 @@ class SignInPage extends StatelessWidget {
           title: Text('Sign in'),
           actions: <Widget>[
             FlatButton(
+              key: Key("create"),
               child: Text(
                 "Create Account",
                 style:
