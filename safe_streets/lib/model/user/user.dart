@@ -133,4 +133,5 @@ abstract class User extends ChangeNotifier {
   }
 
   Widget viewReportPage();
+  Widget viewStatisticsPage();
 }

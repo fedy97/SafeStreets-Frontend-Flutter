@@ -4,14 +4,13 @@ import 'package:provider/provider.dart';
 import 'package:safe_streets/model/user/user.dart';
 import 'package:safe_streets/services/stats_manager.dart';
 
-///statistics page
+///statistics citizen page
 
-class Statistics extends StatelessWidget {
+class CitizenStatistics extends StatelessWidget {
   static final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     User u = Provider.of<User>(context, listen: true);
     int finedReports = StatsManager.totalFinedReport(u);
     int dailyReports = StatsManager.totalDailyReport(u);

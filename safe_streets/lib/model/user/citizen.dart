@@ -1,7 +1,7 @@
-// ignore: implementation_imports
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/material.dart';
 import 'package:safe_streets/model/enum/level.dart';
 import 'package:safe_streets/model/user/user.dart';
+import 'package:safe_streets/ui/statistics_citizen_page.dart';
 import 'package:safe_streets/ui/view_report_citizen_page.dart';
 
 class Citizen extends User {
@@ -10,5 +10,10 @@ class Citizen extends User {
   @override
   Widget viewReportPage() {
     return ViewReportCitizen();
+  }
+
+  @override
+  Widget viewStatisticsPage() {
+    return CitizenStatistics();
   }
 }

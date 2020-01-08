@@ -8,8 +8,8 @@ import 'package:safe_streets/services/report_map_manager.dart';
 import 'package:safe_streets/services/utilities.dart';
 import 'package:safe_streets/ui/create_report_page.dart';
 import 'package:safe_streets/ui/sign_in_page.dart';
-import 'package:safe_streets/ui/statistics_page.dart';
 import 'package:safe_streets/ui/violation_query_page.dart';
+
 import 'my_reports_page.dart';
 
 /// this is the home page of the application, from here
@@ -22,6 +22,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     User u = Provider.of<User>(context, listen: true);
+
     ///create all the markers to display on the map
     Set<Marker> markers =
         Set<Marker>.of(ReportMapManager.toMarker(u, context).values);
@@ -40,6 +41,7 @@ class HomePage extends StatelessWidget {
                         )));
           },
         ),
+
         /// here is the menu to navigate to other sections
         drawer: Drawer(
           child: ListView(
@@ -73,7 +75,7 @@ class HomePage extends StatelessWidget {
                           builder: (context) =>
                               ChangeNotifierProvider<User>.value(
                                 value: u,
-                                child: Statistics(),
+                                child: u.viewStatisticsPage(),
                               )));
                 },
                 leading: Icon(Icons.view_list),
