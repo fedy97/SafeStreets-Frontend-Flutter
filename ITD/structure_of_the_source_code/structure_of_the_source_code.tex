@@ -7,7 +7,7 @@
     In this folder there are two files:
     \begin{itemize}
         \item \textbf{auth\_manager.dart}: this manager is used to redirect the user, to the right page when it opens the application.
-        \item \textbf{main.dart}: the main entry point of the app; it loads the first screenshown to the user.
+        \item \textbf{main.dart}: the main entry point of the app; it loads the first screen shown to the user.
     \end{itemize}
     There are also three subfolder which are described in the following sections.
     \section{Model}\label{sec:model}
@@ -17,11 +17,11 @@
     \subsection{Enum}\label{subsec:enum}
     \begin{itemize}
         \item \textbf{level.dart}: different level of visibility.
-        \item \textbf{violation.dart}: they are the different type of the violations.
+        \item \textbf{violation.dart}: different type of the violations, more can be included here.
     \end{itemize}
     There is also present another file \textbf{location.dart} which manages the position that is used by different classes of SafeStreets.
     \subsection{Report}\label{subsec:report}
-    It contains the different representation of a report and its component.
+    It contains the different representations of a report and its components.
     \begin{itemize}
         \item \textbf{report.dart}:this is the abstract class of a report in SafeStreets.
         \item \textbf{report\_to\_get.dart}: this class is used to create report objects that are fetched as map from firebase.
@@ -29,7 +29,7 @@
         \item \textbf{violation\_image.dart}: this is the image object created by a user when he takes a photo.
     \end{itemize}
     \subsection{User}\label{subsec:user}
-    It contains the different user of the app.
+    It contains the different type of users of the app.
     \begin{itemize}
         \item \textbf{user.dart}: this is the abstract class of a user in SafeStreets.
         \item \textbf{authority.dart}: this is one type of user.
@@ -37,15 +37,15 @@
     \end{itemize}
     \section{View model}\label{sec:view-model}
     The view model is an abstraction of the view exposing public properties and commands.
-    In this folder there are all the manager already presented in the design document (sec 2.2).
+    In this folder there are all the managers already presented in the design document (sec 2.2).
     \begin{itemize}
         \item \textbf{access\_manager.dart}: it manages the sign up and login of the users.
-        \item \textbf{firebase\_storage\_services.dart}:%%todo
+        \item \textbf{firebase\_storage\_services.dart}: it manages the uploading of pictures on firebase' storage.
         \item \textbf{new\_report\_manager.dart}: it manages the insertion of a new report.
         \item \textbf{report\_map\_manager.dart}:it takes care of showing on the map all the reports with the correct color of the marker.
         \item \textbf{stats\_manager.dart}: it takes care of building statistics on the app through specific algorithms.
         \item \textbf{user\_report\_visualization\_manager.dart}: it manages the visualization of all reports of one user.
-        \item \textbf{utilities.dart}: In this class there are methods used as helper function.
+        \item \textbf{utilities.dart}: in this class there are methods used as helpers.
         \item \textbf{violation\_query\_manager.dart}: it manages all the procedures to make a query on the database to retrieve same specific data.
     \end{itemize}
     \section{View}\label{sec:view}
@@ -56,10 +56,11 @@
         \item \textbf{my\_reports\_page.dart}: here is the list page of all the reports submitted by the logged user.
         \item \textbf{sign\_in\_page.dart}: the login in page.
         \item \textbf{sign\_up\_page.dart}: the sign up page.
-        \item \textbf{statistics\_page.dart}: this is the statistics page that displays different type of statistics.
+        \item \textbf{statistics\_citizen\_page.dart}: this is the statistics page that displays different type of statistics without sensitive information.
+        \item \textbf{statistics\_authority\_page.dart}: this is the statistics page that displays different type of statistics including sensitive information.
         \item \textbf{view\_report\_authority\_page.dart}: this is the authority view of a report.
         \item \textbf{view\_report\_citizen\_page.dart}: this is the citizen view of a report.
-        \item \textbf{violation\_query\_page.dart}: this page displays different filter to set a query.
+        \item \textbf{violation\_query\_page.dart}: this page displays different filters to set a query.
     \end{itemize}
 
 \end{document}
