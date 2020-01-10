@@ -3,16 +3,17 @@
 
 \begin{document}
     \chapter{Installation Instructions}\label{ch:installation-instructions}
-\section{Flutter Application Setup}\label{sec:flutter-application-setup}
-In this section will be present all the necessary information to build the
-Flutter project.
-\subsection{Install Flutter Framework}\label{subsec:install-flutter-framework}
-Detailed installation instructions of the framework depending on the operating system (Windows, MacOS, Linux)
+    \section{Flutter Application Setup}\label{sec:flutter-application-setup}
+    In this section will be present all the necessary information to build the
+    Flutter project.
+    \subsection{Install Flutter Framework}\label{subsec:install-flutter-framework}
+    Detailed installation instructions of the framework depending on the operating system (Windows, MacOS, Linux)
     can be found following
     \href{https://flutter.dev/docs/get-started/install}{\textit{this}} link.
     our team did not test flutter on Windows.
-\subsection{Install Plugins on Android Studio}\label{subsec:install-plugins-on-android-studio}
+    \subsection{Install Plugins on Android Studio}\label{subsec:install-plugins-on-android-studio}
     Flutter runs on both Intellij and Android Studio IDE, so you can choose which one to use.
+    A flutter plugin for Xcode is not available, so the application for an IOS device must be run using one of the following tools.
     Android studio can be found \href{https://developer.android.com/studio}{\textit{here}}.
     Once you have installed it, you have to download the plugins for Flutter and Dart (that is the programming language on which flutter is built).
     In order to do that:
@@ -23,7 +24,7 @@ Detailed installation instructions of the framework depending on the operating s
         \item Click Yes when prompted to install the Dart plugin.
         \item Click Restart when prompted.
     \end{enumerate}
-\subsection{Install Plugins on IntelliJ}\label{subsec:install-plugins-on-intellij}
+    \subsection{Install Plugins on IntelliJ}\label{subsec:install-plugins-on-intellij}
     IntelliJ can be found \href{https://www.jetbrains.com/idea/download/}{\textit{here}}.
     you need version 2017.1 or later.
     Once you have installed it, you have to download the plugins for Flutter and Dart (that is the programming language on which flutter is built).
@@ -36,11 +37,17 @@ Detailed installation instructions of the framework depending on the operating s
         If it does not ask it, install it manually.
         \item Click Restart when prompted.
     \end{enumerate}
-\subsection{Install Android Emulator on Android Studio}\label{subsec:install-android-emulator-on-android-studio}
+    \subsection{Get Project Dependencies}\label{subsec:get-project-dependencies}
+    Once you have done everything above, you can now navigate to `MorrealeMaddesInnocente
+    /safe\_streets/pubspec.yaml'
+    and click on packages get on the top right (if you are using Intellij), or simply open the terminal and run
+    `flutter packages get'.
+    If something goes wrong, run `flutter doctor' in the terminal.
+    \subsection{Install Android Emulator on Android Studio}\label{subsec:install-android-emulator-on-android-studio}
     Our team used IntelliJ, so we leave the installation instructions
     \href{https://docs.expo.io/versions/latest/workflow/android-studio-emulator/}{\textit{here}}.
     a FULL-HD screen resolution device is recommended(1080x1920).
-\subsection{Install Android Emulator on IntelliJ}\label{subsec:install-android-emulator-on-intellij}
+    \subsection{Install Android Emulator on IntelliJ}\label{subsec:install-android-emulator-on-intellij}
     On IntelliJ:
     \begin{enumerate}
         \item Go to Tools > Android > AVD Manager
@@ -51,18 +58,50 @@ Detailed installation instructions of the framework depending on the operating s
         \item Click Finish
     \end{enumerate}
     You have now installed android emulator.
-\subsection{Use your own Android phone}\label{subsec:use-your-own-android-phone}
+
+    \subsection{Install IOS Simulator}\label{subsec:install-ios-emulator-on-android-studio}
+    To install IOS simulator is is necessary to download Xcode, which can be found
+    \href{https://apps.apple.com/it/app/xcode/id497799835?mt=12}{\textit{here}}.
+    Xcode can be downloaded only on a MacOS device, so it is not possible to simulate an iphone on a Windows or Linux system.
+    On Xcode:
+    \begin{enumerate}
+        \item Open Preferences
+        \item Go to Location panel
+        \item Select the most recent version in the Command Line Tool dropdown
+    \end{enumerate}
+    Although the iOS simulator is great for rapid development, it does come with a few limitations.
+    Some hardware is unavailable in the Simulator, like the audio input and the motion support.
+    In particular, the camera is unavailable, and this is important in the context of the application because that limitation do not allow the user to upload a new report.
+    To supply this lack, the user must use a mobile device to run the application.
+
+    \subsection{Run the IOS Simulator}\label{subsec:run-the-ios-simulator}
+    After the Xcode configuration, the iOS Simulator will be available in the dropdown window for both IntelliJ and Android simulation.
+    In case it is not available, it is possible to open the simulator by running this command on Terminal:
+    \begin{verbatim}
+        open -a Simulator
+    \end{verbatim}
+
+    \subsection{Use your own Android phone}\label{subsec:use-your-own-android-phone}
     Alternatively, you can use your own smartphone to test the app, you have to activate debug usb from
     the developer options of your device and have adb services installed on your PC.
 
-\subsection{Get Project Dependencies}\label{subsec:get-project-dependencies}
-    Once you have done everything above, you can now navigate to `MorrealeMaddesInnocente
-    /safe\_streets/pubspec.yaml'
-    and click on packages get on the top right (if you are using Intellij), or simply open the terminal and run
-    `flutter packages get'.
-    If something goes wrong, run `flutter doctor' in the terminal.
-\subsection{Run the Application}\label{subsec:run-the-application}
-    Open the android emulator (or connect your device) and then go to\newline
+    \subsection{Use your own iOS phone}\label{subsec:use-your-own-ios-phone}
+    To supply the lack of the Simulator's hardware, it is possible to run the application on a iOS device.
+    To do that, you must be log-in in Xcode with your appleID and registered as developer (do it on Xcode > Preferences > Account).
+    Than you must register your device:
+    \begin{enumerate}
+        \item Open the safe_streets/ios folder with Xcode
+        \item Select the Runner project in the left navigator
+        \item Ensure that the device is connected to Xcode
+        \item Ensure that the selected device on the top left corner of Xcode window is your mobile device
+        \item Select your development team under General > Signing > Team
+    \end{enumerate}
+    Now it is possible to run the application on the iOS device by selecting it on the dropdown window inside the IDE.
+    To run the application, the iOS device must have trusted the computer.
+
+
+    \subsection{Run the Application}\label{subsec:run-the-application}
+    Open the emulator (or connect your device) and then go to\newline
     `MorrealeMaddesInnocente/safe\_streets/lib/main.dart` and click on the green arrow.
     If you do not find the arrow, go to Edit Configurations and click on the `+` top left,
     then click Flutter and in the `Dart Entrypoint' you select the file main.dart.
