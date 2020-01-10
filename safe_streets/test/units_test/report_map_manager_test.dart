@@ -13,8 +13,6 @@ void main() {
   DateTime data = DateTime.now();
   ReportToGet report0 = new ReportToGet();
   ReportToGet report1 = new ReportToGet();
-  ReportToGet report2 = new ReportToGet();
-  ReportToGet report3 = new ReportToGet();
 
   test("no violation uploaded", () {
     //setup
