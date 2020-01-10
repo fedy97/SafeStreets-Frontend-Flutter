@@ -3,7 +3,10 @@ import 'package:safe_streets/model/enum/violation.dart';
 import 'package:safe_streets/model/report/report_to_get.dart';
 import 'package:safe_streets/model/user/user.dart';
 
+/// It manages the building of the statistics
 class StatsManager {
+
+  ///It retrieves the number of fined reports
   static int totalFinedReport(User u) {
     int fined = 0;
     for (ReportToGet reportToGet in u.reportsGet) {
@@ -12,6 +15,7 @@ class StatsManager {
     return fined;
   }
 
+  ///It retrieves the number of daily reports
   static int totalDailyReport(User u) {
     int daily = 0;
     DateTime now = DateTime.now();

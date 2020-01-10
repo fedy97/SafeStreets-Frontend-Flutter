@@ -10,6 +10,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class AuthorityStatistics extends StatelessWidget {
   static final _scaffoldKey = GlobalKey<ScaffoldState>();
   static Map mapp;
+
   @override
   Widget build(BuildContext context) {
     User u = Provider.of<User>(context, listen: true);
@@ -88,37 +89,43 @@ class AuthorityStatistics extends StatelessWidget {
               ),
             ),
             Align(
-              child: Text(
-                  "Violation type: " +
-                      sortedMap.keys.first
-                          .toString()
-                          .replaceAll("_", " ")
-                          .replaceAll("Violation.", "")),
+              child: Text("Violation type: " +
+                  sortedMap.keys.first
+                      .toString()
+                      .replaceAll("_", " ")
+                      .replaceAll("Violation.", "")),
               alignment: Alignment.center,
             ),
             Align(
               child:
-              Text("Committed times: " + sortedMap.values.first.toString()),
+                  Text("Committed times: " + sortedMap.values.first.toString()),
               alignment: Alignment.center,
             ),
             SizedBox(height: 14),
             Align(
-              child:
-              Text("Ranking of the most fined cars"),
+              child: Text("Ranking of the most fined cars"),
               alignment: Alignment.center,
             ),
             SizedBox(height: 10),
-            Expanded(child: FutureBuilder(future: buildMap(),builder: (context, child) {
-              if (child.connectionState == ConnectionState.waiting) {
-                return CircularProgressIndicator();
-              }
-              return ListView.builder(shrinkWrap: true, itemCount: mapp.length, itemBuilder: (context, int) {
-                return ListTile(
-                    leading: Icon(Icons.directions_car),
-                    title: Text(mapp.keys.elementAt(int).toString() + ": " + mapp.values.elementAt(int).toString()));
-              });
-            },
-                )),
+            Expanded(
+                child: FutureBuilder(
+              future: buildMap(),
+              builder: (context, child) {
+                if (child.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                }
+                return ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: mapp.length,
+                    itemBuilder: (context, int) {
+                      return ListTile(
+                          leading: Icon(Icons.directions_car),
+                          title: Text(mapp.keys.elementAt(int).toString() +
+                              ": " +
+                              mapp.values.elementAt(int).toString()));
+                    });
+              },
+            )),
           ]),
         ),
         onWillPop: null);
@@ -126,8 +133,7 @@ class AuthorityStatistics extends StatelessWidget {
 
   Future<Map<String, String>> buildMap() async {
     var map = new Map();
-    var val = await Firestore.instance
-        .collection("fines").getDocuments();
+    var val = await Firestore.instance.collection("fines").getDocuments();
     var list = val.documents;
     for (var elem in list) {
       map[elem.documentID] = elem.data['count'];

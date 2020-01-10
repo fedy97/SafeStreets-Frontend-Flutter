@@ -3,7 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:safe_streets/model/user/user.dart';
 
+///It menags the reports of the user
 abstract class UserReportVisualizationManager {
+
   static Future violationFeedback(User u, GlobalKey<ScaffoldState> key) async {
     if (!u.currViewedReport.feedbackSenders.contains(u.email)) {
       var updatedTuple = Firestore.instance

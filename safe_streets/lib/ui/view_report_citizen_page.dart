@@ -89,6 +89,7 @@ class ViewReportCitizen extends StatelessWidget {
                                         //Navigator.pop(context);
                                       },
                                     )),
+
                                 ///this will cover the plate only if there actually is a plate in the image
                                 u.currViewedReport.imagesLite['boxes'][int]
                                             .length !=

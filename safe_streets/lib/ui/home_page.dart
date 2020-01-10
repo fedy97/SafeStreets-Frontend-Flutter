@@ -9,13 +9,11 @@ import 'package:safe_streets/services/utilities.dart';
 import 'package:safe_streets/ui/create_report_page.dart';
 import 'package:safe_streets/ui/sign_in_page.dart';
 import 'package:safe_streets/ui/violation_query_page.dart';
-
 import 'my_reports_page.dart';
 
 /// this is the home page of the application, from here
 /// we can navigate to the other sections of the app, like
 /// statistics, query page, my reports and logout.
-
 class HomePage extends StatelessWidget {
   static GoogleMapController mapController;
 

@@ -3,6 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:safe_streets/model/user/user.dart';
 
+///It manages the reports on the map
 class ReportMapManager {
   ///this method will create the set of all markers in the last 24 hours.
   static Map<MarkerId, Marker> toMarker(User u, BuildContext context) {

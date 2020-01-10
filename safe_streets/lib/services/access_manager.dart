@@ -6,13 +6,13 @@ import 'package:safe_streets/model/user/authority.dart';
 import 'package:safe_streets/model/user/citizen.dart';
 import 'package:safe_streets/model/user/user.dart';
 
+///It menages the access of a user
 class AccessManager {
   final _firebaseAuth = FirebaseAuth.instance;
 
   Stream<FirebaseUser> get onAuthStateChanged {
     return _firebaseAuth.onAuthStateChanged;
   }
-
   Future<FirebaseUser> signInWithEmailAndPassword(
       String email, String password) async {
     final AuthResult authResult = await _firebaseAuth

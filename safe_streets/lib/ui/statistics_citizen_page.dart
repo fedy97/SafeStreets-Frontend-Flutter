@@ -87,12 +87,11 @@ class CitizenStatistics extends StatelessWidget {
               ),
             ),
             Align(
-              child: Text(
-                  "Violation type: " +
-                      sortedMap.keys.first
-                          .toString()
-                          .replaceAll("_", " ")
-                          .replaceAll("Violation.", "")),
+              child: Text("Violation type: " +
+                  sortedMap.keys.first
+                      .toString()
+                      .replaceAll("_", " ")
+                      .replaceAll("Violation.", "")),
               alignment: Alignment.center,
             ),
             Align(

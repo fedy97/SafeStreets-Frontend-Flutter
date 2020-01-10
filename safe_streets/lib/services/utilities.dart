@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+///It collects useful methods for this projects
 class Utilities {
   ///this is a progress circular indicator
   ///used when a page is waiting for something from the net.

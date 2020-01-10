@@ -13,20 +13,24 @@ class MyReportsPage extends StatelessWidget {
     User u = Provider.of<User>(context, listen: true);
     return WillPopScope(
       child: Scaffold(
-        appBar: AppBar(title: Text("My Reports"),),
+        appBar: AppBar(
+          title: Text("My Reports"),
+        ),
         body: ListView.builder(
             itemCount: u.myReports.length,
             itemBuilder: (context, int) {
               return ListTile(
-                ///this will open the report on tap
-                onTap: () async {
-                  u.setCurrViewedReport = u.myReports[int];
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => ChangeNotifierProvider<User>.value(
-                        value: u,
-                        child: u.viewReportPage(),
-                      )));
-                },
+
+                  ///this will open the report on tap
+                  onTap: () async {
+                    u.setCurrViewedReport = u.myReports[int];
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            ChangeNotifierProvider<User>.value(
+                              value: u,
+                              child: u.viewReportPage(),
+                            )));
+                  },
                   leading: Icon(Icons.report_problem),
                   title: Text("Report ${int + 1}, " +
                       u.myReports[int].time.toIso8601String()),

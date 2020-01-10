@@ -2,7 +2,9 @@ import 'package:safe_streets/model/enum/violation.dart';
 import 'package:safe_streets/model/report/report_to_get.dart';
 import 'package:safe_streets/model/user/user.dart';
 
+///It menage the violation query
 class ViolationQueryManager {
+  ///From the passed parameters, this method return the list of reports that respect the bounds of the query
   /// active: pos 0 city; pos 1 violation; pos 2 timeFrom; pos 3 timeTo
   static List<ReportToGet> queryResults(
       User u,

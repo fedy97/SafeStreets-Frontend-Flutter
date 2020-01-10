@@ -22,21 +22,26 @@ class ViolationQuery extends StatelessWidget {
   static bool fromDateUsed = false;
   static bool toDateUsed = false;
   static List<ReportToGet> results = List();
+
   @override
   Widget build(BuildContext context) {
     User u = Provider.of<User>(context, listen: true);
     final violations = Violation.values;
     return WillPopScope(
-        child: Scaffold(resizeToAvoidBottomPadding: false,
+        child: Scaffold(
+          resizeToAvoidBottomPadding: false,
           key: _scaffoldKey,
           appBar: AppBar(
             actions: <Widget>[
               IconButton(
                   icon: Icon(Icons.search),
                   onPressed: () async {
-                    if ((fromDateUsed && fromDate == null) || (toDateUsed && toDate == null) || (cityUsed && city=="")) {
+                    if ((fromDateUsed && fromDate == null) ||
+                        (toDateUsed && toDate == null) ||
+                        (cityUsed && city == "")) {
                       final snackBar = SnackBar(
-                          content: Text("you have checked something without inputting the value"));
+                          content: Text(
+                              "you have checked something without inputting the value"));
                       _scaffoldKey.currentState.showSnackBar(snackBar);
                       return;
                     }
@@ -47,15 +52,17 @@ class ViolationQuery extends StatelessWidget {
                     checks.add(violationUsed);
                     checks.add(fromDateUsed);
                     checks.add(toDateUsed);
-                    Violation violation2 = Violation.values.firstWhere((test) => test.toString() == violation);
-                    results = ViolationQueryManager.queryResults(u, city, violation2, fromDate, toDate, checks);
+                    Violation violation2 = Violation.values
+                        .firstWhere((test) => test.toString() == violation);
+                    results = ViolationQueryManager.queryResults(
+                        u, city, violation2, fromDate, toDate, checks);
                     u.updateUI();
                     Navigator.pop(context);
                     final snackBar = SnackBar(
-                        content: Text(results.length.toString() + " reports found"));
+                        content:
+                            Text(results.length.toString() + " reports found"));
                     _scaffoldKey.currentState.showSnackBar(snackBar);
-                  }
-              )
+                  })
             ],
             title: Text("Violation query"),
           ),
@@ -103,87 +110,102 @@ class ViolationQuery extends StatelessWidget {
                       u.updateUI();
                     },
                   ),
-                  Expanded(child: Checkbox(
-                      value: violationUsed,
-                      onChanged: (val) {
-                        violationUsed = val;
-                        u.updateUI();
-                      })),
-                ],
-              ),
-              Row(
-                children: <Widget>[
                   Expanded(
-                      child: DateTimeField(onChanged: (date) {
-                        fromDate = date;
-                      }, decoration: InputDecoration(helperText: "inclusive",hintText: "From date"),
-                        format: DateFormat("dd-MM-yyyy"),
-                        onShowPicker: (context, currentValue) {
-                          return showDatePicker(
-                              context: context,
-                              firstDate: DateTime(1900),
-                              initialDate: currentValue ?? DateTime.now(),
-                              lastDate: DateTime(2100));
-                        },
-                      )),
-                         Checkbox(
-                          value: fromDateUsed,
+                      child: Checkbox(
+                          value: violationUsed,
                           onChanged: (val) {
-                            fromDateUsed = val;
+                            violationUsed = val;
                             u.updateUI();
-                          })
+                          })),
                 ],
               ),
               Row(
                 children: <Widget>[
                   Expanded(
-                      child: DateTimeField(onChanged: (date) {
-                        toDate = date;
-                      }, decoration: InputDecoration(hintText: "To date",helperText: "exclusive"),
-                        format: DateFormat("dd-MM-yyyy"),
-                        onShowPicker: (context, currentValue) {
-                          return showDatePicker(
-                              context: context,
-                              firstDate: DateTime(1900),
-                              initialDate: currentValue ?? DateTime.now(),
-                              lastDate: DateTime(2100));
-                        },
-                      )),
+                      child: DateTimeField(
+                    onChanged: (date) {
+                      fromDate = date;
+                    },
+                    decoration: InputDecoration(
+                        helperText: "inclusive", hintText: "From date"),
+                    format: DateFormat("dd-MM-yyyy"),
+                    onShowPicker: (context, currentValue) {
+                      return showDatePicker(
+                          context: context,
+                          firstDate: DateTime(1900),
+                          initialDate: currentValue ?? DateTime.now(),
+                          lastDate: DateTime(2100));
+                    },
+                  )),
                   Checkbox(
-                          value: toDateUsed,
-                          onChanged: (val) {
-                            toDateUsed = val;
-                            u.updateUI();
-                          })
+                      value: fromDateUsed,
+                      onChanged: (val) {
+                        fromDateUsed = val;
+                        u.updateUI();
+                      })
+                ],
+              ),
+              Row(
+                children: <Widget>[
+                  Expanded(
+                      child: DateTimeField(
+                    onChanged: (date) {
+                      toDate = date;
+                    },
+                    decoration: InputDecoration(
+                        hintText: "To date", helperText: "exclusive"),
+                    format: DateFormat("dd-MM-yyyy"),
+                    onShowPicker: (context, currentValue) {
+                      return showDatePicker(
+                          context: context,
+                          firstDate: DateTime(1900),
+                          initialDate: currentValue ?? DateTime.now(),
+                          lastDate: DateTime(2100));
+                    },
+                  )),
+                  Checkbox(
+                      value: toDateUsed,
+                      onChanged: (val) {
+                        toDateUsed = val;
+                        u.updateUI();
+                      })
                 ],
               ),
               SizedBox(
                 height: 14.0,
               ),
-              Expanded(child: ListView.builder(shrinkWrap: true,itemCount: results.length,itemBuilder: (context, int) {
-                return ListTile(
-                    onTap: () async {
-                      u.setCurrViewedReport = results[int];
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => ChangeNotifierProvider<User>.value(
-                            value: u,
-                            child: u.viewReportPage(),
-                          )));
-                    },
-                    leading: Icon(Icons.report_problem),
-                    title: Text("Report ${int + 1}, " +
-                        results[int].time.toIso8601String().split(".")[0]
-                            .replaceAll("T", " at ")));
-              })),
+              Expanded(
+                  child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: results.length,
+                      itemBuilder: (context, int) {
+                        return ListTile(
+                            onTap: () async {
+                              u.setCurrViewedReport = results[int];
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      ChangeNotifierProvider<User>.value(
+                                        value: u,
+                                        child: u.viewReportPage(),
+                                      )));
+                            },
+                            leading: Icon(Icons.report_problem),
+                            title: Text("Report ${int + 1}, " +
+                                results[int]
+                                    .time
+                                    .toIso8601String()
+                                    .split(".")[0]
+                                    .replaceAll("T", " at ")));
+                      })),
             ]),
           ),
         ),
         onWillPop: () {
           results.clear();
           city = "";
-          toDate= null;
-          fromDate=null;
-          violation=Violation.values.first.toString();
+          toDate = null;
+          fromDate = null;
+          violation = Violation.values.first.toString();
           cityUsed = false;
           violationUsed = false;
           fromDateUsed = false;

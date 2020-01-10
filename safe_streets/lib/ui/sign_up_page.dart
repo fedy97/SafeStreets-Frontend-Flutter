@@ -79,7 +79,7 @@ class SignUpPage extends StatelessWidget {
             SizedBox(height: 14.0),
             Consumer<ValueNotifier<bool>>(builder: (context, value2, child) {
               return CheckboxListTile(
-                key: Key("check"),
+                  key: Key("check"),
                   title: Text("accept terms"),
                   controlAffinity: ListTileControlAffinity.leading,
                   value: value2.value,
@@ -87,9 +87,10 @@ class SignUpPage extends StatelessWidget {
                     value2.value = value;
                   });
             }),
+
             ///this is the sign up button
             OutlineButton(
-                key: Key("signup"),
+              key: Key("signup"),
               splashColor: Colors.blue,
               borderSide: BorderSide(color: Colors.blue, width: 2.0),
               child: Text("Sign Up"),
@@ -108,7 +109,8 @@ class SignUpPage extends StatelessWidget {
                     return;
                   }
                   try {
-                    final auth = Provider.of<AccessManager>(context, listen: false);
+                    final auth =
+                        Provider.of<AccessManager>(context, listen: false);
                     Map<String, dynamic> map = AccessManager.createUserMap(
                         email: _email, idAuthority: idAuthority);
                     FirebaseUser u = await auth.createUserWithEmailAndPassword(
@@ -126,10 +128,12 @@ class SignUpPage extends StatelessWidget {
                     _scaffoldKey.currentState.showSnackBar(snackBar);
                     Navigator.pop(context);
                   }
-                } else if (!Provider.of<ValueNotifier<bool>>(context, listen: false)
+                } else if (!Provider.of<ValueNotifier<bool>>(context,
+                        listen: false)
                     .value) {
-                  final snackBar =
-                      SnackBar(key:Key("snack1"),content: Text("you must accept the terms"));
+                  final snackBar = SnackBar(
+                      key: Key("snack1"),
+                      content: Text("you must accept the terms"));
                   _scaffoldKey.currentState.showSnackBar(snackBar);
                 } else {
                   final snackBar =

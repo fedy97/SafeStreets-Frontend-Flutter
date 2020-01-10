@@ -11,6 +11,7 @@ import 'package:safe_streets/services/utilities.dart';
 
 import 'firebase_storage_service.dart';
 
+///It menages the sent of a new report
 class NewReportManager {
   ///this method will call the plate recognizer API, and will get a Map
   ///with all the plates in the image as strings and their pixel position

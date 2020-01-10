@@ -7,16 +7,16 @@
     \newline For more information we suggest to see the \href{https://github.com/fedy97/MorrealeMaddesInnocente/tree/master/safe_streets/test}{\emph{source code of the tests}}
     \section{Unit testing}\label{sec:unit-testing}
     The purpose of a unit test is to validate that each unit of the software performs as designed.
-    We tests the building of the statistics, the violation query and the violation visualization.
     \newline Every test is formed by three section:
     \begin{itemize}
         \item setup: in this section there is the setup and the instantiation of the elements useful during the test.
         \item run: the core section where functions are called.
         \item verify: throw the command \textit{expect()} there is the comparison between the results and the expected one.
     \end{itemize}
+    We tests the main three functionality: the building of the statistics, the violation query and the violation visualization.
 
     \subsection{Build statistics}\label{subsec:build-statistics}
-    We tests all the three types of and for each type we build different test cases to validate different situation:
+    We tests all the three types of statistics and for each type we build different test cases to validate different situation:
     \begin{itemize}
         \item effectiveness:
         \begin{enumerate}
@@ -41,30 +41,30 @@
     \end{itemize}
 
     \subsection{Violation query}\label{subsec:violation-query}
-    To make a violation query a generic user of the app must set different parameters: city, type of violation and the period in which it wants to retrive the information (from date, to date).
+    To make a violation query a generic user of the app must set different parameters: city, type of violation and the period in which it wants to retrieve the information (from date, to date).
     To analyze the behavior of violation query manager, we build a test case for each combination of the previous parameters.
     \begin{enumerate}
         \item One report respects all the bounds of the query;
-        \item Two report respects the bounds of the query(no bounds on city);
-        \item Two report respects the bounds of the query(no bounds on violation);
-        \item Two report respects the bounds of the query(no bounds on timeTo);
-        \item Two report respects the bounds of the query(no bounds on timeFrom);
-        \item Two report respects the bounds of the query(no bounds on timeFrom and timeTo);
-        \item Two report respects the bounds of the query(no bounds on violation and timeTo);
-        \item Two report respects the bounds of the query(no bounds on violation and timeFrom);
-        \item Two report respects the bounds of the query(no bounds on violation and timeFrom and timeTo);
-        \item Two report respects the bounds of the query(no bounds on city and timeTo);
-        \item Two report respects the bounds of the query(no bounds on city and timeFrom);
-        \item Two report respects the bounds of the query(no bounds on city and timeFrom and timeTo);
-        \item Two report respects the bounds of the query(no bounds on city and violation);
-        \item Two report respects the bounds of the query(no bounds on city and violation and timeTo);
-        \item Two report respects the bounds of the query(no bounds on city and violation and timeFrom);
-        \item Two report respects the bounds of the query(no bounds on city and violation and timeFrom and timeTo);
+        \item Two report respects the bounds of the query (no bounds on city);
+        \item Two report respects the bounds of the query (no bounds on violation);
+        \item Two report respects the bounds of the query (no bounds on timeTo);
+        \item Two report respects the bounds of the query (no bounds on timeFrom);
+        \item Two report respects the bounds of the query (no bounds on timeFrom and timeTo);
+        \item Two report respects the bounds of the query (no bounds on violation and timeTo);
+        \item Two report respects the bounds of the query (no bounds on violation and timeFrom);
+        \item Two report respects the bounds of the query (no bounds on violation and timeFrom and timeTo);
+        \item Two report respects the bounds of the query (no bounds on city and timeTo);
+        \item Two report respects the bounds of the query (no bounds on city and timeFrom);
+        \item Two report respects the bounds of the query (no bounds on city and timeFrom and timeTo);
+        \item Two report respects the bounds of the query (no bounds on city and violation);
+        \item Two report respects the bounds of the query (no bounds on city and violation and timeTo);
+        \item Two report respects the bounds of the query (no bounds on city and violation and timeFrom);
+        \item Two report respects the bounds of the query (no bounds on city and violation and timeFrom and timeTo);
     \end{enumerate}
     All tests have the expected behaviour so performs as designed.
 
     \subsection{Violation visualization}\label{subsec:violation-visualization}
-    We tested the interaction between the reports stored and the reports presented on the map; in particular we tested the bound on the visualization of the reports of the last 24 hours (today).
+    We tested the interaction between the reports stored and the reports on the map; in particular we tested the bound on the visualization of the reports of the last 24 hours (today).
     \begin{enumerate}
         \item No violation uploaded;
         \item Two violation not fined today;
@@ -77,4 +77,16 @@
     \section{Widget testing}\label{sec:widget-testing}
     A widget test validate a single widget.
     The goal of a widget test is to verify that the widget’s UI looks and interacts as expected so they can actually test the UI.
+    \subsection{Login}\label{subsec:login}
+    \begin{enumerate}
+        \item Email, password and button are found;
+        \item It validates empty email and password;
+        \item It calls sign in method when email and password is entered;
+    \end{enumerate}
+    \subsection{Sign up}\label{subsec:sign-up}
+    \begin{enumerate}
+        \item Email, password, confirm password and button are found;
+        \item It validates empty fields;
+        \item It calls sign up method when email and password is entered,
+    \end{enumerate}
 \end{document}

@@ -29,6 +29,7 @@ class SignInPage extends StatelessWidget {
                 style:
                     TextStyle(color: Colors.white, fontStyle: FontStyle.italic),
               ),
+
               ///this will open the sign_up_page on click
               onPressed: () {
                 ValueNotifier<bool> checked = ValueNotifier(false);
@@ -76,6 +77,7 @@ class SignInPage extends StatelessWidget {
                 },
               ),
               SizedBox(height: 24.0),
+
               ///this is the sign in button
               OutlineButton(
                 key: Key("signin"),
@@ -106,7 +108,7 @@ class SignInPage extends StatelessWidget {
                                 )));
                   } catch (error) {
                     final snackBar = SnackBar(
-                      key: Key("snack1"),
+                        key: Key("snack1"),
                         content: Text(Utilities.printError(error.toString())));
                     _scaffoldKey.currentState.showSnackBar(snackBar);
                   }
