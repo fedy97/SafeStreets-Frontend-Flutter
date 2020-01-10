@@ -39,6 +39,7 @@ class HomePage extends StatelessWidget {
                         )));
           },
         ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
 
         /// here is the menu to navigate to other sections
         drawer: Drawer(
