@@ -6,9 +6,8 @@ import 'package:safe_streets/model/report/report_to_get.dart';
 import 'package:safe_streets/model/user/citizen.dart';
 import 'package:safe_streets/model/user/user.dart';
 import 'package:safe_streets/services/report_map_manager.dart';
-import 'package:safe_streets/services/stats_manager.dart';
 
-void main(){
+void main() {
   //setup
   User u = new Citizen("test@test.com", "test");
   DateTime data = DateTime.now();
@@ -17,7 +16,7 @@ void main(){
   ReportToGet report2 = new ReportToGet();
   ReportToGet report3 = new ReportToGet();
 
-  test("no violation uploaded", (){
+  test("no violation uploaded", () {
     //setup
     //run
     final markers = ReportMapManager.toMarker(u, null);
@@ -25,7 +24,7 @@ void main(){
     expect(markers.isEmpty, true);
   });
 
-  test("Two violation not fined within last day", (){
+  test("Two violation not fined within last day", () {
     //setup
     report0.time = data;
     report0.violation = Violation.double_parking;
@@ -46,7 +45,7 @@ void main(){
     expect(markers.values.last.position, new LatLng(1.1, 1.1));
   });
 
-  test("Two report not fined not within last day", (){
+  test("Two report not fined not within last day", () {
     //setup
     u.reportsGet.clear();
     report0.time = DateTime.parse("2012-02-25 12:20:10");
@@ -66,7 +65,7 @@ void main(){
     expect(amount, 0);
   });
 
-  test("Report uploaded yesterday", (){
+  test("Report uploaded yesterday", () {
     u.reportsGet.clear();
     report0.time = DateTime(data.year, data.month, data.day - 1);
     report0.violation = Violation.double_parking;
@@ -80,10 +79,10 @@ void main(){
     expect(amount, 0);
   });
 
-  test("Two report one within last day", (){
+  test("Two reports,one within last day", () {
     //setup
     u.reportsGet.clear();
-    report0.time = DateTime(data.year, data.month, data.day-1);
+    report0.time = DateTime(data.year, data.month, data.day - 1);
     report0.violation = Violation.double_parking;
     report0.reportPosition = new Location(0.0, 0.0);
     report0.fined = false;
@@ -98,10 +97,10 @@ void main(){
     final amount = markers.length;
     //verify
     expect(amount, 1);
-    expect(markers.values.first.position, LatLng(1.1,1.1));
+    expect(markers.values.first.position, LatLng(1.1, 1.1));
   });
 
-  test("Two report on same position", (){
+  test("Two report on same position", () {
     u.reportsGet.clear();
     report0.time = data;
     report0.violation = Violation.double_parking;
@@ -118,7 +117,7 @@ void main(){
     final amount = markers.length;
     //verify
     expect(amount, 2);
-    expect(markers.values.first.position, LatLng(0.0,0.0));
-    expect(markers.values.last.position, LatLng(0.0,0.0));
+    expect(markers.values.first.position, LatLng(0.0, 0.0));
+    expect(markers.values.last.position, LatLng(0.0, 0.0));
   });
 }

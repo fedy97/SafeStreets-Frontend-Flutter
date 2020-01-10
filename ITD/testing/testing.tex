@@ -3,5 +3,78 @@
 
 \begin{document}
     \chapter{Testing}\label{ch:testing}
+    The testing has been done mostly as written in the DD. We perform two different types of tests to validate the behaviour of the complete system: front-end and back-end.
+    \newline For more information we suggest to see the \href{https://github.com/fedy97/MorrealeMaddesInnocente/tree/master/safe_streets/test}{\emph{source code of the tests}}
     \section{Unit testing}\label{sec:unit-testing}
+    The purpose of a unit test is to validate that each unit of the software performs as designed.
+    We tests the building of the statistics, the violation query and the violation visualization.
+    \newline Every test is formed by three section:
+    \begin{itemize}
+        \item setup: in this section there is the setup and the instantiation of the elements useful during the test.
+        \item run: the core section where functions are called.
+        \item verify: throw the command \textit{expect()} there is the comparison between the results and the expected one.
+    \end{itemize}
+
+    \subsection{Build statistics}\label{subsec:build-statistics}
+    We tests all the three types of and for each type we build different test cases to validate different situation:
+    \begin{itemize}
+        \item effectiveness:
+        \begin{enumerate}
+            \item One report uploaded and not fined;
+            \item One report uploaded and fined;
+            \item Two reports uploaded: one fined and one not;
+        \end{enumerate}
+        \item daily reports:
+        \begin{enumerate}
+            \item Zero violation uploaded today;
+            \item One violation uploaded today;
+            \item one violation uploaded today and one yesterday;
+        \end{enumerate}
+        \item most committed violation:
+        \begin{enumerate}
+            \item Zero violation uploaded, no most committed violation;
+            \item One violation uploaded is the most committed;
+            \item Three violations uploaded of the same type are the most committed;
+            \item Two violations uploaded of the same type and one of another type, the two ones are the most committed;
+        \end{enumerate}
+        All tests have the expected behaviour so performs as designed.
+    \end{itemize}
+
+    \subsection{Violation query}\label{subsec:violation-query}
+    To make a violation query a generic user of the app must set different parameters: city, type of violation and the period in which it wants to retrive the information (from date, to date).
+    To analyze the behavior of violation query manager, we build a test case for each combination of the previous parameters.
+    \begin{enumerate}
+        \item One report respects all the bounds of the query;
+        \item Two report respects the bounds of the query(no bounds on city);
+        \item Two report respects the bounds of the query(no bounds on violation);
+        \item Two report respects the bounds of the query(no bounds on timeTo);
+        \item Two report respects the bounds of the query(no bounds on timeFrom);
+        \item Two report respects the bounds of the query(no bounds on timeFrom and timeTo);
+        \item Two report respects the bounds of the query(no bounds on violation and timeTo);
+        \item Two report respects the bounds of the query(no bounds on violation and timeFrom);
+        \item Two report respects the bounds of the query(no bounds on violation and timeFrom and timeTo);
+        \item Two report respects the bounds of the query(no bounds on city and timeTo);
+        \item Two report respects the bounds of the query(no bounds on city and timeFrom);
+        \item Two report respects the bounds of the query(no bounds on city and timeFrom and timeTo);
+        \item Two report respects the bounds of the query(no bounds on city and violation);
+        \item Two report respects the bounds of the query(no bounds on city and violation and timeTo);
+        \item Two report respects the bounds of the query(no bounds on city and violation and timeFrom);
+        \item Two report respects the bounds of the query(no bounds on city and violation and timeFrom and timeTo);
+    \end{enumerate}
+    All tests have the expected behaviour so performs as designed.
+
+    \subsection{Violation visualization}\label{subsec:violation-visualization}
+    We tested the interaction between the reports stored and the reports presented on the map; in particular we tested the bound on the visualization of the reports of the last 24 hours (today).
+    \begin{enumerate}
+        \item No violation uploaded;
+        \item Two violation not fined today;
+        \item Two report not fined yesterday;
+        \item Report uploaded yesterday;
+        \item Two reports,only one today;
+        \item Two report on same position;
+    \end{enumerate}
+    All tests set the expected number of reports in the correct position.
+    \section{Widget testing}\label{sec:widget-testing}
+    A widget test validate a single widget.
+    The goal of a widget test is to verify that the widget’s UI looks and interacts as expected so they can actually test the UI.
 \end{document}

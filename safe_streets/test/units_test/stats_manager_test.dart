@@ -15,7 +15,7 @@ void main() {
   ReportToGet report2 = new ReportToGet();
   ReportToGet report3 = new ReportToGet();
 
-  test('zero violation uploaded, no most commited violation', () {
+  test('zero violation uploaded, no most committed violation', () {
     //setup
     //run
     final result = StatsManager.mostCommittedCrime(u).keys.first;
@@ -142,7 +142,7 @@ void main() {
     expect(result, 1);
   });
 
-  test('one report uploaded and fined and one not', () {
+  test('Two reports uploaded: one fined and one not', () {
     //setup
     u.reportsGet.clear();
     report0.time = data;

@@ -18,7 +18,7 @@ void main() {
   ReportToGet report3 = new ReportToGet();
   List<bool> bound = new List<bool>();
 
-  test('One report respects the bounds of the query', () {
+  test('One report respects all the bounds of the query', () {
     //setup
     u.reportsGet.clear();
     bound.clear();
@@ -48,7 +48,7 @@ void main() {
     expect(max, 1);
   });
 
-  test('Two report respects the bounds of the query(no bounds on city', () {
+  test('Two report respects the bounds of the query(no bounds on city)', () {
     //setup
     u.reportsGet.clear();
     bound.clear();
@@ -128,7 +128,7 @@ void main() {
     expect(report1, results[1]);
     expect(max, 2);
   });
-  test('Two report respects the bounds of the query(no bounds on timeTo', () {
+  test('Two report respects the bounds of the query(no bounds on timeTo)', () {
     //setup
     u.reportsGet.clear();
     bound.clear();
@@ -168,7 +168,7 @@ void main() {
     expect(max, 2);
   });
 
-  test('Two report respects the bounds of the query(no bounds on timeFrom', () {
+  test('Two report respects the bounds of the query(no bounds on timeFrom)', () {
     //setup
     u.reportsGet.clear();
     bound.clear();
@@ -209,7 +209,7 @@ void main() {
   });
 
   test(
-      'Two report respects the bounds of the query(no bounds on timeFrom and timeTo',
+      'Two report respects the bounds of the query(no bounds on timeFrom and timeTo)',
       () {
     //setup
     u.reportsGet.clear();
@@ -251,7 +251,7 @@ void main() {
   });
 
   test(
-      'Two report respects the bounds of the query(no bounds on violation and timeTo',
+      'Two report respects the bounds of the query(no bounds on violation and timeTo)',
       () {
     //setup
     u.reportsGet.clear();
@@ -293,7 +293,7 @@ void main() {
   });
 
   test(
-      'Two report respects the bounds of the query(no bounds on violation and timeFrom',
+      'Two report respects the bounds of the query(no bounds on violation and timeFrom)',
       () {
     //setup
     u.reportsGet.clear();
@@ -334,9 +334,9 @@ void main() {
     expect(max, 2);
   });
 
-  //todo
+
   test(
-      'Two report respects the bounds of the query(no bounds on violation and timeFrom and timeTo',
+      'Two report respects the bounds of the query(no bounds on violation and timeFrom and timeTo)',
       () {
     //setup
     u.reportsGet.clear();
@@ -378,7 +378,7 @@ void main() {
   });
 
   test(
-      'Two report respects the bounds of the query(no bounds on city and timeTo',
+      'Two report respects the bounds of the query(no bounds on city and timeTo)',
       () {
     //setup
     u.reportsGet.clear();
@@ -420,7 +420,7 @@ void main() {
   });
 
   test(
-      'Two report respects the bounds of the query(no bounds on city and timeFrom',
+      'Two report respects the bounds of the query(no bounds on city and timeFrom)',
       () {
     //setup
     u.reportsGet.clear();
@@ -462,7 +462,7 @@ void main() {
   });
 
   test(
-      'Two report respects the bounds of the query(no bounds on city and timeFrom and timeTo',
+      'Two report respects the bounds of the query(no bounds on city and timeFrom and timeTo)',
       () {
     //setup
     u.reportsGet.clear();
