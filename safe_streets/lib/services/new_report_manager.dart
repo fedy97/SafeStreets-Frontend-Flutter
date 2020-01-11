@@ -85,7 +85,7 @@ class NewReportManager {
       //return to homepage
       Navigator.pop(context);
     } else {
-      final snackBar = SnackBar(content: Text("send at least one image"));
+      final snackBar = SnackBar(content: Text("send at least one image"), key: Key("snack1"),);
       scaffold.currentState.showSnackBar(snackBar);
     }
   }

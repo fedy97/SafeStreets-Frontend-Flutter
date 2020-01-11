@@ -11,6 +11,7 @@ class Utilities {
           return Dialog(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16.0)),
+            key: Key("loading"),
             child: new Row(
               mainAxisSize: MainAxisSize.min,
               children: [

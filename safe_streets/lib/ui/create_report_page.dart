@@ -29,6 +29,7 @@ class CreateReportPage extends StatelessWidget {
             actions: <Widget>[
               IconButton(
                   icon: Icon(Icons.camera_alt),
+                  key: Key("camera"),
                   onPressed: () async {
                     if (u.currReport.images.length < 5) {
                       File f = await ImagePicker.pickImage(
@@ -53,6 +54,7 @@ class CreateReportPage extends StatelessWidget {
                   }),
               IconButton(
                   icon: Icon(Icons.send),
+                  key: Key("send"),
                   onPressed: () async {
                     //send the report to firebase
                     await NewReportManager.sendReport(u, context, _scaffoldKey);

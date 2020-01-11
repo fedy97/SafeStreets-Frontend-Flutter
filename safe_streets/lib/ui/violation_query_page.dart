@@ -35,13 +35,14 @@ class ViolationQuery extends StatelessWidget {
             actions: <Widget>[
               IconButton(
                   icon: Icon(Icons.search),
+                  key: Key("searchButton"),
                   onPressed: () async {
                     if ((fromDateUsed && fromDate == null) ||
                         (toDateUsed && toDate == null) ||
                         (cityUsed && city == "")) {
                       final snackBar = SnackBar(
                           content: Text(
-                              "you have checked something without inputting the value"));
+                              "you have checked something without inputting the value"), key: Key("snack3"),);
                       _scaffoldKey.currentState.showSnackBar(snackBar);
                       return;
                     }
@@ -60,7 +61,7 @@ class ViolationQuery extends StatelessWidget {
                     Navigator.pop(context);
                     final snackBar = SnackBar(
                         content:
-                            Text(results.length.toString() + " reports found"));
+                            Text(results.length.toString() + " reports found"), key: Key("snack4"),);
                     _scaffoldKey.currentState.showSnackBar(snackBar);
                   })
             ],
@@ -75,6 +76,7 @@ class ViolationQuery extends StatelessWidget {
                   Flexible(
                     child: TextFormField(
                       onChanged: (selectedCity) => city = selectedCity,
+                      key: Key("city"),
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: 'City',
@@ -84,6 +86,7 @@ class ViolationQuery extends StatelessWidget {
                   ),
                   Checkbox(
                       value: cityUsed,
+                      key: Key("cityUsed"),
                       onChanged: (val) {
                         cityUsed = val;
                         u.updateUI();
@@ -95,6 +98,7 @@ class ViolationQuery extends StatelessWidget {
                 children: <Widget>[
                   DropdownButton<String>(
                     value: violation,
+                    key: Key("violation"),
                     items: (violations).map((Violation value) {
                       return new DropdownMenuItem<String>(
                         value: value.toString(),

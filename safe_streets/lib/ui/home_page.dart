@@ -29,6 +29,7 @@ class HomePage extends StatelessWidget {
         //this is the button that opens create_report_page
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add_a_photo),
+          key: Key("newReport"),
           onPressed: () {
             Navigator.push(
                 context,
@@ -43,6 +44,7 @@ class HomePage extends StatelessWidget {
 
         /// here is the menu to navigate to other sections
         drawer: Drawer(
+          key: Key("menuButton"),
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
@@ -53,6 +55,7 @@ class HomePage extends StatelessWidget {
               ),
               ListTile(
                 title: Text("My Reports"),
+                key: Key("myReports"),
                 onTap: () {
                   Navigator.push(
                       context,
@@ -81,6 +84,7 @@ class HomePage extends StatelessWidget {
               ),
               ListTile(
                 title: Text("Query Report"),
+                key: Key("queryPageButton"),
                 onTap: () {
                   Navigator.push(
                       context,

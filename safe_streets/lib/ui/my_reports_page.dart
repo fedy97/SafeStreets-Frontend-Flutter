@@ -32,10 +32,12 @@ class MyReportsPage extends StatelessWidget {
                             )));
                   },
                   leading: Icon(Icons.report_problem),
+                  key: Key("reportTile"),
                   title: Text("Report ${int + 1}, " +
                       u.myReports[int].time.toIso8601String()),
                   trailing: IconButton(
                       icon: Icon(Icons.delete),
+                      key: Key("deleteReportButton"),
                       onPressed: () async {
                         Utilities.showProgress(context);
                         var rightTuple = Firestore.instance
