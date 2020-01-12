@@ -13,7 +13,7 @@
         \item run: the core section where functions are called.
         \item verify: throw the command \textit{expect()} there is the comparison between the results and the expected one.
     \end{itemize}
-    We tests the main three functionality: the building of the statistics, the violation query and the violation visualization.
+    We tests the main features: the building of the statistics, the violation query, the visualization of the reports on the map and the addition of a new report.
 
     \subsection{Build statistics}\label{subsec:build-statistics}
     We tests all the three types of statistics and for each type we build different test cases to validate different situation:
@@ -63,30 +63,47 @@
     \end{enumerate}
     All tests have the expected behaviour so performs as designed.
 
-    \subsection{Violation visualization}\label{subsec:violation-visualization}
+    \subsection{Report visualization on map}\label{subsec:report-visualization-on-map}
     We tested the interaction between the reports stored and the reports on the map; in particular we tested the bound on the visualization of the reports of the last 24 hours (today).
     \begin{enumerate}
-        \item No violation uploaded;
-        \item Two violation not fined today;
-        \item Two report not fined yesterday;
-        \item Report uploaded yesterday;
-        \item Two reports,only one today;
-        \item Two report on same position;
+        \item No violation uploaded, no violation on the map;
+        \item Two violation not fined today, two violation on the map;
+        \item Two report not fined yesterday, zero violation on the map;
+        \item Report uploaded yesterday, zero violation on the map;
+        \item Two reports,only one today, one violation on the map;
+        \item Two report on same position, two report on the map;
     \end{enumerate}
     All tests set the expected number of reports in the correct position.
+
+    \subsection{Add a new report}\label{subsec:add-a-new-report}
+    In this group of tests we validate the behavior of the app when it receives a new report.
+    In particular the addition of a report already uploaded by someone.
+    \begin{enumerate}
+        \item Similar report don't exist;
+        \item Report with same location and day;
+        \item Report with same location and violation;
+    \end{enumerate}
+    Test case 1 is the base case so the report is added.
+    \newline Test cases 2 and 3 rejects the addition of a new report because there is already one report in the database with same location and day/violation.
+
+
     \section{Widget testing}\label{sec:widget-testing}
     A widget test validate a single widget.
     The goal of a widget test is to verify that the widget’s UI looks and interacts as expected so they can actually test the UI.
+
     \subsection{Login}\label{subsec:login}
     \begin{enumerate}
         \item Email, password and button are found;
         \item It validates empty email and password;
         \item It calls sign in method when email and password is entered;
     \end{enumerate}
+
     \subsection{Sign up}\label{subsec:sign-up}
     \begin{enumerate}
         \item Email, password, confirm password and button are found;
         \item It validates empty fields;
         \item It calls sign up method when email and password is entered,
     \end{enumerate}
+
+    \section{Integration testing}\label{sec:integration-testing}
 \end{document}

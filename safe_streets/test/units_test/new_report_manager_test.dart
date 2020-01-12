@@ -1,23 +1,11 @@
-import 'dart:async';
-import 'dart:io';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:mockito/mockito.dart';
-import 'package:provider/provider.dart';
 import 'package:safe_streets/model/enum/violation.dart';
 import 'package:safe_streets/model/location.dart';
 import 'package:safe_streets/model/report/report_to_get.dart';
 import 'package:safe_streets/model/report/report_to_send.dart';
-import 'package:safe_streets/model/report/violation_image.dart';
 import 'package:safe_streets/model/user/citizen.dart';
 import 'package:safe_streets/model/user/user.dart';
-import 'package:safe_streets/services/access_manager.dart';
 import 'package:safe_streets/services/new_report_manager.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:safe_streets/ui/create_report_page.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -104,5 +92,4 @@ void main() {
       expect(found, false);
     });
   });
-
 }
