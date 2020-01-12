@@ -3,8 +3,8 @@
 
 \begin{document}
     \chapter{Testing}\label{ch:testing}
-    The testing has been done mostly as written in the DD. We perform two different types of tests to validate the behaviour of the complete system: front-end and back-end.
-    In each of the following section there is a brief description of the group test and a list of test cases.
+    The testing has been done mostly as written in the DD. We performed two different types of tests to validate the behaviour of the complete system: front-end and back-end.
+    In each of the following sections there is a brief description of the group test and a list of test cases.
     \newline For more information we suggest to see the \href{https://github.com/fedy97/MorrealeMaddesInnocente/tree/master/safe_streets/test}{\emph{source code of the tests}}
     \section{Unit testing}\label{sec:unit-testing}
     The purpose of a unit test is to validate that each unit of the software performs as designed.
@@ -12,12 +12,13 @@
     \begin{itemize}
         \item setup: in this section there is the setup and the instantiation of the elements useful during the test.
         \item run: the core section where functions are called.
-        \item verify: throw the command \textit{expect()} there is the comparison between the results and the expected one.
+        \item verify: through the command \textit{expect()} there is the comparison between the results and the expected one.
     \end{itemize}
-    We tests the main features: the building of the statistics, the violation query, the visualization of the reports on the map, the addition of a new report and the user action on a report (send a negative feedback for a picture or delete a picture from report).
+    We tested the main features: the building of the statistics, the violation query, the visualization of the reports on the map,
+    the addition of a new report and the user action on a report (send a negative feedback for a picture or delete a picture from report).
 
     \subsection{Build statistics}\label{subsec:build-statistics}
-    We tests all the three types of statistics and for each type we build different test cases to validate different situation:
+    We tested all the three types of statistics and for each type we built different test cases to validate different situation:
     \begin{itemize}
         \item effectiveness:
         \begin{enumerate}
@@ -38,12 +39,12 @@
             \item Three violations uploaded of the same type are the most committed;
             \item Two violations uploaded of the same type and one of another type, the two ones are the most committed;
         \end{enumerate}
-        All tests have the expected behaviour so performs as designed.
+        All tests have the expected behaviour, so it performs as designed.
     \end{itemize}
 
     \subsection{Violation query}\label{subsec:violation-query}
-    To make a violation query a generic user of the app must set different parameters: city, type of violation and the period in which it wants to retrieve the information (from date, to date).
-    To analyze the behavior of violation query manager, we build a test case for each combination of the previous parameters.
+    To make a violation query, a generic user must set different parameters: city, type of violation and the period in which it wants to retrieve the information (from date, to date).
+    To analyze the behavior of violation query manager, we built a test case for each combination of the previous parameters.
     \begin{enumerate}
         \item One report respects all the bounds of the query;
         \item Two report respects the bounds of the query (no bounds on city);
@@ -62,26 +63,26 @@
         \item Two report respects the bounds of the query (no bounds on city and violation and timeFrom);
         \item Two report respects the bounds of the query (no bounds on city and violation and timeFrom and timeTo);
     \end{enumerate}
-    All tests have the expected behaviour so performs as designed.
+    All tests have the expected behaviour, so it performs as designed.
 
     \subsection{Report visualization on map}\label{subsec:report-visualization-on-map}
     We tested the interaction between the reports stored and the reports on the map;
-    in particular we tested the bound on the visualization of the reports of the last 24 hours (today).
+    in particular we tested the bound on the visualization of the reports of the last 24 hours.
     \begin{enumerate}
         \item No violation uploaded, no violation on the map;
-        \item Two violation not fined today, two violation on the map;
-        \item Two report not fined yesterday, zero violation on the map;
-        \item Report uploaded yesterday, zero violation on the map;
+        \item Two violations not fined today, two violations on the map;
+        \item Two reports not fined yesterday, zero violation on the map;
+        \item Report uploaded yesterday, zero violations on the map;
         \item Two reports,only one today, one violation on the map;
-        \item Two report on same position, two report on the map;
+        \item Two reports on same position, two reports on the map;
     \end{enumerate}
     All tests set the expected number of reports in the correct position.
 
     \subsection{Add a new report}\label{subsec:add-a-new-report}
-    In this group of tests we validate the behavior of the app when it receives a new report.
+    In this group of tests we validated the behavior of the app when it receives a new report.
     In particular the addition of a report already uploaded by someone.
     \begin{enumerate}
-        \item Similar report don't exist;
+        \item Similar report doesn't exist;
         \item Report with same location and day;
         \item Report with same location and violation;
     \end{enumerate}
@@ -89,7 +90,7 @@
     \newline Test cases 2 and 3 rejects the addition of a new report because there is already one report in the database with same location and day/violation.
 
     \subsection{User feedback and action}\label{subsec:user-feedback-and-action}
-    We validate all the methods that allow users to give a bad feedback to an image and to delete an image from the report to be sent.
+    We validated all the methods that allow users to give a bad feedback to an image and to delete an image from the report to be sent.
     \begin{enumerate}
         \item Add the user to the list of violation feedback sent;
         \item Add a feedback to a picture;
@@ -98,9 +99,10 @@
     All tests have the expected behaviour so performs as designed.
 
     \section{Widget testing}\label{sec:widget-testing}
-    A widget test validate a single widget.
+    A widget test validates a single widget.
     The goal of a widget test is to verify that the widget’s UI looks and interacts as expected so they can actually test the UI.
-
+    Note that the reason why they are only present tests on log in and sign up page is because all the other widgets are tested in
+    the integration testing (next section).
     \subsection{Login}\label{subsec:login}
     \begin{enumerate}
         \item Email, password and button are found;
@@ -116,29 +118,29 @@
     \end{enumerate}
 
     \section{Integration testing}\label{sec:integration-testing}
-    The integration testing validate the integration and interaction of different features.
+    The integration testing validates the integration and interaction of different features.
     The goal of the integration testing is to verify that the system works properly and that all the features coexist and communicate correctly.
-    These test are self driven, and works as a simulation of the application behaviour.
+    These tests are self driven, and works as a simulation of the application behaviour.
     The simulation can be run by using the following command in the safe\_streets folder:
     \begin{verbatim}
         flutter drive --target=test_driver/app.dart
     \end{verbatim}
-    The simulation start on the login page, so if the user is already signed in on his device he must disconnect first.
-    To success the last two test ("feedback a violation for the fist time" and "feedback a violation for the second time"),
+    If you are using iOS simulator, if the user is already signed you must logout first.
+    To success the last two tests ("feedback a violation for the fist time" and "feedback a violation for the second time"),
     there must be at least one report located in Milan uploaded on Firebase's database.
-    This was not considered as a limitation, even if generate a test that may fail, since it is reasonable to think that it will always be present
-    this kind of report because of the provenience of the application, and the fact that a test like that is not think to be run frequently
-    (since it feedback a violation every 5 run a report is deleted, see the DD document for more specifications).
+    This was not considered as a limitation, even if it generates a test that may fail, since it is reasonable to think that it will always be present
+    this kind of report because of the provenience of the application, and the fact that a test like that is not thought to be run frequently
+    (since every 5 runs of those tests a report is deleted, see the DD document for more specifications).
     \subsection{Tests}\label{subsec:tests}
-    Here a list of all the integrations test is presented
+    Here a list of all the integration tests is presented
     \begin{enumerate}
-        \item The user try to login with an unregistered email and password.
-        \item The user try to register himself without accepting terms and conditions.
-        \item The user register himself with a new email and password.
-        \item The user try to upload a report without any image.
-        \item The user check that there are no reports associated with his account.
-        \item The user query all the report uploaded in Milan.
-        \item The user give a feedback to the first report queried.
-        \item The user try to give a second feedback to the first report queried.
+        \item The user tries to login with an unregistered email and password.
+        \item The user tries to register himself without accepting terms and conditions.
+        \item The user registers himself with a new email and password.
+        \item The user tries to upload a report without any image.
+        \item The user checks that there are no reports associated with his account.
+        \item The user queries all the reports uploaded in Milan.
+        \item The user gives a feedback to the first report queried.
+        \item The user tries to give a second feedback to the first report queried.
     \end{enumerate}
 \end{document}
