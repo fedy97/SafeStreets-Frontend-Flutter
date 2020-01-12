@@ -4,6 +4,7 @@
 \begin{document}
     \chapter{Testing}\label{ch:testing}
     The testing has been done mostly as written in the DD. We perform two different types of tests to validate the behaviour of the complete system: front-end and back-end.
+    In each of the following section there is a brief description of the group test and a list of test cases.
     \newline For more information we suggest to see the \href{https://github.com/fedy97/MorrealeMaddesInnocente/tree/master/safe_streets/test}{\emph{source code of the tests}}
     \section{Unit testing}\label{sec:unit-testing}
     The purpose of a unit test is to validate that each unit of the software performs as designed.
@@ -13,7 +14,7 @@
         \item run: the core section where functions are called.
         \item verify: throw the command \textit{expect()} there is the comparison between the results and the expected one.
     \end{itemize}
-    We tests the main features: the building of the statistics, the violation query, the visualization of the reports on the map and the addition of a new report.
+    We tests the main features: the building of the statistics, the violation query, the visualization of the reports on the map, the addition of a new report and the user action on a report (send a negative feedback for a picture or delete a picture from report).
 
     \subsection{Build statistics}\label{subsec:build-statistics}
     We tests all the three types of statistics and for each type we build different test cases to validate different situation:
@@ -87,6 +88,14 @@
     Test case 1 is the base case so the report is added.
     \newline Test cases 2 and 3 rejects the addition of a new report because there is already one report in the database with same location and day/violation.
 
+    \subsection{User feedback and action}\label{subsec:user-feedback-and-action}
+    We validate all the methods that allow users to give a bad feedback to an image and to delete an image from the report to be sent.
+    \begin{enumerate}
+        \item Add the user to the list of violation feedback sent;
+        \item Add a feedback to a picture;
+        \item Delete one picture from the report to be sent;
+    \end{enumerate}
+    All tests have the expected behaviour so performs as designed.
 
     \section{Widget testing}\label{sec:widget-testing}
     A widget test validate a single widget.
