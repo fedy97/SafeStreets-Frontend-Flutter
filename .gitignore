@@ -8,7 +8,7 @@
 *.toc
 *.gz
 *.bak*
-#*.pdf
+*.pdf
 *.blg
 *.bbl
 
