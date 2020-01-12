@@ -39,6 +39,7 @@ abstract class User extends ChangeNotifier {
 
   List<ReportToGet> get reportsGet => _reportsGet;
 
+  ///setter
   void setLocation(Location value) async {
     _location = value;
     notifyListeners();
@@ -46,6 +47,7 @@ abstract class User extends ChangeNotifier {
 
   Location get location => _location;
 
+  ///It inizializes the current report
   ReportToSend initReport() {
     if (currReport == null) {
       currReport = new ReportToSend(
@@ -58,6 +60,7 @@ abstract class User extends ChangeNotifier {
     return currReport;
   }
 
+  ///setter
   void setViolationToReport({String newViolation}) {
     currReport.violation =
         Violation.values.firstWhere((test) => test.toString() == newViolation);
@@ -69,21 +72,25 @@ abstract class User extends ChangeNotifier {
     notifyListeners();
   }
 
+  ///setter
   void setLocationToReport({Location location}) {
     currReport.reportPosition = location;
     //no need to notify listeners here
   }
 
+  ///It adds an image to the report
   void addImageToReport({ViolationImage image}) {
     currReport.addImage(image);
     notifyListeners();
   }
 
+  ///It adds notes to the report
   void addNoteToReport(String note) {
     currReport.addNote(note);
     //no need to notify changes when typing a description
   }
 
+  ///getter
   Future getPosition() async {
     final Geolocator geoLocator = Geolocator()..forceAndroidLocationManager;
     Position currentPos = await geoLocator.getCurrentPosition(
@@ -95,6 +102,7 @@ abstract class User extends ChangeNotifier {
     this.setLocation(l);
   }
 
+  ///getter
   Future getAllReports() async {
     reportsGet.clear();
     var list = await Firestore.instance.collection("users").getDocuments();
@@ -112,6 +120,7 @@ abstract class User extends ChangeNotifier {
     notifyListeners();
   }
 
+  ///It adds a new report to the list of my reports
   void fillMyReports() {
     myReports.clear();
     for (ReportToGet reportToGet in _reportsGet) {
@@ -133,5 +142,6 @@ abstract class User extends ChangeNotifier {
   }
 
   Widget viewReportPage();
+
   Widget viewStatisticsPage();
 }

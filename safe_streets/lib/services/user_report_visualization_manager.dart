@@ -100,8 +100,10 @@ abstract class UserReportVisualizationManager {
           plates.removeAt(pictureNumber);
           u.currViewedReport.sendableReport['images']['accuracy'] = accuracy;
           u.currViewedReport.sendableReport['images']['boxes'] = boxes;
-          u.currViewedReport.sendableReport['images']['imageFeedback'] = imageFeedback;
-          u.currViewedReport.sendableReport['images']['imageFeedbackSenders'] = imageFeedbackSenders;
+          u.currViewedReport.sendableReport['images']['imageFeedback'] =
+              imageFeedback;
+          u.currViewedReport.sendableReport['images']['imageFeedbackSenders'] =
+              imageFeedbackSenders;
           u.currViewedReport.sendableReport['images']['links'] = links;
           u.currViewedReport.sendableReport['images']['plates'] = plates;
           await updatedTuple.updateData({

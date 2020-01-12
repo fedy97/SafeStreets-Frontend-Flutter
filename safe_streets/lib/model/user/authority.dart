@@ -5,12 +5,13 @@ import 'package:safe_streets/model/user/user.dart';
 import 'package:safe_streets/ui/statistics_authority_page.dart';
 import 'package:safe_streets/ui/view_report_authority_page.dart';
 
+///Citizen is one type of user
 class Authority extends User {
   String idAuthority;
 
-  Authority(String email, String uid, String idAuthority) :
-    this.idAuthority = idAuthority,
-    super(email, uid, Level.complete);
+  Authority(String email, String uid, String idAuthority)
+      : this.idAuthority = idAuthority,
+        super(email, uid, Level.complete);
 
   @override
   Widget viewReportPage() {
@@ -21,5 +22,4 @@ class Authority extends User {
   Widget viewStatisticsPage() {
     return AuthorityStatistics();
   }
-
 }

@@ -1,4 +1,2 @@
-enum Level {
-  standard,
-  complete
-}
+///Different level associated with different users
+enum Level { standard, complete }

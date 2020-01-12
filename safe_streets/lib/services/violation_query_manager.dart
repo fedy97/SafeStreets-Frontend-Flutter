@@ -17,9 +17,8 @@ class ViolationQueryManager {
     for (ReportToGet reportToGet in u.reportsGet) {
       if (active[0] && active[1] && active[2] && active[3]) {
         ///all active filters
-        if (reportToGet.reportPosition.city
-                .toLowerCase()
-                == city.toLowerCase() &&
+        if (reportToGet.reportPosition.city.toLowerCase() ==
+                city.toLowerCase() &&
             reportToGet.violation == violation &&
             reportToGet.time.isBefore(timeTo) &&
             reportToGet.time.isAfter(timeFrom)) {
@@ -28,34 +27,30 @@ class ViolationQueryManager {
       }
       if (active[0] && active[1] && active[2] && !active[3]) {
         ///no timeTo
-        if (reportToGet.reportPosition.city
-                .toLowerCase()
-                ==city.toLowerCase() &&
+        if (reportToGet.reportPosition.city.toLowerCase() ==
+                city.toLowerCase() &&
             reportToGet.violation == violation &&
             reportToGet.time.isAfter(timeFrom)) results.add(reportToGet);
       }
 
       if (active[0] && active[1] && !active[2] && active[3]) {
         ///no timeFrom
-        if (reportToGet.reportPosition.city
-                .toLowerCase()
-                == city.toLowerCase() &&
+        if (reportToGet.reportPosition.city.toLowerCase() ==
+                city.toLowerCase() &&
             reportToGet.violation == violation &&
             reportToGet.time.isBefore(timeTo)) results.add(reportToGet);
       }
 
       if (active[0] && active[1] && !active[2] && !active[3]) {
         ///no data
-        if (reportToGet.reportPosition.city
-                .toLowerCase()
-                ==city.toLowerCase() &&
+        if (reportToGet.reportPosition.city.toLowerCase() ==
+                city.toLowerCase() &&
             reportToGet.violation == violation) results.add(reportToGet);
       }
       if (active[0] && !active[1] && active[2] && active[3]) {
         ///no violation
-        if (reportToGet.reportPosition.city
-                .toLowerCase()
-            == city.toLowerCase() &&
+        if (reportToGet.reportPosition.city.toLowerCase() ==
+                city.toLowerCase() &&
             reportToGet.time.isBefore(timeTo) &&
             reportToGet.time.isAfter(timeFrom)) {
           results.add(reportToGet);
@@ -75,8 +70,8 @@ class ViolationQueryManager {
       }
       if (active[0] && !active[1] && !active[2] && !active[3]) {
         /// filtro sulla violazione, su time From, su timeTo non attivi
-        if (reportToGet.reportPosition.city.toLowerCase() ==
-            city.toLowerCase()) results.add(reportToGet);
+        if (reportToGet.reportPosition.city.toLowerCase() == city.toLowerCase())
+          results.add(reportToGet);
       }
       if (!active[0] && active[1] && active[2] && active[3]) {
         /// filtro sulla posizione non attivo

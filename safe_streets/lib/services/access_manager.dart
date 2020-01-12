@@ -10,9 +10,12 @@ import 'package:safe_streets/model/user/user.dart';
 class AccessManager {
   final _firebaseAuth = FirebaseAuth.instance;
 
+  ///getter
   Stream<FirebaseUser> get onAuthStateChanged {
     return _firebaseAuth.onAuthStateChanged;
   }
+
+  ///It signs in a generic user by his mail and password
   Future<FirebaseUser> signInWithEmailAndPassword(
       String email, String password) async {
     final AuthResult authResult = await _firebaseAuth
@@ -23,6 +26,7 @@ class AccessManager {
     return authResult.user;
   }
 
+  ///It signs in a user calling signInWithEmailAndPassword function
   Future<bool> signIn(String email, String password) async {
     try {
       FirebaseUser u = await signInWithEmailAndPassword(email, password);
@@ -32,6 +36,7 @@ class AccessManager {
     }
   }
 
+  ///It creates a new user
   Future<FirebaseUser> createUserWithEmailAndPassword(
       String email, String password) async {
     final AuthResult authResult = await _firebaseAuth
@@ -43,6 +48,7 @@ class AccessManager {
     await _firebaseAuth.sendPasswordResetEmail(email: email);
   }
 
+  ///It returns the current user
   Future<FirebaseUser> currentUser() async {
     final FirebaseUser user = await _firebaseAuth.currentUser();
     return user;
@@ -51,6 +57,7 @@ class AccessManager {
   Future<void> signOut() async {
     return await _firebaseAuth.signOut();
   }
+
   ///after the creation of the user in firebase, the object itself is needed
   ///locally to perform actions
   static User createUserObject(DocumentSnapshot map, FirebaseUser user) {
@@ -60,6 +67,7 @@ class AccessManager {
       return new Authority(user.email, user.uid, map.data['idAuthority']);
     }
   }
+
   ///this is the map that will be sent to firebase when a new user is created
   ///successfully.
   static Map<String, dynamic> createUserMap({@required email, idAuthority}) {
@@ -69,6 +77,7 @@ class AccessManager {
       'reportSent': []
     };
   }
+
   ///this method will check if a user tries to create a account with a
   ///already present id, in that case an error is thrown.
   static Future<bool> checkIdAlreadyPresent(GlobalKey<ScaffoldState> scaffold,

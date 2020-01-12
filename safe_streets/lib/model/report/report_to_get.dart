@@ -6,10 +6,10 @@ import '../location.dart';
 ///this class is used to create report objects that are fetched
 ///as maps from firebase, in fact there is a constructor "fromMap" that builds
 ///the object from that map.
-
 class ReportToGet extends Report {
   Map<String, dynamic> sendableReport;
 
+  ///Constructor
   ReportToGet(
       {time,
       note,
@@ -23,16 +23,16 @@ class ReportToGet extends Report {
       this.sendableReport,
       fined})
       : super(
-            time: time,
-            emailUser: emailUser,
-            violation: violation,
-            note: note,
-            reportPosition: reportPosition,
-            feedback: feedback,
-            feedbackSenders: feedbackSenders,
-            imagesLite: imagesLite,
-            fined: fined,
-  );
+          time: time,
+          emailUser: emailUser,
+          violation: violation,
+          note: note,
+          reportPosition: reportPosition,
+          feedback: feedback,
+          feedbackSenders: feedbackSenders,
+          imagesLite: imagesLite,
+          fined: fined,
+        );
 
   factory ReportToGet.fromMap(Map<String, dynamic> data, String emailUser) {
     if (data == null) return null;

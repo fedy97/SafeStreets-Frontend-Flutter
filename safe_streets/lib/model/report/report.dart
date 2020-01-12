@@ -15,5 +15,16 @@ abstract class Report {
   Map<String, dynamic> imagesLite = new Map();
   bool fined;
 
-  Report({@required this.time, @required this.emailUser, this.violation, this.note, this.feedback, this.reportPosition, this.images, this.imagesLite, this.feedbackSenders, this.fined});
+  ///Constructor
+  Report(
+      {@required this.time,
+      @required this.emailUser,
+      this.violation,
+      this.note,
+      this.feedback,
+      this.reportPosition,
+      this.images,
+      this.imagesLite,
+      this.feedbackSenders,
+      this.fined});
 }

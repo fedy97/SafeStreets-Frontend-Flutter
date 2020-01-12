@@ -34,6 +34,7 @@ class CreateReportPage extends StatelessWidget {
                     if (u.currReport.images.length < 5) {
                       File f = await ImagePicker.pickImage(
                           source: ImageSource.camera, imageQuality: 50);
+
                       ///check if I actually took the photo or I pressed "back"
                       if (f != null) {
                         Utilities.showProgress(context);
@@ -46,6 +47,7 @@ class CreateReportPage extends StatelessWidget {
                             imageFile: f,
                             plate: m["plate"],
                             accuracy: m["score"]);
+
                         ///this will rebuild gui , because it calls notify listeners
                         u.addImageToReport(image: vi);
                         Navigator.pop(context);

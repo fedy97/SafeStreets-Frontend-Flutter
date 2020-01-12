@@ -25,6 +25,7 @@ class Utilities {
           );
         });
   }
+
   ///this return some errors from firebase,
   ///for example if the email is badly formatted during the sign up process
   static String printError(String errorToParse) {
@@ -36,14 +37,14 @@ class Utilities {
     return errorToParse;
   }
 
-
-   ///dart does not allow printing on the console more than TOT words, if you print something
-   ///that is too long it will be cut out, with this everything will be printed
-   ///useful for debug
+  ///dart does not allow printing on the console more than TOT words, if you print something
+  ///that is too long it will be cut out, with this everything will be printed
+  ///useful for debug
   static void printEverything(String text) {
     final pattern = new RegExp('.{1,800}'); // 800 is the size of each chunk
     pattern.allMatches(text).forEach((match) => print(match.group(0)));
   }
+
   ///this will show a alert dialog with
   ///a custom message with 2 buttons, "Ok" and "Close"
   static Future<bool> showAlert(BuildContext context, String message) async {

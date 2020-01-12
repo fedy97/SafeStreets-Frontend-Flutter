@@ -1,3 +1,4 @@
+///Different type of violation that a user can select
 enum Violation {
   double_parking,
   parking_on_zebra_crossing,

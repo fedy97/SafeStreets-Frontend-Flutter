@@ -5,7 +5,6 @@ import 'package:safe_streets/model/user/user.dart';
 
 /// It manages the building of the statistics
 class StatsManager {
-
   ///It retrieves the number of fined reports
   static int totalFinedReport(User u) {
     int fined = 0;

@@ -44,6 +44,7 @@ class NewReportManager {
     }
     return {"plate": "", "score": 0.0, "box": null};
   }
+
   ///this function is called when the user taps on the send report button,
   ///it checks if there is at least one image and if
   ///the report has already been uploaded by others.
@@ -58,7 +59,8 @@ class NewReportManager {
       }
       if (uploadAnyway) {
         /// todo aggiunto listen:false per risolvere ERROR
-        final storage = Provider.of<FirebaseStorageService>(context, listen:false);
+        final storage =
+            Provider.of<FirebaseStorageService>(context, listen: false);
         //upload images to storage
         for (ViolationImage image in u.currReport.images) {
           image.downloadLink = await storage.uploadImages(
@@ -85,10 +87,14 @@ class NewReportManager {
       //return to homepage
       Navigator.pop(context);
     } else {
-      final snackBar = SnackBar(content: Text("send at least one image"), key: Key("snack1"),);
+      final snackBar = SnackBar(
+        content: Text("send at least one image"),
+        key: Key("snack1"),
+      );
       scaffold.currentState.showSnackBar(snackBar);
     }
   }
+
   ///this will check if the report that is uploading is already present in the map,
   ///checking time(in the last 24 hours), position(10 meters from other reports) and
   ///violation type. If another report with that characteristics is found, the user is asked

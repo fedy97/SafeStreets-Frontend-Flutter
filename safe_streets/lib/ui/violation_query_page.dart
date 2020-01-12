@@ -41,8 +41,10 @@ class ViolationQuery extends StatelessWidget {
                         (toDateUsed && toDate == null) ||
                         (cityUsed && city == "")) {
                       final snackBar = SnackBar(
-                          content: Text(
-                              "you have checked something without inputting the value"), key: Key("snack3"),);
+                        content: Text(
+                            "you have checked something without inputting the value"),
+                        key: Key("snack3"),
+                      );
                       _scaffoldKey.currentState.showSnackBar(snackBar);
                       return;
                     }
@@ -60,8 +62,10 @@ class ViolationQuery extends StatelessWidget {
                     u.updateUI();
                     Navigator.pop(context);
                     final snackBar = SnackBar(
-                        content:
-                            Text(results.length.toString() + " reports found"), key: Key("snack4"),);
+                      content:
+                          Text(results.length.toString() + " reports found"),
+                      key: Key("snack4"),
+                    );
                     _scaffoldKey.currentState.showSnackBar(snackBar);
                   })
             ],
