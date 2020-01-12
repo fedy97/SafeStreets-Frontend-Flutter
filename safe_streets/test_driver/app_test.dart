@@ -11,7 +11,7 @@ import 'dart:math';
 ///
 /// "feedback a violation for the fist time" and "feedback a violation for the second time"
 /// require that at least one report located in Milan is stored in the database.
-/// See the ITD document on section Testing for more information.
+/// See the ITD document on chapter Testing, section Integration Testing for more information.
 ///
 void main() {
   group("SafeStreets self-driven tests", () {
