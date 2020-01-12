@@ -5,6 +5,9 @@ import 'package:safe_streets/model/user/user.dart';
 
 ///It menages the reports of the user
 abstract class UserReportVisualizationManager {
+
+  /// Check if the user has send a feedback yet fot the violation
+  /// If he did not, upload a new feedback
   static Future violationFeedback(User u, GlobalKey<ScaffoldState> key) async {
     if (!u.currViewedReport.feedbackSenders.contains(u.email)) {
       var updatedTuple = Firestore.instance
@@ -14,15 +17,12 @@ abstract class UserReportVisualizationManager {
         'reportSent':
             FieldValue.arrayRemove([u.currViewedReport.sendableReport])
       });
-      u.currViewedReport.sendableReport['feedback']++;
-      List<String> curr = List<String>.from(
-          u.currViewedReport.sendableReport['feedbackSenders']);
-      curr.add(u.email);
-      u.currViewedReport.sendableReport['feedbackSenders'] = curr;
+
+      addViolationFeedback(u);
+
       await updatedTuple.updateData({
         'reportSent': FieldValue.arrayUnion([u.currViewedReport.sendableReport])
       });
-      u.currViewedReport.feedbackSenders.add(u.email);
 
       /// if there are 5 feedback, remove the report
       if (u.currViewedReport.feedback >= 5) {
@@ -43,6 +43,19 @@ abstract class UserReportVisualizationManager {
     }
   }
 
+  /// Function called if the user give a feedback about a report
+  /// The report is updated to register the user
+  static addViolationFeedback(User u){
+    u.currViewedReport.sendableReport['feedback']++;
+    List<String> curr = List<String>.from(
+        u.currViewedReport.sendableReport['feedbackSenders']);
+    curr.add(u.email);
+    u.currViewedReport.sendableReport['feedbackSenders'] = curr;
+    u.currViewedReport.feedbackSenders.add(u.email);
+  }
+
+  /// Check if the user has already sent a feedback for the picture
+  /// If he has not, send a new feedback
   static Future pictureFeedback(
       User u, int pictureNumber, GlobalKey<ScaffoldState> key) async {
     /// check if the user already gave a feedback about the picture
@@ -83,29 +96,9 @@ abstract class UserReportVisualizationManager {
 
         /// if 4 report but more than 1 picture, delete the picture
         else {
-          var images = u.currViewedReport.sendableReport['images'];
-          List<String> accuracy = List<String>.from(images['accuracy']);
-          accuracy.removeAt(pictureNumber);
-          List<Map<dynamic, dynamic>> boxes =
-              List<Map<dynamic, dynamic>>.from(images['boxes']);
-          boxes.removeAt(pictureNumber);
-          List<int> imageFeedback = List<int>.from(images['imageFeedback']);
-          imageFeedback.removeAt(pictureNumber);
-          List<String> imageFeedbackSenders =
-              List<String>.from(images['imageFeedbackSenders']);
-          imageFeedbackSenders.removeAt(pictureNumber);
-          List<String> links = List<String>.from(images['links']);
-          links.removeAt(pictureNumber);
-          List<String> plates = List<String>.from(images['plates']);
-          plates.removeAt(pictureNumber);
-          u.currViewedReport.sendableReport['images']['accuracy'] = accuracy;
-          u.currViewedReport.sendableReport['images']['boxes'] = boxes;
-          u.currViewedReport.sendableReport['images']['imageFeedback'] =
-              imageFeedback;
-          u.currViewedReport.sendableReport['images']['imageFeedbackSenders'] =
-              imageFeedbackSenders;
-          u.currViewedReport.sendableReport['images']['links'] = links;
-          u.currViewedReport.sendableReport['images']['plates'] = plates;
+
+          deletePicture(u, pictureNumber);
+
           await updatedTuple.updateData({
             'reportSent':
                 FieldValue.arrayUnion([u.currViewedReport.sendableReport])
@@ -116,27 +109,11 @@ abstract class UserReportVisualizationManager {
 
       /// if less than 4 feedback, add one
       else {
-        List<int> feedbackCounter = List<int>.from(
-            u.currViewedReport.sendableReport['images']['imageFeedback']);
-        feedbackCounter.replaceRange(pictureNumber, pictureNumber + 1,
-            [feedbackCounter.elementAt(pictureNumber) + 1]);
-        List<String> curr1 = List<String>.from(u
-            .currViewedReport.sendableReport['images']['imageFeedbackSenders']);
-        curr1.replaceRange(pictureNumber, pictureNumber + 1,
-            [curr1.elementAt(pictureNumber) + " " + u.email]);
-        List<int> curr2 = List<int>.from(
-            u.currViewedReport.sendableReport['images']['imageFeedback']);
-        curr2.replaceRange(pictureNumber, pictureNumber + 1,
-            [curr2.elementAt(pictureNumber) + 1]);
-        u.currViewedReport.sendableReport['images']['imageFeedbackSenders'] =
-            curr1;
-        u.currViewedReport.sendableReport['images']['imageFeedback'] = curr2;
+        addFeedbackToPicture(u, pictureNumber);
         await updatedTuple.updateData({
           'reportSent':
               FieldValue.arrayUnion([u.currViewedReport.sendableReport])
         });
-        u.currViewedReport.imagesLite['imageFeedbackSenders'] = curr1;
-        u.currViewedReport.imagesLite['imageFeedback'] = curr2;
       }
 
       await u.getAllReports();
@@ -144,6 +121,54 @@ abstract class UserReportVisualizationManager {
           SnackBar(content: Text("picture feedback sent successfully!"));
       key.currentState.showSnackBar(snackBar);
     }
+  }
+
+  /// Increment the feedback number of a picture and add the email of the user to the list of feedback senders
+  static addFeedbackToPicture(User u, int pictureNumber){
+    List<int> feedbackCounter = List<int>.from(
+        u.currViewedReport.sendableReport['images']['imageFeedback']);
+    feedbackCounter.replaceRange(pictureNumber, pictureNumber + 1,
+        [feedbackCounter.elementAt(pictureNumber) + 1]);
+    List<String> curr1 = List<String>.from(u
+        .currViewedReport.sendableReport['images']['imageFeedbackSenders']);
+    curr1.replaceRange(pictureNumber, pictureNumber + 1,
+        [curr1.elementAt(pictureNumber) + " " + u.email]);
+    List<int> curr2 = List<int>.from(
+        u.currViewedReport.sendableReport['images']['imageFeedback']);
+    curr2.replaceRange(pictureNumber, pictureNumber + 1,
+        [curr2.elementAt(pictureNumber) + 1]);
+    u.currViewedReport.sendableReport['images']['imageFeedbackSenders'] =
+        curr1;
+    u.currViewedReport.sendableReport['images']['imageFeedback'] = curr2;
+    u.currViewedReport.imagesLite['imageFeedbackSenders'] = curr1;
+    u.currViewedReport.imagesLite['imageFeedback'] = curr2;
+  }
+
+  /// delete the picture defined by pictureNumber from the report that is ready to be uploaded
+  static deletePicture(User u, int pictureNumber){
+    var images = u.currViewedReport.sendableReport['images'];
+    List<String> accuracy = List<String>.from(images['accuracy']);
+    accuracy.removeAt(pictureNumber);
+    List<Map<dynamic, dynamic>> boxes =
+    List<Map<dynamic, dynamic>>.from(images['boxes']);
+    boxes.removeAt(pictureNumber);
+    List<int> imageFeedback = List<int>.from(images['imageFeedback']);
+    imageFeedback.removeAt(pictureNumber);
+    List<String> imageFeedbackSenders =
+    List<String>.from(images['imageFeedbackSenders']);
+    imageFeedbackSenders.removeAt(pictureNumber);
+    List<String> links = List<String>.from(images['links']);
+    links.removeAt(pictureNumber);
+    List<String> plates = List<String>.from(images['plates']);
+    plates.removeAt(pictureNumber);
+    u.currViewedReport.sendableReport['images']['accuracy'] = accuracy;
+    u.currViewedReport.sendableReport['images']['boxes'] = boxes;
+    u.currViewedReport.sendableReport['images']['imageFeedback'] =
+        imageFeedback;
+    u.currViewedReport.sendableReport['images']['imageFeedbackSenders'] =
+        imageFeedbackSenders;
+    u.currViewedReport.sendableReport['images']['links'] = links;
+    u.currViewedReport.sendableReport['images']['plates'] = plates;
   }
 
   static Future fineReport(

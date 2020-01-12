@@ -19,7 +19,10 @@ class ViolationImage {
       @required this.plate,
       @required this.accuracy,
       @required this.box,
-      this.imageFeedbackSenders}) {
+      this.imageFeedbackSenders,
+      this.feedback,
+      this.downloadLink}
+  ) {
     if (this.plate != "") isSensitive = true;
   }
 }

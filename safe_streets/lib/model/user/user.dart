@@ -21,6 +21,7 @@ abstract class User extends ChangeNotifier {
   Location _location;
   ReportToSend currReport;
   ReportToGet _currViewedReport;
+
   bool _loadingReport = false;
 
   User(String email, String uid, Level level) {
@@ -136,6 +137,10 @@ abstract class User extends ChangeNotifier {
   }
 
   ReportToGet get currViewedReport => _currViewedReport;
+
+  set currViewedReport(ReportToGet value) {
+    _currViewedReport = value;
+  }
 
   set setCurrViewedReport(ReportToGet value) {
     _currViewedReport = value;

@@ -5,13 +5,25 @@ import 'package:safe_streets/model/report/violation_image.dart';
 ///to firebase, in fact there is a method called "toMap" that converts
 ///this object to a json map, that firebase can read.
 class ReportToSend extends Report {
-  ReportToSend({reportPosition, time, violation, images, emailUser})
+  ReportToSend(
+      {reportPosition,
+      time,
+      violation,
+      images,
+      emailUser,
+      feedback,
+      feedbackSenders,
+      imagesLite})
       : super(
-            reportPosition: reportPosition,
-            images: images,
-            time: time,
-            emailUser: emailUser,
-            violation: violation);
+          reportPosition: reportPosition,
+          images: images,
+          time: time,
+          emailUser: emailUser,
+          violation: violation,
+          feedback: feedback,
+          feedbackSenders: feedbackSenders,
+          imagesLite: imagesLite,
+        );
 
   ///It adds an image to the report
   void addImage(ViolationImage image) {
