@@ -3,9 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:safe_streets/model/user/user.dart';
 
-///It menags the reports of the user
+///It menages the reports of the user
 abstract class UserReportVisualizationManager {
-
   static Future violationFeedback(User u, GlobalKey<ScaffoldState> key) async {
     if (!u.currViewedReport.feedbackSenders.contains(u.email)) {
       var updatedTuple = Firestore.instance
@@ -24,6 +23,7 @@ abstract class UserReportVisualizationManager {
         'reportSent': FieldValue.arrayUnion([u.currViewedReport.sendableReport])
       });
       u.currViewedReport.feedbackSenders.add(u.email);
+
       /// if there are 5 feedback, remove the report
       if (u.currViewedReport.feedback >= 5) {
         await updatedTuple.updateData({
@@ -68,28 +68,50 @@ abstract class UserReportVisualizationManager {
             FieldValue.arrayRemove([u.currViewedReport.sendableReport])
       });
 
-      if (u.currViewedReport.sendableReport['images']['imageFeedback']
+      /// if at least 4 feedback, remove the picture
+      if (List<int>.from(
+                  u.currViewedReport.sendableReport['images']['imageFeedback'])
               .elementAt(pictureNumber) >=
           4) {
         /// if last picture with 4 report, delete the report
-        if (u.currViewedReport.sendableReport['images'].size() <= 1)
+        if (u.currViewedReport.sendableReport['images']['links'].length <= 1) {
+          final snackBar =
+              SnackBar(content: Text("picture feedback sent successfully!"));
+          key.currentState.showSnackBar(snackBar);
           return;
+        }
+
         /// if 4 report but more than 1 picture, delete the picture
         else {
           var images = u.currViewedReport.sendableReport['images'];
-          images['accuracy'].removeAt(pictureNumber);
-          images['boxes'].removeAt(pictureNumber);
-          images['imageFeedback'].removeAt(pictureNumber);
-          images['imageFeedbackSenders'].removeAt(pictureNumber);
-          images['links'].removeAt(pictureNumber);
-          images['plates'].removeAt(pictureNumber);
+          List<String> accuracy = List<String>.from(images['accuracy']);
+          accuracy.removeAt(pictureNumber);
+          List<Map<dynamic, dynamic>> boxes =
+              List<Map<dynamic, dynamic>>.from(images['boxes']);
+          boxes.removeAt(pictureNumber);
+          List<int> imageFeedback = List<int>.from(images['imageFeedback']);
+          imageFeedback.removeAt(pictureNumber);
+          List<String> imageFeedbackSenders =
+              List<String>.from(images['imageFeedbackSenders']);
+          imageFeedbackSenders.removeAt(pictureNumber);
+          List<String> links = List<String>.from(images['links']);
+          links.removeAt(pictureNumber);
+          List<String> plates = List<String>.from(images['plates']);
+          plates.removeAt(pictureNumber);
+          u.currViewedReport.sendableReport['images']['accuracy'] = accuracy;
+          u.currViewedReport.sendableReport['images']['boxes'] = boxes;
+          u.currViewedReport.sendableReport['images']['imageFeedback'] = imageFeedback;
+          u.currViewedReport.sendableReport['images']['imageFeedbackSenders'] = imageFeedbackSenders;
+          u.currViewedReport.sendableReport['images']['links'] = links;
+          u.currViewedReport.sendableReport['images']['plates'] = plates;
           await updatedTuple.updateData({
             'reportSent':
                 FieldValue.arrayUnion([u.currViewedReport.sendableReport])
           });
-          u.currViewedReport.images.removeAt(pictureNumber);
+          //u.currReport.images.removeAt(pictureNumber);
         }
       }
+
       /// if less than 4 feedback, add one
       else {
         List<int> feedbackCounter = List<int>.from(
@@ -130,6 +152,7 @@ abstract class UserReportVisualizationManager {
       key.currentState.showSnackBar(snackBar);
       return;
     }
+
     ///check if the report actually contains a plate
     List<String> plates = new List();
     for (String plate in u.currViewedReport.imagesLite['plates']) {
@@ -150,6 +173,7 @@ abstract class UserReportVisualizationManager {
       });
 
       String onePlate = plates[0];
+
       ///check if already present in db a fine with that plate
       ///if so, increment the counter else set counter to 1 and create the fine tuple
       var doc =
@@ -164,6 +188,7 @@ abstract class UserReportVisualizationManager {
             .collection("fines")
             .document(onePlate)
             .updateData({'count': FieldValue.increment(1)});
+
       ///update the report locally
       u.currViewedReport.fined = true;
       final snackBar = SnackBar(content: Text("report fined successfully"));
