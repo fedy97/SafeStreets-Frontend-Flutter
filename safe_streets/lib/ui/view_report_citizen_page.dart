@@ -25,6 +25,7 @@ class ViewReportCitizen extends StatelessWidget {
             actions: <Widget>[
               IconButton(
                   icon: Icon(Icons.assistant_photo),
+                  key: Key("reportFeedback"),
                   onPressed: () async {
                     UserReportVisualizationManager.violationFeedback(
                         u, _scaffoldKey);

@@ -33,11 +33,11 @@ abstract class UserReportVisualizationManager {
       }
       await u.getAllReports();
       final snackBar =
-          SnackBar(content: Text("feedback to report sent successfully!"));
+          SnackBar(content: Text("feedback to report sent successfully!"), key: Key("positiveSnack"),);
       key.currentState.showSnackBar(snackBar);
     } else {
       final snackBar = SnackBar(
-          content: Text("you have already given a feedback to this report!"));
+          content: Text("you have already given a feedback to this report!"), key: Key("negativeSnack"),);
       key.currentState.showSnackBar(snackBar);
       return;
     }

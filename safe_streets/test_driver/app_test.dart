@@ -9,6 +9,10 @@ import 'dart:math';
 ///-->" flutter drive --target=test_driver/app.dart "<--
 ///if an user is already signed in, log out to let the driven tests start
 ///
+/// "feedback a violation for the fist time" and "feedback a violation for the second time"
+/// require that at least one report located in Milan is stored in the database.
+/// See the ITD document on section Testing for more information.
+///
 void main() {
   group("SafeStreets self-driven tests", () {
     final emailField = find.byValueKey("email-field");
@@ -18,6 +22,7 @@ void main() {
     final passwordField = find.byValueKey("password-field");
     final signInButton = find.byValueKey("signin");
     final userInfoPage = find.byType("HomePage");
+    final reportPage = find.byType("ViewReportCitizen");
     final signUpPage = find.byType("SignUpPage");
     final snackbar = find.byValueKey("snack1");
     final check = find.byValueKey("check");
@@ -161,7 +166,7 @@ void main() {
       });
     });
     
-    test("get all the violation for double parking in milan", () async{
+    test("get all the violation for double parking in Milan", () async{
       await driver.runUnsynchronized(() async{
         await Future.delayed(Duration(seconds: 1));
         await driver.tap(menuButton);
@@ -176,6 +181,32 @@ void main() {
         await Future.delayed(Duration(seconds: 1));
         await driver.tap(searchButton);
         assert (snackbar3 != null || snackbar4 != null);
+      });
+    });
+    
+    test("feedback a violation for the fist time", () async{
+      await driver.runUnsynchronized(() async{
+        await Future.delayed(Duration(seconds: 1));
+        assert (reportPage == null);
+        await driver.tap(find.byValueKey("Report 1"));
+        await Future.delayed(Duration(seconds: 1));
+        assert (reportPage != null);
+        await driver.tap(find.byValueKey("reportFeedback"));
+        assert (find.byValueKey("positiveSnack") != null);
+        assert (find.byValueKey("negativeSnack") == null);
+        await Future.delayed(Duration(seconds: 2));
+      });
+    });
+
+    test("feedback a violation for the second time", () async{
+      await driver.runUnsynchronized(() async{
+        assert (reportPage == null);
+        await Future.delayed(Duration(seconds: 3));
+        assert (reportPage != null);
+        await driver.tap(find.byValueKey("reportFeedback"));
+        assert (find.byValueKey("positiveSnack") == null);
+        assert (find.byValueKey("negativeSnack") != null);
+        await Future.delayed(Duration(seconds: 3));
       });
     });
 

@@ -198,6 +198,7 @@ class ViolationQuery extends StatelessWidget {
                                       )));
                             },
                             leading: Icon(Icons.report_problem),
+                            key: Key("Report ${int + 1}"),
                             title: Text("Report ${int + 1}, " +
                                 results[int]
                                     .time
