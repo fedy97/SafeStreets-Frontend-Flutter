@@ -90,7 +90,7 @@ void main() {
       });
     });
 
-    test("sing up",() async{
+    test("sign up",() async{
       await driver.runUnsynchronized(() async {
         await driver.tap(create);
         await Future.delayed(Duration(seconds: 1));
