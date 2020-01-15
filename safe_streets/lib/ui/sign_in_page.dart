@@ -12,10 +12,11 @@ import 'home_page.dart';
 
 class SignInPage extends StatelessWidget {
   static var _scaffoldKey = GlobalKey<ScaffoldState>();
-  static String _email = "";
-  static String _password = "";
+
 
   Widget build(BuildContext context) {
+    String _email = "";
+    String _password = "";
     final auth = Provider.of<AccessManager>(context);
     return Scaffold(
         key: _scaffoldKey,
