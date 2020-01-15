@@ -97,9 +97,8 @@ abstract class User extends ChangeNotifier {
   ///getter
   Future getPosition(BuildContext context) async {
     final Geolocator geoLocator = Geolocator()..forceAndroidLocationManager;
-    if (!await geoLocator.isLocationServiceEnabled()) {
+    while (!await geoLocator.isLocationServiceEnabled()) {
       bool res = await Utilities.showAlert(context, "you have to activate your GPS first");
-      exit(1);
     }
     Position currentPos = await geoLocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.best);
