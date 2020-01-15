@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +10,7 @@ import 'package:safe_streets/model/location.dart';
 import 'package:safe_streets/model/report/report_to_get.dart';
 import 'package:safe_streets/model/report/report_to_send.dart';
 import 'package:safe_streets/model/report/violation_image.dart';
+import 'package:safe_streets/services/utilities.dart';
 
 ///this is the abstract class of a user in SafeStreets,
 ///a user can be either Citizen or Authority.
@@ -92,8 +95,12 @@ abstract class User extends ChangeNotifier {
   }
 
   ///getter
-  Future getPosition() async {
+  Future getPosition(BuildContext context) async {
     final Geolocator geoLocator = Geolocator()..forceAndroidLocationManager;
+    if (!await geoLocator.isLocationServiceEnabled()) {
+      bool res = await Utilities.showAlert(context, "you have to activate your GPS first");
+      exit(1);
+    }
     Position currentPos = await geoLocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.best);
     Location l = new Location(currentPos.longitude, currentPos.latitude);

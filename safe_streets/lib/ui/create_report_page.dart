@@ -39,7 +39,7 @@ class CreateReportPage extends StatelessWidget {
                       if (f != null) {
                         Utilities.showProgress(context);
                         if (u.currReport.images.length == 0) {
-                          await u.getPosition();
+                          await u.getPosition(context);
                         }
                         Map m = await NewReportManager.recognizePlate(f);
                         ViolationImage vi = new ViolationImage(

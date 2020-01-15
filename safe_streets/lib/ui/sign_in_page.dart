@@ -96,7 +96,7 @@ class SignInPage extends StatelessWidget {
                     User u = AccessManager.createUserObject(map, user);
                     Utilities.showProgress(context);
                     await u.getAllReports();
-                    await u.getPosition();
+                    await u.getPosition(context);
                     Navigator.pop(context);
                     Navigator.pushReplacement(
                         context,

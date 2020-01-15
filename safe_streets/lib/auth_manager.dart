@@ -47,7 +47,7 @@ class _AuthManagerState extends State<AuthManager> {
                   i++;
                 }
               }
-              u.getPosition().then((pos) {
+              u.getPosition(context).then((pos) {
                 setState(() {
                   u.fillMyReports();
                   logged = true;
