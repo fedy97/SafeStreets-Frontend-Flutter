@@ -1,6 +1,6 @@
 \providecommand{\atd}{..}
 \documentclass[../ATD.tex]{subfiles}
-%%\usepackage{graphicx}
+\usepackage{graphicx}
 
 \begin{document}
     \chapter{Testing}\label{ch:testing}
@@ -12,31 +12,28 @@
     The error shows up on every device we used to run the application: web page, android phone, iOS phone, iOS simulator.
     We think that this issue cause the most of the fail on the test that will be presented in the next chapter.
     In the following are showed some picture of the error.
-
-    %%
     \begin{figure}[H]
         \centering
-        \includegraphics[scale = 0.4]{assets/web_page_error.png}\\
-        \caption[Web page error, \textit{Error}]{Web page error}
+        \includegraphics{../assets/web_page_error.png}
+        \caption{Web page error}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics{../assets/smartphone_error.png}
+        \caption{Smartphone error}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics{../assets/iOS_simulator_error.png}
+        \caption{iOS simulator error}
     \end{figure}
 
-    \begin{figure}[H]
-        \centering
-        \includegraphics[scale = 0.4]{assets/smartphone_error.png}\\
-        \caption[SMartphone error, \textit{Error}]{Smartphone error}
-    \end{figure}
-    \begin{figure}[H]
-        \centering
-        \includegraphics[scale = 0.7]{assets/iOS_simulator_error.png}
-        \caption[IOs simulator error, \textit{Error}]{IOs simulator error}
-    \end{figure}
-%%
     \section{Testing Requirements Table}\label{sec:testing-requirements-table}
     Probably because of the already showed error, it will not be possible to test all the requirements since some of them will not be showed at all.
     Moreover, it will be difficult to follow the requirement order presented in the RASD and in the ITD while testing, so the following table purpose is to show which requirements will be tested.
     At the end of the chapter a section for the untested requirements will be provided anyway.
 
-    %%todo ******** TABELLA *********
+    ******** TABELLA *********
 
     \section{Test Cases}\label{sec:test-cases}
     The test cases will be presented as follow: they will be group by tested requirements, and for every test will be described the following information:
@@ -61,19 +58,38 @@
         \item \textbf{Test purpose}: An user that is already signed in must be able to login correctly.
         \item \textbf{Device}: iPhone
         \item \textbf{Input}: username: "jak4", password: "jak".
-        \item \textbf{Outcome}: SafeStreet main menu.
+        \item \textbf{Outcome}: SafeStreet user's main menu.
         \item \textbf{Result}: Passed
         \item \textbf{Comment}: The user "jak4" was already registered with the password "jak".
     \end{itemize}
 
-    \subsubsection{user login 2}\label{subsubsec:user-login-2}
+    \subsubsection{User login 2}\label{subsubsec:user-login-2}
     \begin{itemize}
         \item \textbf{Test purpose}: An user that is already signed in must be able to login correctly.
         \item \textbf{Device}: web page
         \item \textbf{Input}: username: "jak4", password: "jak".
-        \item \textbf{Outcome}: SafeStreet main menu.
+        \item \textbf{Outcome}: SafeStreet user's main menu.
         \item \textbf{Result}: Passed
         \item \textbf{Comment}: The user "jak4" was already registered with the password "jak".
+    \end{itemize}
+
+    \subsubsection{User login 3}\label{subsubsec:user-login-3}
+    \begin{itemize}
+        \item \textbf{Test purpose}: An user that is already signed in must be able to login correctly if the server is up.
+        \item \textbf{Device}: iOS simulator
+        \item \textbf{Input}: Server turned off, username: "jak4", password: "jak".
+        \item \textbf{Outcome}: Nothing happen.
+        \item \textbf{Result}: Passed
+        \item \textbf{Comment}: Since the server is down, it is fine that nothing happen if i try to login.
+    \end{itemize}
+
+    \subsubsection{User login 4}\label{subsubsec:user-login-4}
+    \begin{itemize}
+        \item \textbf{Test purpose}: An user can not login with an unregistered account.
+        \item \textbf{Device}: iOS simulator
+        \item \textbf{Input}: username: "fakeTestAccount", password: "psw".
+        \item \textbf{Outcome}: Invalid data message.
+        \item \textbf{Result}: Passed
     \end{itemize}
 
     \subsubsection{User registration 1}\label{subsubsec:user-registration-1}
@@ -137,6 +153,39 @@
 
     \subsubsection{ !!!!! TODO registrazione da cellulare}\label{subsubsec:user-registration-6}
     \begin{itemize}
+    \end{itemize}
+
+
+    \subsection{Municipality registration and login [R15]}\label{subsec:municipality-registration-and-login}
+    R15: The system must allow the Municipality to perform the registration and the login.
+
+    \subsubsection{Municipality login 1}\label{subsubsec:municipality-login-1}
+    \begin{itemize}
+        \item \textbf{Test purpose}: A municipality that is already signed in must be able to login correctly.
+        \item \textbf{Device}: iOS simulator
+        \item \textbf{Input}: username: "Milano", password: "Milan".
+        \item \textbf{Outcome}: SafeStreet municipality's main menu.
+        \item \textbf{Result}: Passed
+        \item \textbf{Comment}: The municipality "Milano" was already registered with the password "Milan".
+    \end{itemize}
+
+    \subsubsection{Municipality login 2}\label{subsubsec:municipality-login-2}
+    \begin{itemize}
+        \item \textbf{Test purpose}: An user that is already signed in must be able to login correctly.
+        \item \textbf{Device}: Web page
+        \item \textbf{Input}: username: "Milano", password: "Milan".
+        \item \textbf{Outcome}: SafeStreet municipality's main menu.
+        \item \textbf{Result}: Passed
+        \item \textbf{Comment}: The user "Milano" was already registered with the password "Milan".
+    \end{itemize}
+
+    \subsubsection{Municipality registration}\label{subsubsec:municipality-registration}
+    \begin{itemize}
+        \item \textbf{Test purpose}: A municipality must be able to register itself on SafeStreets.
+        \item \textbf{Device}: Web page (MacBook pro)
+        \item \textbf{Input}: activation code: "123123123", username: "Test", password: "TestPsw".
+        \item \textbf{Outcome}: Nothing happen.
+        \item \textbf{Result}: Failed
     \end{itemize}
 
 
