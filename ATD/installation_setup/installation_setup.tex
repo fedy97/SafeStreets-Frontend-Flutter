@@ -3,5 +3,31 @@
 
 \begin{document}
     \chapter{Installation setup}\label{ch:installation-setup}
+    \section{References}\label{sec:references}
+    The installation setup has been done by following the two documents provided by the developer of the system:
+    \begin{itemize}
+        \item SoftwareToInstall
+        \item ITD1
+    \end{itemize}
+    Both the documents can be found on github, in the folder DeliveryFolder: \href{https://github.com/gianfi12/AbboAccordiBonetti/DeliveryFolder}.
+
+    \section{Installation choice}\label{sec:installation-choice}
+    The following software has been used:
+    \begin{itemize}
+        \item \textbf{Glassfish5}: Glassfish has been used in his 5.0 version instead of the 4.0 (required in the ITD) because of an error that did not allowed to run the server
+        The developer group ensure us that this choice was fine, since some of their team worked with the same software.
+        \item \textbf{IntelliJ}: we used mainly IntelliJ to run the application, but some tests has been done even with AndroidStudio.
+    \end{itemize}
+
+    \section{Installation issues}\label{sec:installation-issues}
+    We present here the issues that came up within the installation process.
+    \subsection{Server deploy}\label{subsec:server-deploy}
+    During the server deploy process, an issue that did not allow the application to communicate with the server came up.
+    We have been able to solve it by communicating with the developer team.
+    The problem that we found was that the SafeStreetsSOAP and SafeStreetsWebServer were assigned to an unrecognized link, different from the once that were expected.
+    The expected links were \textit{\${com.sun.aas.instanceRootURI}/applications/SafeStreetsSOAP/} and \textit{\${com.sun.aas.instanceRootURI}/applications/SafeStreetsWebServer/},
+    while we found \textit{\${com.sun.aas.instanceRootURI}/applications/SafeStreetsSOAP534859734543/} and \textit{\${com.sun.aas.instanceRootURI}/applications/SafeStreetsWebServer54378953479583/}.
+    To solve the problem, we needed to go in the glassfish5/glassfish/domains/domain1/config folder and modify the domain.xml file by removing the unexpected characters wherever they show up.
+
 
 \end{document}
