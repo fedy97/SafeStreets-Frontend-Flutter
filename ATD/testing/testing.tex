@@ -9,7 +9,7 @@
     The issue will be discuss later, but it has a big impact on the structure of the document.
     \newline
     When the application run, after the user login an error message is show, and almost all the functionality of the application are not available.
-    The error shows up on every device we used to run the application: web page, android phone, iOS phone, iOS simulator.
+    The error shows up on every device we used to run the application: web page (Chrome, as indicated), android phone, iOS phone, iOS simulator.
     We think that this issue cause the most of the fail on the test that will be presented in the next chapter.
     In the following are showed some picture of the error.
     \begin{figure}[H]
@@ -151,10 +151,16 @@
         \item \textbf{Comment}: Since neither the camera or the gallery can be used to upload a picture, the registration can not be performed by the web page (the pictures are mandatory information for the registration).
     \end{itemize}
 
-    \subsubsection{ !!!!! TODO registrazione da cellulare}\label{subsubsec:user-registration-6}
+    \subsubsection{User registration 6}\label{subsubsec:user-registration-6}
     \begin{itemize}
+        \item \textbf{Test purpose}: An user must be allowed to register.
+        The user try to register by giving all the correct information.
+        \item \textbf{Device}: iPhone
+        \item \textbf{Input}: username: "federico111", email: "federico.innocente.spam@gmail.com", name: "Federico", surname: "Innocente", place of birth: "Pordenone", date of birth: "1997-06-19", place of residence: "Pordenone", fiscal code: "NNCFRC97H19G888Q", password "passwordP1", id picture: picture from camera, your picture: picture from camera.
+        \item \textbf{Outcome}: Nothing happen
+        \item \textbf{Result}: Failed
+        \item \textbf{Comment}: I can assume that the registration failed, since I provided all real information and if I try to go back in sign in page and log in, a message said that I am using invalid email and password.
     \end{itemize}
-
 
     \subsection{Municipality registration and login [R15]}\label{subsec:municipality-registration-and-login}
     R15: The system must allow the Municipality to perform the registration and the login.
@@ -188,10 +194,42 @@
         \item \textbf{Result}: Failed
     \end{itemize}
 
+    \subsection{Picture selection [R8]}\label{subsec:picture-selection}
+    R8: The system must allow the User to take a picture or select one from the device.
+    This requirement must be ensured in two cases: when a user upload pictures for the registration and when the user upload pictures for a violation.
 
+    \subsubsection{Picture selection for registration 1}\label{subsubsec:picture-selection-for-registration-1}
+    \begin{itemize}
+        \item \textbf{Test purpose}: A user must be allow to take a picture or to select one from the device when he want to register himself.
+        \item \textbf{Device}: iPhone
+        \item \textbf{Input}: "Chose ID photo" button from the sign in page.
+        \item \textbf{Outcome}: A choice is given to the user between using his camera or selecting from gallery.
+        Both the options work properly.
+        \item \textbf{Result}: Passed
+        \item \textbf{Comment}: The same operation can be done for the "Chose your photo" button, with the same result.
+        After selecting a picture, nothing change on the application page, but this can be think as a choice and do not go against the requirement.
+    \end{itemize}
 
+    \subsubsection{Picture selection for registration 2}\label{subsubsec:picture-selection-for-registration-2}
+    \begin{itemize}
+        \item \textbf{Test purpose}: A user must be allow to take a picture or to select one from the device when he want to register himself.
+        \item \textbf{Device}: Web App (MacBook pro)
+        \item \textbf{Input}: "Chose ID photo" button from the sign in page.
+        \item \textbf{Outcome}: A choice is given to the user between using his camera or selecting from gallery, but than nothing happen for both the choice.
+        \item \textbf{Result}: Failed
+        \item \textbf{Comment}: The same operation can be done for the "Chose your photo" button, with the same result.
+    \end{itemize}
 
-
+    \subsubsection{Picture selection for violation 1}\label{subsubsec:picture-selection-for-violation-1}
+    \begin{itemize}
+        \item \textbf{Test purpose}: A user must be allow to take a picture or to select one from the device when he want to upload pictures in the context of a violation.
+        \item \textbf{Device}: iPhone
+        \item \textbf{Input}: Tapping on "New Report" option from the main menu.
+        \item \textbf{Outcome}: The camera is opened by default, but then it is possible to switch to the gallery to chose a picture.
+        Both option allow you to select a picture and move to the next step a the violation reporting.
+        \item \textbf{Result}: Passed
+    \end{itemize}
+    
 
 
 \end{document}
