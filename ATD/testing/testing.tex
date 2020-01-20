@@ -43,6 +43,7 @@
         \item \textbf{Input}: input of the test
         \item \textbf{Outcome}: output of the test
         \item \textbf{Result}: passed or fail
+        \item (Eventually) \testbf{Possible bugs}: list of possible bugs
         \item (Eventually) \textbf{Comment}: relevant comments about the test
     \end{enumerate}
     As previously explained, it will not be possible to test the requirements in the same order as they are presented in the RASD and ITD,
@@ -52,15 +53,91 @@
     \subsection{User registration and login [R14]}\label{subsec:user-registration-and-login}
     R14: The system must allow the user to perform the registration and the login.
 
-    \subsubsection{Correct login}\label{subsubsec:correct-login}
+    \subsubsection{User login 1}\label{subsubsec:user-login-1}
     \begin{itemize}
         \item \textbf{Test purpose}: An user that is already signed in must be able to login correctly.
         \item \textbf{Device}: iPhone
-        \item \textbf{Input}: username: "jak4", password: "jak"
-        \item \textbf{Outcome}:
-        \item \textbf{Result}: passed
+        \item \textbf{Input}: username: "jak4", password: "jak".
+        \item \textbf{Outcome}: SafeStreet main menu.
+        \item \textbf{Result}: Passed
         \item \textbf{Comment}: The user "jak4" was already registered with the password "jak".
     \end{itemize}
+
+    \subsubsection{user login 2}\label{subsubsec:user-login-2}
+    \begin{itemize}
+        \item \textbf{Test purpose}: An user that is already signed in must be able to login correctly.
+        \item \textbf{Device}: web page
+        \item \textbf{Input}: username: "jak4", password: "jak".
+        \item \textbf{Outcome}: SafeStreet main menu.
+        \item \textbf{Result}: Passed
+        \item \textbf{Comment}: The user "jak4" was already registered with the password "jak".
+    \end{itemize}
+
+    \subsubsection{User registration 1}\label{subsubsec:user-registration-1}
+    \begin{itemize}
+        \item \textbf{Test purpose}: An user must be allowed to register.
+        The user try to register by providing all the information required.
+        \item \textbf{Device}: iOS simulator
+        \item \textbf{Input}: username: "test1", email: "test@test.it", name: "TestName", surname: "TestSurname", place of birth: "TestPlace", date of birth: "01-01-1001", place of residence: "TestPlace", fiscal code: "aaaaaaaaaaaaaaaa", password "testpsw", id photo: a picture from device, your photo: a picture from device
+        \item \textbf{Outcome}: Nothing happen
+        \item \textbf{Result}: Failed
+        \item \testbf{Possible bugs}: The application does not perform any action, but on the intelliJ console it is possible to see an error "Unhandled Exception: FormatException: Invalid date format".
+        \item \textbf{Comment}: Talking with the developer group, we know that the correct format for the date is yyyy-mm-dd.
+        The application should inform the user about that restriction.
+        Moreover, the application should show an error to inform the user that something went wrong, because it is not intuitive to understand that the sign up request has been sent.
+    \end{itemize}
+
+    \subsubsection{User registration 2}\label{subsubsec:user-registration-2}
+    \begin{itemize}
+        \item \textbf{Test purpose}: An user must be allowed to register.
+        The user try to register by not giving any information.
+        \item \textbf{Device}: iOS simulator
+        \item \textbf{Input}: none
+        \item \textbf{Outcome}: All the textual textfield are signed as mandatory.
+        \item \textbf{Result}: Passed
+        \item \textbf{Comment}: The "ID PHOTO" and "YOUR PHOTO" button are not marked as mandatory.
+    \end{itemize}
+
+    \subsubsection{User registration 3}\label{subsubsec:user-registration-3}
+    \begin{itemize}
+        \item \textbf{Test purpose}: An user must be allowed to register.
+        The user try to register by giving all the information, except for the two pictures.
+        \item \textbf{Device}: iOS simulator
+        \item \textbf{Input}: username: "test1", email: "test@test.it", name: "TestName", surname: "TestSurname", place of birth: "TestPlace", date of birth: "1001-01-01", place of residence: "TestPlace", fiscal code: "aaaaaaaaaaaaaaaa", password "testpsw"
+        \item \textbf{Outcome}: Nothing happen
+        \item \textbf{Result}: Failed
+        \item \textbf{Comment}: Nothing happen, but from the intelliJ console it is possible to see that the pictures are mandatory for the registration.
+        They should be marked as mandatory as well as all the other fields, since it is not intuitive to understand what is going wrong.
+    \end{itemize}
+
+    \subsubsection{User registration 4}\label{subsubsec:user-registration-4}
+    \begin{itemize}
+        \item \textbf{Test purpose}: An user must be allowed to register.
+        The user try to register by giving all the correct information.
+        \item \textbf{Device}: iOS simulator
+        \item \textbf{Input}: username: "test1", email: "test@test.it", name: "TestName", surname: "TestSurname", place of birth: "TestPlace", date of birth: "1001-01-01", place of residence: "TestPlace", fiscal code: "aaaaaaaaaaaaaaaa", password "testpsw", id photo: a picture from device, your photo: a picture from device
+        \item \textbf{Outcome}: All the textual textfield are signed as mandatory.
+        \item \textbf{Result}: Passed
+        \item \textbf{Comment}: The "ID PHOTO" and "YOUR PHOTO" button are not marked as mandatory.
+    \end{itemize}
+
+    \subsubsection{User registration 5}\label{subsubsec:user-registration-5}
+    \begin{itemize}
+        \item \textbf{Test purpose}: An user must be allowed to register.
+        The user try to register by giving all the correct information.
+        \item \textbf{Device}: Web page (MacBook pro)
+        \item \textbf{Input}: username: "test1", email: "test@test.it", name: "TestName", surname: "TestSurname", place of birth: "TestPlace", date of birth: "1001-01-01", place of residence: "TestPlace", fiscal code: "aaaaaaaaaaaaaaaa", password "testpsw"
+        \item \textbf{Outcome}: The web page do not open neither the camera or the gallery.
+        \item \textbf{Result}: Failed
+        \item \textbf{Comment}: Since neither the camera or the gallery can be used to upload a picture, the registration can not be performed by the web page (the pictures are mandatory information for the registration).
+    \end{itemize}
+
+    \subsubsection{ !!!!! TODO registrazione da cellulare}\label{subsubsec:user-registration-6}
+    \begin{itemize}
+    \end{itemize}
+
+
+
 
 
 
