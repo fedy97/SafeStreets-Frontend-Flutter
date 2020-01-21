@@ -10,7 +10,7 @@
 
     \section{Testing Requirements Table}\label{sec:testing-requirements-table}
     As already described, it is not possible to test all the requirements since some of them do not show up at all.
-    Moreover, it is difficult to follow the requirement order presented in the RASD and in the ITD, so the following table purpose is to show which requirements will be tested.
+    Moreover, it is difficult to follow the requirement's order presented in the RASD and in the ITD, so the following table's purpose is to show which requirements will be tested.
     At the end of the chapter a section for the untested requirements will be provided anyway.
 
     \begin{enumerate}
@@ -65,7 +65,7 @@
     \end{adjustwidth}
 
     \section{Test Cases}\label{sec:test-cases}
-    The test cases will be presented as follow: they will be group by tested requirements, and for every test will be described the following information:
+    The test cases will be presented as follow: they will be grouped by tested requirements, and for every test will be described the following information:
     \begin{enumerate}
         \item \textbf{Test purpose}
         \item \textbf{Device}: device on which the test run (android phone, iOS phone, simulator, web page, etc..)
@@ -89,7 +89,7 @@
         \item \textbf{Input}: username: "jak4", password: "jak".
         \item \textbf{Outcome}: SafeStreet user's main menu.
         \item \textbf{Result}: Passed
-        \item \textbf{Comment}: The user "jak4" was already registered by the developers with the password "jak".
+        \item \textbf{Comment}: The user "jak4" was already registered and given to us by the developers with the password "jak".
     \end{itemize}
 
     \subsubsection{User login 3}\label{subsubsec:user-login-3}
@@ -211,7 +211,7 @@
         \item \textbf{Comment}: We can assume that the registration failed, since we provided all real information and if we try to go back in sign in page and try to log in,
         a message said that we are using invalid email and password.
 
-        \includegraphics[scale = 0.3]{assets/statsError.png}
+        \includegraphics[scale = 0.4]{assets/statsError.png}
     \end{itemize}
 
     \subsection{Municipality registration and login [R15]}\label{subsec:municipality-registration-and-login}
@@ -270,7 +270,7 @@
         \item \textbf{Result}: Failed
         \item \textbf{Comment}: The same results can be obtained by choosing the "Streets with most violation" or "Most common violation" option.
 
-        \includegraphics[scale = 0.3]{assets/statsError.png}
+        \includegraphics[scale = 0.4]{assets/statsError.png}
     \end{itemize}
 
     \subsubsection{Statistics interrogation 2}\label{subsec:statistics-interrogation-2}
@@ -278,7 +278,7 @@
         \item \textbf{Test purpose}: A user must be able to view the statistics.
         \item \textbf{Device}: Web page (MacOS)
         \item \textbf{Input}: "Effectiveness" choice in the drop down menu of the "Statistics" page.
-        \item \textbf{Outcome}: A button with a text description "Send default" appear, but than clicking on any point of the page (both the button or not), it disappear and nothing happens.
+        \item \textbf{Outcome}: A button with a text description "Send default" appears, but than clicking on any point of the page (both the button or not), it disappears and nothing happens.
         \item \textbf{Result}: Failed
         \item \textbf{Comment}: The same results can be obtained by choosing the "Streets with most violation" or "Most common violation" option.
     \end{itemize}
@@ -286,27 +286,27 @@
     \subsection{Municipality violations access [R3]}\label{subsec:municipality-report-access}
     R3: The Municipality can access only the data of the violations of its competence area.
     \newline
-    For the purpose of these tests, it is important to say that some violation was already stored in the database provided by the developer group.
+    For the purpose of these tests, it is important to say that some violations were already stored in the database provided by the developers.
     \subsubsection{Municipality violation request 1}\label{subsubsec:municiplaity-violation-request-1}
     \begin{itemize}
-        \item \textbf{Test purpose}: The municipality can see all the violation reported on its territory.
+        \item \textbf{Test purpose}: The municipality can see all the violations reported on its territory.
         \item \textbf{Device}: iPhone, Android Emulator (Android 9), Android phone (Android 10)
-        \item \textbf{Input}: Milan municipality (username: "Milano", password: "Milan"), look for the violations from "01-11-2019" until "21-01-2020".
+        \item \textbf{Input}: Milan municipality (username: "Milano", password: "Milan"), looks for the violations from "01-11-2019" until "21-01-2020".
         \item \textbf{Outcome}: 17 violations are reported, all of them with the city marked as "Milano".
         \item \textbf{Result}: Passed
         \item \textbf{Bugs}: The first 7 violations are always marked as uploaded in the moment in which the query has been done (same day and hour).
-        \item \textbf{Comment}: The date and time error is for sure a bug of the application, but it do not prevent the requirement from being satisfied.
+        \item \textbf{Comment}: The date and time error is for sure a bug of the application, but it does not prevent the requirement from being satisfied.
     \end{itemize}
 
     \subsubsection{Municipality violation request 2}\label{subsubsec:municiplaity-violation-request-2}
     \begin{itemize}
         \item \textbf{Test purpose}: The municipality can see all the violations reported on its territory.
         \item \textbf{Device}: Web page (MacOS)
-        \item \textbf{Input}: Milan municipality (username: "Milano", password: "Milan"), look for the violations from "01-110-2019" until "21-01-2020".
+        \item \textbf{Input}: Milan municipality (username: "Milano", password: "Milan"), looks for the violations from "01-110-2019" until "21-01-2020".
         \item \textbf{Outcome}: 17 violations are reported, all of them with the city marked as "Milano".
         \item \textbf{Result}: Passed
         \item \textbf{Bugs}: The first 7 violations are always marked as uploaded from the moment in which the query has been done (same day and hour).
-        \item \textbf{Comment}: The date and time error is for sure a bug of the application, but it do not prevent the requirement from being satisfied.
+        \item \textbf{Comment}: The date and time error is for sure a bug of the application, but it does not prevent the requirement from being satisfied.
     \end{itemize}
 
     \subsubsection{Municipality violation request 3}\label{subsubsec:municiplaity-violation-request-3}
@@ -319,13 +319,13 @@
     \end{itemize}
 
     \subsection{Violation access [R7]}\label{subsec:violation-access-1}
-    R7: Only the Municipality can access the submitted parking violation of its competence area
+    R7: Only the Municipality can access the submitted parking violations of its competence area
 
     \subsubsection{User violation access}\label{subsubsec:user-violation-access}
     \begin{itemize}
         \item \textbf{Test purpose}: The user page do not have the "Access reports" menu.
-        \item \textbf{Device}: iPhone
-        \item \textbf{Input}: Log in as A user
+        \item \textbf{Device}: iPhone, Android Emulator (Android 9), Android phone (Android 10)
+        \item \textbf{Input}: Log in as a user
         \item \textbf{Outcome}: The "Access report" menu is not available.
         \item \textbf{Result}: Passed
         \item \textbf{Comment}: This requirement will be better discussed in the next section.
@@ -333,7 +333,7 @@
 
     \subsection{Picture selection [R8]}\label{subsec:picture-selection}
     R8: The system must allow the User to take a picture or select one from the device.
-    This requirement must be ensured in two cases: when a user upload pictures for the registration and when the user upload pictures for a violation.
+    This requirement must be ensured in two cases: when a user uploads pictures for the registration and when the user uploads pictures for a violation.
 
     \subsubsection{Picture selection for registration 1}\label{subsubsec:picture-selection-for-registration-1}
     \begin{itemize}
@@ -375,9 +375,9 @@
         \item \textbf{Test purpose}: A user must be able to upload a new report.
         \item \textbf{Device}: iPhone, Android Emulator (Android 9), Android phone (Android 10)
         \item \textbf{Input}: "New report" from main menu, take a picture with the camera, confirm, chose category "Parking on traffic island", confirm.
-        \item \textbf{Outcome}: Nothing happens
+        \item \textbf{Outcome}: Nothing happens.
         After some time, a message appears: "An error occurred, please retry" with a button "Abort".
-        Sometimes, if the confirmation button is clicked several times before the error message comes out, the application move to the next page and instantly shows the same error.
+        Sometimes, if the confirmation button is clicked several times before the error message comes out, the application moves to the next page and instantly shows the same error.
         \item \textbf{Result}: Failed
         \item \textbf{Possible bugs}: It is possible that the error is caused by the failure of the system to retrieve the position from the user GPS, and that does not allow the server to complete the task.
         \item \textbf{Comment}: The same result is obtained by uploading a picture from the gallery and by choosing another type of violation.
@@ -402,7 +402,7 @@
     \subsection{Reports are correctly stored [R1]}\label{subsec:report-are-correctly-stored}
     R1: The reports about the violations are correctly stored.
     \newline
-    It was impossible to test this requirement, since the system do not allow to go after choosing the violation type, making it impossible to upload the reports.
+    It was impossible to test this requirement, since the system does not allow to go after choosing the violation type, making it impossible to upload the reports.
     All the tests that concern some violations are done on the reports that were already stored in the database, provided by the developers.
     \begin{figure}[H]
         \centering
@@ -419,10 +419,6 @@
     The test case that pointed out this issue is \textit{Municipality violation request 1}, from the previous section.
     In the follow is provided a screen of the error, as well as the database actual situation.
 
-    \begin{figure}[H]
-        \centering
-        \caption[Violation manipulation]{The first 5 violations show the date and time of the device (can be compared with the actual time on the top).}
-    \end{figure}
 
     \begin{figure}[H]
         \centering
