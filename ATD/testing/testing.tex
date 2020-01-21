@@ -1,6 +1,5 @@
 \providecommand{\atd}{..}
 \documentclass[../ATD.tex]{subfiles}
-\usepackage{graphicx}
 
 \begin{document}
     \chapter{Testing}\label{ch:testing}
@@ -23,14 +22,14 @@
         \item \textbf{Input}: input of the test
         \item \textbf{Outcome}: output of the test
         \item \textbf{Result}: passed or fail
-        \item (Eventually) \testbf{Possible bugs}: list of possible bugs
+        \item (Eventually) \textbf{Possible bugs}: list of possible bugs
         \item (Eventually) \textbf{Comment}: relevant comments about the test
     \end{enumerate}
     As previously explained, it will not be possible to test the requirements in the same order as they are presented in the RASD and ITD,
     but they will be marked with the same enumeration to make them easier to read.
-    The requirements will be marked \textbf{[Rn]}, to refer to the n\-th requirement.
+    The requirements will be marked \textbf{[Rn]}, to refer to the n-th requirement.
 
-    \subsection{User registration and login [R14]}\label{subsec:user-registration-and-login}
+    \subsection{User registration and login R[14]}\label{subsec:user-registration-and-login}
     R14: The system must allow the user to perform the registration and the login.
 
     \subsubsection{User login 1}\label{subsubsec:user-login-1}
@@ -80,7 +79,7 @@
         \item \textbf{Input}: username: "test1", email: "test@test.it", name: "TestName", surname: "TestSurname", place of birth: "TestPlace", date of birth: "01-01-1001", place of residence: "TestPlace", fiscal code: "aaaaaaaaaaaaaaaa", password "testpsw", id photo: a picture from device, your photo: a picture from device
         \item \textbf{Outcome}: Nothing happen
         \item \textbf{Result}: Failed
-        \item \testbf{Possible bugs}: The application does not perform any action, but on the intelliJ console it is possible to see an error "Unhandled Exception: FormatException: Invalid date format".
+        \item \textbf{Possible bugs}: The application does not perform any action, but on the intelliJ console it is possible to see an error "Unhandled Exception: FormatException: Invalid date format".
         \item \textbf{Comment}: Talking with the developer group, we know that the correct format for the date is yyyy-mm-dd.
         The application should inform the user about that restriction.
         Moreover, the application should show an error to inform the user that something went wrong, because it is not intuitive to understand that the sign up request has been sent.
@@ -180,12 +179,12 @@
     R2.A: The vehicles that have committed the highest number of violations.
     \newline
     For the purpose of these tests, it is important to say that some violation was already stored in the database provided by the developer group.
-    They are 19 violations, 17 reported for "PARKING_ON_RESERVED_STALL" and 2 for "PARKING_ON_SIDEWALK", all uploaded between 12-10-2019 and 04-01-2020, according with the stored information.
+    They are 19 violations, 17 reported for "PARKING\_ON\_RESERVED\_STALL" and 2 for "PARKING\_ON\_SIDEWALK", all uploaded between 12-10-2019 and 04-01-2020, according with the stored information.
     A picture of a query on the database is provided for more information:
 
     \begin{figure}[H]
         \centering
-        \includegraphics[scale = 0.3]{assets/database_user_report.png}\\
+        \includegraphics[scale = 0.5]{assets/database_user_report.png}\\
         \caption[Query on all the report stored]{Query on all the report stored.}
     \end{figure}
 
@@ -199,7 +198,7 @@
         \item \textbf{Comment}: The same results can be obtained by choosing the "Streets with most violation" or "Most common violation" option.
     \end{itemize}
 
-    \subsubsection{Statistics interrogation 2}\label{subsubsec:statistics-interrogation-2}
+    \subsubsection{Statistics interrogation 2}\label{subsec:statistics-interrogation-2}
     \begin{itemize}
         \item \textbf{Test purpose}: An user must be able to view the statistics.
         \item \textbf{Device}: Web page (MacOS)
@@ -220,7 +219,7 @@
         \item \textbf{Input}: Milan municipality (username: "Milano", password: "Milan"), look for the violations from "01-11-2019" until "21-01-2020".
         \item \textbf{Outcome}: 17 violations are reported, all of them with the city marked as "Milano".
         \item \textbf{Result}: Passed
-        \item \testbf{Bugs}: The first 7 violations are always marked as uploaded in the moment in which the query has been done (same day and hour).
+        \item \textbf{Bugs}: The first 7 violations are always marked as uploaded in the moment in which the query has been done (same day and hour).
         \item \textbf{Comment}: The date and time error is for sure a bug of the application, but it do not prevent the requirement from being satisfied.
     \end{itemize}
 
@@ -231,7 +230,7 @@
         \item \textbf{Input}: Milan municipality (username: "Milano", password: "Milan"), look for the violations from "01-110-2019" until "21-01-2020".
         \item \textbf{Outcome}: 17 violations are reported, all of them with the city marked as "Milano".
         \item \textbf{Result}: Passed
-        \item \testbf{Bugs}: The first 7 violations are always marked as uploaded in the moment in which the query has been done (same day and hour).
+        \item \textbf{Bugs}: The first 7 violations are always marked as uploaded in the moment in which the query has been done (same day and hour).
         \item \textbf{Comment}: The date and time error is for sure a bug of the application, but it do not prevent the requirement from being satisfied.
     \end{itemize}
 
@@ -305,7 +304,7 @@
         After some time, a message appear: "An error occurred, please retry" with a button "Abort".
         Some times, if the confirmation button is clicked several times before the error message comes out, the application move to the next page and instantly show the same error.
         \item \textbf{Result}: Failed
-        \item \testbf{Possible bugs}: It is possible that the error is caused by the fail of the system to retrieve the position from the user GPS, and that don't allow the server to complete the task.
+        \item \textbf{Possible bugs}: It is possible that the error is caused by the fail of the system to retrieve the position from the user GPS, and that don't allow the server to complete the task.
         \item \textbf{Comment}: The same result is obtained by uploading a picture from the gallery and by choosing another type of violation.
     \end{itemize}
 
@@ -332,7 +331,7 @@
     All the tests that concern some violation are done on the report that was already stored in the database, provided by the developer group.
     \begin{figure}[H]
         \centering
-        \includegraphics[scale = 0.6]{assets/report_upload_error.png}\\
+        \includegraphics[scale = 0.3]{assets/report_upload_error.png}\\
         \caption[Report upload error]{Report upload error.}
     \end{figure}
 
@@ -352,7 +351,7 @@
 
     \begin{figure}[H]
         \centering
-        \includegraphics[scale = 0.7]{assets/database_user_report.png}\\
+        \includegraphics[scale = 0.5]{assets/database_user_report.png}\\
         \caption[Situation of the database]{Actual situation of the violation database while the test was running.}
     \end{figure}
 
@@ -367,21 +366,22 @@
     The error shows up on every device we used to run the application: web page (Chrome, as indicated), android phone, iOS phone, iOS simulator.
     We think that this issue is related to the harvest of information about the user geolocation, and that it share the same cause with some other bug of the application (like the violation upload one), but this is just a firs analysis that can not be considered accurate without looking at the source code (that avoid the requirements of this document).
     In the following are showed some picture of the error.
+    \newline
     \begin{figure}[H]
         \centering
-        \includegraphics[scale = 0.3]{assets/web_page_error.png}\\
+        \includegraphics[scale = 0.4]{assets/web_page_error.png}\\
         \caption[Web page error]{Web page error.}
     \end{figure}
 
     \begin{figure}[H]
         \centering
-        \includegraphics[scale = 0.6]{assets/smartphone_error.png}\\
+        \includegraphics[scale = 0.25]{assets/smartphone_error.png}\\
         \caption[Smartphone error]{Smartphone error.}
     \end{figure}
 
     \begin{figure}[H]
         \centering
-        \includegraphics[scale = 0.6]{assets/iOS_simulator_error.png}\\
+        \includegraphics[scale = 0.4]{assets/iOS_simulator_error.png}\\
         \caption[iOS simulator error]{iOS simulator error.}
     \end{figure}
 

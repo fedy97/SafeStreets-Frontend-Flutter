@@ -9,7 +9,7 @@
         \item SoftwareToInstall
         \item ITD1
     \end{itemize}
-    Both the documents can be found on github, in the folder \href{https://github.com/gianfi12/AbboAccordiBonetti/DeliveryFolder}{\emph{DeliveryFolder}}..
+    Both the documents can be found on github, in the folder \href{https://github.com/gianfi12/AbboAccordiBonetti/DeliveryFolder}{\emph{DeliveryFolder}}.
 
     \section{Installation choice}\label{sec:installation-choice}
     The following software has been used:
@@ -26,8 +26,8 @@
     We have been able to solve it by communicating with the developer team.
     The problem that we found was that the SafeStreetsSOAP and SafeStreetsWebServer were assigned to an unrecognized link, different from the once that were expected.
     The expected links were \textit{\${com.sun.aas.instanceRootURI}/applications/SafeStreetsSOAP/} and \textit{\${com.sun.aas.instanceRootURI}/applications/SafeStreetsWebServer/},
-    while we found \textit{\${com.sun.aas.instanceRootURI}/applications/SafeStreetsSOAP534859734543/} and \textit{\${com.sun.aas.instanceRootURI}/applications/SafeStreetsWebServer54378953479583/}.
-    To solve the problem, we needed to go in the glassfish5/glassfish/domains/domain1/config folder and modify the domain.xml file by removing the unexpected characters wherever they show up.
+    while we found \textit{\${com.sun.aas.instanceRootURI}/applications/SafeStreetsSOAP534859734543/} and \newline\textit{\${com.sun.aas.instanceRootURI}/applications/SafeStreetsWebServer54378953479583/}.
+    \newline To solve the problem, we needed to go in the glassfish5/glassfish/domains/domain1/config folder and modify the domain.xml file by removing the unexpected characters wherever they show up.
 
 
 \end{document}
