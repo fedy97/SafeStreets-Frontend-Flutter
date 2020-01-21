@@ -6,6 +6,7 @@
     The application has some important issues and bugs.
     Only few functionalities work properly, making it impossible to test all the features of the application.
     The requirements that we were not able to test are described in a dedicated section, with the reason of their failures.
+    Note that we tested the application running the server both on a iOS machine and a Linux machine, with the same results.
 
     \section{Testing Requirements Table}\label{sec:testing-requirements-table}
     As already described, it is not possible to test all the requirements since some of them do not show up at all.
@@ -158,6 +159,8 @@
         \item \textbf{Outcome}: All the textual textfield are signed as mandatory.
         \item \textbf{Result}: Passed
         \item \textbf{Comment}: The "ID PHOTO" and "YOUR PHOTO" button are not marked as mandatory.
+
+        \includegraphics[scale = 0.3]{assets/mandatorySignup.png}
     \end{itemize}
 
     \subsubsection{User registration 5}\label{subsubsec:user-registration-5}
@@ -377,7 +380,7 @@
     All the tests that concern some violations are done on the reports that were already stored in the database, provided by the developers.
     \begin{figure}[H]
         \centering
-        \includegraphics[scale = 0.25]{assets/report_upload_error.png}\\
+        \includegraphics[scale = 0.17]{assets/report_upload_error.png}\\
         \caption[Report upload error]{Report upload error.}
     \end{figure}
 
@@ -435,6 +438,12 @@
         \centering
         \includegraphics[scale = 0.4]{assets/futureError.png}\\
         \caption[Android Emulator error]{Android Emulator error.}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale = 0.4]{assets/futureErrorConsole.png}\\
+        \caption[Console error]{Console error.}
     \end{figure}
 
     The "Around me" menu should interface the user with the map, and it is not possible to say if this error comes from the GPS connection or the communication with the map service.
