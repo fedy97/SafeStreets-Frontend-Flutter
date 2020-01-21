@@ -174,7 +174,7 @@
         \item \textbf{Result}: Failed
     \end{itemize}
 
-    \subsection{Statistics [R2]}\label{subsec:statistics}
+    \subsection{User statistics [R2]}\label{subsec:user-statistics}
     R2: The user can view the statistics calculated by the System with some exceptions.
     \newline
     R2.A: The vehicles that have committed the highest number of violations.
@@ -205,16 +205,6 @@
         \item \textbf{Outcome}: A button with a text description "Send default" appear, but than clicking on any point of the page (both the button or not), it disappear and nothing happen.
         \item \textbf{Result}: Failed
         \item \textbf{Comment}: The same results can be obtained by choosing the "Streets with most violation" or "Most common violation" option.
-    \end{itemize}
-
-    \subsubsection{Statistics interrogation 3}\label{subsubsec:statistics-interrogation-3}
-    \begin{itemize}
-        \item \textbf{Test purpose}: A municipality must be able to view the statistics.
-        \item \textbf{Device}: iPhone
-        \item \textbf{Input}: "Effectiveness" choice in the drop down menu of the "Statistics" page.
-        \item \textbf{Outcome}: Nothing happen.
-        \item \textbf{Result}: Failed
-        \item \textbf{Comment}: The same results can be obtained by choosing the "Streets with most violation", "Most common violation" or "Worst drivers" option.
     \end{itemize}
 
     \subsection{Municipality violations access [R3]}\label{subsec:municipality-report-access}
@@ -317,6 +307,19 @@
         \item \textbf{Comment}: The same result is obtained by uploading a picture from the gallery and by choosing another type of violation.
     \end{itemize}
 
+    \subsection{Municipality query statistics [R11]}\label{subsec:municipality-query-statistics}
+    R11: The municipality can view all the statistics calculated by the system.
+
+    \subsubsection{Statistics interrogation}\label{subsubsec:statistics-interrogation}
+    \begin{itemize}
+        \item \textbf{Test purpose}: A municipality must be able to view the statistics.
+        \item \textbf{Device}: iPhone
+        \item \textbf{Input}: "Effectiveness" choice in the drop down menu of the "Statistics" page.
+        \item \textbf{Outcome}: Nothing happen.
+        \item \textbf{Result}: Failed
+        \item \textbf{Comment}: The same results can be obtained by choosing the "Streets with most violation", "Most common violation" or "Worst drivers" option.
+    \end{itemize}
+
     \section{Untestable requirements}\label{sec:untestable-requirements}
     Some requirements were impossible to be tested, and they are presented in this section with an analysis of the issues we have found.
 
@@ -408,6 +411,17 @@
     \newline
     We did these consideration about this requirement because of its similarity with R2.
     In fact, considering a scenario in which the statistics are showed but they are incorrect, it would be satisfied only the requirement R2 and not the R10.
-    
+
+    \subsection{Violation acceptance}\label{subsec:violation-acceptance}
+    R13: The system accepts only reports with a valid plate number and position.
+    \newline
+    This requirement should be only partially implemented (only accept a valid position).
+    However, since it is not possible to upload a violation report, it is not possible to test it.
+
+    \subsection{Non-mandatory attributes request}\label{subsec:non-mandatory-attribure-request}
+    R16: The system must ask the User the non-mandatory attributes of the report.
+    \newline
+    The violation upload procedure can not be done, and it do not reach the page that should required the non mandatory attributes.
+    Because of that, it is not possible to test this requirement.
 
 \end{document}
