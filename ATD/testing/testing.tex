@@ -4,33 +4,13 @@
 
 \begin{document}
     \chapter{Testing}\label{ch:testing}
-    \section{Important note}\label{sec:important-note}
-    An important issue has to be at least presented before to start to talk about the testing, since it compromises the correct use of the application.
-    The issue will be discuss later, but it has a big impact on the structure of the document.
-    \newline
-    When the application run, after the user login an error message is show, and almost all the functionality of the application are not available.
-    The error shows up on every device we used to run the application: web page (Chrome, as indicated), android phone, iOS phone, iOS simulator.
-    We think that this issue is related to the GPS connection and is the cause of the most of the fail in the test that will be presented in the next chapter.
-    In the following are showed some picture of the error.
-    \begin{figure}[H]
-        \centering
-        \includegraphics{../assets/web_page_error.png}
-        \caption{Web page error}
-    \end{figure}
-    \begin{figure}[H]
-        \centering
-        \includegraphics{../assets/smartphone_error.png}
-        \caption{Smartphone error}
-    \end{figure}
-    \begin{figure}[H]
-        \centering
-        \includegraphics{../assets/iOS_simulator_error.png}
-        \caption{iOS simulator error}
-    \end{figure}
+    The application has some important issues and bugs.
+    Only few functionality works properly, making it impossible to test all the features of the application.
+    The requirements that we were not able to test are described in a dedicated section, with the reason of their failure.
 
     \section{Testing Requirements Table}\label{sec:testing-requirements-table}
-    Probably because of the already showed error, it will not be possible to test all the requirements since some of them will not be showed at all.
-    Moreover, it will be difficult to follow the requirement order presented in the RASD and in the ITD while testing, so the following table purpose is to show which requirements will be tested.
+    As already described, it will not be possible to test all the requirements since some of them will not be showed at all.
+    Moreover, it will be difficult to follow the requirement order presented in the RASD and in the ITD, so the following table purpose is to show which requirements will be tested.
     At the end of the chapter a section for the untested requirements will be provided anyway.
 
     ******** TABELLA *********
@@ -272,6 +252,19 @@
         \item \textbf{Result}: Passed
     \end{itemize}
 
+    \subsection{Violation access [R7]}\label{subsec:violation-access-1}
+    R7: Only the Municipality can access the submitted parking violation of its competence area
+
+    \subsubsection{User violation access}\label{subsubsec:user-violation-access}
+    \begin{itemize}
+        \item \textbf{Test purpose}: The user page do not have the "Access reports" menu.
+        \item \textbf{Device}: iPhone
+        \item \textbf{Input}: Log in as an user
+        \item \textbf{Outcome}: The "Access report" menu is not available.
+        \item \textbf{Result}: Passed
+        \item \textbf{Comment}: This requirement will be better discussed in the next section.
+    \end{itemize}
+
     \subsection{Picture selection [R8]}\label{subsec:picture-selection}
     R8: The system must allow the User to take a picture or select one from the device.
     This requirement must be ensured in two cases: when a user upload pictures for the registration and when the user upload pictures for a violation.
@@ -318,13 +311,103 @@
         \item \textbf{Input}: "New report" from main menu, take a picture with the camera, confirm, chose category "Parking on traffic island", confirm.
         \item \textbf{Outcome}: Nothing happen.
         After some time, a message appear: "An error occurred, please retry" with a button "Abort".
+        Some times, if the confirmation button is clicked several times before the error message comes out, the application move to the next page and instantly show the same error.
         \item \textbf{Result}: Failed
         \item \testbf{Possible bugs}: It is possible that the error is caused by the fail of the system to retrieve the position from the user GPS, and that don't allow the server to complete the task.
         \item \textbf{Comment}: The same result is obtained by uploading a picture from the gallery and by choosing another type of violation.
     \end{itemize}
 
+    \section{Untestable requirements}\label{sec:untestable-requirements}
+    Some requirements were impossible to be tested, and they are presented in this section with an analysis of the issues we have found.
 
+    \subsection{Reports are correctly stored [R1]}\label{subsec:report-are-correctly-stored}
+    R1: The reports about the violations are correctly stored.
+    \newline
+    It was impossible to test this requirement, since the system do not allow to go after choosing the violation type, making it impossible to upload the reports.
+    All the tests that concern some violation are done on the report that was already stored in the database, provided by the developer group.
+    \begin{figure}[H]
+        \centering
+        \includegraphics{../assets/report_upload_error.png}
+        \caption{Report upload error}
+    \end{figure}
 
+    \subsection{Violation manipulation [R5]}\label{subsec:violation-manipulation}
+    R5: The system must avoid the manipulation of the violations.
+    \newline
+    Since it is impossible to upload a new violation, it is not possible to know if the system has manipulated the information.
+    Anyway, a manipulation of data has been discovered indirectly in the application testing: when a municipality query the violation on its territory, sometimes some report are showed with the current date and time as upload date.
+    We do not know what can cause this issue, since the violations seems to be stored correctly on the database.
+    The test case that rose this issue is \textit{Municipality violation request 1}, from the previous section.
+    In the follow is provided a screen of the error, as well as a the database actual situation.
 
+    \begin{figure}[H]
+        \centering
+        \includegraphics{../assets/access_report_municipality.png}
+        \caption{The first 5 violation show the date and time of the device (can be compared with the actual time on the top)}
+    \end{figure}
+
+    \begin{figure}[H]
+        \centering
+        \includegraphics{../assets/database_user_report.png}
+        \caption{Actual situation of the violation database while the test was running}
+    \end{figure}
+
+    \subsection{Map and GPS [R6][R19]}\label{subsec:map-and-gps}
+    R6: The system must be able to retrieve the position from the user or from the GPS.
+    \newline
+    R19: The System must communicate with the Maps Service.
+    \newline
+    This two requirements need to be presented together, since it is impossible to distinguish them for several issues of the application.
+    \newline
+    When the application run, after the user login, an error message is show in the "Arund me" main menu.
+    The error shows up on every device we used to run the application: web page (Chrome, as indicated), android phone, iOS phone, iOS simulator.
+    We think that this issue is related to the harvest of information about the user geolocation, and that it share the same cause with some other bug of the application (like the violation upload one), but this is just a firs analysis that can not be considered accurate without looking at the source code (that avoid the requirements of this document).
+    In the following are showed some picture of the error.
+    \begin{figure}[H]
+        \centering
+        \includegraphics{../assets/web_page_error.png}
+        \caption{Web page error}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics{../assets/smartphone_error.png}
+        \caption{Smartphone error}
+    \end{figure}
+    \begin{figure}[H]
+        \centering
+        \includegraphics{../assets/iOS_simulator_error.png}
+        \caption{iOS simulator error}
+    \end{figure}
+
+    The "Around me" menu should interface the user with the map, and it is not possible to say if this error comes from the GPS connection or the communication with the map service.
+    By inserting a location in the text-bar on the top nothing happen, but it is reasonable to think that this is related to the bug already described.
+    \newline
+    The requirement R6 should concern even the violation upload by an user, that should be able to provide his location to associate it to the report.
+    This is untestable, since it is not possible to reach that page in the upload phase.
+
+    \subsection{Violation access [R7]}\label{subsec:violation-access}
+    R7: Only the Municipality can access the submitted parking violation of its competence area
+    \newline
+    It is not possible to say if this requirement is satisfied.
+    The only analysis that we can do is that the user can not see the "Access report" menu, but the main point of this requirement was probably on the possibility to see important information (like pictures or plate numbers) by the user, information that are not provided on these menu neither for the municipality.
+    The issue of testing this requirement came from the error previously discussed of the "Around me" map, that we can not say what would show to the user, as well (less probably) as the statistics page.
+    The requirement is so satisfied, but we can say nothing about what it would be without these two bugs.
+
+    \subsection{Statistics calculation [R10]}\label{subsec:statistics-calculation}
+    R10: The System must calculate some statistics:
+    \newline
+    R10.A: The system must calculate the streets with the highest and the lowest number of violations.
+    \newline
+    R10.B: The system must calculate the effectiveness of the service.
+    \newline
+    R10.C: The system must calculate the vehicles (identified by the traffic plate) that have committed the highest number of violations.
+    \newline
+    As showed in the previous section (\textit{Statistics [R2]}) the user can not see the statistics.
+    This is enough to say that the requirement R2 (The user can view the statistics calculated by the System with some exceptions) is not satisfied, but not to say that the system is not able to build statistics, since it could just not show them.
+    This consideration make the requirement impossible to be testes.
+    \newline
+    We did these consideration about this requirement because of its similarity with R2.
+    In fact, considering a scenario in which the statistics are showed but they are incorrect, it would be satisfied only the requirement R2 and not the R10.
+    
 
 \end{document}
