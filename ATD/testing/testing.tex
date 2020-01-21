@@ -66,7 +66,7 @@
     \subsubsection{User login 2}\label{subsubsec:user-login-2}
     \begin{itemize}
         \item \textbf{Test purpose}: An user that is already signed in must be able to login correctly.
-        \item \textbf{Device}: web page
+        \item \textbf{Device}: Web page (MacOS)
         \item \textbf{Input}: username: "jak4", password: "jak".
         \item \textbf{Outcome}: SafeStreet user's main menu.
         \item \textbf{Result}: Passed
@@ -144,7 +144,7 @@
     \begin{itemize}
         \item \textbf{Test purpose}: An user must be allowed to register.
         The user try to register by giving all the correct information.
-        \item \textbf{Device}: Web page (MacBook pro)
+        \item \textbf{Device}: Web page (MacOS)
         \item \textbf{Input}: username: "test1", email: "test@test.it", name: "TestName", surname: "TestSurname", place of birth: "TestPlace", date of birth: "1001-01-01", place of residence: "TestPlace", fiscal code: "aaaaaaaaaaaaaaaa", password "testpsw"
         \item \textbf{Outcome}: The web page do not open neither the camera or the gallery.
         \item \textbf{Result}: Failed
@@ -178,7 +178,7 @@
     \subsubsection{Municipality login 2}\label{subsubsec:municipality-login-2}
     \begin{itemize}
         \item \textbf{Test purpose}: An user that is already signed in must be able to login correctly.
-        \item \textbf{Device}: Web page
+        \item \textbf{Device}: Web page (MacOS)
         \item \textbf{Input}: username: "Milano", password: "Milan".
         \item \textbf{Outcome}: SafeStreet municipality's main menu.
         \item \textbf{Result}: Passed
@@ -188,10 +188,88 @@
     \subsubsection{Municipality registration}\label{subsubsec:municipality-registration}
     \begin{itemize}
         \item \textbf{Test purpose}: A municipality must be able to register itself on SafeStreets.
-        \item \textbf{Device}: Web page (MacBook pro)
+        \item \textbf{Device}: Web page (MacOS)
         \item \textbf{Input}: activation code: "123123123", username: "Test", password: "TestPsw".
         \item \textbf{Outcome}: Nothing happen.
         \item \textbf{Result}: Failed
+    \end{itemize}
+
+    \subsection{Statistics [R2]}\label{subsec:statistics}
+    R2: The user can view the statistics calculated by the System with some exceptions.
+    \newline
+    R2.A: The vehicles that have committed the highest number of violations.
+    \newline
+    For the purpose of these tests, it is important to say that some violation was already stored in the database provided by the developer group.
+    They are 19 violations, 17 reported for "PARKING_ON_RESERVED_STALL" and 2 for "PARKING_ON_SIDEWALK", all uploaded between 12-10-2019 and 04-01-2020, according with the stored information.
+    A picture of a query on the database is provided for more information:
+    \begin{figure}[H]
+        \centering
+        \includegraphics{../assets/database_user_report.png}
+        \caption{Query on all the report stored}
+    \end{figure}
+    \subsubsection{Statistics interrogation 1}\label{subsubsec:statistics-interrogation-1}
+    \begin{itemize}
+        \item \textbf{Test purpose}: An user must be able to view the statistics.
+        \item \textbf{Device}: iPhone
+        \item \textbf{Input}: "Effectiveness" choice in the drop down menu of the "Statistics" page.
+        \item \textbf{Outcome}: Nothing happen.
+        \item \textbf{Result}: Failed
+        \item \textbf{Comment}: The same results can be obtained by choosing the "Streets with most violation" or "Most common violation" option.
+    \end{itemize}
+
+    \subsubsection{Statistics interrogation 2}\label{subsubsec:statistics-interrogation-2}
+    \begin{itemize}
+        \item \textbf{Test purpose}: An user must be able to view the statistics.
+        \item \textbf{Device}: Web page (MacOS)
+        \item \textbf{Input}: "Effectiveness" choice in the drop down menu of the "Statistics" page.
+        \item \textbf{Outcome}: A button with a text description "Send default" appear, but than clicking on any point of the page (both the button or not), it disappear and nothing happen.
+        \item \textbf{Result}: Failed
+        \item \textbf{Comment}: The same results can be obtained by choosing the "Streets with most violation" or "Most common violation" option.
+    \end{itemize}
+
+    \subsubsection{Statistics interrogation 3}\label{subsubsec:statistics-interrogation-3}
+    \begin{itemize}
+        \item \textbf{Test purpose}: A municipality must be able to view the statistics.
+        \item \textbf{Device}: iPhone
+        \item \textbf{Input}: "Effectiveness" choice in the drop down menu of the "Statistics" page.
+        \item \textbf{Outcome}: Nothing happen.
+        \item \textbf{Result}: Failed
+        \item \textbf{Comment}: The same results can be obtained by choosing the "Streets with most violation", "Most common violation" or "Worst drivers" option.
+    \end{itemize}
+
+    \subsection{Municipality violations access [R3]}\label{subsec:municipality-report-access}
+    R3: The Municipality can access only the data of the violations of its competence area.
+    \newline
+    For the purpose of these tests, it is important to say that some violation was already stored in the database provided by the developer group.
+    \subsubsection{Municipality violation request 1}\label{subsubsec:municiplaity-violation-request-1}
+    \begin{itemize}
+        \item \textbf{Test purpose}: The municipality can see all the violation reported on its territory.
+        \item \textbf{Device}: iPhone
+        \item \textbf{Input}: Milan municipality (username: "Milano", password: "Milan"), look for the violations from "01-11-2019" until "21-01-2020".
+        \item \textbf{Outcome}: 17 violations are reported, all of them with the city marked as "Milano".
+        \item \textbf{Result}: Passed
+        \item \testbf{Bugs}: The first 7 violations are always marked as uploaded in the moment in which the query has been done (same day and hour).
+        \item \textbf{Comment}: The date and time error is for sure a bug of the application, but it do not prevent the requirement from being satisfied.
+    \end{itemize}
+
+    \subsubsection{Municipality violation request 2}\label{subsubsec:municiplaity-violation-request-2}
+    \begin{itemize}
+        \item \textbf{Test purpose}: The municipality can see all the violation reported on its territory.
+        \item \textbf{Device}: Web page (MacOS)
+        \item \textbf{Input}: Milan municipality (username: "Milano", password: "Milan"), look for the violations from "01-110-2019" until "21-01-2020".
+        \item \textbf{Outcome}: 17 violations are reported, all of them with the city marked as "Milano".
+        \item \textbf{Result}: Passed
+        \item \testbf{Bugs}: The first 7 violations are always marked as uploaded in the moment in which the query has been done (same day and hour).
+        \item \textbf{Comment}: The date and time error is for sure a bug of the application, but it do not prevent the requirement from being satisfied.
+    \end{itemize}
+
+    \subsubsection{Municipality violation request 3}\label{subsubsec:municiplaity-violation-request-3}
+    \begin{itemize}
+        \item \textbf{Test purpose}: The municipality can see all the violation reported on its territory.
+        \item \textbf{Device}: Web page (MacOS)
+        \item \textbf{Input}: Venice municipality (username: "Venezia", password: "Venice"), look for the violations from "01-11-2019" until "21-01-2020".
+        \item \textbf{Outcome}: 1 violation is reported, located in Venice and uploaded the 15-12-2019.
+        \item \textbf{Result}: Passed
     \end{itemize}
 
     \subsection{Picture selection [R8]}\label{subsec:picture-selection}
@@ -213,7 +291,7 @@
     \subsubsection{Picture selection for registration 2}\label{subsubsec:picture-selection-for-registration-2}
     \begin{itemize}
         \item \textbf{Test purpose}: A user must be allow to take a picture or to select one from the device when he want to register himself.
-        \item \textbf{Device}: Web App (MacBook pro)
+        \item \textbf{Device}: Web App (MacOS)
         \item \textbf{Input}: "Chose ID photo" button from the sign in page.
         \item \textbf{Outcome}: A choice is given to the user between using his camera or selecting from gallery, but than nothing happen for both the choice.
         \item \textbf{Result}: Failed
@@ -229,7 +307,7 @@
         Both option allow you to select a picture and move to the next step a the violation reporting.
         \item \textbf{Result}: Passed
     \end{itemize}
-    
+
 
 
 \end{document}
