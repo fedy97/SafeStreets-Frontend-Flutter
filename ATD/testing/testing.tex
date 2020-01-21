@@ -10,7 +10,7 @@
     \newline
     When the application run, after the user login an error message is show, and almost all the functionality of the application are not available.
     The error shows up on every device we used to run the application: web page (Chrome, as indicated), android phone, iOS phone, iOS simulator.
-    We think that this issue cause the most of the fail on the test that will be presented in the next chapter.
+    We think that this issue is related to the GPS connection and is the cause of the most of the fail in the test that will be presented in the next chapter.
     In the following are showed some picture of the error.
     \begin{figure}[H]
         \centering
@@ -307,6 +307,23 @@
         Both option allow you to select a picture and move to the next step a the violation reporting.
         \item \textbf{Result}: Passed
     \end{itemize}
+
+    \subsection{User new reports [R9]}\label{subsec:user-new-report}
+    R9: The system accepts reports from the User.
+
+    \subsubsection{User's report upload 1}\label{subsubsec:user-report-upload-1}
+    \begin{itemize}
+        \item \textbf{Test purpose}: An user must be able to upload a new report.
+        \item \textbf{Device}: iPhone
+        \item \textbf{Input}: "New report" from main menu, take a picture with the camera, confirm, chose category "Parking on traffic island", confirm.
+        \item \textbf{Outcome}: Nothing happen.
+        After some time, a message appear: "An error occurred, please retry" with a button "Abort".
+        \item \textbf{Result}: Failed
+        \item \testbf{Possible bugs}: It is possible that the error is caused by the fail of the system to retrieve the position from the user GPS, and that don't allow the server to complete the task.
+        \item \textbf{Comment}: The same result is obtained by uploading a picture from the gallery and by choosing another type of violation.
+    \end{itemize}
+
+
 
 
 
