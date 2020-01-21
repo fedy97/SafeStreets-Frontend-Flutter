@@ -109,6 +109,32 @@
         \item \textbf{Input}: username: "fakeTestAccount", password: "psw".
         \item \textbf{Outcome}: Invalid data message.
         \item \textbf{Result}: Passed
+
+        \includegraphics[scale = 0.3]{assets/userNotFound.png}
+    \end{itemize}
+
+    \subsubsection{User login 5}\label{subsubsec:user-login-5}
+    \begin{itemize}
+        \item \textbf{Test purpose}: A user must be alerted if he does not insert any password.
+        \item \textbf{Device}: iPhone, Android Emulator (Android 9), Android phone (Android 10), Web page (MacOS)
+        \item \textbf{Input}: username: "jakk", password: "".
+        \item \textbf{Outcome}: password textfield highligthed in red.
+        \item \textbf{Result}: Passed
+        \item \textbf{Comment}:
+
+        \includegraphics[scale = 0.3]{assets/noPassLogin.png}
+    \end{itemize}
+
+    \subsubsection{User login 6}\label{subsubsec:user-login-6}
+    \begin{itemize}
+        \item \textbf{Test purpose}: A user must be alerted if he does not insert any username.
+        \item \textbf{Device}: iPhone, Android Emulator (Android 9), Android phone (Android 10), Web page (MacOS)
+        \item \textbf{Input}: username: "", password: "jak".
+        \item \textbf{Outcome}: username textfield highligthed in red.
+        \item \textbf{Result}: Passed
+        \item \textbf{Comment}:
+
+        \includegraphics[scale = 0.3]{assets/noUserLogin.png}
     \end{itemize}
 
     \subsubsection{User registration 1}\label{subsubsec:user-registration-1}
