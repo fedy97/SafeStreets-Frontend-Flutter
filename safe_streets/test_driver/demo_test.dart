@@ -228,6 +228,8 @@ void main() {
         await driver.tap(searchButton);
         await driver.waitFor(find.byValueKey("loading"));
         await driver.waitForAbsent(find.byValueKey("loading"));
+        await Future.delayed(Duration(seconds: 2));
+        await driver.tap(find.byValueKey("Report 1"));
       });
     });
 
