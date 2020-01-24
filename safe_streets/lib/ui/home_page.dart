@@ -99,6 +99,7 @@ class HomePage extends StatelessWidget {
               ),
               ListTile(
                 title: Text("Logout"),
+                key: Key("logout"),
                 onTap: () async {
                   Navigator.pop(context);
                   final auth =

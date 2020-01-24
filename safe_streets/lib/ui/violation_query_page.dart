@@ -105,6 +105,7 @@ class ViolationQuery extends StatelessWidget {
                     key: Key("violation"),
                     items: (violations).map((Violation value) {
                       return new DropdownMenuItem<String>(
+                        key: Key(value.toString()),
                         value: value.toString(),
                         child: Text(value
                             .toString()
@@ -121,6 +122,7 @@ class ViolationQuery extends StatelessWidget {
                   Expanded(
                       child: Checkbox(
                           value: violationUsed,
+                          key: Key("violationEnable"),
                           onChanged: (val) {
                             violationUsed = val;
                             u.updateUI();

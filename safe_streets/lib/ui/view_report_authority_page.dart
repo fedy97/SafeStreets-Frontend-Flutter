@@ -19,6 +19,7 @@ class ViewReportAuthority extends StatelessWidget {
             actions: <Widget>[
               IconButton(
                   icon: Icon(Icons.error),
+                  key: Key("fineButton"),
                   onPressed: () async {
                     await UserReportVisualizationManager.fineReport(
                         u, _scaffoldKey, context);

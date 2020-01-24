@@ -69,6 +69,7 @@ class CreateReportPage extends StatelessWidget {
               children: <Widget>[
                 SizedBox(height: 14.0),
                 TextFormField(
+                  key: Key("note"),
                   onChanged: (currDescription) =>
                       u.addNoteToReport(currDescription),
                   decoration: const InputDecoration(
@@ -80,11 +81,13 @@ class CreateReportPage extends StatelessWidget {
                 ),
                 SizedBox(height: 14.0),
                 DropdownButton<String>(
+                  key: Key("violationDropDown"),
                   hint: Text("choose a violation"),
                   icon: Icon(Icons.drive_eta),
                   value: u.currReport.violation.toString(),
                   items: (violations).map((Violation value) {
                     return new DropdownMenuItem<String>(
+                      key: Key(value.toString()),
                       value: value.toString(),
                       child: Text(value
                           .toString()
