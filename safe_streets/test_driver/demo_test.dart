@@ -111,7 +111,7 @@ void main() {
         await driver.tap(check);
         await Future.delayed(Duration(seconds: 2));
         await driver.tap(signUpButton);
-        await Future.delayed(Duration(seconds: 4));
+        //await Future.delayed(Duration(seconds: 4));
         //await Future.delayed(Duration(seconds: 1));
         //await driver.tap(back);
         //await Future.delayed(Duration(seconds: 1));
@@ -135,6 +135,7 @@ void main() {
 
     test("report send fail because no image", () async{
       await driver.runUnsynchronized(() async{
+        await driver.waitFor(newReportButton);
         await Future.delayed(Duration(seconds: 3));
         await driver.tap(newReportButton);
         await Future.delayed(Duration(seconds: 3));
