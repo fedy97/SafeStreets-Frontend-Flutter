@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
 import 'dart:core';
@@ -136,7 +138,7 @@ void main() {
     test("report send fail because no image", () async{
       await driver.runUnsynchronized(() async{
         await driver.waitFor(newReportButton);
-        await Future.delayed(Duration(seconds: 3));
+        await Future.delayed(Duration(seconds: 4));
         await driver.tap(newReportButton);
         await Future.delayed(Duration(seconds: 3));
         await driver.tap(sendReportButton);
