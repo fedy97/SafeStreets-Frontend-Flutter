@@ -70,6 +70,7 @@ class HomePage extends StatelessWidget {
               ),
               ListTile(
                 title: Text("Statistics"),
+                key: Key("stats"),
                 onTap: () {
                   Navigator.push(
                       context,

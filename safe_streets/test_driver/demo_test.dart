@@ -244,6 +244,17 @@ void main() {
       });
     });
 
+    test("access statistics", () async{
+      await driver.runUnsynchronized(() async{
+        await driver.tap(find.byTooltip('Back'));
+        await Future.delayed(Duration(seconds: 2));
+        await driver.tap(find.byTooltip('Back'));
+        await Future.delayed(Duration(seconds: 2));
+        await driver.tap(find.byValueKey("stats"));
+        await Future.delayed(Duration(seconds: 30));
+      });
+    });
+
 
 
   });
