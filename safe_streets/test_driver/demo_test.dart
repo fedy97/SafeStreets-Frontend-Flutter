@@ -238,7 +238,7 @@ void main() {
 
     test("fine the violation", () async{
       await driver.runUnsynchronized(() async{
-        await Future.delayed(Duration(seconds: 2));
+        await Future.delayed(Duration(seconds: 5));
         await driver.tap(find.byValueKey("fineButton"));
         await Future.delayed(Duration(seconds: 2));
       });
