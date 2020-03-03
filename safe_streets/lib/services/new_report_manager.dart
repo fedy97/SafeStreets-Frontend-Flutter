@@ -17,7 +17,7 @@ class NewReportManager {
   ///with all the plates in the image as strings and their pixel position
   ///in the image.
   static Future<Map<String, dynamic>> recognizePlate(File f) async {
-    String token = "af4446d6d28223c73ac5c091814ee32a7fce6ede";
+    String token = "find the token on www.platerecognizer.com";
     try {
       dio.FormData formData = dio.FormData.fromMap({
         'upload': await dio.MultipartFile.fromFile(f.path,

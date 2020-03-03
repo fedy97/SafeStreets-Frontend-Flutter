@@ -77,7 +77,7 @@ void main() {
       await driver.runUnsynchronized(() async {
         await driver.tap(emailField);
         await Future.delayed(Duration(seconds: 2));
-        testEmail = randomString(16) + "@testmail.com";
+        testEmail = "0" + randomString(15) + "@testmail.com";
         await driver.enterText(testEmail);
         await Future.delayed(Duration(seconds: 2));
         await driver.tap(passwordField);
